@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CosmicTrotter • Travel Through Knowledge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --cosmic-blue: #00f3ff;
+            --cosmic-purple: #7c3aed;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+            background: #0a0a0f;
+            color: #e0e7ff;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .cosmic-bg {
+            background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 70%);
+        }
+
+        .glow-blue {
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3),
+                        0 0 40px rgba(0, 243, 255, 0.1);
+        }
+
+        .section-header {
+            font-size: 2.5rem;
+            line-height: 2.75rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .nav-link {
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #00f3ff;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+
+        .cosmic-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(0, 243, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .cosmic-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 243, 255, 0.3);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 
+                        0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .logo-glow {
+            filter: drop-shadow(0 0 30px rgba(0, 243, 255, 0.6));
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #00f3ff, #7c3aed, #00f3ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% 100%;
+            animation: shine 3s linear infinite;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 90px;
+        }
+
+        @keyframes shine {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .cosmic-btn {
+            background: linear-gradient(135deg, #00f3ff, #7c3aed);
+            transition: all 0.3s ease;
+        }
+        
+        .cosmic-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+        }
+
+        .logo-glow {
+            transition: all 0.4s ease;
+            animation: logo-pulse 4s ease-in-out infinite;
+        }
+
+        .logo-glow:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 20px #00f3ff) drop-shadow(0 0 40px #7c3aed) !important;
+        }
+
+        @keyframes logo-pulse {
+            0%, 100% { filter: drop-shadow(0 0 12px #00f3ff) drop-shadow(0 0 24px #7c3aed); }
+            50% { filter: drop-shadow(0 0 18px #00f3ff) drop-shadow(0 0 36px #7c3aed); }
+        }
+
+        @keyframes orbit {
+            from { transform: rotate(0deg) translateX(55px) rotate(0deg); }
+            to { transform: rotate(360deg) translateX(55px) rotate(-360deg); }
+        }
+
+        @keyframes loading {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+    </style>
+</head>
+<body class="cosmic-bg">
+    <!-- Intro Splash Screen -->
+    <div id="intro-screen" class="fixed inset-0 z-[9999] flex items-center justify-center bg-[#0a0a0f]">
+        <div class="text-center">
+            <!-- Animated Logo (Full Circle) -->
+            <div id="intro-logo-container" class="relative mx-auto mb-8 transition-all duration-700" style="width: 150px; height: 150px;">
+                <div class="w-full h-full rounded-full overflow-hidden logo-glow border border-white/10" 
+                     style="filter: drop-shadow(0 0 50px #00f3ff) drop-shadow(0 0 95px #7c3aed); background: #0a0a0f;">
+                    <img src="logo.png" alt="CosmicTrotter Logo" class="w-full h-full object-contain p-2">
+                </div>
+            </div>
+
+            <!-- Brand Name -->
+            <div class="mb-2">
+                <span class="font-display text-5xl font-semibold tracking-tighter text-white">CosmicTrotter</span>
+            </div>
+            <div class="text-[#00f3ff] text-sm tracking-[4px] font-medium mb-8">TRAVEL THROUGH KNOWLEDGE</div>
+            
+            <!-- Subtle Loading -->
+            <div class="w-36 mx-auto">
+                <div class="h-px bg-white/10 rounded-full overflow-hidden">
+                    <div class="h-px bg-gradient-to-r from-[#00f3ff] via-[#7c3aed] to-[#00f3ff] animate-[loading_2.5s_ease-out_forwards]"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar -->
+    <nav class="border-b border-white/10 sticky top-0 z-50 bg-[#0a0a0f]/90 backdrop-blur-lg">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-4">
+                    <div class="h-16 w-16 flex-shrink-0 rounded-full overflow-hidden logo-glow border border-white/10" 
+                         style="filter: drop-shadow(0 0 18px #00f3ff) drop-shadow(0 0 35px #7c3aed); background: #0a0a0f;">
+                        <img src="logo.png" alt="CosmicTrotter Logo" class="w-full h-full object-contain p-1.5">
+                    </div>
+                    <div>
+                        <span class="font-display text-3xl font-semibold tracking-tighter text-white">CosmicTrotter</span>
+                        <span class="text-[10px] text-white/50 block -mt-1 tracking-[3px]">TRAVEL THROUGH KNOWLEDGE</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center gap-x-10 text-sm font-medium">
+                    <a href="#guides" class="nav-link text-white/80 hover:text-white">Guides</a>
+                    <a href="#explore" class="nav-link text-white/80 hover:text-white">Explore</a>
+                    <a href="#wisdom" class="nav-link text-white/80 hover:text-white">Wisdom</a>
+                    <a href="#community" class="nav-link text-white/80 hover:text-white">Community</a>
+                </div>
+                
+                <div class="flex items-center gap-x-4">
+                    <button onclick="window.location.href='PM_E-DRIVE_EV_Charging_Guide.html'"
+                            class="px-6 py-2.5 rounded-2xl text-sm font-semibold border border-white/20 hover:bg-white/5 transition-all">
+                        EV Charging Business Guide
+                    </button>
+                    <button onclick="document.getElementById('community').scrollIntoView({ behavior: 'smooth' })" 
+                            class="cosmic-btn px-6 py-2.5 rounded-2xl text-sm font-semibold text-black flex items-center gap-x-2">
+                        <span>Join the Journey</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="max-w-5xl mx-auto px-6 pt-20 pb-24 text-center relative">
+        <!-- Background Stars -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="star" style="width: 2px; height: 2px; top: 15%; left: 10%; animation-delay: 0s;"></div>
+            <div class="star" style="width: 3px; height: 3px; top: 25%; left: 25%; animation-delay: 1.2s;"></div>
+            <div class="star" style="width: 2px; height: 2px; top: 40%; left: 80%; animation-delay: 0.7s;"></div>
+            <div class="star" style="width: 1.5px; height: 1.5px; top: 60%; left: 15%; animation-delay: 2.1s;"></div>
+            <div class="star" style="width: 2.5px; height: 2.5px; top: 70%; left: 70%; animation-delay: 1.5s;"></div>
+            <div class="star" style="width: 2px; height: 2px; top: 85%; left: 40%; animation-delay: 0.3s;"></div>
+        </div>
+
+        <div class="max-w-3xl mx-auto">
+            <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 mb-8">
+                <div class="w-2 h-2 bg-[#00f3ff] rounded-full animate-pulse"></div>
+                <span class="text-xs uppercase tracking-[2px] text-white/70">A Universe of Knowledge</span>
+            </div>
+            
+            <h1 class="text-6xl md:text-7xl font-bold tracking-tighter leading-none mb-6">
+                Travel Through<br>
+                <span class="gradient-text">Knowledge</span>
+            </h1>
+            
+            <p class="text-2xl text-white/70 max-w-2xl mx-auto mb-10 leading-tight">
+                A cosmic platform for curious minds.<br>
+                Explore, learn, and expand your universe.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="document.getElementById('explore').scrollIntoView({ behavior: 'smooth' })" 
+                        class="cosmic-btn px-10 py-4 rounded-3xl text-lg font-semibold text-black flex items-center justify-center gap-x-3">
+                    <span>Begin Your Journey</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                
+                <button onclick="window.open('PM_E-DRIVE_EV_Charging_Guide.html', '_blank')"
+                        class="px-10 py-4 rounded-3xl text-lg font-semibold border border-white/30 hover:bg-white/5 flex items-center justify-center gap-x-3 transition-all">
+                    <i class="fa-solid fa-charging-station"></i>
+                    <span>EV Charging Guide</span>
+                </button>
+            </div>
+            
+            <div class="mt-12 text-xs text-white/40 flex items-center justify-center gap-x-6">
+                <div>✦ 100% Free</div>
+                <div>✦ Built for the Curious</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wisdom Section (Moved Up) -->
+    <div id="wisdom" class="max-w-5xl mx-auto px-6 pb-20">
+        <div class="cosmic-card rounded-3xl p-14 text-center border border-white/10">
+            <div class="max-w-xl mx-auto">
+                <i class="fa-solid fa-infinity text-6xl text-white/30 mb-6"></i>
+                <h2 class="text-4xl font-bold tracking-tight mb-4">Daily Cosmic Wisdom</h2>
+                <p class="text-xl text-white/60 mb-2">A new insight awaits you every day.</p>
+                <p class="text-sm text-white/40">Click below to receive today’s wisdom</p>
+                
+                <div class="mt-8 flex justify-center">
+                    <button onclick="showDailyWisdom()" 
+                            class="cosmic-btn px-8 py-3.5 rounded-2xl text-sm font-semibold text-black flex items-center gap-x-3 hover:scale-105 transition-transform">
+                        <span>Read Today’s Wisdom</span>
+                        <i class="fa-solid fa-book-open"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured: EV Charging Guide -->
+    <div id="guides" class="max-w-5xl mx-auto px-6 pb-24">
+        <div class="cosmic-card rounded-3xl p-10 border border-white/10">
+            <div class="flex flex-col md:flex-row items-start md:items-center gap-8">
+                <div class="flex-1">
+                    <div class="flex items-center gap-x-3 mb-4">
+                        <div class="w-12 h-12 bg-gradient-to-br from-[#00f3ff] to-[#7c3aed] rounded-2xl flex items-center justify-center">
+                            <i class="fa-solid fa-charging-station text-black text-2xl"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs uppercase tracking-widest text-[#00f3ff]">FEATURED GUIDE</span>
+                            <h3 class="text-3xl font-bold tracking-tight">EV Charging Business Guide</h3>
+                        </div>
+                    </div>
+                    
+                    <p class="text-lg text-white/70 leading-relaxed mb-6">
+                        Complete step-by-step guide to starting your own EV charging station business under India's 
+                        PM E-DRIVE scheme. Real investment numbers, subsidies, and profit projections.
+                    </p>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        <div class="px-4 py-1.5 bg-white/5 rounded-full text-sm flex items-center gap-x-2">
+                            <i class="fa-solid fa-india text-[#00f3ff]"></i>
+                            <span>India 2026</span>
+                        </div>
+                        <div class="px-4 py-1.5 bg-white/5 rounded-full text-sm flex items-center gap-x-2">
+                            <i class="fa-solid fa-rupee-sign text-[#00f3ff]"></i>
+                            <span>₹5–25 Lakh Investment</span>
+                        </div>
+                        <div class="px-4 py-1.5 bg-white/5 rounded-full text-sm flex items-center gap-x-2">
+                            <i class="fa-solid fa-chart-line text-[#00f3ff]"></i>
+                            <span>Real Profit Analysis</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <button onclick="window.open('PM_E-DRIVE_EV_Charging_Guide.html', '_blank')"
+                            class="cosmic-btn px-8 py-4 rounded-2xl text-lg font-semibold text-black flex items-center gap-x-3 whitespace-nowrap">
+                        <span>Open Full Guide</span>
+                        <i class="fa-solid fa-external-link-alt"></i>
+                    </button>
+                    <p class="text-center text-xs text-white/50 mt-3">Opens in new tab</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Explore the Universe -->
+    <div id="explore" class="max-w-5xl mx-auto px-6 pb-24">
+        <div class="text-center mb-12">
+            <span class="text-xs uppercase tracking-[3px] text-[#00f3ff]">DISCOVER</span>
+            <h2 class="section-header mt-2">Explore the Universe of Knowledge</h2>
+            <p class="mt-4 text-xl text-white/60 max-w-md mx-auto">Curated journeys across science, philosophy, space, and ancient wisdom.</p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Card 1 -->
+            <div class="cosmic-card rounded-3xl p-8 group cursor-pointer" onclick="window.location.href='PM_E-DRIVE_EV_Charging_Guide.html'">
+                <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-charging-station text-black text-3xl"></i>
+                </div>
+                <h4 class="text-2xl font-semibold mb-3">EV Revolution</h4>
+                <p class="text-white/60 leading-relaxed">India's electric future, subsidies, and how to build charging infrastructure profitably.</p>
+                <div class="mt-6 flex items-center text-sm text-[#00f3ff]">
+                    <span>Read Guide</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                </div>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="cosmic-card rounded-3xl p-8 group cursor-pointer">
+                <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-violet-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-atom text-white text-3xl"></i>
+                </div>
+                <h4 class="text-2xl font-semibold mb-3">Quantum Realms</h4>
+                <p class="text-white/60 leading-relaxed">The strange and beautiful world of quantum physics — simplified for curious minds.</p>
+                <div class="mt-6 text-sm text-white/40">Coming soon</div>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="cosmic-card rounded-3xl p-8 group cursor-pointer">
+                <div class="w-14 h-14 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-globe text-black text-3xl"></i>
+                </div>
+                <h4 class="text-2xl font-semibold mb-3">Ancient Wisdom</h4>
+                <p class="text-white/60 leading-relaxed">Timeless teachings from Vedas, Upanishads, and global spiritual traditions.</p>
+                <div class="mt-6 text-sm text-white/40">Coming soon</div>
+            </div>
+            
+            <!-- Card 4 -->
+            <div class="cosmic-card rounded-3xl p-8 group cursor-pointer">
+                <div class="w-14 h-14 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-rocket text-black text-3xl"></i>
+                </div>
+                <h4 class="text-2xl font-semibold mb-3">Space & Cosmos</h4>
+                <p class="text-white/60 leading-relaxed">Black holes, exoplanets, and humanity's journey to the stars.</p>
+                <div class="mt-6 text-sm text-white/40">Coming soon</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Community -->
+    <div id="community" class="max-w-5xl mx-auto px-6 pb-24">
+        <div class="text-center mb-12">
+            <span class="text-xs uppercase tracking-[3px] text-[#00f3ff]">JOIN THE MISSION</span>
+            <h2 class="section-header mt-2">Be Part of Something Bigger</h2>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="cosmic-card rounded-3xl p-8 text-center">
+                <i class="fa-brands fa-x-twitter text-4xl mb-6 text-white/70"></i>
+                <h4 class="font-semibold text-xl mb-2">Follow on X</h4>
+                <p class="text-white/60 text-sm mb-6">Daily cosmic insights &amp; knowledge drops</p>
+                <button class="text-sm px-6 py-2 border border-white/30 rounded-2xl hover:bg-white/5">Follow @CosmicTrotter</button>
+            </div>
+            
+            <div class="cosmic-card rounded-3xl p-8 text-center">
+                <i class="fa-brands fa-youtube text-4xl mb-6 text-white/70"></i>
+                <h4 class="font-semibold text-xl mb-2">Watch &amp; Learn</h4>
+                <p class="text-white/60 text-sm mb-6">Deep-dive video essays on science &amp; philosophy</p>
+                <button class="text-sm px-6 py-2 border border-white/30 rounded-2xl hover:bg-white/5">Subscribe on YouTube</button>
+            </div>
+            
+            <div class="cosmic-card rounded-3xl p-8 text-center">
+                <i class="fa-solid fa-users text-4xl mb-6 text-white/70"></i>
+                <h4 class="font-semibold text-xl mb-2">Join the Community</h4>
+                <p class="text-white/60 text-sm mb-6">Connect with fellow knowledge travelers</p>
+                <button class="text-sm px-6 py-2 border border-white/30 rounded-2xl hover:bg-white/5">Coming Soon</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-16">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-y-8">
+                <div class="flex items-center gap-x-4">
+                    <div class="h-11 w-11 flex-shrink-0 rounded-full overflow-hidden logo-glow border border-white/10" 
+                         style="filter: drop-shadow(0 0 10px #00f3ff) drop-shadow(0 0 20px #7c3aed); background: #0a0a0f;">
+                        <img src="logo.png" alt="CosmicTrotter" class="w-full h-full object-contain p-1 opacity-75">
+                    </div>
+                    <div>
+                        <span class="font-display text-xl tracking-tighter">CosmicTrotter</span>
+                        <div class="text-xs text-white/40 -mt-0.5">© 2026 • All Rights Reserved</div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-x-8 text-sm text-white/50">
+                    <a href="#" class="hover:text-white transition">Privacy</a>
+                    <a href="#" class="hover:text-white transition">Terms</a>
+                    <a href="#" class="hover:text-white transition">About</a>
+                    <a href="#" class="hover:text-white transition">Contact</a>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-white/10 text-center text-xs text-white/40">
+                Built with curiosity • Designed for the infinite mind
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tailwind script
+        function initializeTailwind() {
+            console.log('%c[CosmicTrotter] Website initialized successfully', 'color:#00f3ff');
+        }
+        
+        window.onload = function() {
+            initializeTailwind();
+            
+            // Hide Intro Screen with cosmic flight transition
+            setTimeout(() => {
+                const intro = document.getElementById('intro-screen');
+                const introLogo = document.getElementById('intro-logo-container');
+                
+                if (intro && introLogo) {
+                    // Make logo fly to top-left navbar position
+                    introLogo.style.transition = 'all 0.9s cubic-bezier(0.45, 0, 0.25, 1)';
+                    introLogo.style.transform = 'translate(-42vw, -42vh) scale(0.32)';
+                    introLogo.style.opacity = '0.15';
+                    
+                    // Fade out background
+                    setTimeout(() => {
+                        intro.style.transition = 'opacity 0.6s ease';
+                        intro.style.opacity = '0';
+                        
+                        setTimeout(() => {
+                            intro.remove();
+                        }, 700);
+                    }, 500);
+                }
+            }, 2550);
+            
+            // Easter egg: Click logo to show fun message
+            const logo = document.querySelector('img[alt="CosmicTrotter Logo"]');
+            if (logo) {
+                logo.addEventListener('click', () => {
+                    const msg = document.createElement('div');
+                    msg.className = 'fixed bottom-8 left-1/2 -translate-x-1/2 bg-white/10 text-white text-sm px-6 py-3 rounded-3xl border border-white/20 backdrop-blur-lg';
+                    msg.innerHTML = '✨ The universe just winked at you';
+                    document.body.appendChild(msg);
+                    setTimeout(() => msg.remove(), 2200);
+                });
+            }
+        }
+
+        // ==================== DAILY WISDOM SYSTEM ====================
+        const wisdomQuotes = [
+            {
+                quote: "The Universe is not outside you. It is inside you.",
+                author: "Rumi"
+            },
+            {
+                quote: "You are not a drop in the ocean. You are the entire ocean in a drop.",
+                author: "Rumi"
+            },
+            {
+                quote: "The cosmos is within us. We are made of star-stuff.",
+                author: "Carl Sagan"
+            },
+            {
+                quote: "Look up at the stars and not down at your feet. Try to make sense of what you see.",
+                author: "Stephen Hawking"
+            },
+            {
+                quote: "In the middle of difficulty lies opportunity.",
+                author: "Albert Einstein"
+            },
+            {
+                quote: "The only true wisdom is in knowing you know nothing.",
+                author: "Socrates"
+            },
+            {
+                quote: "We are all connected; To each other, biologically. To the earth, chemically. To the rest of the universe atomically.",
+                author: "Neil deGrasse Tyson"
+            },
+            {
+                quote: "The privilege of a lifetime is being who you are.",
+                author: "Joseph Campbell"
+            },
+            {
+                quote: "Everything in the universe is within you. Ask all from yourself.",
+                author: "Rumi"
+            },
+            {
+                quote: "We are the universe experiencing itself.",
+                author: "Alan Watts"
+            },
+            {
+                quote: "The stars are the eyes of the night.",
+                author: "Ancient Proverb"
+            },
+            {
+                quote: "Know thyself and you will know the universe and the gods.",
+                author: "Temple of Apollo at Delphi"
+            }
+        ];
+
+        function getDailyWisdom() {
+            // Use current date to pick a consistent quote for the day
+            const today = new Date();
+            const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+            const index = dayOfYear % wisdomQuotes.length;
+            return wisdomQuotes[index];
+        }
+
+        function showDailyWisdom() {
+            const wisdom = getDailyWisdom();
+            
+            // Create modal
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-6';
+            modal.innerHTML = `
+                <div class="cosmic-card max-w-lg w-full rounded-3xl p-10 text-center border border-white/20 relative">
+                    <button onclick="this.closest('.fixed').remove()" 
+                            class="absolute top-6 right-6 text-white/40 hover:text-white text-2xl transition-colors">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                    
+                    <div class="mb-8">
+                        <i class="fa-solid fa-infinity text-5xl text-[#00f3ff]"></i>
+                    </div>
+                    
+                    <div class="text-2xl leading-snug font-light tracking-tight mb-8 text-white">
+                        "${wisdom.quote}"
+                    </div>
+                    
+                    <div class="text-[#00f3ff] font-medium">— ${wisdom.author}</div>
+                    
+                    <div class="mt-10 pt-6 border-t border-white/10 text-xs text-white/40">
+                        This wisdom will change tomorrow
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Close modal when clicking outside
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+            
+            // Keyboard escape
+            document.addEventListener('keydown', function handler(e) {
+                if (e.key === 'Escape') {
+                    modal.remove();
+                    document.removeEventListener('keydown', handler);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

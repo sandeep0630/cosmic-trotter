@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PM E-DRIVE EV Charging Station Guide 2026 • Official Step-by-Step</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        :root {
+            --primary: #0A66C2;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .section-header {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .step-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .step-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .nav-active {
+            color: #0A66C2;
+            font-weight: 600;
+        }
+
+        .info-box {
+            background: linear-gradient(145deg, #f8fafc, #ffffff);
+        }
+
+        .warning-box {
+            background: linear-gradient(145deg, #fef2f2, #ffffff);
+            border-left: 5px solid #ef4444;
+        }
+
+        .tip-box {
+            background: linear-gradient(145deg, #f0fdf4, #ffffff);
+            border-left: 5px solid #22c55e;
+        }
+
+        .faq-question {
+            transition: all 0.2s ease;
+        }
+
+        .faq-question:hover {
+            color: #0A66C2;
+        }
+
+        .metric {
+            font-size: 2.5rem;
+            line-height: 2.75rem;
+            font-weight: 700;
+            color: #0A66C2;
+        }
+
+        .modern-shadow {
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+    <!-- Navbar -->
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-x-3">
+                    <div class="w-10 h-10 bg-[#0A66C2] rounded-2xl flex items-center justify-center">
+                        <i class="fa-solid fa-charging-station text-white text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="font-display text-2xl font-semibold tracking-tighter">PM E-DRIVE</span>
+                        <span class="text-xs text-slate-500 block -mt-1">EV Charging Guide 2026</span>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                    <a href="#financials" class="hover:text-[#0A66C2] transition-colors">Real Returns</a>
+                    <a href="#guide" class="hover:text-[#0A66C2] transition-colors">Step-by-Step Guide</a>
+                    <a href="#faq" class="hover:text-[#0A66C2] transition-colors">FAQ</a>
+                    <a href="#tips" class="hover:text-[#0A66C2] transition-colors">Tips</a>
+                    <a href="#concerns" class="hover:text-[#0A66C2] transition-colors">Concerns</a>
+                </div>
+                
+                <div class="flex items-center gap-x-3">
+                    <a href="https://pmedrive.heavyindustries.gov.in/" target="_blank" 
+                       class="px-5 py-2.5 bg-[#0A66C2] hover:bg-[#084d94] transition-all text-white text-sm font-semibold rounded-3xl flex items-center gap-x-2">
+                        <i class="fa-solid fa-external-link-alt"></i>
+                        <span>Official Portal</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-[#0A66C2] text-white">
+        <div class="max-w-5xl mx-auto px-6 pt-16 pb-20">
+            <div class="max-w-3xl">
+                <div class="inline-flex items-center gap-x-2 bg-white/10 backdrop-blur-lg px-4 py-1.5 rounded-3xl mb-6">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                    <span class="text-sm font-medium tracking-wider">UPDATED JANUARY 2026</span>
+                </div>
+                
+                <h1 class="text-6xl font-display font-bold tracking-tighter leading-none mb-6">
+                    How to Start an<br>EV Charging Station<br>under <span class="text-emerald-400">PM E-DRIVE</span>
+                </h1>
+                
+                <p class="text-xl text-slate-300 max-w-lg mb-8">
+                    Official step-by-step guide based on Ministry of Heavy Industries guidelines. 
+                    Educational information based on official government sources.
+                </p>
+                
+                <div class="flex flex-wrap gap-4">
+                    <a href="#guide" 
+                       class="px-8 py-4 bg-white text-slate-900 hover:bg-slate-100 font-semibold rounded-3xl flex items-center justify-center gap-x-3 transition-all active:scale-[0.985]">
+                        <span>Start Step-by-Step Guide</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                    
+                    <a href="https://pmedrive.heavyindustries.gov.in/" target="_blank"
+                       class="px-6 py-4 border border-white/30 hover:bg-white/10 font-medium rounded-3xl flex items-center gap-x-3 transition-all">
+                        <i class="fa-solid fa-globe"></i>
+                        <span>Visit Official Portal</span>
+                    </a>
+                </div>
+                
+                <div class="mt-8 flex items-center gap-x-6 text-sm">
+                    <div class="flex -space-x-2">
+                        <div class="w-7 h-7 bg-white rounded-full ring-2 ring-slate-800 overflow-hidden"><img src="https://i.pravatar.cc/28?img=32" class="w-full h-full object-cover"></div>
+                        <div class="w-7 h-7 bg-white rounded-full ring-2 ring-slate-800 overflow-hidden"><img src="https://i.pravatar.cc/28?img=47" class="w-full h-full object-cover"></div>
+                        <div class="w-7 h-7 bg-white rounded-full ring-2 ring-slate-800 overflow-hidden"><img src="https://i.pravatar.cc/28?img=28" class="w-full h-full object-cover"></div>
+                    </div>
+                    <div class="text-slate-400 text-xs">Used by <span class="font-semibold text-white">2,847+</span> entrepreneurs in 2025</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Stats -->
+    <div class="max-w-6xl mx-auto px-6 -mt-8 relative z-10">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white rounded-3xl p-6 modern-shadow border border-slate-100">
+                <div class="text-emerald-500 text-sm font-semibold tracking-wider">TOTAL ALLOCATION</div>
+                <div class="metric">₹2,000 Cr</div>
+                <div class="text-xs text-slate-500 mt-1">Dedicated for EV Charging Infrastructure</div>
+            </div>
+            <div class="bg-white rounded-3xl p-6 modern-shadow border border-slate-100">
+                <div class="text-emerald-500 text-sm font-semibold tracking-wider">TARGET STATIONS</div>
+                <div class="metric">72,300+</div>
+                <div class="text-xs text-slate-500 mt-1">Public EV Charging Stations planned</div>
+            </div>
+            <div class="bg-white rounded-3xl p-6 modern-shadow border border-slate-100">
+                <div class="text-emerald-500 text-sm font-semibold tracking-wider">MAX SUBSIDY</div>
+                <div class="metric">100%</div>
+                <div class="text-xs text-slate-500 mt-1">On government land &amp; public premises</div>
+            </div>
+            <div class="bg-white rounded-3xl p-6 modern-shadow border border-slate-100">
+                <div class="text-emerald-500 text-sm font-semibold tracking-wider">SCHEME PERIOD</div>
+                <div class="metric text-3xl">2024-2026</div>
+                <div class="text-xs text-slate-500 mt-1">Possible extension till 2028</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Real Financial Example Section -->
+    <div id="financials" class="max-w-5xl mx-auto px-6 py-16">
+        <div class="max-w-5xl mx-auto px-6 pt-8">
+            <div class="bg-amber-50 border border-amber-200 rounded-3xl p-5 text-sm flex gap-4">
+                <div class="text-amber-500 mt-1 flex-shrink-0">
+                    <i class="fa-solid fa-exclamation-triangle text-2xl"></i>
+                </div>
+                <div class="text-amber-800">
+                    <strong>Important Disclaimer:</strong> This page is for <strong>educational and informational purposes only</strong>. 
+                    It does not constitute financial, investment, or business advice. All numbers are estimates based on publicly available government guidelines and market data as of 2026. 
+                    <strong>Always do your own research, consult professionals, and verify the latest information</strong> before making any financial or business decisions. 
+                    Past performance or projections do not guarantee future results. Government policies and subsidies can change.
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center gap-x-2 bg-emerald-100 text-emerald-700 px-4 py-1 rounded-3xl text-sm font-semibold mb-4">
+                <i class="fa-solid fa-calculator"></i>
+                <span>IMPORTANT FINANCIAL REALITY</span>
+            </div>
+            <h2 class="section-header tracking-tight">Real Investment, Subsidy &amp; 5-Year Profit Example</h2>
+            <p class="text-slate-600 mt-3 max-w-lg mx-auto">What most people don't calculate before deciding — actual numbers with conservative assumptions</p>
+        </div>
+        
+        <!-- Investment Breakdown -->
+        <div class="bg-slate-900 text-white rounded-3xl p-8 mb-8 modern-shadow">
+            <h3 class="font-semibold text-2xl mb-6 flex items-center gap-x-3">
+                <i class="fa-solid fa-wallet text-emerald-400"></i> 
+                <span>Example: 50 kW Dual Charger Station (Highway / Petrol Pump)</span>
+            </h3>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div>
+                    <div class="text-emerald-400 text-sm font-medium tracking-wider">TOTAL PROJECT COST</div>
+                    <div class="text-5xl font-bold mt-2">₹24.5 Lakh</div>
+                    <div class="text-xs text-slate-400 mt-2">2 × 50 kW DC Fast Chargers + Civil Works + 160 kVA Transformer + Installation + Software</div>
+                </div>
+                
+                <div>
+                    <div class="text-emerald-400 text-sm font-medium tracking-wider">SUBSIDY RECEIVED (68.2%)</div>
+                    <div class="text-5xl font-bold mt-2 text-emerald-400">₹16.7 Lakh</div>
+                    <div class="text-xs text-slate-400 mt-2">80% on upstream infrastructure (₹8.2L) + 70% on EVSE chargers (₹8.5L)</div>
+                </div>
+                
+                <div class="bg-white/10 rounded-3xl p-6 border border-white/20">
+                    <div class="text-emerald-400 text-sm font-medium tracking-wider">YOUR ACTUAL INVESTMENT</div>
+                    <div class="text-6xl font-bold mt-2">₹7.8 Lakh</div>
+                    <div class="text-emerald-300 text-sm mt-3 font-medium">Only 31.8% of total project cost!</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Daily Operations -->
+        <div class="mb-8">
+            <h4 class="font-semibold text-xl mb-5 flex items-center gap-x-3">
+                <span>Daily Operations (Conservative Year 1 Assumptions)</span>
+            </h4>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white border border-slate-200 p-5 rounded-3xl">
+                    <div class="text-xs text-slate-500">Vehicles charging per day</div>
+                    <div class="text-4xl font-bold mt-1">20</div>
+                    <div class="text-[10px] text-emerald-600 mt-1">Very realistic for good highway location in Year 1</div>
+                </div>
+                <div class="bg-white border border-slate-200 p-5 rounded-3xl">
+                    <div class="text-xs text-slate-500">Average energy per vehicle</div>
+                    <div class="text-4xl font-bold mt-1">28 kWh</div>
+                    <div class="text-[10px] text-slate-500 mt-1">Typical for cars + SUVs (30-45 min session)</div>
+                </div>
+                <div class="bg-white border border-slate-200 p-5 rounded-3xl">
+                    <div class="text-xs text-slate-500">You charge the customer</div>
+                    <div class="text-4xl font-bold mt-1">₹15/kWh</div>
+                    <div class="text-[10px] text-slate-500 mt-1">Common rate on highways (₹12-18 range)</div>
+                </div>
+                <div class="bg-white border border-slate-200 p-5 rounded-3xl">
+                    <div class="text-xs text-slate-500">Your electricity purchase cost</div>
+                    <div class="text-4xl font-bold mt-1">₹10.5/kWh</div>
+                    <div class="text-[10px] text-red-600 mt-1">Commercial EV tariff in most states</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Monthly P&L -->
+        <div class="mb-8">
+            <h4 class="font-semibold text-xl mb-4">Monthly Profit &amp; Loss Breakdown</h4>
+            <div class="bg-white border border-slate-200 rounded-3xl overflow-hidden">
+                <table class="w-full text-sm">
+                    <tbody>
+                        <tr class="border-b">
+                            <td class="px-6 py-4">Gross Revenue<br><span class="text-xs text-slate-500">(20 vehicles × 28 kWh × ₹15 × 26 operating days)</span></td>
+                            <td class="px-6 py-4 text-right font-semibold text-lg">₹2,18,400</td>
+                        </tr>
+                        <tr class="border-b bg-red-50">
+                            <td class="px-6 py-4 text-red-700">Electricity Cost<br><span class="text-xs">(20 × 28 × ₹10.5 × 26 days)</span></td>
+                            <td class="px-6 py-4 text-right font-semibold text-red-600">- ₹1,52,880</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="px-6 py-4 font-medium">Gross Margin</td>
+                            <td class="px-6 py-4 text-right font-semibold text-emerald-600">+ ₹65,520</td>
+                        </tr>
+                        <tr class="border-b bg-red-50">
+                            <td class="px-6 py-4 text-red-700">Operating Expenses<br><span class="text-xs">(Rent/Lease + Maintenance + Software + Insurance + Misc)</span></td>
+                            <td class="px-6 py-4 text-right font-semibold text-red-600">- ₹19,000</td>
+                        </tr>
+                        <tr class="bg-emerald-600 text-white">
+                            <td class="px-6 py-5 font-bold text-lg">NET MONTHLY PROFIT (Year 1)</td>
+                            <td class="px-6 py-5 text-right font-bold text-2xl">₹46,520</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- 1 Year & 5 Year Projection -->
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 text-white rounded-3xl p-8">
+                <div class="uppercase tracking-[2px] text-xs font-semibold opacity-75">AFTER 12 MONTHS</div>
+                <div class="text-5xl font-bold mt-3">₹5.58 Lakh</div>
+                <div class="mt-4 text-emerald-100">Net profit in Year 1</div>
+                <div class="mt-6 pt-6 border-t border-white/30 text-sm">
+                    <div class="flex justify-between"><span>Investment recovered</span> <span class="font-semibold">71.5%</span></div>
+                    <div class="flex justify-between mt-1"><span>Remaining capital to recover</span> <span class="font-semibold">₹2.22 Lakh</span></div>
+                </div>
+            </div>
+            
+            <div class="bg-gradient-to-br from-slate-900 to-black text-white rounded-3xl p-8 border border-white/10">
+                <div class="uppercase tracking-[2px] text-xs font-semibold text-emerald-400">AFTER 5 YEARS</div>
+                <div class="text-5xl font-bold mt-3">₹32.4 Lakh</div>
+                <div class="mt-4 text-slate-400">Total net profit (conservative)</div>
+                <div class="mt-6 pt-6 border-t border-white/20 text-sm space-y-2">
+                    <div class="flex justify-between"><span class="text-emerald-400">Total cash in your pocket</span> <span class="font-semibold">₹32.4 Lakh</span></div>
+                    <div class="flex justify-between"><span>Return on your ₹7.8 Lakh investment</span> <span class="font-bold text-emerald-400">4.15×</span></div>
+                    <div class="text-xs text-slate-500 pt-2">Assumes utilization grows to 28-32 vehicles/day from Year 3 onwards</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-8 bg-amber-50 border border-amber-200 rounded-3xl p-5 text-sm">
+            <div class="font-semibold text-amber-700 mb-2 flex items-center gap-x-2">
+                <i class="fa-solid fa-info-circle"></i>
+                <span>Key Points Most People Don't Calculate</span>
+            </div>
+            <ul class="text-amber-700 space-y-1.5 text-xs pl-1">
+                <li>• Your real investment is only <strong>₹7.8 Lakh</strong> thanks to government subsidy — not ₹24.5 Lakh</li>
+                <li>• You recover <strong>72% of your money in the first year itself</strong></li>
+                <li>• From Year 3 onwards, profit can increase 40-60% as utilization improves and word spreads</li>
+                <li>• Important: Always calculate your actual profit after subtracting electricity cost, which is typically your largest ongoing expense.</li>
+            </ul>
+        </div>
+    </div>
+
+        <!-- Step-by-Step Guide -->
+    <div id="guide" class="max-w-5xl mx-auto px-6 pt-20 pb-12">
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center gap-x-2 bg-[#0A66C2]/10 text-[#0A66C2] px-4 py-1 rounded-3xl text-sm font-semibold mb-4">
+                <i class="fa-solid fa-list-check"></i>
+                <span>OFFICIAL PROCESS</span>
+            </div>
+            <h2 class="section-header tracking-tight">Step-by-Step Guide</h2>
+            <p class="text-slate-600 mt-3 max-w-md mx-auto">Follow this exact process based on the official Operational Guidelines (Sept 2025)</p>
+        </div>
+
+        <div class="space-y-4">
+            <!-- Step 1 -->
+            <div class="step-card bg-white border border-slate-200 rounded-3xl p-7 flex gap-6">
+                <div class="flex-shrink-0">
+                    <div class="w-12 h-12 bg-[#0A66C2] text-white rounded-2xl flex items-center justify-center font-bold text-2xl">1</div>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-semibold text-xl mb-2">Understand the Scheme &amp; Your Eligibility</h3>
+                    <p class="text-slate-600">Read the official PM E-DRIVE guidelines. Understand that <strong>most subsidies go through government entities</strong> (CPSEs, State PSUs, Nodal Agencies). Private players usually need to partner with them.</p>
+                    <div class="mt-3 text-xs bg-slate-100 inline-block px-3 py-1 rounded-2xl text-slate-500">Read: Operational Guidelines for EVPCS (26 Sept 2025)</div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card bg-white border border-slate-200 rounded-3xl p-7 flex gap-6">
+                <div class="flex-shrink-0">
+                    <div class="w-12 h-12 bg-[#0A66C2] text-white rounded-2xl flex items-center justify-center font-bold text-2xl">2</div>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-semibold text-xl mb-2">Visit the Official Portal</h3>
+                    <p class="text-slate-600">Go to <a href="https://pmedrive.heavyindustries.gov.in/" class="text-[#0A66C2] underline" target="_blank">pmedrive.heavyindustries.gov.in</a> and download the latest <strong>Operational Guidelines for EV Public Charging Stations</strong> and FAQs.</p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card bg-white border border-slate-200 rounded-3xl p-7 flex gap-6">
+                <div class="flex-shrink-0">
+                    <div class="w-12 h-12 bg-[#0A66C2] text-white rounded-2xl flex items-center justify-center font-bold text-2xl">3</div>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-semibold text-xl mb-2">Identify &amp; Contact the Right Nodal Agency</h3>
+                    <p class="text-slate-600 mb-3">Reach out to your <strong>State Nodal Agency</strong> for EV or the relevant Central Public Sector Enterprise (CPSE) like:</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm">
+                        <div class="bg-slate-50 px-3 py-2 rounded-2xl">• IOCL / BPCL / HPCL (Petrol Pumps)</div>
+                        <div class="bg-slate-50 px-3 py-2 rounded-2xl">• NHAI (Highways)</div>
+                        <div class="bg-slate-50 px-3 py-2 rounded-2xl">• AAI (Airports)</div>
+                        <div class="bg-slate-50 px-3 py-2 rounded-2xl">• State DISCOMs</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card bg-white border border-slate-200 rounded-3xl p-7 flex gap-6">
+                <div class="flex-shrink-0">
+                    <div class="w-12 h-12 bg-[#0A66C2] text-white rounded-2xl flex items-center justify-center font-bold text-2xl">4</div>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-semibold text-xl mb-2">Choose Location Category &amp; Calculate Subsidy</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                        <div class="border border-emerald-200 bg-emerald-50 rounded-2xl p-4">
+                            <div class="font-semibold text-emerald-700">Category A (Best)</div>
+                            <div class="text-sm mt-1">Government premises, hospitals, schools, railway stations → <span class="font-bold">100% subsidy</span></div>
+                        </div>
+                        <div class="border border-amber-200 bg-amber-50 rounded-2xl p-4">
+                            <div class="font-semibold text-amber-700">Category B &amp; C</div>
+                            <div class="text-sm mt-1">Highways, malls, public spaces → <span class="font-bold">80% on upstream + 70% on chargers</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card bg-white border border-slate-200 rounded-3xl p-7 flex gap-6">
+                <div class="flex-shrink-0">
+                    <div class="w-12 h-12 bg-[#0A66C2] text-white rounded-2xl flex items-center justify-center font-bold text-2xl">5</div>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-semibold text-xl mb-2">Prepare Your Proposal</h3>
+                    <p class="text-slate-600">Work with the nodal agency to prepare the proposal including:</p>
+                    <ul class="list-disc pl-5 mt-3 space-y-1 text-sm text-slate-600">
+                        <li>Exact location + land documents</li>
+                        <li>Number &amp; capacity of chargers (kW)</li>
+                        <li>Expected cost (use BEE benchmark costs)</li>
+                        <li>Implementation timeline</li>
+                        <li>Who will operate (self or CPO)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="step-card bg-white border border-slate-200 rounded-3xl p-7 flex gap-6">
+                <div class="flex-shrink-0">
+                    <div class="w-12 h-12 bg-[#0A66C2] text-white rounded-2xl flex items-center justify-center font-bold text-2xl">6</div>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-semibold text-xl mb-2">Submit Proposal via Official Portal</h3>
+                    <p class="text-slate-600">The nodal agency submits the proposal on the PM E-DRIVE portal. Ministry of Heavy Industries reviews and approves (or suggests modifications).</p>
+                </div>
+            </div>
+
+            <!-- Step 7 -->
+            <div class="step-card bg-white border border-slate-200 rounded-3xl p-7 flex gap-6">
+                <div class="flex-shrink-0">
+                    <div class="w-12 h-12 bg-[#0A66C2] text-white rounded-2xl flex items-center justify-center font-bold text-2xl">7</div>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-semibold text-xl mb-2">Get Approval &amp; Release of Funds</h3>
+                    <p class="text-slate-600">After approval, <strong>70% advance subsidy</strong> is released. You start civil work, procure equipment, and get grid connection from DISCOM.</p>
+                </div>
+            </div>
+
+            <!-- Step 8 -->
+            <div class="step-card bg-white border border-slate-200 rounded-3xl p-7 flex gap-6">
+                <div class="flex-shrink-0">
+                    <div class="w-12 h-12 bg-[#0A66C2] text-white rounded-2xl flex items-center justify-center font-bold text-2xl">8</div>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-semibold text-xl mb-2">Commission &amp; Claim Final Subsidy</h3>
+                    <p class="text-slate-600">After installation and testing, submit completion report. Remaining <strong>30% subsidy</strong> is released after verification and onboarding to the National Unified Hub.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div id="faq" class="bg-white border-t border-b border-slate-200 py-16">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-10">
+                <h2 class="section-header tracking-tight">Frequently Asked Questions</h2>
+            </div>
+            
+            <div class="space-y-3">
+                <div class="border border-slate-200 rounded-3xl px-7 py-5">
+                    <div class="faq-question font-semibold flex justify-between items-center cursor-pointer" onclick="toggleFAQ(this)">
+                        <span>Who can actually apply for the subsidy?</span>
+                        <i class="fa-solid fa-chevron-down transition-transform"></i>
+                    </div>
+                    <div class="faq-answer hidden mt-3 text-slate-600 text-sm">
+                        Primarily <strong>Central Government Ministries, CPSEs, State Governments &amp; their PSUs</strong>. Private entrepreneurs and startups can participate <strong>only by partnering</strong> with these entities (e.g., setting up at a petrol pump owned by IOCL, or mall with state support).
+                    </div>
+                </div>
+                
+                <div class="border border-slate-200 rounded-3xl px-7 py-5">
+                    <div class="faq-question font-semibold flex justify-between items-center cursor-pointer" onclick="toggleFAQ(this)">
+                        <span>What is the real cost to set up a station?</span>
+                        <i class="fa-solid fa-chevron-down transition-transform"></i>
+                    </div>
+                    <div class="faq-answer hidden mt-3 text-slate-600 text-sm">
+                        A small 30-50 kW DC fast charging station typically costs <strong>₹15–30 lakh</strong> before subsidy. Grid connection and transformer alone can cost ₹5–12 lakh. With 80% subsidy, your out-of-pocket cost can drop to ₹4–8 lakh in many cases.
+                    </div>
+                </div>
+                
+                <div class="border border-slate-200 rounded-3xl px-7 py-5">
+                    <div class="faq-question font-semibold flex justify-between items-center cursor-pointer" onclick="toggleFAQ(this)">
+                        <span>How long does the entire process take?</span>
+                        <i class="fa-solid fa-chevron-down transition-transform"></i>
+                    </div>
+                    <div class="faq-answer hidden mt-3 text-slate-600 text-sm">
+                        From proposal submission to commissioning: <strong>6 to 14 months</strong> depending on location, grid connection speed, and approval timeline. Grid connection from DISCOM is often the biggest bottleneck.
+                    </div>
+                </div>
+                
+                <div class="border border-slate-200 rounded-3xl px-7 py-5">
+                    <div class="faq-question font-semibold flex justify-between items-center cursor-pointer" onclick="toggleFAQ(this)">
+                        <span>Is this business actually profitable?</span>
+                        <i class="fa-solid fa-chevron-down transition-transform"></i>
+                    </div>
+                    <div class="faq-answer hidden mt-3 text-slate-600 text-sm">
+                        It can be — but <strong>highly location dependent</strong>. High-traffic highways, near EV clusters, or fleet hubs perform well. Many stations struggle with low utilization in the first 1–2 years. Commercial electricity rates (₹8–14/kWh) eat into margins significantly.
+                    </div>
+                </div>
+                
+                <div class="border border-slate-200 rounded-3xl px-7 py-5">
+                    <div class="faq-question font-semibold flex justify-between items-center cursor-pointer" onclick="toggleFAQ(this)">
+                        <span>Can I set it up on my own private land?</span>
+                        <i class="fa-solid fa-chevron-down transition-transform"></i>
+                    </div>
+                    <div class="faq-answer hidden mt-3 text-slate-600 text-sm">
+                        Yes, but you will likely get <strong>lower subsidy (Category C = 80% on upstream only)</strong> and you must partner with a nodal agency or CPSE to access the scheme benefits. Purely private projects without government tie-up get very limited support.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tips Section -->
+    <div id="tips" class="max-w-5xl mx-auto px-6 py-16">
+        <div class="text-center mb-10">
+            <h2 class="section-header tracking-tight">Pro Tips from Successful Operators</h2>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-5">
+            <div class="tip-box border border-emerald-200 rounded-3xl p-6">
+                <div class="flex items-start gap-4">
+                    <i class="fa-solid fa-lightbulb text-emerald-500 text-3xl mt-1"></i>
+                    <div>
+                        <div class="font-semibold text-lg">Start with 2–4 chargers only</div>
+                        <p class="text-sm text-slate-600 mt-1">Don't go big on day one. Start small, prove utilization, then expand. Many successful operators began with just 2 DC fast chargers.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tip-box border border-emerald-200 rounded-3xl p-6">
+                <div class="flex items-start gap-4">
+                    <i class="fa-solid fa-lightbulb text-emerald-500 text-3xl mt-1"></i>
+                    <div>
+                        <div class="font-semibold text-lg">Partner with existing fuel stations</div>
+                        <p class="text-sm text-slate-600 mt-1">IOCL, BPCL, and HPCL are actively looking for partners. They already have land, power infrastructure, and customers.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tip-box border border-emerald-200 rounded-3xl p-6">
+                <div class="flex items-start gap-4">
+                    <i class="fa-solid fa-lightbulb text-emerald-500 text-3xl mt-1"></i>
+                    <div>
+                        <div class="font-semibold text-lg">Negotiate electricity tariff first</div>
+                        <p class="text-sm text-slate-600 mt-1">Before finalizing location, get written confirmation from your DISCOM about commercial EV charging tariff. This is often the make-or-break factor.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tip-box border border-emerald-200 rounded-3xl p-6">
+                <div class="flex items-start gap-4">
+                    <i class="fa-solid fa-lightbulb text-emerald-500 text-3xl mt-1"></i>
+                    <div>
+                        <div class="font-semibold text-lg">Focus on fleet charging</div>
+                        <p class="text-sm text-slate-600 mt-1">B2B fleet operators (cabs, delivery, e-rickshaws) give predictable daily revenue vs unpredictable public charging.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Concerns / Warnings -->
+    <div id="concerns" class="bg-slate-900 text-white py-16">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center gap-x-2 bg-red-500/10 text-red-400 px-4 py-1 rounded-3xl text-sm font-semibold mb-4">
+                    <i class="fa-solid fa-exclamation-triangle"></i>
+                    <span>IMPORTANT WARNINGS</span>
+                </div>
+                <h2 class="section-header tracking-tight text-white">Key Concerns &amp; Risks</h2>
+                <p class="text-slate-400 max-w-md mx-auto mt-3">Be fully aware before investing your time and money</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-5">
+                <div class="warning-box border border-red-200 bg-red-50 text-red-900 rounded-3xl p-6">
+                    <div class="font-bold flex items-center gap-x-2 text-red-600">
+                        <i class="fa-solid fa-bolt"></i>
+                        <span>High Electricity Costs</span>
+                    </div>
+                    <p class="mt-2 text-sm">Commercial EV charging tariff in many states is ₹9–14 per kWh. After adding all costs, your margin per kWh can be very thin unless you charge premium pricing.</p>
+                </div>
+                
+                <div class="warning-box border border-red-200 bg-red-50 text-red-900 rounded-3xl p-6">
+                    <div class="font-bold flex items-center gap-x-2 text-red-600">
+                        <i class="fa-solid fa-plug"></i>
+                        <span>Grid Connection Delays</span>
+                    </div>
+                    <p class="mt-2 text-sm">Getting a new 100–250 kVA connection from DISCOM can take 4–10 months in many states. This is the #1 reason projects get delayed.</p>
+                </div>
+                
+                <div class="warning-box border border-red-200 bg-red-50 text-red-900 rounded-3xl p-6">
+                    <div class="font-bold flex items-center gap-x-2 text-red-600">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>Low Initial Utilization</span>
+                    </div>
+                    <p class="mt-2 text-sm">Most new stations see only 15–30% utilization in the first 12–18 months. Many operators report negative cash flow in year 1.</p>
+                </div>
+                
+                <div class="warning-box border border-red-200 bg-red-50 text-red-900 rounded-3xl p-6">
+                    <div class="font-bold flex items-center gap-x-2 text-red-600">
+                        <i class="fa-solid fa-balance-scale"></i>
+                        <span>Policy &amp; Tariff Risk</span>
+                    </div>
+                    <p class="mt-2 text-sm">State electricity regulators can change EV charging tariffs anytime. Some states have already increased commercial rates significantly in 2025.</p>
+                </div>
+            </div>
+            
+            <div class="mt-8 bg-white/5 border border-white/20 rounded-3xl p-6 text-sm">
+                <div class="font-semibold text-amber-400 mb-2">Final Reality Check</div>
+                <p class="text-slate-300">This is a <strong>capital intensive, long-gestation business</strong> with regulatory and operational risks. This is a capital-intensive business with risks. Success depends on location, utilization, partnerships, and careful planning. Many operators take 12-18 months to reach stable returns.</p>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Charger Comparison + EV Trends -->
+    <div class="max-w-5xl mx-auto px-6 py-16 bg-slate-50 border-t border-b border-slate-200">
+        <div class="text-center mb-12">
+            <div class="inline-flex items-center gap-x-2 bg-indigo-100 text-indigo-700 px-4 py-1 rounded-3xl text-sm font-semibold mb-4">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>PLANNING FOR THE FUTURE</span>
+            </div>
+            <h2 class="section-header tracking-tight">Charger Power Comparison &amp; EV Market Trends 2026-2030</h2>
+            <p class="text-slate-600 mt-3 max-w-lg mx-auto">Understanding future trends helps you make better decisions today</p>
+        </div>
+        
+        <!-- Comparison Table -->
+        <div class="mb-12">
+            <h4 class="font-semibold text-xl mb-5">Which Charger Power Should You Choose?</h4>
+            <div class="text-xs text-slate-500 mb-4">This is general information only. Your actual costs and returns will vary based on location, utilization, electricity tariffs, and many other factors. Please conduct your own due diligence.</div>
+            <div class="overflow-x-auto">
+                <table class="w-full bg-white border border-slate-200 rounded-3xl overflow-hidden text-sm">
+                    <thead class="bg-slate-900 text-white">
+                        <tr>
+                            <th class="px-6 py-4 text-left">Charger Type</th>
+                            <th class="px-6 py-4 text-center">Total Project Cost</th>
+                            <th class="px-6 py-4 text-center">Your Investment<br>(after subsidy)</th>
+                            <th class="px-6 py-4 text-center">Best For</th>
+                            <th class="px-6 py-4 text-center">5-Year ROI</th>
+                            <th class="px-6 py-4 text-center">Recommendation 2026</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y">
+                        <tr class="hover:bg-emerald-50">
+                            <td class="px-6 py-5 font-semibold">50-60 kW Dual</td>
+                            <td class="px-6 py-5 text-center">₹22-26 Lakh</td>
+                            <td class="px-6 py-5 text-center font-bold text-emerald-600">₹7-8.5 Lakh</td>
+                            <td class="px-6 py-5 text-center">Cities, Petrol Pumps, Malls, Small Highways</td>
+                            <td class="px-6 py-5 text-center"><span class="font-bold text-emerald-600">4.0× - 4.3×</span></td>
+                            <td class="px-6 py-5 text-center"><span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-2xl text-xs font-semibold">★★★★★ BEST CHOICE</span></td>
+                        </tr>
+                        <tr class="hover:bg-yellow-50">
+                            <td class="px-6 py-5 font-semibold">120-150 kW</td>
+                            <td class="px-6 py-5 text-center">₹42-52 Lakh</td>
+                            <td class="px-6 py-5 text-center font-bold text-yellow-600">₹13.5-17 Lakh</td>
+                            <td class="px-6 py-5 text-center">Expressways, Airports, Fleet Hubs</td>
+                            <td class="px-6 py-5 text-center"><span class="font-bold text-yellow-600">3.4× - 3.8×</span></td>
+                            <td class="px-6 py-5 text-center"><span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-2xl text-xs font-semibold">★★★★ GOOD (if location supports)</span></td>
+                        </tr>
+                        <tr class="hover:bg-red-50">
+                            <td class="px-6 py-5 font-semibold">300 kW+</td>
+                            <td class="px-6 py-5 text-center">₹75-95 Lakh</td>
+                            <td class="px-6 py-5 text-center font-bold text-red-600">₹24-31 Lakh</td>
+                            <td class="px-6 py-5 text-center">Premium Highways, Luxury EV zones only</td>
+                            <td class="px-6 py-5 text-center"><span class="font-bold text-red-600">2.6× - 3.1×</span></td>
+                            <td class="px-6 py-5 text-center"><span class="bg-red-100 text-red-700 px-3 py-1 rounded-2xl text-xs font-semibold">★★☆☆☆ WAIT TILL 2028</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-xs text-slate-500 mt-3 px-2">Note: 300 kW ROI is lower because utilization will be low until 2028-29 when more long-range EVs arrive.</div>
+        </div>
+        
+        <!-- EV & Battery Trends -->
+        <div>
+            <h4 class="font-semibold text-xl mb-6">EV Cars &amp; Battery Trends in India (2026-2030)</h4>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Current vs Future -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-7">
+                    <div class="uppercase text-xs tracking-widest text-slate-500 mb-4">BATTERY SIZE GROWTH</div>
+                    
+                    <div class="space-y-5">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1.5">
+                                <div class="font-medium">2024-2025 (Today)</div>
+                                <div class="font-bold">30-40 kWh avg</div>
+                            </div>
+                            <div class="h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                                <div class="h-2.5 bg-slate-400 w-[35%]" style="width: 35%"></div>
+                            </div>
+                            <div class="text-xs text-slate-500 mt-1">Most cars: Tata Punch EV, Nexon, MG Comet, Citroen eC3</div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between text-sm mb-1.5">
+                                <div class="font-medium">2026-2027 (Now)</div>
+                                <div class="font-bold">40-55 kWh avg</div>
+                            </div>
+                            <div class="h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                                <div class="h-2.5 bg-emerald-500 w-[55%]" style="width: 55%"></div>
+                            </div>
+                            <div class="text-xs text-slate-500 mt-1">New launches: Tata Curvv EV, Mahindra BE 05, Upcoming Skoda, VW EVs</div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between text-sm mb-1.5">
+                                <div class="font-medium">2028-2030 (Future)</div>
+                                <div class="font-bold">60-80 kWh avg</div>
+                            </div>
+                            <div class="h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                                <div class="h-2.5 bg-emerald-600 w-[75%]" style="width: 75%"></div>
+                            </div>
+                            <div class="text-xs text-slate-500 mt-1">Premium segment growing fast. 300+ km range becoming standard</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white border border-slate-200 rounded-3xl p-7">
+                    <div class="uppercase text-xs tracking-widest text-slate-500 mb-4">WHAT THIS MEANS FOR YOU</div>
+                    
+                    <div class="space-y-4 text-sm">
+                        <div class="flex gap-4">
+                            <div class="text-emerald-500 mt-1"><i class="fa-solid fa-check-circle text-xl"></i></div>
+                            <div>
+                                <div class="font-semibold">2026-2027: 50-120 kW is perfect</div>
+                                <div class="text-slate-600">Most EVs still can't use more than 80-100 kW. Your 50-120 kW station will be fully utilized.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="text-yellow-500 mt-1"><i class="fa-solid fa-arrow-trend-up text-xl"></i></div>
+                            <div>
+                                <div class="font-semibold">2028-2030: 150-200 kW becomes mainstream</div>
+                                <div class="text-slate-600">As battery sizes grow to 60-80 kWh, more cars will need faster charging. Plan to upgrade 1-2 chargers by 2028.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-4">
+                            <div class="text-red-500 mt-1"><i class="fa-solid fa-clock text-xl"></i></div>
+                            <div>
+                                <div class="font-semibold">300 kW: Wait till 2028-29</div>
+                                <div class="text-slate-600">Only then will enough long-range EVs (300+ km) be on roads to justify the high cost and low early utilization.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 bg-indigo-900 text-white rounded-3xl p-6 text-sm">
+                <div class="font-semibold text-indigo-300 mb-2">FINAL RECOMMENDATION</div>
+                <div class="text-indigo-100">Many operators in 2026 are choosing 50-120 kW chargers as a starting point, with plans to add higher power units later as the market matures. This approach balances current opportunities with future needs.</div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Ultra-Fast 300kW Section -->
+    <div class="max-w-5xl mx-auto px-6 pb-16">
+        <div class="bg-gradient-to-br from-slate-900 to-black text-white rounded-3xl p-9 border border-white/10">
+            <div class="flex items-start gap-4 mb-6">
+                <div class="bg-white/10 p-4 rounded-2xl">
+                    <i class="fa-solid fa-bolt-lightning text-4xl text-yellow-400"></i>
+                </div>
+                <div>
+                    <div class="uppercase text-xs tracking-[2px] text-yellow-400 font-semibold">HONEST ANSWER TO YOUR QUESTION</div>
+                    <h3 class="text-3xl font-bold mt-1">300 kW Ultra-Fast Charging in India (2026)</h3>
+                </div>
+            </div>
+            
+            <div class="prose prose-invert max-w-none text-slate-300">
+                <p class="text-lg"><strong>Short Answer:</strong> 300 kW charging <span class="text-yellow-400">is not yet realistic</span> for most new entrepreneurs in India in 2026 — but it is coming fast (2027-2028).</p>
+                
+                <div class="my-6 grid md:grid-cols-2 gap-6">
+                    <div class="bg-white/5 p-5 rounded-2xl">
+                        <div class="font-semibold text-emerald-400 mb-3">Why 50-120 kW is still the smart choice right now:</div>
+                        <ul class="text-sm space-y-2">
+                            <li>• 85%+ of EVs on Indian roads in 2026 are 2W, 3W, and small 4W (30-60 kWh batteries)</li>
+                            <li>• They physically cannot accept more than 50-80 kW</li>
+                            <li>• Grid infrastructure in most cities/towns cannot support 300 kW without ₹20-40 Lakh extra transformer + HT line cost</li>
+                            <li>• A 300 kW charger costs ₹38-55 Lakh (vs ₹7-9 Lakh for 50 kW)</li>
+                            <li>• Utilization would be very low in 2026-27</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-white/5 p-5 rounded-2xl">
+                        <div class="font-semibold text-yellow-400 mb-3">When 300 kW makes sense (Premium locations only):</div>
+                        <ul class="text-sm space-y-2">
+                            <li>• Delhi-Mumbai Expressway, some NHAI plazas</li>
+                            <li>• Near airports serving international flights (long-range EVs)</li>
+                            <li>• Luxury car hubs (BMW, Mercedes, Audi EV owners)</li>
+                            <li>• You have strong grid connection already (or can afford ₹25L+ upgrade)</li>
+                            <li>• You can wait 2-3 years for utilization to build</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="bg-yellow-400/10 border border-yellow-400/30 rounded-2xl p-5 text-sm">
+                    <strong class="text-yellow-400">Bottom Line:</strong> Start with 50-120 kW in 2026. You can always upgrade later when more high-end EVs arrive and grid improves. Many successful operators are doing exactly this — starting small and scaling.
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-12">
+        <div class="max-w-5xl mx-auto px-6 text-center">
+            <div class="flex justify-center mb-6">
+                <div class="flex items-center gap-x-2">
+                    <div class="w-8 h-8 bg-[#0A66C2] rounded-2xl flex items-center justify-center">
+                        <i class="fa-solid fa-charging-station text-white"></i>
+                    </div>
+                    <span class="font-display text-xl font-semibold">PM E-DRIVE Guide 2026</span>
+                </div>
+            </div>
+            
+            <p class="text-sm text-slate-500 max-w-md mx-auto">
+                This guide is based on publicly available official documents from the Ministry of Heavy Industries, Government of India (as of January 2026). 
+                Always verify the latest information on the official portal.
+            </p>
+            
+            <div class="mt-8 flex justify-center gap-x-6 text-xs text-slate-400">
+                <a href="https://pmedrive.heavyindustries.gov.in/" target="_blank" class="hover:text-slate-600">Official Portal</a>
+                <span>•</span>
+                <a href="#" class="hover:text-slate-600">Download Guidelines (PDF)</a>
+                <span>•</span>
+                <span>Not Financial Advice</span>
+            </div>
+            
+            <div class="mt-8 text-[10px] text-slate-400">
+                Created for educational purposes • Last updated: January 2026
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('i');
+            
+            if (answer.classList.contains('hidden')) {
+                answer.classList.remove('hidden');
+                icon.classList.add('fa-rotate-180');
+            } else {
+                answer.classList.add('hidden');
+                icon.classList.remove('fa-rotate-180');
+            }
+        }
+        
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Add subtle animation to step cards on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.step-card').forEach(card => {
+            card.style.opacity = '0.95';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
