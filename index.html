@@ -75,8 +75,91 @@
             50% { opacity: 1; }
         }
 
-        .logo-glow {
-            filter: drop-shadow(0 0 30px rgba(0, 243, 255, 0.6));
+        #intro-logo-container {
+            overflow: visible;
+            isolation: isolate;
+        }
+
+        #intro-logo-container::before {
+            content: "";
+            position: absolute;
+            inset: -52px;
+            z-index: 0;
+            border-radius: 9999px;
+            pointer-events: none;
+            background:
+                radial-gradient(circle,
+                    rgba(0, 243, 255, 0.42) 0%,
+                    rgba(124, 58, 237, 0.34) 42%,
+                    rgba(124, 58, 237, 0.12) 58%,
+                    transparent 74%);
+            filter: blur(18px);
+            transform: translateZ(0);
+            animation: intro-aura-pulse 4s ease-in-out infinite;
+        }
+
+        .intro-logo-disk {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #0a0a0f;
+            box-shadow:
+                0 0 22px rgba(0, 243, 255, 0.38),
+                0 0 56px rgba(124, 58, 237, 0.28);
+        }
+
+        .logo-orb {
+            position: relative;
+            isolation: isolate;
+            overflow: visible;
+            border-radius: 9999px;
+            transition: transform 0.4s ease;
+        }
+
+        .logo-orb::before {
+            content: "";
+            position: absolute;
+            inset: -20px;
+            z-index: 0;
+            border-radius: 9999px;
+            pointer-events: none;
+            background:
+                radial-gradient(circle,
+                    rgba(0, 243, 255, 0.34) 0%,
+                    rgba(124, 58, 237, 0.24) 44%,
+                    rgba(124, 58, 237, 0.08) 60%,
+                    transparent 76%);
+            filter: blur(9px);
+            transform: translateZ(0);
+            animation: logo-aura-pulse 4s ease-in-out infinite;
+        }
+
+        .logo-orb:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-orb--footer::before {
+            inset: -14px;
+            opacity: 0.72;
+            filter: blur(7px);
+        }
+
+        .logo-disk {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #0a0a0f;
+            box-shadow:
+                0 0 12px rgba(0, 243, 255, 0.35),
+                0 0 28px rgba(124, 58, 237, 0.24);
         }
 
         .gradient-text {
@@ -107,19 +190,26 @@
             box-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
         }
 
-        .logo-glow {
-            transition: all 0.4s ease;
-            animation: logo-pulse 4s ease-in-out infinite;
+        @keyframes intro-aura-pulse {
+            0%, 100% {
+                opacity: 0.82;
+                transform: scale(0.98) translateZ(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.06) translateZ(0);
+            }
         }
 
-        .logo-glow:hover {
-            transform: scale(1.05);
-            filter: drop-shadow(0 0 20px #00f3ff) drop-shadow(0 0 40px #7c3aed) !important;
-        }
-
-        @keyframes logo-pulse {
-            0%, 100% { filter: drop-shadow(0 0 12px #00f3ff) drop-shadow(0 0 24px #7c3aed); }
-            50% { filter: drop-shadow(0 0 18px #00f3ff) drop-shadow(0 0 36px #7c3aed); }
+        @keyframes logo-aura-pulse {
+            0%, 100% {
+                opacity: 0.72;
+                transform: scale(0.98) translateZ(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05) translateZ(0);
+            }
         }
 
         @keyframes orbit {
@@ -139,8 +229,7 @@
         <div class="text-center px-6">
             <!-- Animated Logo (Full Circle) - Same as Desktop -->
             <div id="intro-logo-container" class="relative mx-auto mb-8 transition-all duration-700" style="width: 170px; height: 170px;">
-                <div class="w-full h-full rounded-full overflow-hidden logo-glow border border-white/10" 
-                     style="filter: drop-shadow(0 0 50px #00f3ff) drop-shadow(0 0 95px #7c3aed); background: #0a0a0f;">
+                <div class="intro-logo-disk">
                     <img src="logo.png" alt="CosmicTrotter Logo" class="w-full h-full object-contain p-2" style="border-radius: 9999px;">
                 </div>
             </div>
@@ -165,9 +254,10 @@
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
                 <div class="flex items-center gap-x-4">
-                    <div class="h-16 w-16 flex-shrink-0 rounded-full overflow-hidden logo-glow border border-white/10" 
-                         style="filter: drop-shadow(0 0 18px #00f3ff) drop-shadow(0 0 35px #7c3aed); background: #0a0a0f;">
-                        <img src="logo.png" alt="CosmicTrotter Logo" class="w-full h-full object-contain p-1.5" style="border-radius: 9999px;">
+                    <div class="logo-orb h-16 w-16 flex-shrink-0">
+                        <div class="logo-disk">
+                            <img src="logo.png" alt="CosmicTrotter Logo" class="w-full h-full object-contain p-1.5" style="border-radius: 9999px;">
+                        </div>
                     </div>
                     <div>
                         <span class="font-display text-3xl font-semibold tracking-tighter text-white">CosmicTrotter</span>
@@ -184,10 +274,6 @@
                 </div>
                 
                 <div class="flex items-center gap-x-4">
-                    <button onclick="window.location.href='PM_E-DRIVE_EV_Charging_Guide.html'"
-                            class="px-6 py-2.5 rounded-2xl text-sm font-semibold border border-white/20 hover:bg-white/5 transition-all">
-                        EV Charging Business Guide
-                    </button>
                     <button onclick="document.getElementById('community').scrollIntoView({ behavior: 'smooth' })" 
                             class="cosmic-btn px-6 py-2.5 rounded-2xl text-sm font-semibold text-black flex items-center gap-x-2">
                         <span>Join the Journey</span>
@@ -404,9 +490,10 @@
         <div class="max-w-5xl mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center gap-y-8">
                 <div class="flex items-center gap-x-4">
-                    <div class="h-11 w-11 flex-shrink-0 rounded-full overflow-hidden logo-glow border border-white/10" 
-                         style="filter: drop-shadow(0 0 10px #00f3ff) drop-shadow(0 0 20px #7c3aed); background: #0a0a0f;">
-                        <img src="logo.png" alt="CosmicTrotter" class="w-full h-full object-contain p-1 opacity-75">
+                    <div class="logo-orb logo-orb--footer h-11 w-11 flex-shrink-0">
+                        <div class="logo-disk">
+                            <img src="logo.png" alt="CosmicTrotter" class="w-full h-full object-contain p-1 opacity-75">
+                        </div>
                     </div>
                     <div>
                         <span class="font-display text-xl tracking-tighter">CosmicTrotter</span>
