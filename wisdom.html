@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Wisdom • CosmicTrotter</title>
+    <link rel="canonical" href="https://cosmictrotter.com/wisdom">
+    <meta name="description" content="Daily cosmic wisdom and powerful quotes to carry with you. One thought a day from the greatest minds.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+            background: #0a0a0f;
+            color: #e0e7ff;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .cosmic-bg {
+            background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 70%);
+        }
+
+        .wisdom-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(0, 243, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .wisdom-card:hover {
+            border-color: rgba(0, 243, 255, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .section-header {
+            font-size: 2.5rem;
+            line-height: 2.75rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+    </style>
+</head>
+<body class="cosmic-bg">
+    <!-- Navbar -->
+    <nav class="border-b border-white/10 sticky top-0 z-50 bg-[#0a0a0f]/90 backdrop-blur-lg">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-x-4">
+                    <a href="index.html" class="flex items-center gap-x-3">
+                        <div class="logo-orb h-10 w-10">
+                            <div class="logo-disk">
+                                <img src="logo.png" alt="CosmicTrotter" class="w-full h-full object-contain p-1.5" style="border-radius: 9999px;">
+                            </div>
+                        </div>
+                        <span class="font-display text-2xl font-semibold tracking-tighter">CosmicTrotter</span>
+                    </a>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                    <a href="index.html#explore" class="nav-link text-white/80 hover:text-white">Explore</a>
+                    <a href="wisdom.html" class="nav-link text-[#00f3ff]">Wisdom</a>
+                    <a href="space.html" class="nav-link text-white/80 hover:text-white">Space</a>
+                    <a href="philosophy.html" class="nav-link text-white/80 hover:text-white">Philosophy</a>
+                    <a href="ancient.html" class="nav-link text-white/80 hover:text-white">Ancient</a>
+                </div>
+                
+                <div>
+                    <a href="index.html" class="text-sm px-5 py-2.5 border border-white/30 rounded-2xl hover:bg-white/5 transition">← Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="max-w-4xl mx-auto px-6 pt-16 pb-12 text-center">
+        <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 mb-6">
+            <i class="fa-solid fa-infinity text-[#00f3ff]"></i>
+            <span class="text-xs uppercase tracking-[2px] text-white/70">One Thought. Every Day.</span>
+        </div>
+        
+        <h1 class="text-6xl font-bold tracking-tighter mb-4">Daily Wisdom</h1>
+        <p class="text-2xl text-white/60 max-w-lg mx-auto">Timeless thoughts from the greatest minds to guide your day.</p>
+    </div>
+
+    <!-- Today's Wisdom (Synced with Homepage) -->
+    <div class="max-w-3xl mx-auto px-6 pb-12 text-center">
+        <div class="cosmic-card rounded-3xl p-10 border border-[#00f3ff]/30">
+            <div class="text-xs uppercase tracking-[3px] text-[#00f3ff] mb-3">TODAY'S WISDOM • May 6, 2026</div>
+            <div id="today-wisdom" class="text-3xl leading-snug font-light tracking-tight mb-6">
+                "You are not a drop in the ocean. You are the entire ocean in a drop."
+            </div>
+            <div id="today-author" class="text-[#00f3ff] font-medium">— Rumi</div>
+        </div>
+    </div>
+
+    <!-- Reading Time + Share -->
+    <div class="max-w-4xl mx-auto px-6 pb-4 flex items-center justify-between text-sm text-white/50">
+        <div>
+            <i class="fa-solid fa-clock mr-1.5"></i> 
+            <span id="reading-time">4 min read</span>
+        </div>
+        <div class="flex gap-x-4">
+            <button onclick="sharePage()" class="flex items-center gap-x-2 hover:text-[#00f3ff] transition">
+                <i class="fa-solid fa-share-alt"></i> <span>Share</span>
+            </button>
+            <button onclick="copyPageLink()" class="flex items-center gap-x-2 hover:text-[#00f3ff] transition">
+                <i class="fa-solid fa-link"></i> <span>Copy Link</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Wisdom Archive -->
+    <div class="max-w-4xl mx-auto px-6 pb-20">
+        <div class="space-y-6">
+            
+            <!-- Wisdom 1 -->
+            <div class="wisdom-card rounded-3xl p-10 group">
+                <div class="flex items-start gap-x-4">
+                    <div class="text-4xl text-[#00f3ff]/60 group-hover:scale-110 transition">“</div>
+                    <div class="flex-1">
+                        <div class="text-2xl leading-snug font-light tracking-tight">
+                            You are not a drop in the ocean. You are the entire ocean in a drop.
+                        </div>
+                        <div class="mt-6 flex items-center justify-between">
+                            <div>
+                                <div class="text-[#00f3ff] font-medium">— Rumi</div>
+                                <div class="text-xs text-white/40">13th Century • Sufi Mystic</div>
+                            </div>
+                            <button onclick="copyQuote(this)" class="text-sm px-4 py-2 border border-white/20 rounded-2xl hover:bg-white/5 transition flex items-center gap-x-2">
+                                <i class="fa-solid fa-copy"></i> <span>Copy</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wisdom 2 -->
+            <div class="wisdom-card rounded-3xl p-10 group">
+                <div class="flex items-start gap-x-4">
+                    <div class="text-4xl text-[#00f3ff]/60 group-hover:scale-110 transition">“</div>
+                    <div class="flex-1">
+                        <div class="text-2xl leading-snug font-light tracking-tight">
+                            We are the universe experiencing itself.
+                        </div>
+                        <div class="mt-6 flex items-center justify-between">
+                            <div>
+                                <div class="text-[#00f3ff] font-medium">— Alan Watts</div>
+                                <div class="text-xs text-white/40">20th Century • Philosopher</div>
+                            </div>
+                            <button onclick="copyQuote(this)" class="text-sm px-4 py-2 border border-white/20 rounded-2xl hover:bg-white/5 transition flex items-center gap-x-2">
+                                <i class="fa-solid fa-copy"></i> <span>Copy</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wisdom 3 -->
+            <div class="wisdom-card rounded-3xl p-10 group">
+                <div class="flex items-start gap-x-4">
+                    <div class="text-4xl text-[#00f3ff]/60 group-hover:scale-110 transition">“</div>
+                    <div class="flex-1">
+                        <div class="text-2xl leading-snug font-light tracking-tight">
+                            Know thyself and you will know the universe and the gods.
+                        </div>
+                        <div class="mt-6 flex items-center justify-between">
+                            <div>
+                                <div class="text-[#00f3ff] font-medium">— Temple of Apollo at Delphi</div>
+                                <div class="text-xs text-white/40">Ancient Greece • 6th Century BC</div>
+                            </div>
+                            <button onclick="copyQuote(this)" class="text-sm px-4 py-2 border border-white/20 rounded-2xl hover:bg-white/5 transition flex items-center gap-x-2">
+                                <i class="fa-solid fa-copy"></i> <span>Copy</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+        <div class="text-center mt-12">
+            <p class="text-white/50 text-sm">New wisdom added every day. <a href="index.html" class="text-[#00f3ff] hover:underline">Return to homepage</a> to see today’s quote.</p>
+        </div>
+    </div>
+
+    <footer class="border-t border-white/10 py-12 text-center text-xs text-white/40">
+        CosmicTrotter • Travel Through Knowledge
+    </footer>
+
+    <script>
+        const wisdomQuotes = [
+            { quote: "The Universe is not outside you. It is inside you.", author: "Rumi" },
+            { quote: "You are not a drop in the ocean. You are the entire ocean in a drop.", author: "Rumi" },
+            { quote: "The cosmos is within us. We are made of star-stuff.", author: "Carl Sagan" },
+            { quote: "Look up at the stars and not down at your feet. Try to make sense of what you see.", author: "Stephen Hawking" },
+            { quote: "In the middle of difficulty lies opportunity.", author: "Albert Einstein" },
+            { quote: "The only true wisdom is in knowing you know nothing.", author: "Socrates" },
+            { quote: "We are all connected; To each other, biologically. To the earth, chemically. To the rest of the universe atomically.", author: "Neil deGrasse Tyson" },
+            { quote: "The privilege of a lifetime is being who you are.", author: "Joseph Campbell" },
+            { quote: "Everything in the universe is within you. Ask all from yourself.", author: "Rumi" },
+            { quote: "We are the universe experiencing itself.", author: "Alan Watts" },
+            { quote: "The stars are the eyes of the night.", author: "Ancient Proverb" },
+            { quote: "Know thyself and you will know the universe and the gods.", author: "Temple of Apollo at Delphi" }
+        ];
+
+        function getDailyWisdom() {
+            const today = new Date();
+            const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+            const index = dayOfYear % wisdomQuotes.length;
+            return wisdomQuotes[index];
+        }
+
+        function copyQuote(btn) {
+            const quoteText = btn.parentElement.parentElement.querySelector('.text-2xl').textContent.trim();
+            navigator.clipboard.writeText(quoteText).then(() => {
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 1800);
+            });
+        }
+
+        function loadTodaysWisdom() {
+            const wisdom = getDailyWisdom();
+            const quoteEl = document.getElementById('today-wisdom');
+            const authorEl = document.getElementById('today-author');
+            
+            if (quoteEl && authorEl) {
+                quoteEl.textContent = `"${wisdom.quote}"`;
+                authorEl.textContent = `— ${wisdom.author}`;
+            }
+        }
+
+        // Reading Time + Share Functions
+        function calculateReadingTime() {
+            const text = document.body.innerText;
+            const words = text.trim().split(/\s+/).length;
+            const minutes = Math.ceil(words / 200);
+            const el = document.getElementById('reading-time');
+            if (el) el.textContent = `${minutes} min read`;
+        }
+
+        function sharePage() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Daily Wisdom • CosmicTrotter',
+                    text: 'Check out today\'s cosmic wisdom',
+                    url: window.location.href
+                });
+            } else {
+                alert('Share this page: ' + window.location.href);
+            }
+        }
+
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                const originalText = event.target.innerHTML;
+                event.target.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                setTimeout(() => {
+                    event.target.innerHTML = originalText;
+                }, 1500);
+            });
+        }
+
+        // Tailwind script
+        function initializeTailwind() {
+            console.log('%c[CosmicTrotter] Wisdom page loaded', 'color:#00f3ff');
+            loadTodaysWisdom();
+            calculateReadingTime();
+        }
+        window.onload = initializeTailwind;
+    </script>
+</body>
+</html>
