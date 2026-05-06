@@ -346,6 +346,10 @@
             text-align: left;
         }
 
+        .newsletter-brevo .sib-form-message-panel.sib-form-message-panel--active {
+            display: block !important;
+        }
+
         .newsletter-brevo #error-message {
             color: #fecaca;
             background: rgba(127, 29, 29, 0.32);
@@ -1130,6 +1134,40 @@
                 e.target.value = '';
             }
         }
+
+        function showBrevoWelcomeGiftMessage() {
+            const successPanel = document.getElementById('success-message');
+            const messageText = successPanel?.querySelector('.sib-form-message-panel__inner-text');
+            if (!successPanel || !messageText) return;
+
+            successPanel.classList.add('sib-form-message-panel--active');
+            successPanel.style.display = 'block';
+
+            if (messageText.querySelector('a[href="welcome_email.html"]')) return;
+
+            messageText.innerHTML = `
+                Your subscription has been successful. Your Special Welcome Gift is here.
+                <a href="welcome_email.html" target="_blank" rel="noopener">Click here</a>
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const successPanel = document.getElementById('success-message');
+            if (!successPanel || !window.MutationObserver) return;
+
+            const observer = new MutationObserver(() => {
+                if (successPanel.classList.contains('sib-form-message-panel--active')) {
+                    showBrevoWelcomeGiftMessage();
+                }
+            });
+
+            observer.observe(successPanel, {
+                attributes: true,
+                childList: true,
+                subtree: true,
+                attributeFilter: ['class', 'style']
+            });
+        });
     </script>
     <!-- Brevo Scripts -->
     <script>
@@ -1149,7 +1187,7 @@
                 selectedOptions: '{quantity} selected'
             }
         };
-        var AUTOHIDE = Boolean(0);
+        var AUTOHIDE = Boolean(1);
     </script>
     <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
     <script src="https://www.google.com/recaptcha/api.js?hl=en"></script>
