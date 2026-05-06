@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Starborn • CosmicTrotter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { background: #0a0a0f; color: #e0e7ff; font-family: 'Inter', system_ui, sans-serif; }
+        .cosmic-bg { background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 70%); }
+        .star { position: absolute; background: white; border-radius: 50%; animation: twinkle 3s infinite ease-in-out; }
+        @keyframes twinkle { 0%,100%{opacity:0.3} 50%{opacity:1} }
+    </style>
+</head>
+<body class="cosmic-bg">
+    <div class="max-w-3xl mx-auto px-6 pt-16 pb-20 text-center relative">
+        <!-- Stars -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="star" style="width:2px;height:2px;top:15%;left:20%;animation-delay:0s"></div>
+            <div class="star" style="width:3px;height:3px;top:25%;left:75%;animation-delay:1.2s"></div>
+            <div class="star" style="width:2px;height:2px;top:60%;left:15%;animation-delay:2.1s"></div>
+        </div>
+
+        <div class="inline-flex items-center gap-x-2 px-5 py-1.5 rounded-full border border-orange-500/30 bg-orange-500/10 mb-8">
+            <i class="fa-solid fa-fire text-orange-400"></i>
+            <span class="text-xs uppercase tracking-[2px] text-orange-400">Archetype Unlocked</span>
+        </div>
+
+        <h1 class="text-7xl font-bold tracking-tighter mb-4">The Starborn</h1>
+        <p class="text-2xl text-white/60 max-w-md mx-auto">You are drawn to dying stars and cosmic fire.</p>
+
+        <div class="mt-12 max-w-lg mx-auto">
+            <div class="cosmic-card bg-white/5 border border-orange-500/20 rounded-3xl p-10 text-left">
+                <h3 class="text-2xl font-semibold mb-4 text-orange-400">Your Cosmic Gift</h3>
+                <p class="text-white/70 mb-6">As a Starborn, you carry the fire of creation within you. The universe speaks to you through heat, light, and transformation.</p>
+                
+                <div class="bg-black/40 rounded-2xl p-6 text-center mb-6">
+                    <i class="fa-solid fa-download text-4xl text-orange-400 mb-3"></i>
+                    <p class="font-semibold">Your Gift: The Starfire Codex</p>
+                    <p class="text-sm text-white/50 mt-1">A 12-page cosmic story + meditation</p>
+                </div>
+
+                <a href="#" onclick="downloadGift()" 
+                   class="block w-full py-4 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold rounded-2xl text-center hover:scale-105 transition">
+                    <i class="fa-solid fa-download mr-2"></i> Download Your Gift
+                </a>
+            </div>
+        </div>
+
+        <p class="mt-12 text-white/40 text-sm">The stars remember you. Welcome home.</p>
+    </div>
+
+    <script>
+        function downloadGift() {
+            const a = document.createElement('a');
+            a.href = '/archetype_gifts/7JKLE.jpg';
+            a.download = 'Starfire_Codex.jpg';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    </script>
+</body>
+</html>

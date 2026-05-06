@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Crystal Seer • CosmicTrotter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { background: #0a0a0f; color: #e0e7ff; font-family: 'Inter', system_ui, sans-serif; }
+        .cosmic-bg { background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 70%); }
+    </style>
+</head>
+<body class="cosmic-bg">
+    <div class="max-w-3xl mx-auto px-6 pt-16 pb-20 text-center">
+        <div class="inline-flex items-center gap-x-2 px-5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 mb-8">
+            <i class="fa-solid fa-gem text-emerald-400"></i>
+            <span class="text-xs uppercase tracking-[2px] text-emerald-400">Archetype Unlocked</span>
+        </div>
+
+        <h1 class="text-7xl font-bold tracking-tighter mb-4">The Crystal Seer</h1>
+        <p class="text-2xl text-white/60 max-w-md mx-auto">You are connected to higher frequencies.</p>
+
+        <div class="mt-12 max-w-lg mx-auto">
+            <div class="cosmic-card bg-white/5 border border-emerald-500/20 rounded-3xl p-10 text-left">
+                <h3 class="text-2xl font-semibold mb-4 text-emerald-400">Your Cosmic Gift</h3>
+                <p class="text-white/70 mb-6">You see beyond the veil. Crystals, light, and vibration speak to you in ways others cannot hear. You are the bridge between worlds.</p>
+                
+                <div class="bg-black/40 rounded-2xl p-6 text-center mb-6">
+                    <i class="fa-solid fa-download text-4xl text-emerald-400 mb-3"></i>
+                    <p class="font-semibold">Your Gift: The Crystal Codex</p>
+                    <p class="text-sm text-white/50 mt-1">Frequency activations + crystal wisdom</p>
+                </div>
+
+                <a href="#" onclick="downloadGift()" 
+                   class="block w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold rounded-2xl text-center hover:scale-105 transition">
+                    <i class="fa-solid fa-download mr-2"></i> Download Your Gift
+                </a>
+            </div>
+        </div>
+
+        <p class="mt-12 text-white/40 text-sm">The crystals sing your name. You are the frequency.</p>
+    </div>
+
+    <script>
+        function downloadGift() {
+            const a = document.createElement('a');
+            a.href = '/archetype_gifts/8MqDe.jpg';
+            a.download = 'Crystal_Codex.jpg';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    </script>
+</body>
+</html>
