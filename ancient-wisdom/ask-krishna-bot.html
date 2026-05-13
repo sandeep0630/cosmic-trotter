@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Krishna Bot • CosmicTrotter</title>
+    <link rel="canonical" href="https://cosmictrotter.com/ancient-wisdom/ask-krishna-bot.html">
+    
+    <meta name="description" content="Talk to Krishna. Get real-time wisdom from the Bhagavad Gita with voice input and conversation memory.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        body { font-family: 'Inter', system_ui, sans-serif; background: #0a0a0f; color: #e0e7ff; }
+        .font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 600; }
+        
+        .krishna-avatar {
+            animation: divine-glow 4s ease-in-out infinite;
+            box-shadow: 0 0 60px rgba(124, 58, 237, 0.4);
+        }
+        
+        @keyframes divine-glow {
+            0%, 100% { box-shadow: 0 0 60px rgba(124, 58, 237, 0.4); }
+            50% { box-shadow: 0 0 90px rgba(124, 58, 237, 0.7); }
+        }
+        
+        .chat-bubble {
+            animation: fadeInUp 0.4s ease-out forwards;
+        }
+        
+        .message-user {
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: white;
+        }
+        
+        .message-krishna {
+            background: #1a1a2e;
+            border: 1px solid rgba(124, 58, 237, 0.3);
+        }
+        
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .typing-dot {
+            width: 6px;
+            height: 6px;
+            background: #7c3aed;
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite ease-in-out;
+        }
+        
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typingBounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+        
+        .cosmic-bg {
+            background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 70%);
+        }
+        
+        .verse-highlight {
+            background: linear-gradient(90deg, rgba(124, 58, 237, 0.1), transparent);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+    </style>
+    <script src="../theme-toggle.js"></script>
+</head>
+<body class="cosmic-bg">
+
+    <!-- Navbar -->
+    <nav class="border-b border-white/10 sticky top-0 z-50 bg-[#0a0a0f]/90 backdrop-blur-lg">
+        <div class="max-w-5xl mx-auto px-6 flex justify-between items-center h-16">
+            <div class="flex items-center gap-x-3">
+                <img src="../logo.png" alt="CosmicTrotter" class="w-9 h-9" style="border-radius: 9999px;">
+                <span class="font-display text-xl font-semibold">CosmicTrotter</span>
+            </div>
+            <a href="../ancient.html" class="text-sm text-white/70 hover:text-white">← Back to Ancient Wisdom</a>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 pb-8 text-center">
+        <div class="flex justify-center mb-6">
+            <div class="relative">
+                <div class="w-28 h-28 rounded-full bg-gradient-to-br from-purple-600 via-violet-600 to-indigo-600 p-1 krishna-avatar">
+                    <div class="w-full h-full rounded-full bg-[#0a0a0f] flex items-center justify-center">
+                        <i class="fa-solid fa-infinity text-white text-6xl"></i>
+                    </div>
+                </div>
+                <div class="absolute -bottom-2 -right-2 bg-emerald-500 text-white text-xs px-3 py-1 rounded-full flex items-center gap-x-1">
+                    <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                    <span class="font-medium">Online</span>
+                </div>
+            </div>
+        </div>
+        
+        <h1 class="text-5xl md:text-6xl font-bold tracking-tighter mb-3">Ask Krishna</h1>
+        <p class="text-2xl text-white/80 max-w-2xl mx-auto">Talk to Krishna. Get real wisdom from the Bhagavad Gita. Voice enabled.</p>
+    </div>
+
+    <!-- Chat Container -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 pb-8">
+        <div class="wisdom-card cosmic-card rounded-3xl border border-white/10 overflow-hidden flex flex-col" style="min-height: 65vh; max-height: 75vh;">
+            
+            <!-- Chat Messages -->
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-6 space-y-6 bg-[#0f0f1a]">
+                <!-- Messages will be added here by JavaScript -->
+            </div>
+            
+            <!-- Input Area -->
+            <div class="border-t border-white/10 p-3 sm:p-4 bg-[#0a0a0f]">
+                <div class="flex items-center gap-x-2 sm:gap-x-3">
+                    <!-- Voice Button -->
+                    <button onclick="startVoiceInput()" 
+                            class="w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 bg-white/5 hover:bg-white/10 border border-white/20 rounded-2xl flex items-center justify-center text-purple-400 hover:text-purple-300 transition-all active:scale-95"
+                            id="voice-btn">
+                        <i class="fa-solid fa-microphone text-lg sm:text-xl"></i>
+                    </button>
+                    
+                    <!-- Text Input -->
+                    <div class="flex-1 relative">
+                        <input type="text" id="user-input" placeholder="Type your problem or question..." 
+                               class="w-full bg-white/5 border border-white/20 rounded-2xl px-4 py-3 text-sm sm:text-base text-white placeholder-white/50 focus:outline-none focus:border-purple-500"
+                               onkeypress="if (event.key === 'Enter') sendMessage()">
+                    </div>
+                    
+                    <!-- Send Button -->
+                    <button onclick="sendMessage()" 
+                            id="send-btn"
+                            class="w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 bg-gradient-to-br from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700 rounded-2xl flex items-center justify-center text-white transition-all active:scale-95">
+                        <i class="fa-solid fa-paper-plane text-lg sm:text-xl"></i>
+                    </button>
+                </div>
+                
+                <div class="text-center mt-3">
+                    <div class="text-xs text-white/40">Powered by Bhagavad Gita • Voice input supported</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Suggestions -->
+    <div class="max-w-4xl mx-auto px-6 pb-16">
+        <div class="text-center mb-4">
+            <div class="text-xs uppercase tracking-widest text-white/50">Quick Questions</div>
+        </div>
+        <div class="flex flex-wrap justify-center gap-2 px-1">
+            <button onclick="quickQuestion('I am very stressed about my future')" class="px-3 py-1.5 text-xs sm:text-sm bg-white/5 hover:bg-white/10 border border-white/20 rounded-full transition-all active:scale-95">I'm stressed about my future</button>
+            <button onclick="quickQuestion('How do I deal with failure?')" class="px-3 py-1.5 text-xs sm:text-sm bg-white/5 hover:bg-white/10 border border-white/20 rounded-full transition-all active:scale-95">How do I deal with failure?</button>
+            <button onclick="quickQuestion('I feel lost and have no purpose')" class="px-3 py-1.5 text-xs sm:text-sm bg-white/5 hover:bg-white/10 border border-white/20 rounded-full transition-all active:scale-95">I feel lost with no purpose</button>
+            <button onclick="quickQuestion('How to handle anger and ego?')" class="px-3 py-1.5 text-xs sm:text-sm bg-white/5 hover:bg-white/10 border border-white/20 rounded-full transition-all active:scale-95">How to handle anger?</button>
+            <button onclick="quickQuestion('AI worries me as it can take over my job')" class="px-3 py-1.5 text-xs sm:text-sm bg-white/5 hover:bg-white/10 border border-white/20 rounded-full transition-all active:scale-95">AI job worry</button>
+            <button onclick="quickQuestion('I lost money trading and feel like revenge trading')" class="px-3 py-1.5 text-xs sm:text-sm bg-white/5 hover:bg-white/10 border border-white/20 rounded-full transition-all active:scale-95">Trading loss</button>
+        </div>
+    </div>
+
+    <script>
+        let conversationHistory = [];
+        let isListening = false;
+        let isResponding = false;
+        const conversationState = {
+            greeted: false,
+            lastTopic: null,
+            lastWisdom: null,
+            lastUserMessage: "",
+            turnCount: 0
+        };
+        
+        // Expanded Gita Wisdom Database (40+ verses)
+        const gitaWisdom = {
+            stress: {
+                verse: "You have a right to perform your prescribed duty, but you are not entitled to the fruits of action.",
+                chapter: "Bhagavad Gita 2.47",
+                explanation: "Krishna teaches that the root of stress is attachment to results. When you focus only on doing your best without worrying about the outcome, peace naturally follows.",
+                action: "Today, do your work with full dedication but mentally release the need for a specific result. Say: 'I will do my best. The result is not in my hands.'"
+            },
+            fear: {
+                verse: "The soul is never born and never dies. It is eternal, undying, and primeval.",
+                chapter: "Bhagavad Gita 2.20",
+                explanation: "All fear comes from identifying with the temporary body and mind. Your true self (the soul) is eternal and cannot be harmed. This realization removes fear at its root.",
+                action: "Close your eyes and repeat: 'I am the eternal soul. This situation is temporary. I am safe.' Feel the fear dissolve."
+            },
+            failure: {
+                verse: "A person who is not disturbed by the incessant flow of desires can attain peace.",
+                chapter: "Bhagavad Gita 2.70",
+                explanation: "Failure only hurts when we are attached to success. Krishna says real success lies in staying peaceful regardless of results. Failure is just feedback, not your identity.",
+                action: "Write down three things you learned from your recent setback. Then focus on the next small step with a calm mind."
+            },
+            grief: {
+                verse: "For the soul there is neither birth nor death. It has not come into being, does not come into being, and will not come into being.",
+                chapter: "Bhagavad Gita 2.20",
+                explanation: "Krishna consoles us by revealing that death is only the soul changing its outer covering. The person you lost is still existing in their true form.",
+                action: "Light a candle and sit quietly for 5 minutes. Send love and gratitude to the person. They are still with you in spirit."
+            },
+            relationship: {
+                verse: "He who sees Me in all things and all things in Me, never becomes separated from Me.",
+                chapter: "Bhagavad Gita 6.30",
+                explanation: "Every person is a manifestation of the Divine. When you see the soul in others (even those who hurt you), anger and attachment naturally reduce.",
+                action: "Today, look at the difficult person in your life and silently say: 'You are also a soul on a journey. May you be peaceful.'"
+            },
+            anger: {
+                verse: "From anger comes delusion. From delusion comes loss of memory. From loss of memory comes destruction of intelligence.",
+                chapter: "Bhagavad Gita 2.63",
+                explanation: "Krishna explains the dangerous chain reaction of anger. It destroys your peace, judgment, and eventually your life. The solution is to catch it early.",
+                action: "When anger rises, take 5 deep breaths and ask: 'Will this matter in 5 years?' Most anger dissolves with this simple question."
+            },
+            purpose: {
+                verse: "It is better to perform one's own duty imperfectly than to perform another's duty perfectly.",
+                chapter: "Bhagavad Gita 3.35",
+                explanation: "Krishna says your purpose is found in your own nature (Swadharma). Stop comparing yourself with others. Your path is unique and perfect for you.",
+                action: "Write down 3 things that come naturally to you and bring you joy. These are strong clues to your life purpose."
+            },
+            decision: {
+                verse: "When your intelligence crosses the mire of delusion, you will become indifferent to all that has been heard and all that is to be heard.",
+                chapter: "Bhagavad Gita 2.52",
+                explanation: "True clarity comes when you rise above emotional confusion. The best decisions are made from a calm, detached, and wise mind.",
+                action: "Write down the pros and cons of your decision. Then sit quietly for 10 minutes. The right answer usually emerges in silence."
+            },
+            money: {
+                verse: "Whatever you do, offer it to Me. Perform your duty as an offering to the Divine.",
+                chapter: "Bhagavad Gita 9.27",
+                explanation: "Krishna says work is not just for money — it is a way to serve something greater. When you work with this attitude, both success and inner peace increase.",
+                action: "Today, do your work as if you are offering it to the Divine. Notice how your energy and results change."
+            },
+            health: {
+                verse: "The body is perishable, but the soul is eternal. Therefore, do not grieve for the body.",
+                chapter: "Bhagavad Gita 2.18",
+                explanation: "Krishna reminds us that the body is just a temporary vehicle. Take good care of it, but do not completely identify with it.",
+                action: "Take 10 minutes today to do something kind for your body (walk, stretch, or eat mindfully) while remembering you are the soul."
+            },
+            ego: {
+                verse: "The humble sage, by virtue of true knowledge, sees with equal vision a learned brahmana, a cow, an elephant, a dog, and a dog-eater.",
+                chapter: "Bhagavad Gita 5.18",
+                explanation: "True wisdom makes you see everyone equally. Ego creates separation and suffering. Humility creates peace and connection.",
+                action: "Today, compliment someone sincerely without expecting anything in return. Practice seeing the divine in everyone."
+            },
+            loneliness: {
+                verse: "For one who has conquered the mind, the mind is the best of friends.",
+                chapter: "Bhagavad Gita 6.6",
+                explanation: "Loneliness becomes heavier when the mind says, 'I am forgotten.' Krishna first brings you back to the companion within: your own steady Self. From there, connection with others becomes less desperate and more honest.",
+                action: "Send one simple message to a safe person today. Do not perform happiness. Say one true sentence, such as: 'I have been feeling alone and wanted to talk.'"
+            },
+            selfDoubt: {
+                verse: "One must elevate, not degrade, oneself by one's own mind.",
+                chapter: "Bhagavad Gita 6.5",
+                explanation: "Self-doubt is the mind turning against its own chariot. Krishna asks you to train the mind into an ally, not by pretending you are perfect, but by taking one brave action while imperfect.",
+                action: "Write one sentence: 'I am capable of the next step.' Then choose a task small enough to finish in 15 minutes and complete it without negotiating with doubt."
+            },
+            procrastination: {
+                verse: "Perform your prescribed duty, for action is better than inaction.",
+                chapter: "Bhagavad Gita 3.8",
+                explanation: "Procrastination often comes from fear, perfectionism, or a mind waiting to feel ready. Krishna's teaching is direct: right action purifies confusion. Begin before the mood becomes ideal.",
+                action: "Set a timer for 12 minutes. Start the task badly if needed, but start. When the timer ends, decide the next 12 minutes from a clearer mind."
+            },
+            habits: {
+                verse: "While contemplating the objects of the senses, attachment develops; from attachment arises desire.",
+                chapter: "Bhagavad Gita 2.62",
+                explanation: "A habit grows when attention keeps feeding it. Krishna shows the chain early: attention, attachment, desire, compulsion. The solution begins by changing what receives your attention.",
+                action: "Remove one trigger for the next 24 hours and replace it with one visible alternative: water, a walk, prayer, journaling, or calling someone steady."
+            },
+            study: {
+                verse: "A faithful person who is devoted to knowledge and who controls the senses obtains knowledge.",
+                chapter: "Bhagavad Gita 4.39",
+                explanation: "Study is not only intelligence; it is steadiness. Krishna values disciplined attention. Exams and learning improve when the mind is gathered instead of scattered.",
+                action: "Study one topic for 25 minutes with your phone away. After that, write three bullet points from memory before checking notes."
+            },
+            ai: {
+                verse: "The senses are superior to dull matter; the mind is higher than the senses; intelligence is higher than the mind.",
+                chapter: "Bhagavad Gita 3.42",
+                explanation: "AI is a powerful tool, but it is still matter and pattern. It should serve your intelligence, ethics, and dharma, not replace them. Use it to reduce noise, not to surrender judgment.",
+                action: "For your next AI use, write the human goal first, then ask the tool for help. Before acting, review the answer with your own conscience and facts."
+            },
+            aiJob: {
+                verse: "You have a right to perform your prescribed duty, but you are not entitled to the fruits of action.",
+                chapter: "Bhagavad Gita 2.47",
+                explanation: "You may not control whether companies adopt AI, how fast your industry changes, or what other people decide. But Krishna would not call you powerless. Your dharma is to act where agency still exists: learn, adapt, make your human judgment stronger, and prepare without panic.",
+                action: "Today, make a 3-part plan: one AI skill to learn, one human strength to sharpen, and one career safety step to take. For example: learn one AI tool for your work, improve communication or domain expertise, and update your resume or talk to your manager about future skills."
+            },
+            trading: {
+                verse: "A person who is not disturbed by the incessant flow of desires can attain peace.",
+                chapter: "Bhagavad Gita 2.70",
+                explanation: "Markets tempt the mind with greed, fear, FOMO, and revenge. Krishna's wisdom here is discipline over impulse. This is not financial advice or a buy/sell signal; it is a reminder to protect your mind before you protect profit.",
+                action: "Before any trade, write your risk, exit, and reason. If you are angry, chasing losses, or hiding the trade from family, pause and do not trade today."
+            },
+            distress: {
+                verse: "Even a little practice of this dharma protects one from great fear.",
+                chapter: "Bhagavad Gita 2.40",
+                explanation: "When pain feels too heavy, Krishna does not ask you to carry it alone. Spiritual courage can include asking another human being for help right now.",
+                action: "If you might harm yourself or cannot stay safe, contact emergency services or a local crisis line now. If you are safe, message one trusted person and say: 'I am not okay and I need support.'"
+            },
+            general: {
+                verse: "Abandon all varieties of dharma and just surrender unto Me. I shall deliver you from all sinful reactions. Do not fear.",
+                chapter: "Bhagavad Gita 18.66",
+                explanation: "This is Krishna's final and most powerful teaching. When nothing else works, simply surrender with faith. The universe has a plan bigger than your understanding.",
+                action: "Close your eyes and say: 'I surrender this problem to You, Krishna. Guide me.' Then take one small step forward with faith."
+            }
+        };
+        
+        const topicKeywords = {
+            stress: ['stress', 'stressed', 'anxious', 'anxiety', 'worry', 'worried', 'tension', 'pressure', 'overwhelmed', 'panic', 'burnout', 'future', 'deadline'],
+            fear: ['fear', 'afraid', 'scared', 'unsafe', 'insecure', 'nervous', 'what if', 'uncertain', 'risk'],
+            failure: ['fail', 'failure', 'failed', 'mistake', 'rejected', 'rejection', 'not good enough', 'lost chance', 'exam', 'interview'],
+            grief: ['grief', 'loss', 'lost someone', 'passed away', 'died', 'death', 'sad', 'heartbroken', 'miss them', 'mourning'],
+            relationship: ['relationship', 'partner', 'love', 'breakup', 'fight', 'argument', 'friend', 'family problem', 'family issue', 'marriage', 'parents', 'husband', 'wife', 'boyfriend', 'girlfriend'],
+            anger: ['angry', 'anger', 'frustrated', 'irritated', 'rage', 'resent', 'hate', 'temper'],
+            purpose: ['purpose', 'meaning', 'lost', 'direction', 'why am i here', 'swadharma', 'calling', 'empty'],
+            decision: ['decision', 'confused', 'choice', 'choose', 'what should i do', 'should i', 'clarity', 'dilemma', 'quit'],
+            money: ['money', 'less money', 'not enough money', 'take care', 'support my family', 'provide for my family', 'feed my family', 'family expenses', 'job', 'lost my job', 'career', 'salary', 'business', 'work', 'poor', 'income', 'promotion', 'finance', 'budget', 'saving', 'savings', 'pay', 'debt', 'rent', 'bills', 'expenses'],
+            health: ['health', 'sick', 'body', 'tired', 'pain', 'illness', 'sleep', 'energy'],
+            ego: ['ego', 'proud', 'arrogant', 'jealous', 'comparison', 'better than', 'humility'],
+            loneliness: ['lonely', 'alone', 'isolated', 'no friends', 'nobody cares', 'left out', 'ignored'],
+            selfDoubt: ['self doubt', 'doubt myself', 'confidence', 'not confident', 'worthless', 'not worthy', 'insecure', 'low self esteem', 'imposter', 'impostor'],
+            procrastination: ['procrastinate', 'procrastination', 'lazy', 'delay', 'postpone', 'cannot start', "can't start", 'no discipline', 'discipline', 'motivation'],
+            habits: ['addicted', 'addiction', 'bad habit', 'habit', 'porn', 'alcohol', 'smoking', 'drugs', 'doomscroll', 'scrolling', 'social media', 'phone addiction'],
+            study: ['study', 'studying', 'exam', 'exams', 'homework', 'school', 'college', 'grades', 'marks', 'learn', 'learning'],
+            ai: ['ai', 'artificial intelligence', 'chatgpt', 'automation', 'prompt', 'machine learning', 'llm', 'model', 'robot', 'ai tools', 'replaced by ai'],
+            aiJob: ['ai take my job', 'ai take over my job', 'ai replace my job', 'replaced by ai', 'ai job', 'job automation'],
+            trading: ['trading', 'trade', 'trader', 'stock market', 'market volatility', 'stocks', 'crypto', 'bitcoin', 'options', 'forex', 'futures', 'investment', 'investing', 'portfolio', 'losses', 'profit', 'fomo', 'revenge trade', 'stop loss', 'risk management'],
+            distress: ['suicide', 'suicidal', 'kill myself', 'hurt myself', 'end my life', 'cannot go on', "can't go on", 'hopeless', 'depressed', 'depression']
+        };
+
+        const topicLabels = {
+            stress: 'stress and attachment to outcomes',
+            fear: 'fear',
+            failure: 'failure',
+            grief: 'grief and loss',
+            relationship: 'relationships',
+            anger: 'anger',
+            purpose: 'purpose',
+            decision: 'confusion and decision-making',
+            money: 'work and money',
+            health: 'health and the body',
+            ego: 'ego and humility',
+            loneliness: 'loneliness',
+            selfDoubt: 'self-doubt',
+            procrastination: 'procrastination',
+            habits: 'habits and cravings',
+            study: 'study and exams',
+            ai: 'AI and human judgment',
+            aiJob: 'AI and job uncertainty',
+            trading: 'trading and financial discipline',
+            distress: 'deep distress',
+            general: 'surrender'
+        };
+
+        function escapeHtml(value) {
+            return String(value)
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#039;');
+        }
+
+        function normalizeMessage(message) {
+            return message.toLowerCase().replace(/\s+/g, ' ').trim();
+        }
+
+        function addMessage(text, isUser = false, options = {}) {
+            const chatContainer = document.getElementById('chat-messages');
+            const shouldSave = options.save !== false;
+            const renderedText = isUser ? escapeHtml(text) : text;
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `flex ${isUser ? 'justify-end' : 'justify-start'} chat-bubble`;
+            
+            if (isUser) {
+                messageDiv.innerHTML = `
+                    <div class="max-w-[75%] message-user px-5 py-3.5 rounded-3xl rounded-br-none">
+                        <div class="text-sm">${renderedText}</div>
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = `
+                    <div class="max-w-[80%] flex gap-x-3">
+                        <div class="w-9 h-9 flex-shrink-0 rounded-full bg-gradient-to-br from-purple-600 to-violet-600 flex items-center justify-center mt-1">
+                            <i class="fa-solid fa-infinity text-white text-sm"></i>
+                        </div>
+                        <div class="max-w-[85%] message-krishna px-5 py-3.5 rounded-3xl rounded-bl-none">
+                            <div class="text-sm leading-relaxed">${renderedText}</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            
+            if (shouldSave) {
+                conversationHistory.push({ role: isUser ? 'user' : 'krishna', content: text });
+            }
+        }
+        
+        function showTypingIndicator() {
+            const chatContainer = document.getElementById('chat-messages');
+            
+            const typingDiv = document.createElement('div');
+            typingDiv.id = 'typing-indicator';
+            typingDiv.className = `flex justify-start chat-bubble`;
+            typingDiv.innerHTML = `
+                <div class="max-w-[80%] flex gap-x-3">
+                    <div class="w-9 h-9 flex-shrink-0 rounded-full bg-gradient-to-br from-purple-600 to-violet-600 flex items-center justify-center mt-1">
+                        <i class="fa-solid fa-infinity text-white text-sm"></i>
+                    </div>
+                    <div class="message-krishna px-5 py-3.5 rounded-3xl rounded-bl-none">
+                        <div class="typing-indicator">
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                            <div class="typing-dot"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            chatContainer.appendChild(typingDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        
+        function removeTypingIndicator() {
+            const typing = document.getElementById('typing-indicator');
+            if (typing) typing.remove();
+        }
+        
+        function escapeRegExp(value) {
+            return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        function keywordMatches(message, keyword) {
+            if (keyword.includes(' ')) {
+                return message.includes(keyword);
+            }
+
+            const pattern = new RegExp(`(^|[^a-z])${escapeRegExp(keyword)}([^a-z]|$)`);
+            return pattern.test(message);
+        }
+
+        function detectTopic(message) {
+            const msg = normalizeMessage(message);
+            const priorityTopic = detectPriorityTopic(msg);
+
+            if (priorityTopic) {
+                return priorityTopic;
+            }
+
+            let bestTopic = null;
+            let bestScore = 0;
+
+            Object.entries(topicKeywords).forEach(([topic, keywords]) => {
+                const score = keywords.reduce((total, keyword) => {
+                    if (!keywordMatches(msg, keyword)) return total;
+                    return total + (keyword.includes(' ') ? 3 : 1);
+                }, 0);
+
+                if (score > bestScore) {
+                    bestTopic = topic;
+                    bestScore = score;
+                }
+            });
+
+            return bestScore > 0 ? bestTopic : null;
+        }
+
+        function detectPriorityTopic(message) {
+            if (isSeriousDistressConcern(message)) return 'distress';
+            if (isTradingConcern(message)) return 'trading';
+            if (isFamilyProvisionConcern(message)) return 'money';
+            if (isAIJobConcern(message)) return 'aiJob';
+            if (isAIConcern(message)) return 'ai';
+            return null;
+        }
+
+        function isFamilyProvisionConcern(message) {
+            const msg = normalizeMessage(message);
+            const hasFamily = ['family', 'wife', 'husband', 'children', 'kids', 'parents', 'mother', 'father'].some(word => keywordMatches(msg, word));
+            const hasProvisionNeed = [
+                'money',
+                'less money',
+                'not enough money',
+                'take care',
+                'support',
+                'provide',
+                'feed',
+                'pay',
+                'rent',
+                'bills',
+                'expenses',
+                'income',
+                'job',
+                'salary'
+            ].some(word => keywordMatches(msg, word));
+
+            return hasFamily && hasProvisionNeed;
+        }
+
+        function isAIConcern(message) {
+            const msg = normalizeMessage(message);
+            return [
+                'ai',
+                'artificial intelligence',
+                'chatgpt',
+                'automation',
+                'machine learning',
+                'llm',
+                'ai tools',
+                'replaced by ai',
+                'ai will take my job'
+            ].some(word => keywordMatches(msg, word));
+        }
+
+        function isAIJobConcern(message) {
+            const msg = normalizeMessage(message);
+            const hasAI = [
+                'ai',
+                'artificial intelligence',
+                'chatgpt',
+                'automation',
+                'machine learning',
+                'job automation',
+                'replaced by ai'
+            ].some(word => keywordMatches(msg, word));
+            const hasJobRisk = [
+                'job',
+                'career',
+                'work',
+                'role',
+                'profession',
+                'salary',
+                'take over',
+                'replace',
+                'replaced',
+                'lose my job',
+                'job loss',
+                'no influence',
+                'no control',
+                'cannot control',
+                'out of my control'
+            ].some(word => keywordMatches(msg, word));
+
+            return hasAI && hasJobRisk;
+        }
+
+        function isAIJobControlConcern(message) {
+            const msg = normalizeMessage(message);
+            return isAIJobConcern(msg) && [
+                'no influence',
+                'no control',
+                'cannot control',
+                'out of my control',
+                'take over',
+                'replace',
+                'replaced',
+                'lose my job',
+                'job loss'
+            ].some(word => keywordMatches(msg, word));
+        }
+
+        function isTradingConcern(message) {
+            const msg = normalizeMessage(message);
+            const tradingWords = [
+                'trading',
+                'trade',
+                'trader',
+                'stock market',
+                'stocks',
+                'crypto',
+                'bitcoin',
+                'options',
+                'forex',
+                'futures',
+                'market volatility',
+                'portfolio',
+                'stop loss',
+                'revenge trade',
+                'risk management'
+            ];
+            const financePressureWords = ['loss', 'losses', 'profit', 'fomo', 'greed', 'fear', 'money', 'invest', 'investment', 'investing'];
+
+            return tradingWords.some(word => keywordMatches(msg, word)) &&
+                (financePressureWords.some(word => keywordMatches(msg, word)) || msg.split(' ').length <= 8);
+        }
+
+        function isSeriousDistressConcern(message) {
+            const msg = normalizeMessage(message);
+            return [
+                'suicide',
+                'suicidal',
+                'kill myself',
+                'hurt myself',
+                'end my life',
+                'cannot go on',
+                "can't go on",
+                'no reason to live'
+            ].some(word => keywordMatches(msg, word));
+        }
+
+        function isGreeting(message) {
+            const msg = normalizeMessage(message);
+            const hasGreeting = [
+                'hi',
+                'hello',
+                'hey',
+                'namaste',
+                'hare krishna',
+                'radhe radhe',
+                'good morning',
+                'good afternoon',
+                'good evening'
+            ].some(greeting => keywordMatches(msg, greeting));
+
+            return hasGreeting && msg.split(' ').length <= 8;
+        }
+
+        function isGratitude(message) {
+            const msg = normalizeMessage(message);
+            return ['thank you', 'thanks', 'grateful', 'gratitude', 'appreciate'].some(phrase => keywordMatches(msg, phrase));
+        }
+
+        function isFollowUp(message) {
+            const msg = normalizeMessage(message);
+            if (!conversationState.lastTopic) return false;
+
+            const followUpPhrases = [
+                'tell me more',
+                'go deeper',
+                'explain',
+                'further',
+                'more',
+                'detail',
+                'elaborate',
+                'why',
+                'how do i',
+                'how can i',
+                'what should i do',
+                'what now',
+                'next step',
+                'yes',
+                'please continue',
+                'continue',
+                'this',
+                'that',
+                'it'
+            ];
+
+            return followUpPhrases.some(phrase => keywordMatches(msg, phrase)) || msg.split(' ').length <= 4;
+        }
+
+        function buildWisdom(topic, overrides = {}) {
+            return {
+                topic,
+                ...gitaWisdom[topic],
+                ...overrides
+            };
+        }
+
+        function rememberWisdom(topic, wisdom, userMessage) {
+            conversationState.lastWisdom = wisdom;
+            conversationState.lastUserMessage = userMessage;
+            conversationState.turnCount += 1;
+
+            if (!['greeting', 'gratitude'].includes(topic)) {
+                conversationState.lastTopic = topic;
+            }
+
+            return wisdom;
+        }
+
+        function getTopicWisdom(topic, userMessage) {
+            const msg = normalizeMessage(userMessage);
+            const openings = {
+                stress: "I hear the pressure in this. Let us separate your duty from the result, because that is where peace begins.",
+                fear: "Fear becomes smaller when you remember that the situation is not larger than the Self within you.",
+                failure: "A setback can hurt, but it does not define your worth. Let us make it useful instead of personal.",
+                grief: "Loss is tender. I will not rush you past it. The Gita begins by meeting grief with truth and compassion.",
+                relationship: "Relationships show us where attachment, expectation, and love are tangled together. We can untangle them gently.",
+                anger: "Anger is a fire signal. It is asking you to pause before it starts making decisions for you.",
+                purpose: "When purpose feels unclear, return to your nature. Your path is usually closer than your comparison allows you to see.",
+                decision: "Confusion asks for a quieter mind, not a louder argument. We will look from steadiness.",
+                money: "Work and money matter, but they become lighter when your work is offered with dignity instead of fear.",
+                health: "Care for the body with tenderness, while remembering you are more than the body.",
+                ego: "Ego contracts the heart. Humility does not make you small; it makes you clear.",
+                loneliness: "Feeling alone is painful. Let us begin by remembering that loneliness is a state passing through you, not the truth of who you are.",
+                selfDoubt: "Doubt speaks loudly when the mind forgets its own strength. We will answer it with one steady action.",
+                procrastination: "The mind is waiting for perfect readiness. Krishna asks for right action now, even if the beginning is small.",
+                habits: "A craving becomes weaker when you stop feeding it with attention and start protecting your environment.",
+                study: "Learning needs steadiness more than panic. Gather the mind, and the knowledge comes closer.",
+                ai: "AI can be useful, but it should sit in the passenger seat. Your conscience, intelligence, and dharma must drive.",
+                aiJob: "This worry is really about agency: what can you do when the world changes without asking your permission?",
+                trading: "Markets can shake the mind quickly. Before profit, protect clarity, discipline, and your family's stability.",
+                distress: "I am glad you said this out loud. Heavy pain should not be carried alone.",
+                general: "I am with you in this. When the mind is crowded, begin with surrender and one honest next step."
+            };
+
+            const wisdom = buildWisdom(topic, { opening: openings[topic] || openings.general });
+
+            if (topic === 'money' && isFamilyProvisionConcern(userMessage)) {
+                wisdom.opening = "I hear the worry beneath this: you are not asking for luxury, you are trying to protect and care for your family.";
+                wisdom.explanation = "Krishna would not shame you for feeling pressure here. Providing for family is part of dharma. The teaching is to act steadily without letting fear decide for you: look honestly at what is needed, use your skills, ask for help where needed, and take the next practical step without losing your inner dignity.";
+                wisdom.action = "Today, write three columns: urgent family needs, money available, and one income/help action you can take in the next 24 hours. Then do the smallest action first, such as calling someone, applying for one job, asking for a payment extension, or cutting one non-essential cost.";
+            }
+
+            if (topic === 'aiJob' && isAIJobControlConcern(userMessage)) {
+                wisdom.opening = "I hear the helplessness in this: AI may change your job, and you may not have direct influence over that decision.";
+                wisdom.explanation = "Krishna's teaching is not to deny what you cannot control. It is to stop giving your whole strength to what you cannot control. You may not decide the direction of an industry, but you can decide your preparation, your adaptability, your honesty at work, and the skills you build next.";
+                wisdom.action = "Draw two circles today: 'Not in my control' and 'In my control.' Put AI adoption and company decisions in the first. Put learning one AI workflow, documenting your value, talking to your manager, updating your resume, and building one backup option in the second. Act only from the second circle today.";
+            }
+
+            if (topic === 'general' && msg.length > 20) {
+                wisdom.explanation = "I may not have a perfect label for this, but the teaching still applies: bring the problem into awareness, offer it upward, and act from the calmest part of yourself.";
+                wisdom.action = "Write your worry in one sentence. Then ask: 'What is the one dharmic action I can take today?' Do only that first.";
+            }
+
+            return wisdom;
+        }
+
+        function getFollowUpWisdom(topic, userMessage) {
+            const followUps = {
+                stress: {
+                    opening: "Yes. Stay with the exact place where stress starts: the mind jumps from action to outcome.",
+                    explanation: "Krishna is not asking you to stop caring. He is asking you to stop handing your peace to something you cannot fully control. Your domain is effort, honesty, preparation, and timing. The result belongs to a wider order.",
+                    action: "Name one result you are clinging to. Then name one action you can take today. Put your energy only into the action for the next hour."
+                },
+                fear: {
+                    opening: "Let us look at the fear without becoming the fear.",
+                    explanation: "Fear often says, 'I am protecting you,' but it also exaggerates the future. Krishna points you back to the witnessing Self, the part of you that can notice fear without being ruled by it.",
+                    action: "Place one hand on your chest. Breathe slowly and say: 'Fear is present, but I am the witness of fear.' Then choose one small, grounded action."
+                },
+                failure: {
+                    opening: "Go deeper here: failure is an event, not an identity.",
+                    explanation: "The Gita trains you to act without being destroyed by results. If the result was painful, gather its lesson, repair what can be repaired, and begin again without self-hatred.",
+                    action: "Write: 'This failed because...' and 'Next time I will...' Keep it practical. No insults toward yourself."
+                },
+                grief: {
+                    opening: "Grief needs both tenderness and truth.",
+                    explanation: "Krishna does not deny sorrow; He teaches Arjuna from inside sorrow. Love is not erased by physical separation. Let grief move, but do not conclude that love has ended.",
+                    action: "Spend five quiet minutes remembering one blessing this person or chapter gave you. Let tears come if they come."
+                },
+                relationship: {
+                    opening: "The next layer is to ask: am I loving, grasping, or trying to control?",
+                    explanation: "Krishna's equal vision does not mean accepting harm. It means seeing clearly: the soul in the other person, and the dignity of your own soul too. Compassion and boundaries can stand together.",
+                    action: "Before your next message or conversation, write the truth in one calm sentence. Remove blame. Keep the boundary."
+                },
+                anger: {
+                    opening: "Anger becomes dangerous when it takes the throne before wisdom speaks.",
+                    explanation: "Krishna describes anger as a chain: anger clouds memory, memory clouds intelligence, and intelligence loses direction. The practice is to interrupt the chain early.",
+                    action: "Delay your next reaction by 90 seconds. Breathe out longer than you breathe in. Then decide whether silence, a boundary, or a clear sentence is needed."
+                },
+                purpose: {
+                    opening: "Purpose is not always a lightning bolt. Often it is a pattern in what repeatedly calls your attention.",
+                    explanation: "Swadharma means your own way of serving life. It may be imperfect and still be yours. Comparison makes another person's path look cleaner than your own beginning.",
+                    action: "List three activities that make you feel useful, alive, or quietly absorbed. Choose one and give it thirty focused minutes this week."
+                },
+                decision: {
+                    opening: "For this decision, do not ask only what is easier. Ask what is cleaner.",
+                    explanation: "A sattvic decision usually leaves the mind clearer even if the work is harder. A restless decision may feel urgent but leaves agitation behind.",
+                    action: "Imagine choosing each option. Which one gives more quiet dignity after the first wave of fear passes? Start there."
+                },
+                money: {
+                    opening: "Money questions become heavier when they mix survival, status, and self-worth into one knot.",
+                    explanation: "Krishna's teaching is to work well, serve well, and not let gain or loss decide your inner value. Practical planning and spiritual steadiness belong together.",
+                    action: "Choose one practical money action today: update a resume, reduce one expense, send one proposal, or finish one useful task."
+                },
+                health: {
+                    opening: "Care for the body as a sacred instrument, not as your entire identity.",
+                    explanation: "The Gita does not ask you to neglect the body. It asks you to hold it wisely: with discipline, compassion, and less panic.",
+                    action: "Do one kind thing for your body in the next hour: water, food, rest, movement, or a medical appointment if needed."
+                },
+                ego: {
+                    opening: "Ego often speaks as comparison: above others, below others, or separate from others.",
+                    explanation: "Equal vision softens comparison. You can still use your gifts, but they become offerings rather than proof that you are superior or inferior.",
+                    action: "Today, quietly appreciate someone else's strength without turning it into a judgment about yourself."
+                },
+                loneliness: {
+                    opening: "Go gently here. Loneliness asks for both inner steadiness and real human contact.",
+                    explanation: "Krishna's teaching does not say you need no one. It says your worth does not disappear when people are absent. From that steadier place, you can reach out without shame.",
+                    action: "Choose one low-pressure contact: a message, a walk near people, a community group, or calling a family member. Make the contact small enough that you actually do it."
+                },
+                selfDoubt: {
+                    opening: "The next layer is this: do not argue with doubt all day. Give it evidence.",
+                    explanation: "The mind trusts repeated action more than repeated reassurance. Krishna asks you to lift yourself by training the mind through small, completed duties.",
+                    action: "Pick one promise you can keep today. Keep it before sleeping. Let that be today's proof."
+                },
+                procrastination: {
+                    opening: "Procrastination usually protects you from discomfort, but it also steals your strength.",
+                    explanation: "If you wait for motivation, the mind remains master. If you begin a small duty, the mind slowly becomes your helper.",
+                    action: "Make the first step so small it feels almost silly: open the file, write one sentence, clean one corner, read one page. Begin there."
+                },
+                habits: {
+                    opening: "Cravings rise like waves. A wave feels powerful, but it also passes.",
+                    explanation: "Krishna maps the chain of attachment so you can interrupt it early. You do not need to defeat your whole life today; you need to protect the next choice.",
+                    action: "When the urge rises, delay for 10 minutes and change location. During that delay, breathe, drink water, or message someone safe."
+                },
+                study: {
+                    opening: "For study, calm repetition beats anxious intensity.",
+                    explanation: "Knowledge enters a mind that returns again and again. Do not measure your worth by one exam. Measure today's dharma by focused effort.",
+                    action: "Use one cycle: 25 minutes study, 5 minutes break, then 3 lines from memory. Repeat only if the mind is still clear."
+                },
+                ai: {
+                    opening: "The deeper question is not whether AI is powerful. It is whether you remain awake while using it.",
+                    explanation: "Let AI handle drafts, options, and repetition, but keep human responsibility for truth, compassion, and final judgment. A tool can assist dharma; it cannot become dharma.",
+                    action: "Before using AI, define the decision you will still make yourself. After using it, verify facts and ask: 'Is this honest, useful, and kind?'"
+                },
+                aiJob: {
+                    opening: "Go one layer deeper: uncertainty is asking you to become skillful, not frozen.",
+                    explanation: "Krishna would guide you toward karma yoga here: act fully in the present duty, without being mentally chained to the future result. Learn the tool, strengthen the human parts of your work, and prepare options calmly.",
+                    action: "For the next 7 days, spend 30 minutes daily learning one AI workflow connected to your job. Also write one example of value you bring that AI alone does not: judgment, empathy, domain knowledge, taste, accountability, or trust."
+                },
+                trading: {
+                    opening: "Trading requires a calm mind more than a clever prediction.",
+                    explanation: "When greed or fear leads, the trade is already polluted. This is not financial advice. Spiritually, the discipline is to avoid compulsion, protect capital, and never let market emotion rule your duty.",
+                    action: "If you already broke your plan today, stop trading for the day. Review the mistake only after the body is calm."
+                },
+                distress: {
+                    opening: "Stay with me for this moment. The next step is safety, not philosophy.",
+                    explanation: "When the mind is in deep pain, it can lie and say the pain is permanent. Please bring another human into this now if there is any risk of harm.",
+                    action: "If you are in immediate danger, call emergency services now. If not, contact one trusted person and stay near others until the wave passes."
+                },
+                general: {
+                    opening: "Let us go one layer deeper without forcing an answer.",
+                    explanation: "When the mind cannot solve everything at once, Krishna asks for surrender, steadiness, and right action. You do not need the whole road to take the next dharmic step.",
+                    action: "Ask: 'What is mine to do now, and what must I release?' Write both answers. Act only on the first."
+                }
+            };
+
+            return buildWisdom(topic, followUps[topic] || followUps.general);
+        }
+
+        function getGreetingWisdom() {
+            conversationState.greeted = true;
+
+            return {
+                topic: 'greeting',
+                opening: conversationState.turnCount > 0 ? "Namaste. I am still here with you." : "Namaste. I am here with you.",
+                verse: "I am the Self, O Gudakesha, seated in the hearts of all beings.",
+                chapter: "Bhagavad Gita 10.20",
+                explanation: "Speak simply. You do not need to sound spiritual or perfect. Share what is actually happening in your mind, and I will answer from the Gita.",
+                action: "Tell me what you are facing today: stress, fear, grief, anger, loneliness, habits, study, AI, trading, money, health, or a decision."
+            };
+        }
+
+        function getGratitudeWisdom() {
+            return {
+                topic: 'gratitude',
+                opening: "You are welcome. Let the teaching become practice now.",
+                verse: "A lamp does not flicker in a windless place.",
+                chapter: "Bhagavad Gita 6.19",
+                explanation: "Peace grows when you return to the teaching again and again, even in small ways.",
+                action: "Carry one line with you today: 'I will act with steadiness, and release what is not mine to control.'"
+            };
+        }
+
+        function getGitaResponse(userMessage) {
+            const topic = detectTopic(userMessage);
+
+            if (isGreeting(userMessage) && !topic) {
+                return rememberWisdom('greeting', getGreetingWisdom(), userMessage);
+            }
+
+            if (isGratitude(userMessage) && !topic) {
+                return rememberWisdom('gratitude', getGratitudeWisdom(), userMessage);
+            }
+
+            if (topic) {
+                return rememberWisdom(topic, getTopicWisdom(topic, userMessage), userMessage);
+            }
+
+            if (isFollowUp(userMessage)) {
+                const followUpTopic = conversationState.lastTopic || 'general';
+                return rememberWisdom(followUpTopic, getFollowUpWisdom(followUpTopic, userMessage), userMessage);
+            }
+
+            return rememberWisdom('general', getTopicWisdom('general', userMessage), userMessage);
+        }
+
+        function formatWisdomResponse(wisdom) {
+            const opening = wisdom.opening ? `${escapeHtml(wisdom.opening)}<br><br>` : '';
+
+            return `
+                ${opening}
+                <strong>${escapeHtml(wisdom.chapter)}</strong><br><br>
+                <span class="verse-highlight">"${escapeHtml(wisdom.verse)}"</span><br><br>
+                <strong>Explanation:</strong> ${escapeHtml(wisdom.explanation)}<br><br>
+                <strong>Practical Wisdom:</strong> ${escapeHtml(wisdom.action)}
+            `;
+        }
+
+        function getFollowUpPrompt(wisdom) {
+            if (wisdom.topic === 'greeting') {
+                return "What is on your mind today?";
+            }
+
+            const label = topicLabels[wisdom.topic] || 'this';
+            return `You can ask "tell me more" to go deeper on ${label}, or share the next detail.`;
+        }
+
+        function setRespondingState(nextState) {
+            isResponding = nextState;
+
+            const input = document.getElementById('user-input');
+            const sendButton = document.getElementById('send-btn');
+            const quickButtons = document.querySelectorAll('button[onclick^="quickQuestion"]');
+
+            if (input) input.disabled = nextState;
+            if (sendButton) sendButton.disabled = nextState;
+
+            quickButtons.forEach(button => {
+                button.disabled = nextState;
+                button.classList.toggle('opacity-50', nextState);
+                button.classList.toggle('cursor-not-allowed', nextState);
+            });
+        }
+
+        function respondToUserMessage(message) {
+            if (!message || isResponding) return;
+
+            addMessage(message, true);
+            setRespondingState(true);
+            showTypingIndicator();
+
+            const delay = Math.min(1700, 850 + (message.length * 8));
+
+            setTimeout(() => {
+                try {
+                    removeTypingIndicator();
+
+                    const wisdom = getGitaResponse(message);
+                    addMessage(formatWisdomResponse(wisdom), false);
+
+                    setTimeout(() => {
+                        addMessage(getFollowUpPrompt(wisdom), false, { save: false });
+                        setRespondingState(false);
+
+                        const input = document.getElementById('user-input');
+                        if (input) input.focus();
+                    }, 700);
+                } catch (error) {
+                    console.error('Ask Krishna bot response failed:', error);
+                    removeTypingIndicator();
+                    addMessage("I am sorry, something interrupted the response. Please ask again in a simple sentence.", false, { save: false });
+                    setRespondingState(false);
+                }
+            }, delay);
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('user-input');
+            const message = input.value.trim();
+
+            if (!message || isResponding) return;
+
+            input.value = '';
+            respondToUserMessage(message);
+        }
+
+        function quickQuestion(question) {
+            respondToUserMessage(question);
+        }
+
+        // Voice Input
+        function startVoiceInput() {
+            if (isResponding || isListening) return;
+
+            const voiceBtn = document.getElementById('voice-btn');
+            
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                addMessage("Voice input is not supported in this browser. Please type your question, and I will stay with you there.", false, { save: false });
+                return;
+            }
+            
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const recognition = new SpeechRecognition();
+            
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+            
+            isListening = true;
+            voiceBtn.innerHTML = '<i class="fa-solid fa-microphone-slash text-red-400 text-xl"></i>';
+            voiceBtn.classList.add('!bg-red-500/20', '!border-red-500');
+            
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('user-input').value = transcript;
+                
+                // Auto send after voice input
+                setTimeout(() => {
+                    sendMessage();
+                }, 600);
+            };
+            
+            recognition.onerror = function() {
+                addMessage("I could not hear that clearly. Please try the microphone again or type the question.", false, { save: false });
+                resetVoiceButton();
+            };
+            
+            recognition.onend = function() {
+                resetVoiceButton();
+            };
+            
+            recognition.start();
+            
+            function resetVoiceButton() {
+                isListening = false;
+                voiceBtn.innerHTML = '<i class="fa-solid fa-microphone text-xl"></i>';
+                voiceBtn.classList.remove('!bg-red-500/20', '!border-red-500');
+            }
+        }
+        
+        // Initialize Chat
+        function initializeChat() {
+            const chatContainer = document.getElementById('chat-messages');
+            
+            // Welcome message from Krishna
+            setTimeout(() => {
+                const welcomeMsg = `
+                    Namaste, my child.<br><br>
+                    I am Krishna. Whatever is troubling you — stress, fear, confusion, or pain — I have already answered it in the Bhagavad Gita.<br><br>
+                    Speak your heart. I am listening.
+                `;
+                addMessage(welcomeMsg, false, { save: false });
+            }, 800);
+            
+            // Add initial greeting
+            setTimeout(() => {
+                addMessage("You can type your problem or use the microphone button to speak.", false, { save: false });
+            }, 2200);
+        }
+        
+        // Initialize everything
+        window.onload = function() {
+            initializeChat();
+            
+            // Add subtle breathing animation to avatar
+            const avatar = document.querySelector('.krishna-avatar');
+            if (avatar) {
+                avatar.style.animation = 'divine-glow 4s ease-in-out infinite';
+            }
+        };
+    </script>
+</body>
+</html>

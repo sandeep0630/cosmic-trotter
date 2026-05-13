@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Krishna • CosmicTrotter</title>
+    <link rel="canonical" href="https://cosmictrotter.com/ancient-wisdom/ask-krishna.html">
+    
+    <meta name="description" content="Ask Krishna your life’s deepest questions. Receive timeless wisdom from the Bhagavad Gita — instant, powerful, and practical.">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        body { font-family: 'Inter', system_ui, sans-serif; background: #0a0a0f; color: #e0e7ff; }
+        .font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 600; }
+        .cosmic-bg { background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 70%); }
+        .wisdom-card { transition: all 0.3s ease; }
+        .wisdom-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0, 243, 255, 0.1); }
+        .krishna-glow { box-shadow: 0 0 40px rgba(124, 58, 237, 0.3); }
+    </style>
+    <script src="../theme-toggle.js"></script>
+</head>
+<body class="cosmic-bg">
+
+    <!-- Navbar -->
+    <nav class="border-b border-white/10 sticky top-0 z-50 bg-[#0a0a0f]/90 backdrop-blur-lg">
+        <div class="max-w-5xl mx-auto px-6 flex justify-between items-center h-16">
+            <div class="flex items-center gap-x-3">
+                <img src="../logo.png" alt="CosmicTrotter" class="w-9 h-9" style="border-radius: 9999px;">
+                <span class="font-display text-xl font-semibold">CosmicTrotter</span>
+            </div>
+            <a href="../ancient.html" class="text-sm text-white/70 hover:text-white">← Back to Ancient Wisdom</a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="max-w-4xl mx-auto px-6 pt-16 pb-12 text-center">
+        <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-6">
+            <i class="fa-solid fa-infinity text-purple-400"></i>
+            <span class="text-xs uppercase tracking-[2px] text-purple-400 font-medium">Bhagavad Gita Wisdom</span>
+        </div>
+        
+        <h1 class="text-6xl md:text-7xl font-bold tracking-tighter mb-4">Ask Krishna</h1>
+        <p class="text-2xl text-white/80 max-w-2xl mx-auto">Whatever is troubling you — stress, confusion, fear, or pain — Krishna has already answered it 5,000 years ago.</p>
+        
+        <div class="mt-8 text-sm text-white/50">Over 700 verses of timeless guidance • Instant wisdom for modern life</div>
+    </div>
+
+    <!-- Input Section -->
+    <div class="max-w-2xl mx-auto px-6 pb-20">
+        <div class="wisdom-card cosmic-card rounded-3xl p-10 border border-white/10">
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full flex items-center justify-center">
+                    <i class="fa-solid fa-comments text-white text-4xl"></i>
+                </div>
+                <h2 class="text-2xl font-semibold">What’s on your mind?</h2>
+                <p class="text-white/60 mt-2">Type your problem honestly. Krishna will guide you.</p>
+            </div>
+            
+            <div class="relative">
+                <textarea id="problem-input" rows="4" placeholder="I'm feeling very anxious about my future..." 
+                          class="w-full bg-white/5 border border-white/20 rounded-2xl px-6 py-5 text-lg resize-y focus:outline-none focus:border-[#7c3aed]"></textarea>
+                
+                <button onclick="askKrishna()" 
+                        class="mt-6 w-full py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700 text-white font-semibold text-lg flex items-center justify-center gap-x-3 transition-all">
+                    <span>Ask Krishna</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+            
+            <div class="text-center mt-4 text-xs text-white/40">Your question stays private. No data is stored.</div>
+        </div>
+    </div>
+
+    <!-- Result Section -->
+    <div id="result-section" class="hidden max-w-3xl mx-auto px-6 pb-24">
+        <div class="wisdom-card cosmic-card rounded-3xl p-10 border border-white/10">
+            <div class="flex items-center gap-x-3 mb-6">
+                <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-2xl flex items-center justify-center">
+                    <i class="fa-solid fa-infinity text-white text-2xl"></i>
+                </div>
+                <div>
+                    <div class="text-purple-400 text-sm font-medium">KRISHNA'S WISDOM</div>
+                    <div class="text-xl font-semibold" id="result-title"></div>
+                </div>
+            </div>
+            
+            <div class="bg-white/5 rounded-2xl p-8 mb-8">
+                <div class="text-sm uppercase tracking-widest text-purple-400 mb-2">VERSE</div>
+                <div class="text-2xl font-light leading-snug text-white/90" id="result-verse"></div>
+                <div class="text-right text-xs text-white/50 mt-2" id="result-chapter"></div>
+            </div>
+            
+            <div class="mb-8">
+                <div class="text-sm uppercase tracking-widest text-purple-400 mb-3">EXPLANATION</div>
+                <div class="text-lg text-white/90 leading-relaxed" id="result-explanation"></div>
+            </div>
+            
+            <div class="bg-gradient-to-br from-purple-400/10 to-violet-400/10 rounded-2xl p-8 border border-purple-400/30">
+                <div class="text-sm uppercase tracking-widest text-purple-400 mb-3">PRACTICAL WISDOM</div>
+                <div class="text-lg text-white/90" id="result-action"></div>
+            </div>
+            
+            <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="askAnother()" class="px-8 py-3.5 rounded-2xl border border-white/30 hover:bg-white/5 text-sm font-medium flex items-center justify-center gap-x-2">
+                    <i class="fa-solid fa-redo"></i>
+                    <span>Ask Another Question</span>
+                </button>
+                
+                <a href="../ancient.html" class="px-8 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 text-sm font-medium flex items-center justify-center gap-x-2">
+                    <span>Explore More Wisdom</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-t border-white/10 py-12 text-center text-xs text-white/50">
+        Ask Krishna • Powered by the Bhagavad Gita • CosmicTrotter 2026
+    </footer>
+
+    <script>
+        function askKrishna() {
+            const input = document.getElementById('problem-input').value.trim().toLowerCase();
+            if (!input) {
+                alert("Please share what's on your mind.");
+                return;
+            }
+            
+            const result = findGitaWisdom(input);
+            
+            // Hide input section
+            document.querySelector('.max-w-2xl').classList.add('hidden');
+            
+            // Show result
+            document.getElementById('result-section').classList.remove('hidden');
+            
+            // Populate result
+            document.getElementById('result-title').innerHTML = result.title;
+            document.getElementById('result-verse').innerHTML = result.verse;
+            document.getElementById('result-chapter').innerHTML = result.chapter;
+            document.getElementById('result-explanation').innerHTML = result.explanation;
+            document.getElementById('result-action').innerHTML = result.action;
+            
+            // Scroll to result
+            document.getElementById('result-section').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function findGitaWisdom(problem) {
+            const p = problem.toLowerCase();
+            
+            // Stress / Anxiety
+            if (p.includes('stress') || p.includes('anxious') || p.includes('worried') || p.includes('tension')) {
+                return {
+                    title: "Let Go of the Outcome",
+                    verse: "“You have a right to perform your prescribed duty, but you are not entitled to the fruits of action.”",
+                    chapter: "— Bhagavad Gita 2.47",
+                    explanation: "Krishna is telling you: Stop worrying about the result. Do your work with full dedication, but release attachment to the outcome. This single shift brings immense peace.",
+                    action: "Today, focus only on giving your best in the present moment. Say to yourself: 'I will do my duty. The result is not in my hands.'"
+                };
+            }
+            
+            // Fear / Future
+            if (p.includes('fear') || p.includes('scared') || p.includes('future') || p.includes('what if')) {
+                return {
+                    title: "You Are Eternal",
+                    verse: "“The soul is never born and never dies. It is eternal, undying, and primeval.”",
+                    chapter: "— Bhagavad Gita 2.20",
+                    explanation: "Krishna reminds you that your true self (the soul) cannot be destroyed. All fear comes from identifying with the temporary body and mind. You are much bigger than any situation.",
+                    action: "Close your eyes for 1 minute and repeat: 'I am the eternal soul. This fear is temporary. I am safe.'"
+                };
+            }
+            
+            // Failure / Success
+            if (p.includes('fail') || p.includes('failure') || p.includes('success') || p.includes('not good enough')) {
+                return {
+                    title: "Success Lies in Effort",
+                    verse: "“A person who is not disturbed by the incessant flow of desires can attain peace.”",
+                    chapter: "— Bhagavad Gita 2.70",
+                    explanation: "Krishna says real success is not in achieving the goal, but in staying peaceful while working toward it. Failure is just feedback, not your identity.",
+                    action: "Write down one thing you did well today, no matter how small. Focus on consistent effort, not perfection."
+                };
+            }
+            
+            // Grief / Loss
+            if (p.includes('grief') || p.includes('loss') || p.includes('died') || p.includes('sad') || p.includes('heartbroken')) {
+                return {
+                    title: "The Soul is Eternal",
+                    verse: "“For the soul there is neither birth nor death. It has not come into being, does not come into being, and will not come into being.”",
+                    chapter: "— Bhagavad Gita 2.20",
+                    explanation: "Krishna consoles Arjuna by revealing the eternal nature of the soul. What we call 'death' is only the soul changing its outer covering, like changing clothes.",
+                    action: "Light a candle today and sit quietly for 5 minutes. Send love to the person you lost. They are still with you in spirit."
+                };
+            }
+            
+            // Relationship Problems
+            if (p.includes('relationship') || p.includes('partner') || p.includes('love') || p.includes('fight') || p.includes('argument')) {
+                return {
+                    title: "See the Divine in Everyone",
+                    verse: "“He who sees Me in all things and all things in Me, never becomes separated from Me.”",
+                    chapter: "— Bhagavad Gita 6.30",
+                    explanation: "Krishna teaches that every person is a manifestation of the Divine. When you see the soul in others (even those who hurt you), anger and attachment reduce.",
+                    action: "Today, look at the person you're struggling with and silently say: 'You are also a soul on a journey. May you be peaceful.'"
+                };
+            }
+            
+            // Anger
+            if (p.includes('angry') || p.includes('anger') || p.includes('frustrated') || p.includes('irritated')) {
+                return {
+                    title: "Master Your Senses",
+                    verse: "“From anger comes delusion. From delusion comes loss of memory. From loss of memory comes destruction of intelligence.”",
+                    chapter: "— Bhagavad Gita 2.63",
+                    explanation: "Krishna explains the chain reaction of anger. It destroys your peace, your judgment, and eventually your life. The solution is to catch anger early.",
+                    action: "When you feel anger rising, take 5 deep breaths and ask: 'Will this matter in 5 years?' Most anger dissolves with this question."
+                };
+            }
+            
+            // Purpose / Meaning
+            if (p.includes('purpose') || p.includes('meaning') || p.includes('lost') || p.includes('direction') || p.includes('why am i here')) {
+                return {
+                    title: "Follow Your Swadharma",
+                    verse: "“It is better to perform one's own duty imperfectly than to perform another's duty perfectly.”",
+                    chapter: "— Bhagavad Gita 3.35",
+                    explanation: "Krishna says your purpose is found in your own nature (Swadharma). Stop comparing yourself with others. Your path is unique.",
+                    action: "Write down 3 things that come naturally to you and bring you joy. These are clues to your purpose."
+                };
+            }
+            
+            // Decision Making
+            if (p.includes('decision') || p.includes('confused') || p.includes('what should i do') || p.includes('choice')) {
+                return {
+                    title: "Use Your Higher Intelligence",
+                    verse: "“When your intelligence crosses the mire of delusion, you will become indifferent to all that has been heard and all that is to be heard.”",
+                    chapter: "— Bhagavad Gita 2.52",
+                    explanation: "Krishna teaches that true clarity comes when you rise above emotional confusion. The best decisions are made from a calm, detached mind.",
+                    action: "Write down the pros and cons. Then sit quietly for 10 minutes. The answer usually comes in the silence."
+                };
+            }
+            
+            // Money / Career
+            if (p.includes('money') || p.includes('job') || p.includes('career') || p.includes('salary') || p.includes('poor')) {
+                return {
+                    title: "Work is Worship",
+                    verse: "“Whatever you do, offer it to Me. Perform your duty as an offering to the Divine.”",
+                    chapter: "— Bhagavad Gita 9.27",
+                    explanation: "Krishna says work is not just for money — it is a way to serve the Divine. When you work with this attitude, both success and peace increase.",
+                    action: "Today, do your work as if you are offering it to something greater than yourself. Notice how your energy changes."
+                };
+            }
+            
+            // Health / Body
+            if (p.includes('health') || p.includes('sick') || p.includes('body') || p.includes('tired') || p.includes('pain')) {
+                return {
+                    title: "The Body is Temporary",
+                    verse: "“The body is perishable, but the soul is eternal. Therefore, do not grieve for the body.”",
+                    chapter: "— Bhagavad Gita 2.18",
+                    explanation: "Krishna reminds us that the body is just a temporary vehicle. Take care of it, but do not identify completely with it.",
+                    action: "Take 10 minutes today to do something kind for your body (walk, stretch, or eat mindfully) while remembering you are the soul."
+                };
+            }
+            
+            // Ego / Pride
+            if (p.includes('ego') || p.includes('proud') || p.includes('arrogant') || p.includes('better than')) {
+                return {
+                    title: "Surrender the Ego",
+                    verse: "“The humble sage, by virtue of true knowledge, sees with equal vision a learned and gentle brahmana, a cow, an elephant, a dog, and a dog-eater.”",
+                    chapter: "— Bhagavad Gita 5.18",
+                    explanation: "Krishna says true wisdom makes you see everyone equally. Ego creates separation. Humility creates peace.",
+                    action: "Today, compliment someone sincerely without expecting anything in return. Practice seeing the divine in everyone."
+                };
+            }
+            
+            // Default (General Life Problems)
+            return {
+                title: "Surrender to the Divine",
+                verse: "“Abandon all varieties of dharma and just surrender unto Me. I shall deliver you from all sinful reactions. Do not fear.”",
+                chapter: "— Bhagavad Gita 18.66",
+                explanation: "This is Krishna’s final and most powerful teaching. When nothing else works, simply surrender. Trust that the universe has a plan bigger than your understanding.",
+                action: "Close your eyes and say: 'I surrender this problem to You, Krishna. Guide me.' Then take one small step forward with faith."
+            };
+        }
+        
+        function askAnother() {
+            // Hide result
+            document.getElementById('result-section').classList.add('hidden');
+            
+            // Show input again
+            document.querySelector('.max-w-2xl').classList.remove('hidden');
+            
+            // Clear input
+            document.getElementById('problem-input').value = '';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Allow Enter key to submit
+        document.getElementById('problem-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                askKrishna();
+            }
+        });
+    </script>
+</body>
+</html>
