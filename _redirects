@@ -1,2 +1,17 @@
+# === Main Redirects for Static Site ===
 /*                                    /index.html   200
+
+# === Security Redirects (Block Common Bot Attacks) ===
+/wp-admin/*                           /index.html   301
+/wp-login.php                         /index.html   301
+/wp-admin                             /index.html   301
+/wp-admin/install.php                 /index.html   301
+/xmlrpc.php                           /index.html   301
+/wp-json/*                            /index.html   301
+/author/*                             /index.html   301
+/comments/*                           /index.html   301
+/.env                                 /index.html   301
+/git/*                                /index.html   301
+
+# === WWW to Non-WWW Redirect ===
 https://www.cosmictrotter.com/*       https://cosmictrotter.com/:splat   301!

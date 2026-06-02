@@ -3,16 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Upanishads: The First Cosmic Manuals • CosmicTrotter</title>
-    
+    <title>The Upanishads: A Guide to the Inner Universe - CosmicTrotter</title>
+    <link rel="canonical" href="https://cosmictrotter.com/ancient-wisdom/upanishads-deep.html">
+    <meta name="description" content="A deep, readable guide to the Upanishads: Atman, Brahman, the Mahavakyas, Maya, Moksha, Neti Neti, beginner reading path, and practical self-inquiry.">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
+
     <style>
-        body { font-family: 'Inter', system_ui, sans-serif; background: #0a0a0f; color: #e0e7ff; }
-        .font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 600; }
-        .cosmic-bg { background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 70%); }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+        :root {
+            --upanishad-emerald: #34d399;
+            --upanishad-gold: #fbbf24;
+            --upanishad-sky: #38bdf8;
+            --upanishad-violet: #a78bfa;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #0a0a0f;
+            color: #e0e7ff;
+        }
+
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-weight: 700;
+        }
+
+        .cosmic-bg {
+            background:
+                radial-gradient(circle at 20% 10%, rgba(52, 211, 153, 0.16), transparent 30%),
+                radial-gradient(circle at 80% 20%, rgba(167, 139, 250, 0.13), transparent 32%),
+                radial-gradient(circle at center, #17172a 0%, #0a0a0f 68%);
+        }
+
+        .article-prose p {
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 1.08rem;
+            line-height: 1.85;
+            margin-bottom: 1.25rem;
+        }
+
+        .article-prose h2 {
+            color: #ffffff;
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: 2rem;
+            line-height: 1.15;
+            font-weight: 700;
+            margin-top: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-prose h3 {
+            color: #ffffff;
+            font-size: 1.35rem;
+            line-height: 1.3;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 0.7rem;
+        }
+
+        .article-prose strong {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .article-prose a {
+            color: var(--upanishad-sky);
+            text-decoration: none;
+        }
+
+        .article-prose a:hover {
+            color: #ffffff;
+        }
+
+        .article-card {
+            border: 1px solid rgba(255, 255, 255, 0.11);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.055);
+        }
+
+        .quote-panel {
+            border-left: 3px solid var(--upanishad-emerald);
+            background: linear-gradient(135deg, rgba(52, 211, 153, 0.12), rgba(56, 189, 248, 0.06));
+        }
+
+        .section-anchor {
+            scroll-margin-top: 7rem;
+        }
     </style>
+    <script src="../theme-toggle.js"></script>
+    <script src="../site-nav.js"></script>
 </head>
 <body class="cosmic-bg">
 
@@ -22,165 +104,390 @@
                 <img src="../logo.png" alt="CosmicTrotter" class="w-9 h-9 rounded-full">
                 <span class="font-display text-xl font-semibold">CosmicTrotter</span>
             </div>
-            <a href="../ancient.html" class="text-sm text-white/70 hover:text-white">← Back to Ancient Wisdom</a>
+            <a href="../ancient.html" class="text-sm text-white/70 hover:text-white">Back to Ancient Wisdom</a>
         </div>
     </nav>
 
-    <div class="max-w-4xl mx-auto px-6 pt-12 pb-8 text-center">
-        <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 mb-6">
-            <i class="fa-solid fa-book-open text-emerald-400"></i>
-            <span class="text-xs uppercase tracking-[2px] text-emerald-400">The Crown of the Vedas • 800–200 BCE</span>
-        </div>
-        
-        <h1 class="text-5xl md:text-6xl font-bold tracking-tighter mb-4">The Upanishads</h1>
-        <p class="text-2xl text-white/80 max-w-2xl mx-auto">The First Cosmic Manuals — Where Science, Philosophy, and Spirituality Became One</p>
-    </div>
+    <header class="relative min-h-[72vh] overflow-hidden flex items-end">
+        <img src="images/upanishads.jpg" alt="Ancient manuscript pages representing the Upanishads" class="absolute inset-0 w-full h-full object-cover opacity-90">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/25 via-black/45 to-[#0a0a0f]"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_65%,rgba(52,211,153,0.16),transparent_35%)]"></div>
 
-    <div class="max-w-4xl mx-auto px-6 pb-16">
-        
-        <!-- Introduction -->
-        <div class="prose prose-invert max-w-none mb-16">
-            <h2 class="text-3xl font-bold tracking-tight mb-6">The Greatest Spiritual Texts Ever Written</h2>
-            
-            <p class="text-lg text-white/90 leading-relaxed">
-                The <strong>Upanishads</strong> are the philosophical heart of Hinduism and among the most profound spiritual texts humanity has ever produced. Written between 800–200 BCE, they represent the first time in human history that people systematically asked:
+        <div class="relative z-10 w-full max-w-5xl mx-auto px-6 pb-14 md:pb-20">
+            <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-lg border border-emerald-400/30 bg-emerald-400/10 text-emerald-300 text-xs font-semibold uppercase mb-5">
+                <i class="fa-solid fa-book-open"></i>
+                <span>Deep Dive - Vedanta</span>
+            </div>
+
+            <h1 class="font-display text-4xl sm:text-5xl md:text-7xl leading-tight md:leading-none text-white max-w-4xl break-words">
+                The Upanishads: A Guide to the Inner Universe
+            </h1>
+            <p class="mt-5 max-w-3xl text-lg sm:text-xl md:text-2xl text-white/80 leading-relaxed break-words">
+                The ancient texts that moved the spiritual search from outer ritual to inner realization.
             </p>
-            
-            <div class="bg-gradient-to-br from-emerald-900/40 to-teal-900/40 border border-emerald-500/40 p-8 rounded-3xl my-8 text-center">
-                <p class="text-2xl text-white/90">"Who am I? What is the nature of reality? What is the purpose of existence?"</p>
-            </div>
-            
-            <p class="text-lg text-white/90 leading-relaxed">
-                These texts are not religious dogma. They are <strong>investigations into consciousness itself</strong> — the first quantum physics of the soul.
-            </p>
-            
-            <!-- Upanishads Image -->
-            <div class="my-8 rounded-3xl overflow-hidden border border-emerald-500/30">
-                <img src="images/upanishads.jpg" alt="The Upanishads - Ancient Wisdom Texts" class="w-full h-auto">
-                <p class="text-center text-xs text-white/50 py-2 bg-black/40">The Upanishads — The Crown Jewels of Vedic Philosophy</p>
+
+            <div class="mt-8 flex flex-wrap items-center gap-3 text-sm text-white/65">
+                <span class="inline-flex items-center gap-x-2 px-3 py-2 rounded-lg bg-white/10 border border-white/10">
+                    <i class="fa-solid fa-clock text-emerald-300"></i>
+                    16-18 min read
+                </span>
+                <span class="inline-flex items-center gap-x-2 px-3 py-2 rounded-lg bg-white/10 border border-white/10">
+                    <i class="fa-solid fa-scroll text-amber-300"></i>
+                    Principal Upanishads
+                </span>
+                <span class="inline-flex items-center gap-x-2 px-3 py-2 rounded-lg bg-white/10 border border-white/10">
+                    <i class="fa-solid fa-seedling text-sky-300"></i>
+                    Beginner friendly
+                </span>
             </div>
         </div>
+    </header>
 
-        <!-- Major Upanishads -->
-        <div class="mb-16">
-            <h2 class="text-3xl font-bold tracking-tight mb-8">The Ten Principal Upanishads</h2>
-            
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-white/5 border border-white/10 p-6 rounded-3xl">
-                    <div class="font-semibold text-emerald-400">1. Isha Upanishad</div>
-                    <div class="text-sm text-white/70 mt-1">The shortest and most poetic. Teaches that the entire universe is pervaded by the Divine.</div>
+    <main class="max-w-6xl mx-auto px-6 pb-20">
+        <section class="grid lg:grid-cols-[260px_minmax(0,1fr)] gap-10 pt-12">
+            <aside class="hidden lg:block">
+                <div class="sticky top-28 article-card p-5">
+                    <div class="text-xs uppercase text-white/45 font-semibold mb-4">Article Map</div>
+                    <nav class="space-y-2 text-sm">
+                        <a href="#meaning" class="block text-white/65 hover:text-white">What Upanishad Means</a>
+                        <a href="#core" class="block text-white/65 hover:text-white">The Central Discovery</a>
+                        <a href="#mahavakyas" class="block text-white/65 hover:text-white">Four Mahavakyas</a>
+                        <a href="#principal" class="block text-white/65 hover:text-white">Principal Upanishads</a>
+                        <a href="#concepts" class="block text-white/65 hover:text-white">Core Concepts</a>
+                        <a href="#practice" class="block text-white/65 hover:text-white">Self-Inquiry Practice</a>
+                        <a href="#reading" class="block text-white/65 hover:text-white">Reading Path</a>
+                    </nav>
                 </div>
-                <div class="bg-white/5 border border-white/10 p-6 rounded-3xl">
-                    <div class="font-semibold text-emerald-400">2. Kena Upanishad</div>
-                    <div class="text-sm text-white/70 mt-1">Explores the question: "By whom is the mind directed?" Points to the source beyond the mind.</div>
-                </div>
-                <div class="bg-white/5 border border-white/10 p-6 rounded-3xl">
-                    <div class="font-semibold text-emerald-400">3. Katha Upanishad</div>
-                    <div class="text-sm text-white/70 mt-1">The story of Nachiketa and Yama (God of Death). Contains the famous chariot metaphor for the self.</div>
-                </div>
-                <div class="bg-white/5 border border-white/10 p-6 rounded-3xl">
-                    <div class="font-semibold text-emerald-400">4. Prashna Upanishad</div>
-                    <div class="text-sm text-white/70 mt-1">Six questions about the nature of reality and the self, answered by sage Pippalada.</div>
-                </div>
-                <div class="bg-white/5 border border-white/10 p-6 rounded-3xl">
-                    <div class="font-semibold text-emerald-400">5. Mundaka Upanishad</div>
-                    <div class="text-sm text-white/70 mt-1">Distinguishes between lower knowledge (rituals) and higher knowledge (realization of Brahman).</div>
-                </div>
-                <div class="bg-white/5 border border-white/10 p-6 rounded-3xl">
-                    <div class="font-semibold text-emerald-400">6. Mandukya Upanishad</div>
-                    <div class="text-sm text-white/70 mt-1">The shortest and most profound. Explains the four states of consciousness through the syllable Om.</div>
-                </div>
-                <div class="bg-white/5 border border-white/10 p-6 rounded-3xl">
-                    <div class="font-semibold text-emerald-400">7. Taittiriya Upanishad</div>
-                    <div class="text-sm text-white/70 mt-1">Contains the famous Panchakosha teaching (Five Sheaths) and the definition of Brahman as sat-chit-ananda.</div>
-                </div>
-                <div class="bg-white/5 border border-white/10 p-6 rounded-3xl">
-                    <div class="font-semibold text-emerald-400">8. Aitareya Upanishad</div>
-                    <div class="text-sm text-white/70 mt-1">Describes the creation of the world and the self from the perspective of consciousness.</div>
-                </div>
-                <div class="bg-white/5 border border-white/10 p-6 rounded-3xl">
-                    <div class="font-semibold text-emerald-400">9. Chandogya Upanishad</div>
-                    <div class="text-sm text-white/70 mt-1">Contains the famous "Tat Tvam Asi" (Thou art That) teaching and the story of Svetaketu.</div>
-                </div>
-                <div class="bg-white/5 border border-white/10 p-6 rounded-3xl">
-                    <div class="font-semibold text-emerald-400">10. Brihadaranyaka Upanishad</div>
-                    <div class="text-sm text-white/70 mt-1">The longest and most philosophical. Contains deep discussions on the nature of the self and reality.</div>
-                </div>
-            </div>
-        </div>
+            </aside>
 
-        <!-- Core Teachings -->
-        <div class="mb-16">
-            <h2 class="text-3xl font-bold tracking-tight mb-8">The Core Teachings of the Upanishads</h2>
-            
-            <div class="space-y-8">
-                <div class="bg-white/5 border border-white/10 p-8 rounded-3xl">
-                    <h3 class="text-2xl font-semibold mb-4 text-emerald-400">1. Atman = Brahman</h3>
-                    <p class="text-white/80">The greatest discovery of the Upanishads is that the individual self (Atman) is not different from the ultimate reality (Brahman). This is expressed in the Mahavakya (Great Saying): <strong>"Tat Tvam Asi" — Thou Art That.</strong></p>
-                </div>
-                
-                <div class="bg-white/5 border border-white/10 p-8 rounded-3xl">
-                    <h3 class="text-2xl font-semibold mb-4 text-emerald-400">2. Sat-Chit-Ananda</h3>
-                    <p class="text-white/80">Brahman is described as <strong>Existence-Consciousness-Bliss</strong>. It is not a cold void — it is the living, aware, blissful ground of all being.</p>
-                </div>
-                
-                <div class="bg-white/5 border border-white/10 p-8 rounded-3xl">
-                    <h3 class="text-2xl font-semibold mb-4 text-emerald-400">3. Maya — The Power of Illusion</h3>
-                    <p class="text-white/80">The world we experience is real, but it is not the ultimate reality. It is like a dream — real while we are in it, but not the final truth. This is not denial of the world, but a deeper understanding of it.</p>
-                </div>
-                
-                <div class="bg-white/5 border border-white/10 p-8 rounded-3xl">
-                    <h3 class="text-2xl font-semibold mb-4 text-emerald-400">4. Karma & Rebirth</h3>
-                    <p class="text-white/80">Actions have consequences that follow us across lifetimes. But the ultimate goal is liberation (Moksha) — freedom from the cycle of birth and death through realization of the Self.</p>
-                </div>
-            </div>
-        </div>
+            <article class="article-prose max-w-3xl">
+                <section class="article-card p-6 md:p-8 mb-12">
+                    <h2 class="!mt-0 !text-2xl flex items-center gap-x-3">
+                        <i class="fa-solid fa-lightbulb text-amber-300"></i>
+                        Key Takeaways
+                    </h2>
+                    <div class="grid md:grid-cols-2 gap-4 mt-6">
+                        <div class="p-4 rounded-lg bg-black/20 border border-white/10">
+                            <div class="text-emerald-300 font-semibold">The search turns inward</div>
+                            <p class="!mb-0 !text-sm !leading-7">The Upanishads ask what remains when names, roles, body, and thought are observed rather than obeyed.</p>
+                        </div>
+                        <div class="p-4 rounded-lg bg-black/20 border border-white/10">
+                            <div class="text-sky-300 font-semibold">Atman and Brahman</div>
+                            <p class="!mb-0 !text-sm !leading-7">Their great insight is that the deepest Self is not separate from the ground of reality.</p>
+                        </div>
+                        <div class="p-4 rounded-lg bg-black/20 border border-white/10">
+                            <div class="text-violet-300 font-semibold">Not belief alone</div>
+                            <p class="!mb-0 !text-sm !leading-7">The method is inquiry, meditation, discrimination, and direct recognition.</p>
+                        </div>
+                        <div class="p-4 rounded-lg bg-black/20 border border-white/10">
+                            <div class="text-amber-300 font-semibold">Practical relevance</div>
+                            <p class="!mb-0 !text-sm !leading-7">They offer a calm way to examine identity, attention, suffering, and freedom.</p>
+                        </div>
+                    </div>
+                </section>
 
-        <!-- Modern Relevance -->
-        <div class="mb-16">
-            <h2 class="text-3xl font-bold tracking-tight mb-8">Why the Upanishads Matter Today</h2>
-            
-            <div class="bg-white/5 border border-white/10 p-8 rounded-3xl mb-6">
-                <h4 class="font-semibold text-lg mb-4">Consciousness as Fundamental</h4>
-                <p class="text-white/80">Modern physics is increasingly suggesting that consciousness may be fundamental to reality (not a byproduct of the brain). This is exactly what the Upanishads declared 3,000 years ago.</p>
-            </div>
-            
-            <div class="bg-white/5 border border-white/10 p-8 rounded-3xl mb-6">
-                <h4 class="font-semibold text-lg mb-4">Non-Duality & Quantum Physics</h4>
-                <p class="text-white/80">The Upanishadic insight that "all is one" finds echoes in quantum entanglement, where particles remain connected regardless of distance — suggesting an underlying unity to reality.</p>
-            </div>
-            
-            <div class="bg-white/5 border border-white/10 p-8 rounded-3xl">
-                <h4 class="font-semibold text-lg mb-4">Mental Health & Meditation</h4>
-                <p class="text-white/80">The Upanishadic practices of self-inquiry (Atma Vichara) and meditation are now proven to reduce anxiety, depression, and increase well-being. Science is validating what the sages knew.</p>
-            </div>
-        </div>
+                <p class="text-xl !leading-9 text-white/90">
+                    A student sits near a teacher and asks a question that has never stopped following humanity:
+                    <strong>Who am I, really?</strong>
+                </p>
 
-        <!-- Practical Practice -->
-        <div class="bg-gradient-to-br from-emerald-900/30 to-teal-900/30 border border-emerald-500/40 p-8 rounded-3xl mb-16">
-            <h3 class="text-2xl font-bold mb-6 flex items-center gap-x-3">
-                <i class="fa-solid fa-lightbulb text-yellow-400"></i>
-                <span>Practical Upanishadic Practice: Self-Inquiry</span>
-            </h3>
-            
-            <div class="space-y-4 text-white/90">
-                <div><strong>The Question:</strong> Sit quietly and repeatedly ask "Who am I?" Do not answer with words. Go deeper. "Am I the body? Am I the thoughts? Am I the witness of thoughts?"</div>
-                <div><strong>The Silence:</strong> Between each question, rest in the silence. The answer is not a thought — it is the pure awareness that remains when all identifications fall away.</div>
-                <div><strong>The Result:</strong> Over time, this practice reveals your true nature as pure consciousness — peaceful, free, and one with all that is.</div>
-            </div>
-        </div>
+                <p>
+                    The Upanishads begin there. Not with a command to believe, not with a demand for blind ritual, but with a quiet invitation to investigate consciousness. They ask what is aware of the body, what notices thought, what remains when fear, desire, memory, and identity rise and fall.
+                </p>
 
-        <!-- Conclusion -->
-        <div class="text-center border-t border-white/10 pt-12">
-            <p class="text-xl text-white/90 max-w-2xl mx-auto">
-                The Upanishads are not books to be read.<br>
-                They are mirrors in which you can finally see who you really are.
-            </p>
-            <p class="text-2xl font-semibold text-emerald-400 mt-6">"Tat Tvam Asi — Thou Art That."</p>
-            <p class="mt-4 text-white/70">This is not a belief. This is your true nature, waiting to be remembered.</p>
-        </div>
+                <p>
+                    That is why they still feel alive. They are ancient, but their subject is immediate. You do not need a museum to find their doorway. You only need one honest moment of attention.
+                </p>
 
-    </div>
+                <section id="meaning" class="section-anchor">
+                    <h2>What Does "Upanishad" Mean?</h2>
+
+                    <p>
+                        The word <strong>Upanishad</strong> is often explained as "sitting near" - the student sitting close to a teacher to receive subtle knowledge. It also carries the sense of loosening ignorance: coming near truth until the knots of confusion begin to untie.
+                    </p>
+
+                    <p>
+                        The Upanishads are the concluding wisdom portion of the Vedas, which is why the tradition also calls their teaching <strong>Vedanta</strong>: the end, culmination, or highest aim of Vedic knowledge.
+                    </p>
+
+                    <div class="quote-panel rounded-lg p-6 my-8">
+                        <p class="!mb-0 text-white/90">
+                            The earlier Vedic world often moves through hymn, ritual, and cosmic order. The Upanishadic world asks: who is the one performing the ritual, who is aware of the cosmos, and what is the source behind both?
+                        </p>
+                    </div>
+                </section>
+
+                <section id="core" class="section-anchor">
+                    <h2>The Central Discovery: Atman and Brahman</h2>
+
+                    <p>
+                        The Upanishads use two words again and again: <strong>Atman</strong> and <strong>Brahman</strong>.
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-4 my-8">
+                        <div class="article-card p-5">
+                            <div class="text-emerald-300 font-semibold text-lg">Atman</div>
+                            <p class="!mb-0 !text-base">The innermost Self - not the personality, not the ego, not the changing stream of thoughts, but the witnessing consciousness.</p>
+                        </div>
+                        <div class="article-card p-5">
+                            <div class="text-sky-300 font-semibold text-lg">Brahman</div>
+                            <p class="!mb-0 !text-base">The ultimate reality - the boundless ground from which all names, forms, beings, and worlds arise.</p>
+                        </div>
+                    </div>
+
+                    <p>
+                        Their daring claim is that these are not finally two separate things. The deepest Self and the deepest reality are one. The Chandogya Upanishad expresses this through the famous teaching <strong>Tat Tvam Asi</strong>: "That thou art."
+                    </p>
+
+                    <p>
+                        This does not mean the ego is God, or that every personal desire is sacred. It means the small identity you defend all day is not your final nature. Beneath it is awareness itself - open, steady, and not limited by the passing weather of the mind.
+                    </p>
+                </section>
+
+                <section id="mahavakyas" class="section-anchor">
+                    <h2>The Four Mahavakyas</h2>
+
+                    <p>
+                        Later Vedanta highlights four great statements, or <strong>Mahavakyas</strong>, as condensed expressions of Upanishadic realization. They are short, but they are meant to be contemplated for a lifetime.
+                    </p>
+
+                    <div class="space-y-4 my-8">
+                        <div class="article-card p-5">
+                            <div class="flex items-start justify-between gap-4">
+                                <div>
+                                    <h3 class="!mt-0 !mb-2">Prajnanam Brahma</h3>
+                                    <p class="!mb-0 !text-base">Consciousness is Brahman.</p>
+                                </div>
+                                <span class="text-xs text-white/45 whitespace-nowrap">Aitareya Upanishad</span>
+                            </div>
+                        </div>
+                        <div class="article-card p-5">
+                            <div class="flex items-start justify-between gap-4">
+                                <div>
+                                    <h3 class="!mt-0 !mb-2">Aham Brahmasmi</h3>
+                                    <p class="!mb-0 !text-base">I am Brahman.</p>
+                                </div>
+                                <span class="text-xs text-white/45 whitespace-nowrap">Brihadaranyaka Upanishad</span>
+                            </div>
+                        </div>
+                        <div class="article-card p-5">
+                            <div class="flex items-start justify-between gap-4">
+                                <div>
+                                    <h3 class="!mt-0 !mb-2">Tat Tvam Asi</h3>
+                                    <p class="!mb-0 !text-base">That thou art.</p>
+                                </div>
+                                <span class="text-xs text-white/45 whitespace-nowrap">Chandogya Upanishad</span>
+                            </div>
+                        </div>
+                        <div class="article-card p-5">
+                            <div class="flex items-start justify-between gap-4">
+                                <div>
+                                    <h3 class="!mt-0 !mb-2">Ayam Atma Brahma</h3>
+                                    <p class="!mb-0 !text-base">This Self is Brahman.</p>
+                                </div>
+                                <span class="text-xs text-white/45 whitespace-nowrap">Mandukya Upanishad</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="principal" class="section-anchor">
+                    <h2>The Principal Upanishads</h2>
+
+                    <p>
+                        There are many Upanishads, but a smaller group became especially influential because major teachers commented on them and used them as foundations for Vedanta.
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-4 my-8">
+                        <div class="article-card p-5">
+                            <h3 class="!mt-0 text-emerald-300">Isha</h3>
+                            <p class="!mb-0 !text-base">Short, poetic, and powerful. It teaches seeing the Divine within the whole moving universe.</p>
+                        </div>
+                        <div class="article-card p-5">
+                            <h3 class="!mt-0 text-sky-300">Kena</h3>
+                            <p class="!mb-0 !text-base">Asks what powers the mind, speech, sight, and hearing from behind the scenes.</p>
+                        </div>
+                        <div class="article-card p-5">
+                            <h3 class="!mt-0 text-amber-300">Katha</h3>
+                            <p class="!mb-0 !text-base">A dialogue between Nachiketa and Yama, with a profound teaching on death and the Self.</p>
+                        </div>
+                        <div class="article-card p-5">
+                            <h3 class="!mt-0 text-violet-300">Mundaka</h3>
+                            <p class="!mb-0 !text-base">Distinguishes lower knowledge from higher knowledge: information versus realization.</p>
+                        </div>
+                        <div class="article-card p-5">
+                            <h3 class="!mt-0 text-emerald-300">Mandukya</h3>
+                            <p class="!mb-0 !text-base">Very brief, very deep. It maps waking, dreaming, deep sleep, and the fourth state through Om.</p>
+                        </div>
+                        <div class="article-card p-5">
+                            <h3 class="!mt-0 text-sky-300">Taittiriya</h3>
+                            <p class="!mb-0 !text-base">Known for the five sheaths and the movement from food-body to bliss.</p>
+                        </div>
+                        <div class="article-card p-5">
+                            <h3 class="!mt-0 text-amber-300">Chandogya</h3>
+                            <p class="!mb-0 !text-base">Contains the famous teaching of Uddalaka to Svetaketu: Tat Tvam Asi.</p>
+                        </div>
+                        <div class="article-card p-5">
+                            <h3 class="!mt-0 text-violet-300">Brihadaranyaka</h3>
+                            <p class="!mb-0 !text-base">Large, subtle, and philosophical. It includes Neti Neti and deep inquiry into Self and reality.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="concepts" class="section-anchor">
+                    <h2>Core Concepts You Need to Know</h2>
+
+                    <h3>Brahman: The Ground of Reality</h3>
+                    <p>
+                        Brahman is not merely one more object in the universe. Brahman is the ground by which anything can appear at all. The Upanishads point to it by saying what it is not, by indicating its fullness, and by guiding the seeker toward direct recognition.
+                    </p>
+
+                    <h3>Atman: The Witnessing Self</h3>
+                    <p>
+                        Atman is not the anxious story of "me." It is the aware presence in which the story is known. You can observe the body, emotions, thoughts, and memories. The Upanishadic question is simple: what is the nature of the one that observes?
+                    </p>
+
+                    <h3>Maya: Mistaking Appearance for Final Truth</h3>
+                    <p>
+                        Maya does not mean the world is worthless. It means our ordinary perception is partial. We take names and forms to be absolute, then suffer when they change. The Upanishads ask us to see appearance without forgetting the deeper reality.
+                    </p>
+
+                    <h3>Moksha: Freedom Through Recognition</h3>
+                    <p>
+                        Moksha is liberation: freedom from ignorance, fear, and compulsive identification with what is temporary. It is not escapism. It is the discovery of a steadier center from which life can be lived with clarity.
+                    </p>
+                </section>
+
+                <section id="science" class="section-anchor">
+                    <h2>Modern Relevance, Without Overclaiming</h2>
+
+                    <p>
+                        It is tempting to say that modern science proves the Upanishads. That is too easy, and not careful enough. Physics, neuroscience, and consciousness studies use different methods from spiritual inquiry.
+                    </p>
+
+                    <p>
+                        Still, the Upanishads remain relevant because they ask questions that modern life has not outgrown. What is consciousness? Is identity only a mental construction? Can attention be trained? Why does chasing outer fulfillment leave the heart restless?
+                    </p>
+
+                    <div class="article-card p-6 my-8">
+                        <h3 class="!mt-0 flex items-center gap-x-3">
+                            <i class="fa-solid fa-scale-balanced text-sky-300"></i>
+                            A Better Way to Compare
+                        </h3>
+                        <p class="!mb-0">
+                            Do not use science as a decoration for scripture, or scripture as a shortcut around science. Let both do what they do best: science investigates measurable patterns; the Upanishads investigate the direct experience of awareness, identity, and freedom.
+                        </p>
+                    </div>
+                </section>
+
+                <section id="practice" class="section-anchor">
+                    <h2>Practice: Neti Neti and Self-Inquiry</h2>
+
+                    <p>
+                        The Brihadaranyaka Upanishad is associated with the method <strong>Neti Neti</strong>, often rendered "not this, not this." It is not a rejection of life. It is a careful way to stop confusing yourself with things you can observe.
+                    </p>
+
+                    <div class="article-card p-6 md:p-8 my-8">
+                        <h3 class="!mt-0 text-emerald-300">A 7-Minute Practice</h3>
+                        <ol class="space-y-4 text-white/80">
+                            <li><strong>1. Sit simply.</strong> Keep the spine comfortable. Let the breath settle.</li>
+                            <li><strong>2. Notice the body.</strong> Say inwardly: this body is known to me. I am the knower of the body.</li>
+                            <li><strong>3. Notice emotion.</strong> Whether calm or restless, emotion is appearing in awareness.</li>
+                            <li><strong>4. Notice thought.</strong> Thoughts come and go. You are aware of their coming and going.</li>
+                            <li><strong>5. Ask gently:</strong> Who is aware of all this?</li>
+                            <li><strong>6. Do not force an answer.</strong> Rest as the silence before the next thought.</li>
+                            <li><strong>7. Return softly.</strong> Open the eyes and carry a little of that spaciousness into action.</li>
+                        </ol>
+                    </div>
+
+                    <p>
+                        The point is not to create a special mystical experience. The point is to recognize the ordinary awareness that is already present before every experience.
+                    </p>
+                </section>
+
+                <section id="reading" class="section-anchor">
+                    <h2>A Beginner Reading Path</h2>
+
+                    <p>
+                        If you are new to the Upanishads, do not begin by trying to master everything. Start with a small doorway and let the teaching ripen.
+                    </p>
+
+                    <div class="space-y-4 my-8">
+                        <div class="article-card p-5 flex gap-4">
+                            <div class="text-2xl font-display text-emerald-300">1</div>
+                            <div>
+                                <h3 class="!mt-0 !mb-1">Isha Upanishad</h3>
+                                <p class="!mb-0 !text-base">Short enough to revisit many times; rich enough to keep unfolding.</p>
+                            </div>
+                        </div>
+                        <div class="article-card p-5 flex gap-4">
+                            <div class="text-2xl font-display text-sky-300">2</div>
+                            <div>
+                                <h3 class="!mt-0 !mb-1">Katha Upanishad</h3>
+                                <p class="!mb-0 !text-base">A story-based entrance into death, courage, discipline, and immortality.</p>
+                            </div>
+                        </div>
+                        <div class="article-card p-5 flex gap-4">
+                            <div class="text-2xl font-display text-amber-300">3</div>
+                            <div>
+                                <h3 class="!mt-0 !mb-1">Mandukya Upanishad</h3>
+                                <p class="!mb-0 !text-base">A compact meditation on consciousness through Om and the four states.</p>
+                            </div>
+                        </div>
+                        <div class="article-card p-5 flex gap-4">
+                            <div class="text-2xl font-display text-violet-300">4</div>
+                            <div>
+                                <h3 class="!mt-0 !mb-1">Chandogya Upanishad</h3>
+                                <p class="!mb-0 !text-base">Read slowly for the teaching of Tat Tvam Asi and the father-son dialogue.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="glossary" class="section-anchor">
+                    <h2>Quick Glossary</h2>
+
+                    <div class="grid md:grid-cols-2 gap-4 my-8">
+                        <div class="article-card p-4"><strong>Vedanta:</strong> The culmination of Vedic wisdom.</div>
+                        <div class="article-card p-4"><strong>Rishi:</strong> A seer or sage who directly perceived truth.</div>
+                        <div class="article-card p-4"><strong>Shravana:</strong> Listening to the teaching.</div>
+                        <div class="article-card p-4"><strong>Manana:</strong> Reflecting until doubt becomes clear.</div>
+                        <div class="article-card p-4"><strong>Nididhyasana:</strong> Deep contemplation and assimilation.</div>
+                        <div class="article-card p-4"><strong>Moksha:</strong> Liberation from ignorance and bondage.</div>
+                    </div>
+                </section>
+
+                <section class="mt-16 text-center border-t border-white/10 pt-12">
+                    <p class="text-2xl md:text-3xl !leading-snug text-white">
+                        The Upanishads are not merely books to be read.
+                        They are mirrors for the part of you that is reading.
+                    </p>
+                    <p class="mt-6 text-emerald-300 font-display text-2xl">Tat Tvam Asi - That thou art.</p>
+                </section>
+
+                <section class="mt-16">
+                    <h2 class="!mt-0">Continue Exploring</h2>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <a href="om-deep.html" class="article-card p-5 block hover:border-sky-300/50 transition">
+                            <i class="fa-solid fa-om text-sky-300 text-2xl mb-4"></i>
+                            <div class="font-semibold text-white">Om</div>
+                            <p class="!mb-0 !text-sm !leading-6">The sound-symbol of consciousness.</p>
+                        </a>
+                        <a href="panchakosha-deep.html" class="article-card p-5 block hover:border-emerald-300/50 transition">
+                            <i class="fa-solid fa-layer-group text-emerald-300 text-2xl mb-4"></i>
+                            <div class="font-semibold text-white">Panchakosha</div>
+                            <p class="!mb-0 !text-sm !leading-6">The five sheaths of human experience.</p>
+                        </a>
+                        <a href="akasha-deep.html" class="article-card p-5 block hover:border-violet-300/50 transition">
+                            <i class="fa-solid fa-infinity text-violet-300 text-2xl mb-4"></i>
+                            <div class="font-semibold text-white">Akasha</div>
+                            <p class="!mb-0 !text-sm !leading-6">Space, subtle field, and inner vastness.</p>
+                        </a>
+                    </div>
+                </section>
+            </article>
+        </section>
+    </main>
 
 </body>
 </html>

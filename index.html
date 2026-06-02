@@ -72,6 +72,87 @@
             text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
         }
 
+        .nav-dock {
+            background: rgba(255, 255, 255, 0.055);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+
+        .nav-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-height: 42px;
+            padding: 0 0.95rem;
+            border: 0;
+            border-radius: 9999px;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.74);
+            cursor: pointer;
+            font: inherit;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .nav-chip:hover,
+        .nav-chip:focus-visible {
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            outline: none;
+        }
+
+        .nav-menu-panel,
+        .mobile-menu-panel {
+            z-index: 60;
+            background: rgba(10, 10, 15, 0.96);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 0 22px 60px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .nav-menu-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.85rem;
+            width: 100%;
+            border: 0;
+            padding: 0.9rem;
+            border-radius: 0.5rem;
+            background: transparent;
+            color: rgba(255, 255, 255, 0.78);
+            cursor: pointer;
+            font: inherit;
+            text-decoration: none;
+            text-align: left;
+            transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+        }
+
+        .nav-menu-item:hover,
+        .nav-menu-item:focus-visible {
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        .nav-menu-item i {
+            width: 1.25rem;
+            margin-top: 0.15rem;
+            color: #00f3ff;
+            text-align: center;
+        }
+
+        .nav-search-input {
+            transition: width 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+        }
+
+        .nav-search-input:focus {
+            background: rgba(255, 255, 255, 0.09);
+            border-color: rgba(0, 243, 255, 0.7);
+            box-shadow: 0 0 0 4px rgba(0, 243, 255, 0.1);
+        }
+
         .cosmic-card {
             background: rgba(15, 23, 42, 0.6);
             border: 1px solid rgba(0, 243, 255, 0.1);
@@ -436,6 +517,7 @@
 
     </style>
     <script src="theme-toggle.js"></script>
+    <script src="site-nav.js"></script>
 </head>
 <body class="cosmic-bg">
     <!-- Intro Splash Screen -->
@@ -463,47 +545,147 @@
         </div>
     </div>
     <!-- Navbar -->
-    <nav class="border-b border-white/10 sticky top-0 z-50 bg-[#0a0a0f]/90 backdrop-blur-lg">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex justify-between items-center h-20">
+    <nav class="border-b border-white/10 sticky top-0 z-50 bg-[#0a0a0f]/95 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex items-center justify-between gap-4 min-h-[84px] py-3">
                 <!-- Logo -->
-                <div class="flex items-center gap-x-4">
-                    <div class="logo-orb h-16 w-16 flex-shrink-0">
+                <a href="#" class="flex items-center gap-x-3 flex-shrink-0" aria-label="CosmicTrotter home">
+                    <div class="logo-orb h-12 w-12 sm:h-14 sm:w-14 flex-shrink-0">
                         <div class="logo-disk">
                             <img src="logo.png" alt="CosmicTrotter Logo" class="w-full h-full object-contain p-1.5" style="border-radius: 9999px;">
                         </div>
                     </div>
-                    <div>
-                        <span class="font-display text-3xl font-semibold tracking-tighter text-white">CosmicTrotter</span>
-                        <span class="text-[10px] text-white/50 block -mt-1 tracking-[3px]">TRAVEL THROUGH KNOWLEDGE</span>
+                    <div class="min-w-0">
+                        <span class="font-display text-2xl sm:text-3xl font-semibold tracking-tighter text-white leading-none">CosmicTrotter</span>
+                        <span class="hidden sm:block text-[10px] text-white/50 -mt-0.5 tracking-[3px]">TRAVEL THROUGH KNOWLEDGE</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Journey Dock -->
+                <div class="hidden xl:flex flex-1 items-center justify-center min-w-0 px-4">
+                    <div class="nav-dock flex items-center gap-1 rounded-full p-1 text-sm font-medium">
+                        <a href="#explore" class="nav-link nav-chip">
+                            <i class="fa-solid fa-compass text-[#00f3ff]"></i>
+                            <span>Explore</span>
+                        </a>
+                        <a href="#wisdom" class="nav-link nav-chip">
+                            <i class="fa-solid fa-infinity text-[#00f3ff]"></i>
+                            <span>Today</span>
+                        </a>
+                        <div class="relative" data-nav-menu="library">
+                            <button id="library-toggle" type="button" onclick="toggleLibraryMenu(event)"
+                                    class="nav-link nav-chip"
+                                    aria-haspopup="true" aria-expanded="false" aria-controls="library-menu">
+                                <i class="fa-solid fa-layer-group text-[#00f3ff]"></i>
+                                <span>Library</span>
+                                <i class="fa-solid fa-chevron-down text-[0.65rem] text-white/45"></i>
+                            </button>
+                            <div id="library-menu" class="nav-menu-panel hidden absolute left-1/2 top-[calc(100%+0.75rem)] w-[22rem] -translate-x-1/2 rounded-lg p-2">
+                                <button type="button" onclick="openKrishnaChat(); setLibraryMenu(false);" class="nav-menu-item">
+                                    <i class="fa-solid fa-comments"></i>
+                                    <span><span class="block font-semibold">Ask Krishna Chat</span><span class="block text-xs text-white/45">Open guidance without leaving this page</span></span>
+                                </button>
+                                <a href="wisdom.html" class="nav-menu-item">
+                                    <i class="fa-solid fa-book-open"></i>
+                                    <span><span class="block font-semibold">Wisdom Library</span><span class="block text-xs text-white/45">Quotes, reflections, and daily ideas</span></span>
+                                </a>
+                                <a href="space.html" class="nav-menu-item">
+                                    <i class="fa-solid fa-rocket"></i>
+                                    <span><span class="block font-semibold">Space &amp; Cosmos</span><span class="block text-xs text-white/45">Black holes, planets, and star stories</span></span>
+                                </a>
+                                <a href="philosophy.html" class="nav-menu-item">
+                                    <i class="fa-solid fa-brain"></i>
+                                    <span><span class="block font-semibold">Philosophy</span><span class="block text-xs text-white/45">Consciousness, meaning, and big questions</span></span>
+                                </a>
+                                <a href="quantum.html" class="nav-menu-item">
+                                    <i class="fa-solid fa-atom"></i>
+                                    <span><span class="block font-semibold">Quantum</span><span class="block text-xs text-white/45">Tiny physics with giant implications</span></span>
+                                </a>
+                                <a href="ancient.html" class="nav-menu-item">
+                                    <i class="fa-solid fa-landmark"></i>
+                                    <span><span class="block font-semibold">Ancient Wisdom</span><span class="block text-xs text-white/45">Vedic and timeless knowledge journeys</span></span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center gap-x-10 text-sm font-medium">
-                    <a href="#explore" class="nav-link text-white/80 hover:text-white">Explore</a>
-                    <a href="wisdom.html" class="nav-link text-white/80 hover:text-white">Wisdom</a>
-                    <a href="space.html" class="nav-link text-white/80 hover:text-white">Space</a>
-                    <a href="philosophy.html" class="nav-link text-white/80 hover:text-white">Philosophy</a>
-                    <a href="quantum.html" class="nav-link text-white/80 hover:text-white">Quantum</a>
-                    <a href="ancient.html" class="nav-link text-white/80 hover:text-white">Ancient</a>
-                    <a href="ev-guide.html" class="nav-link text-white/80 hover:text-white">EV Guide</a>
-                </div>
-                
-                <!-- Search Bar -->
-                <div class="hidden md:block relative w-72">
-                    <input type="text" id="search-input" placeholder="Search knowledge..." 
-                           class="w-full bg-white/5 border border-white/20 text-sm px-4 py-2.5 rounded-2xl focus:outline-none focus:border-[#00f3ff] placeholder-white/40"
-                           onkeyup="handleSearch(event)">
-                    <i class="fa-solid fa-search absolute right-4 top-3 text-white/40"></i>
-                </div>
 
-                <div class="flex items-center gap-x-4">
-                    <button onclick="document.getElementById('community').scrollIntoView({ behavior: 'smooth' })" 
-                            class="cosmic-btn px-6 py-2.5 rounded-2xl text-sm font-semibold text-black flex items-center gap-x-2">
-                        <span>Join the Journey</span>
+                <!-- Desktop Utilities -->
+                <div class="hidden xl:flex items-center gap-3 flex-shrink-0">
+                    <div class="relative">
+                        <input type="text" id="search-input" placeholder="Search knowledge"
+                               class="nav-search-input w-52 2xl:w-60 bg-white/5 border border-white/15 text-sm pl-4 pr-10 py-2.5 rounded-lg focus:outline-none placeholder-white/40"
+                               onkeyup="handleSearch(event)">
+                        <i class="fa-solid fa-search absolute right-3.5 top-3 text-white/40 pointer-events-none"></i>
+                    </div>
+                    <button onclick="document.getElementById('community').scrollIntoView({ behavior: 'smooth' })"
+                            class="cosmic-btn px-5 py-2.5 rounded-lg text-sm font-semibold text-black inline-flex items-center gap-x-2">
+                        <span>Join</span>
                         <i class="fa-solid fa-arrow-right"></i>
                     </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex xl:hidden items-center gap-2">
+                    <button type="button" onclick="toggleMobileMenu(event)" id="mobile-menu-toggle"
+                            class="w-11 h-11 rounded-lg border border-white/15 bg-white/5 text-white hover:bg-white/10 transition"
+                            aria-label="Open navigation menu" aria-controls="mobile-menu" aria-expanded="false">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Journey Menu -->
+            <div id="mobile-menu" class="xl:hidden hidden pb-5">
+                <div class="mobile-menu-panel rounded-lg p-3">
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        <a href="#explore" class="nav-menu-item" onclick="setMobileMenu(false)">
+                            <i class="fa-solid fa-compass"></i>
+                            <span class="font-semibold">Explore</span>
+                        </a>
+                        <a href="#wisdom" class="nav-menu-item" onclick="setMobileMenu(false)">
+                            <i class="fa-solid fa-infinity"></i>
+                            <span class="font-semibold">Today</span>
+                        </a>
+                        <button type="button" onclick="openKrishnaChat(); setMobileMenu(false);" class="nav-menu-item">
+                            <i class="fa-solid fa-comments"></i>
+                            <span class="font-semibold">Ask Krishna</span>
+                        </button>
+                        <a href="wisdom.html" class="nav-menu-item">
+                            <i class="fa-solid fa-book-open"></i>
+                            <span class="font-semibold">Wisdom</span>
+                        </a>
+                        <a href="space.html" class="nav-menu-item">
+                            <i class="fa-solid fa-rocket"></i>
+                            <span class="font-semibold">Space</span>
+                        </a>
+                        <a href="ancient.html" class="nav-menu-item">
+                            <i class="fa-solid fa-landmark"></i>
+                            <span class="font-semibold">Ancient</span>
+                        </a>
+                        <a href="philosophy.html" class="nav-menu-item">
+                            <i class="fa-solid fa-brain"></i>
+                            <span class="font-semibold">Philosophy</span>
+                        </a>
+                        <a href="quantum.html" class="nav-menu-item">
+                            <i class="fa-solid fa-atom"></i>
+                            <span class="font-semibold">Quantum</span>
+                        </a>
+                    </div>
+
+                    <div class="mt-3 flex flex-col sm:flex-row gap-3">
+                        <div class="relative flex-1">
+                            <input type="text" id="mobile-search-input" placeholder="Search knowledge"
+                                   class="nav-search-input w-full bg-white/5 border border-white/15 text-sm pl-4 pr-10 py-3 rounded-lg focus:outline-none placeholder-white/40"
+                                   onkeyup="handleSearch(event)">
+                            <i class="fa-solid fa-search absolute right-3.5 top-3.5 text-white/40 pointer-events-none"></i>
+                        </div>
+                        <button onclick="document.getElementById('community').scrollIntoView({ behavior: 'smooth' }); setMobileMenu(false);"
+                                class="cosmic-btn px-5 py-3 rounded-lg text-sm font-semibold text-black inline-flex items-center justify-center gap-x-2">
+                            <span>Join the Journey</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -573,54 +755,6 @@
                         <span>Read Today’s Wisdom</span>
                         <i class="fa-solid fa-book-open"></i>
                     </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Featured: EV Charging Guide -->
-    <div id="guides" class="max-w-5xl mx-auto px-6 pb-24">
-        <div class="cosmic-card rounded-3xl p-10 border border-white/10">
-            <div class="flex flex-col md:flex-row items-start md:items-center gap-8">
-                <div class="flex-1">
-                    <div class="flex items-center gap-x-3 mb-4">
-                        <div class="w-12 h-12 bg-gradient-to-br from-[#00f3ff] to-[#7c3aed] rounded-2xl flex items-center justify-center">
-                            <i class="fa-solid fa-charging-station text-black text-2xl"></i>
-                        </div>
-                        <div>
-                            <span class="text-xs uppercase tracking-widest text-[#00f3ff]">FEATURED GUIDE</span>
-                            <h3 class="text-3xl font-bold tracking-tight">EV Charging Business Guide</h3>
-                        </div>
-                    </div>
-                    
-                    <p class="text-lg text-white/70 leading-relaxed mb-6">
-                        Complete step-by-step guide to starting your own EV charging station business under India's 
-                        PM E-DRIVE scheme. Real investment numbers, subsidies, and profit projections.
-                    </p>
-                    
-                    <div class="flex flex-wrap gap-3">
-                        <div class="px-4 py-1.5 bg-white/5 rounded-full text-sm flex items-center gap-x-2">
-                            <i class="fa-solid fa-india text-[#00f3ff]"></i>
-                            <span>India 2026</span>
-                        </div>
-                        <div class="px-4 py-1.5 bg-white/5 rounded-full text-sm flex items-center gap-x-2">
-                            <i class="fa-solid fa-rupee-sign text-[#00f3ff]"></i>
-                            <span>₹5–25 Lakh Investment</span>
-                        </div>
-                        <div class="px-4 py-1.5 bg-white/5 rounded-full text-sm flex items-center gap-x-2">
-                            <i class="fa-solid fa-chart-line text-[#00f3ff]"></i>
-                            <span>Real Profit Analysis</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div>
-                    <button onclick="window.open('PM_E-DRIVE_EV_Charging_Guide.html', '_blank')"
-                            class="cosmic-btn px-8 py-4 rounded-2xl text-lg font-semibold text-black flex items-center gap-x-3 whitespace-nowrap">
-                        <span>Open Full Guide</span>
-                        <i class="fa-solid fa-external-link-alt"></i>
-                    </button>
-                    <p class="text-center text-xs text-white/50 mt-3">Opens in new tab</p>
                 </div>
             </div>
         </div>
@@ -1106,6 +1240,331 @@
             });
         }
 
+        const homeScriptureWisdomSources = [
+            {
+                id: 'rig-veda-1-164-46',
+                tradition: 'Vedas',
+                source: 'Rig Veda 1.164.46',
+                teaching: 'Truth is one; the wise describe it in many ways.'
+            },
+            {
+                id: 'isha-upanishad-1',
+                tradition: 'Upanishads',
+                source: 'Isha Upanishad 1',
+                teaching: 'All this is pervaded by the Divine; enjoy the world through renunciation.'
+            },
+            {
+                id: 'bhagavad-gita-2-47',
+                tradition: 'Bhagavad Gita',
+                source: 'Bhagavad Gita 2.47',
+                teaching: 'You have the right to action, but not to control the fruits of action.'
+            },
+            {
+                id: 'mahabharata-dharma-rakshati',
+                tradition: 'Mahabharata',
+                source: 'Mahabharata, Dharma Teaching',
+                teaching: 'Dharma protects those who protect dharma.'
+            },
+            {
+                id: 'ramayana-hanuman-devotion',
+                tradition: 'Ramayana',
+                source: 'Valmiki Ramayana, Sundara Kanda',
+                teaching: 'Devotion reveals strength that doubt cannot see.'
+            },
+            {
+                id: 'bhagavata-purana-1-2-6',
+                tradition: 'Bhagavata Purana',
+                source: 'Bhagavata Purana 1.2.6',
+                teaching: 'The highest dharma awakens loving devotion to the Divine without selfish motive.'
+            },
+            {
+                id: 'shiva-mahapurana-neelakantha',
+                tradition: 'Shiva Mahapurana',
+                source: 'Shiva Mahapurana, Neelakantha Teaching',
+                teaching: 'The wise can hold poison without letting it poison the heart.'
+            },
+            {
+                id: 'vishnu-purana-dharma',
+                tradition: 'Purana',
+                source: 'Vishnu Purana',
+                teaching: 'The Divine sustains the world through order, compassion, and protection.'
+            }
+        ];
+
+        const homeWisdomReflections = [
+            'Let this teaching become a mirror today. Notice where the mind resists it, because that resistance is often the doorway to growth.',
+            'Carry this wisdom into one ordinary action. The sacred becomes real when it changes how you speak, choose, work, or forgive.',
+            'Today, read this as guidance for the exact situation in front of you, not as an abstract quote. Dharma always asks to be lived.',
+            'Let the teaching soften hurry. A calm mind can see the next right action more clearly than a restless mind can.',
+            'Use this as a check on attachment. Ask where you are clinging, where you are serving, and where you can release the result.'
+        ];
+
+        const homeWisdomPractices = [
+            'Before sleeping, write one sentence about how you practiced this today.',
+            'Pause for three slow breaths before your next important action and remember this teaching.',
+            'Offer one task today to the Divine before you begin it.',
+            'Write down one thing you can control and one thing you must release.',
+            'Do one act of service quietly, without announcing it.'
+        ];
+
+        const homeWisdomHistoryKey = 'cosmictrotter.scriptureWisdom.history.v2';
+        const homeWisdomDailyKey = 'cosmictrotter.scriptureWisdom.daily.v2';
+        let activeHomeWisdom = null;
+
+        function escapeWisdomHtml(value) {
+            return String(value)
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#039;');
+        }
+
+        function getHomeDateKey(date = new Date()) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function formatHomeWisdomDate(date = new Date()) {
+            return date.toLocaleDateString(undefined, {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        function readHomeWisdomStorage(key, fallback) {
+            try {
+                const value = localStorage.getItem(key);
+                return value ? JSON.parse(value) : fallback;
+            } catch (error) {
+                return fallback;
+            }
+        }
+
+        function writeHomeWisdomStorage(key, value) {
+            try {
+                localStorage.setItem(key, JSON.stringify(value));
+            } catch (error) {
+                console.warn('Could not save daily wisdom:', error);
+            }
+        }
+
+        function stableHomeWisdomIndex(seed, length) {
+            let hash = 0;
+            for (let i = 0; i < seed.length; i += 1) {
+                hash = ((hash << 5) - hash) + seed.charCodeAt(i);
+                hash |= 0;
+            }
+            return Math.abs(hash) % length;
+        }
+
+        function normalizeHomeWisdom(entry) {
+            if (!entry || typeof entry !== 'object' || !entry.teaching || !entry.source) return null;
+            return {
+                id: String(entry.id || `home-wisdom-${Date.now()}`),
+                dateKey: entry.dateKey || getHomeDateKey(),
+                dateLabel: entry.dateLabel || formatHomeWisdomDate(),
+                generatedAt: entry.generatedAt || new Date().toISOString(),
+                tradition: String(entry.tradition || 'Scripture'),
+                source: String(entry.source),
+                teaching: String(entry.teaching),
+                reflection: String(entry.reflection || ''),
+                baseId: entry.baseId || entry.id,
+                generated: Boolean(entry.generated)
+            };
+        }
+
+        function generateHomeScriptureWisdom(dateKey = getHomeDateKey()) {
+            const source = homeScriptureWisdomSources[stableHomeWisdomIndex(`${dateKey}:source`, homeScriptureWisdomSources.length)];
+            const reflection = homeWisdomReflections[stableHomeWisdomIndex(`${dateKey}:reflection`, homeWisdomReflections.length)];
+            const practice = homeWisdomPractices[stableHomeWisdomIndex(`${dateKey}:practice`, homeWisdomPractices.length)];
+
+            return {
+                id: `generated-${dateKey}-${source.id}-${stableHomeWisdomIndex(`${dateKey}:combo`, 10000)}`,
+                dateKey,
+                dateLabel: formatHomeWisdomDate(),
+                generatedAt: new Date().toISOString(),
+                tradition: source.tradition,
+                source: source.source,
+                teaching: source.teaching,
+                reflection: `${reflection} Practice: ${practice}`,
+                baseId: source.id,
+                generated: true
+            };
+        }
+
+        function saveHomeScriptureWisdom(entry) {
+            const wisdom = normalizeHomeWisdom(entry);
+            if (!wisdom) return entry;
+
+            const history = readHomeWisdomStorage(homeWisdomHistoryKey, [])
+                .map(normalizeHomeWisdom)
+                .filter(Boolean)
+                .filter((item) => item.id !== wisdom.id);
+
+            history.unshift(wisdom);
+            writeHomeWisdomStorage(homeWisdomHistoryKey, history);
+            writeHomeWisdomStorage(homeWisdomDailyKey, { dateKey: wisdom.dateKey, id: wisdom.id, entry: wisdom });
+            activeHomeWisdom = wisdom;
+            return wisdom;
+        }
+
+        function getDailyWisdom() {
+            const dateKey = getHomeDateKey();
+            const storedDaily = readHomeWisdomStorage(homeWisdomDailyKey, null);
+
+            if (storedDaily?.dateKey === dateKey) {
+                const storedWisdom = normalizeHomeWisdom(storedDaily.entry);
+                if (storedWisdom) {
+                    activeHomeWisdom = storedWisdom;
+                    return storedWisdom;
+                }
+            }
+
+            return saveHomeScriptureWisdom(generateHomeScriptureWisdom(dateKey));
+        }
+
+        function showDailyWisdom() {
+            const wisdom = getDailyWisdom();
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-6';
+            modal.innerHTML = `
+                <div class="cosmic-card max-w-2xl w-full rounded-3xl p-8 sm:p-10 text-center border border-white/20 relative">
+                    <button onclick="this.closest('.fixed').remove()"
+                            class="absolute top-6 right-6 text-white/40 hover:text-white text-2xl transition-colors">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+
+                    <div class="mb-6">
+                        <i class="fa-solid fa-infinity text-5xl text-[#00f3ff]"></i>
+                    </div>
+
+                    <div class="text-xs uppercase tracking-[3px] text-[#00f3ff] mb-3">Today's Wisdom - ${escapeWisdomHtml(wisdom.dateLabel || formatHomeWisdomDate())}</div>
+                    <div class="inline-flex items-center gap-x-2 px-3 py-1 rounded-full bg-[#00f3ff]/10 border border-[#00f3ff]/20 text-[#00f3ff] text-xs font-semibold uppercase tracking-[1px] mb-6">
+                        <i class="fa-solid fa-book-open"></i>
+                        <span>${escapeWisdomHtml(wisdom.tradition)}</span>
+                    </div>
+
+                    <div class="text-2xl leading-snug font-light tracking-tight mb-6 text-white">
+                        ${escapeWisdomHtml(wisdom.teaching)}
+                    </div>
+
+                    <div class="text-[#00f3ff] font-medium mb-6">- ${escapeWisdomHtml(wisdom.source)}</div>
+
+                    <div class="rounded-2xl bg-white/5 border-l-4 border-[#00f3ff]/60 p-5 text-left text-white/70 leading-relaxed">
+                        <strong class="text-white">Reflection:</strong> ${escapeWisdomHtml(wisdom.reflection)}
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-3 justify-center">
+                        <a href="wisdom.html" class="px-5 py-2.5 rounded-2xl border border-white/20 hover:bg-white/5 text-sm font-medium inline-flex items-center justify-center gap-x-2">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                            <span>View Wisdom Archive</span>
+                        </a>
+                        <button onclick="copyHomeDailyWisdom(this)" class="px-5 py-2.5 rounded-2xl border border-white/20 hover:bg-white/5 text-sm font-medium inline-flex items-center justify-center gap-x-2">
+                            <i class="fa-solid fa-copy"></i>
+                            <span>Copy</span>
+                        </button>
+                    </div>
+
+                    <div class="mt-4 text-xs text-white/40">
+                        This same wisdom is saved to your Wisdom page history.
+                    </div>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+
+            document.addEventListener('keydown', function handler(e) {
+                if (e.key === 'Escape') {
+                    modal.remove();
+                    document.removeEventListener('keydown', handler);
+                }
+            });
+        }
+
+        function copyHomeDailyWisdom(button) {
+            const wisdom = activeHomeWisdom || getDailyWisdom();
+            const text = `${wisdom.teaching}\n- ${wisdom.source}\n\n${wisdom.reflection}`;
+
+            navigator.clipboard.writeText(text).then(() => {
+                const original = button.innerHTML;
+                button.innerHTML = '<i class="fa-solid fa-check"></i><span>Copied</span>';
+                setTimeout(() => {
+                    button.innerHTML = original;
+                }, 1500);
+            });
+        }
+
+        function setLibraryMenu(open) {
+            const menu = document.getElementById('library-menu');
+            const toggle = document.getElementById('library-toggle');
+            if (!menu || !toggle) return;
+
+            menu.classList.toggle('hidden', !open);
+            toggle.setAttribute('aria-expanded', String(open));
+        }
+
+        function toggleLibraryMenu(event) {
+            event?.stopPropagation();
+            const toggle = document.getElementById('library-toggle');
+            const isOpen = toggle?.getAttribute('aria-expanded') === 'true';
+            setLibraryMenu(!isOpen);
+        }
+
+        function setMobileMenu(open) {
+            const menu = document.getElementById('mobile-menu');
+            const toggle = document.getElementById('mobile-menu-toggle');
+            const icon = toggle?.querySelector('i');
+            if (!menu || !toggle || !icon) return;
+
+            menu.classList.toggle('hidden', !open);
+            toggle.setAttribute('aria-expanded', String(open));
+            toggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+            icon.classList.toggle('fa-bars', !open);
+            icon.classList.toggle('fa-xmark', open);
+        }
+
+        function toggleMobileMenu(event) {
+            event?.stopPropagation();
+            const toggle = document.getElementById('mobile-menu-toggle');
+            const isOpen = toggle?.getAttribute('aria-expanded') === 'true';
+            setMobileMenu(!isOpen);
+            setLibraryMenu(false);
+        }
+
+        function closeNavigationMenus() {
+            setLibraryMenu(false);
+            setMobileMenu(false);
+        }
+
+        document.addEventListener('click', (event) => {
+            const target = event.target instanceof Element ? event.target : null;
+
+            if (!target?.closest('[data-nav-menu="library"]')) {
+                setLibraryMenu(false);
+            }
+
+            if (!target?.closest('nav')) {
+                setMobileMenu(false);
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeNavigationMenus();
+            }
+        });
+
         // Search Functionality
         function handleSearch(e) {
             if (e.key === 'Enter') {
@@ -1134,6 +1593,8 @@
                 }
                 
                 e.target.value = '';
+                setMobileMenu(false);
+                setLibraryMenu(false);
             }
         }
 
@@ -1293,6 +1754,7 @@
             });
         });
     </script>
+    <script src="ask-krishna-widget.js"></script>
     <!-- Brevo Scripts -->
     <script>
         window.REQUIRED_CODE_ERROR_MESSAGE = 'Please choose a country code';

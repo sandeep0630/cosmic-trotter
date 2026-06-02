@@ -43,8 +43,29 @@
             font-weight: 700;
             letter-spacing: -0.025em;
         }
+
+        .source-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            border: 1px solid rgba(0, 243, 255, 0.22);
+            border-radius: 9999px;
+            background: rgba(0, 243, 255, 0.07);
+            color: #bffbff;
+            padding: 0.35rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .wisdom-note {
+            border-left: 3px solid rgba(0, 243, 255, 0.55);
+            background: rgba(255, 255, 255, 0.045);
+        }
     </style>
     <script src="theme-toggle.js"></script>
+    <script src="site-nav.js"></script>
 </head>
 <body class="cosmic-bg">
     <!-- Navbar -->
@@ -81,11 +102,11 @@
     <div class="max-w-4xl mx-auto px-6 pt-16 pb-12 text-center">
         <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 mb-6">
             <i class="fa-solid fa-infinity text-[#00f3ff]"></i>
-            <span class="text-xs uppercase tracking-[2px] text-white/70">One Thought. Every Day.</span>
+            <span class="text-xs uppercase tracking-[2px] text-white/70">One Sacred Thought. Every Day.</span>
         </div>
         
         <h1 class="text-6xl font-bold tracking-tighter mb-4">Daily Wisdom</h1>
-        <p class="text-2xl text-white/60 max-w-lg mx-auto">Timeless thoughts from the greatest minds to guide your day.</p>
+        <p class="text-2xl text-white/60 max-w-2xl mx-auto">Daily guidance from the Vedas, Upanishads, Bhagavad Gita, Mahabharata, Ramayana, Bhagavata Purana, Shiva Mahapurana, and more.</p>
     </div>
 
     <!-- Today's Wisdom (Synced with Homepage) -->
@@ -117,7 +138,7 @@
 
     <!-- Wisdom Archive -->
     <div class="max-w-4xl mx-auto px-6 pb-20">
-        <div class="space-y-6">
+        <div id="wisdom-archive" class="space-y-6">
             
             <!-- Wisdom 1 -->
             <div class="wisdom-card rounded-3xl p-10 group">
@@ -265,6 +286,630 @@
                 event.target.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
                 setTimeout(() => {
                     event.target.innerHTML = originalText;
+                }, 1500);
+            });
+        }
+
+        // Scripture Wisdom System
+        const SCRIPTURE_WISDOM_BANK = [
+            {
+                id: "rig-veda-1-164-46",
+                tradition: "Vedas",
+                source: "Rig Veda 1.164.46",
+                teaching: "Truth is one; the wise describe it in many ways.",
+                reflection: "Do not get trapped by names and forms. Look for the single truth shining through many paths, teachers, and experiences."
+            },
+            {
+                id: "rig-veda-10-191-2",
+                tradition: "Vedas",
+                source: "Rig Veda 10.191.2",
+                teaching: "Walk together, speak together, and let your minds move in harmony.",
+                reflection: "Unity is not sameness. It is shared intention, respectful speech, and a willingness to move toward dharma together."
+            },
+            {
+                id: "yajur-veda-shanti",
+                tradition: "Vedas",
+                source: "Yajur Veda, Shanti Mantra",
+                teaching: "May there be peace in the heavens, peace in the sky, peace on earth, and peace in all beings.",
+                reflection: "Peace is not only personal calm. It is a way of living that blesses the environment, relationships, speech, and thought."
+            },
+            {
+                id: "isha-upanishad-1",
+                tradition: "Upanishads",
+                source: "Isha Upanishad 1",
+                teaching: "All this is pervaded by the Divine; enjoy the world through renunciation.",
+                reflection: "Use what life gives you, but do not clutch it. Sacred living begins when possession becomes stewardship."
+            },
+            {
+                id: "isha-upanishad-2",
+                tradition: "Upanishads",
+                source: "Isha Upanishad 2",
+                teaching: "Live fully through right action, without being bound by action.",
+                reflection: "Work is not the enemy of spirituality. Attachment is. Act cleanly, serve well, and let the work purify you."
+            },
+            {
+                id: "katha-upanishad-1-3-14",
+                tradition: "Upanishads",
+                source: "Katha Upanishad 1.3.14",
+                teaching: "Arise, awake, and learn from the wise until the goal is reached.",
+                reflection: "Do not wait for perfect confidence. Wake up, seek good guidance, and keep walking until clarity becomes lived experience."
+            },
+            {
+                id: "katha-upanishad-2-3-14",
+                tradition: "Upanishads",
+                source: "Katha Upanishad 2.3.14",
+                teaching: "When the desires in the heart fall away, the mortal discovers the immortal.",
+                reflection: "Freedom is not getting everything the mind wants. Freedom is seeing the Self that remains when craving loosens."
+            },
+            {
+                id: "chandogya-upanishad-6-8-7",
+                tradition: "Upanishads",
+                source: "Chandogya Upanishad 6.8.7",
+                teaching: "Tat tvam asi: That sacred reality is your own deepest Self.",
+                reflection: "You are not merely your worry, role, or story. Beneath all change, the same sacred presence lives in you."
+            },
+            {
+                id: "brihadaranyaka-upanishad-1-3-28",
+                tradition: "Upanishads",
+                source: "Brihadaranyaka Upanishad 1.3.28",
+                teaching: "Lead me from the unreal to the Real, from darkness to light, from death to immortality.",
+                reflection: "Each day offers this movement: from confusion to truth, from fear to awareness, from temporary identity to the deathless Self."
+            },
+            {
+                id: "mundaka-upanishad-3-1-6",
+                tradition: "Upanishads",
+                source: "Mundaka Upanishad 3.1.6",
+                teaching: "Truth alone triumphs.",
+                reflection: "A life built on truth may move slowly, but it moves with strength. Falsehood wins moments; truth wins the soul."
+            },
+            {
+                id: "mandukya-upanishad-1",
+                tradition: "Upanishads",
+                source: "Mandukya Upanishad 1",
+                teaching: "Om is all this: past, present, future, and what is beyond time.",
+                reflection: "The sacred sound points to totality. Let the mind become quiet enough to feel life as one whole movement."
+            },
+            {
+                id: "taittiriya-upanishad-1-11",
+                tradition: "Upanishads",
+                source: "Taittiriya Upanishad 1.11",
+                teaching: "Speak truth. Practice dharma.",
+                reflection: "Spiritual life does not begin in dramatic visions. It begins in honest speech and right conduct."
+            },
+            {
+                id: "bhagavad-gita-2-47",
+                tradition: "Bhagavad Gita",
+                source: "Bhagavad Gita 2.47",
+                teaching: "You have the right to action, but not to control the fruits of action.",
+                reflection: "Give your best to the work in front of you. Let the result belong to the larger order."
+            },
+            {
+                id: "bhagavad-gita-2-48",
+                tradition: "Bhagavad Gita",
+                source: "Bhagavad Gita 2.48",
+                teaching: "Remain steady in success and failure; this evenness is yoga.",
+                reflection: "Peace grows when praise and blame no longer throw the mind from side to side."
+            },
+            {
+                id: "bhagavad-gita-4-7",
+                tradition: "Bhagavad Gita",
+                source: "Bhagavad Gita 4.7-8",
+                teaching: "Whenever dharma declines, the Divine rises to restore balance.",
+                reflection: "Do not lose faith when disorder becomes visible. Dharma has a way of returning through courage, wisdom, and right action."
+            },
+            {
+                id: "bhagavad-gita-6-5",
+                tradition: "Bhagavad Gita",
+                source: "Bhagavad Gita 6.5",
+                teaching: "Lift yourself by your own mind; do not degrade yourself.",
+                reflection: "The mind can be a friend or an enemy. Train it with small truthful actions, not endless self-criticism."
+            },
+            {
+                id: "bhagavad-gita-9-27",
+                tradition: "Bhagavad Gita",
+                source: "Bhagavad Gita 9.27",
+                teaching: "Whatever you do, offer it to the Divine.",
+                reflection: "Ordinary work becomes sacred when ego loosens and the heart offers the action upward."
+            },
+            {
+                id: "bhagavad-gita-18-66",
+                tradition: "Bhagavad Gita",
+                source: "Bhagavad Gita 18.66",
+                teaching: "Surrender to the Divine without fear.",
+                reflection: "Surrender is not helplessness. It is trusting the highest truth while taking the next dharmic step."
+            },
+            {
+                id: "mahabharata-yaksha-prashna",
+                tradition: "Mahabharata",
+                source: "Mahabharata, Yaksha Prashna",
+                teaching: "The greatest wonder is that people see death every day, yet live as though they are permanent.",
+                reflection: "Remembering impermanence can make life brighter, kinder, and more urgent in the right way."
+            },
+            {
+                id: "mahabharata-dharma-rakshati",
+                tradition: "Mahabharata",
+                source: "Mahabharata, Dharma Teaching",
+                teaching: "Dharma protects those who protect dharma.",
+                reflection: "When you protect truth, fairness, compassion, and duty, those same forces quietly protect your life."
+            },
+            {
+                id: "mahabharata-ahimsa",
+                tradition: "Mahabharata",
+                source: "Mahabharata, Anushasana Parva",
+                teaching: "Non-harm is among the highest forms of dharma.",
+                reflection: "Practice non-harm in speech first. Many battles are prevented before they become actions."
+            },
+            {
+                id: "ramayana-rama-dharma",
+                tradition: "Ramayana",
+                source: "Valmiki Ramayana",
+                teaching: "Dharma is lived most clearly when comfort is sacrificed for truth.",
+                reflection: "Rama's path reminds us that integrity is not proven when life is easy; it is proven when the heart still chooses what is right."
+            },
+            {
+                id: "ramayana-hanuman-devotion",
+                tradition: "Ramayana",
+                source: "Valmiki Ramayana, Sundara Kanda",
+                teaching: "Devotion reveals strength that doubt cannot see.",
+                reflection: "Hanuman remembers his power when he remembers his purpose. When you forget your strength, return to service."
+            },
+            {
+                id: "ramayana-sita-patience",
+                tradition: "Ramayana",
+                source: "Valmiki Ramayana",
+                teaching: "Patience rooted in truth becomes inner fire, not weakness.",
+                reflection: "Sita's endurance teaches that quiet strength can be brighter than force. Hold truth without losing dignity."
+            },
+            {
+                id: "bhagavata-purana-1-2-6",
+                tradition: "Bhagavata Purana",
+                source: "Bhagavata Purana 1.2.6",
+                teaching: "The highest dharma awakens loving devotion to the Divine without selfish motive.",
+                reflection: "Love becomes liberating when it is steady, sincere, and not bargaining for reward."
+            },
+            {
+                id: "bhagavata-prahlada",
+                tradition: "Bhagavata Purana",
+                source: "Bhagavata Purana, Prahlada Charitra",
+                teaching: "Faith can remain fearless even inside great opposition.",
+                reflection: "Prahlada shows that devotion is not fragile. When rooted in the heart, it survives pressure from the world."
+            },
+            {
+                id: "bhagavata-krishna-heart",
+                tradition: "Bhagavata Purana",
+                source: "Bhagavata Purana, Krishna Lila",
+                teaching: "The Divine meets the heart through love, play, humility, and surrender.",
+                reflection: "Do not make spirituality only heavy. Let wonder, music, friendship, and love also become doorways to God."
+            },
+            {
+                id: "shiva-mahapurana-neelakantha",
+                tradition: "Shiva Mahapurana",
+                source: "Shiva Mahapurana, Neelakantha Teaching",
+                teaching: "The wise can hold poison without letting it poison the heart.",
+                reflection: "Shiva's blue throat teaches transformation. Do not spread bitterness; contain it, offer it, and let awareness purify it."
+            },
+            {
+                id: "shiva-mahapurana-remembrance",
+                tradition: "Shiva Mahapurana",
+                source: "Shiva Mahapurana",
+                teaching: "Sincere remembrance of Shiva burns inner impurity and awakens auspiciousness.",
+                reflection: "A pure moment of remembrance can interrupt a long habit of distraction. Return to the sacred name with sincerity."
+            },
+            {
+                id: "shiva-mahapurana-stillness",
+                tradition: "Shiva Mahapurana",
+                source: "Shiva Mahapurana, Yoga Teaching",
+                teaching: "Stillness is not emptiness; it is the presence from which creation dances.",
+                reflection: "When the mind becomes quiet, life does not disappear. It becomes more deeply alive."
+            },
+            {
+                id: "vishnu-purana-dharma",
+                tradition: "Purana",
+                source: "Vishnu Purana",
+                teaching: "The Divine sustains the world through order, compassion, and protection.",
+                reflection: "Preservation is sacred work. Care for what is good before it is broken."
+            }
+        ];
+
+        const WISDOM_HISTORY_KEY = 'cosmictrotter.scriptureWisdom.history.v2';
+        const WISDOM_DAILY_KEY = 'cosmictrotter.scriptureWisdom.daily.v2';
+        const WISDOM_LEGACY_HISTORY_KEY = 'cosmictrotter.scriptureWisdom.history.v1';
+        const WISDOM_LEGACY_DAILY_KEY = 'cosmictrotter.scriptureWisdom.daily.v1';
+        let activeScriptureWisdom = null;
+
+        const WISDOM_REFLECTION_LENSES = [
+            "Let this teaching become a mirror today. Notice where the mind resists it, because that resistance is often the doorway to growth.",
+            "Carry this wisdom into one ordinary action. The sacred becomes real when it changes how you speak, choose, work, or forgive.",
+            "Today, read this as guidance for the exact situation in front of you, not as an abstract quote. Dharma always asks to be lived.",
+            "Let the teaching soften hurry. A calm mind can see the next right action more clearly than a restless mind can.",
+            "Use this as a check on attachment. Ask where you are clinging, where you are serving, and where you can release the result.",
+            "Let this wisdom bring humility. You do not need to control the whole road; you need to walk the next step cleanly.",
+            "Bring this into your relationships today. Sacred knowledge is proven by patience, truthful speech, and compassion under pressure.",
+            "Let this teaching train the mind. When old patterns rise, return to this line before reacting.",
+            "Hold this as a reminder that inner life and practical life are not separate. Your duty can become worship.",
+            "Let this wisdom point you back to the Self beneath mood, fear, success, and failure."
+        ];
+
+        const WISDOM_DAILY_PRACTICES = [
+            "Before sleeping, write one sentence about how you practiced this today.",
+            "Pause for three slow breaths before your next important action and remember this teaching.",
+            "Choose one conversation today where you will speak with more truth and less ego.",
+            "Offer one task today to the Divine before you begin it.",
+            "Write down one thing you can control and one thing you must release.",
+            "Repeat the source line once in the morning and once at night.",
+            "Do one act of service quietly, without announcing it.",
+            "When the mind becomes restless, return to the word dharma and choose the cleaner action.",
+            "Spend two minutes in silence and ask, 'What is the next right step?'",
+            "Let one small habit become more sattvic today: food, speech, attention, or work."
+        ];
+
+        function escapeHtml(value) {
+            return String(value)
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#039;');
+        }
+
+        function getLocalDateKey(date = new Date()) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function formatDisplayDate(date = new Date()) {
+            return date.toLocaleDateString(undefined, {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        function readJsonStorage(key, fallback) {
+            try {
+                const value = localStorage.getItem(key);
+                return value ? JSON.parse(value) : fallback;
+            } catch (error) {
+                return fallback;
+            }
+        }
+
+        function writeJsonStorage(key, value) {
+            try {
+                localStorage.setItem(key, JSON.stringify(value));
+            } catch (error) {
+                console.warn('Could not save wisdom history:', error);
+            }
+        }
+
+        function findWisdomById(id) {
+            return SCRIPTURE_WISDOM_BANK.find((entry) => entry.id === id) || null;
+        }
+
+        function createStoredEntry(entry, options = {}) {
+            const generatedAt = options.generatedAt || new Date().toISOString();
+            const dateKey = options.dateKey || getLocalDateKey(new Date(generatedAt));
+
+            return {
+                id: options.id || `stored-${entry.id}-${dateKey}`,
+                dateKey,
+                dateLabel: options.dateLabel || formatDisplayDate(new Date(generatedAt)),
+                generatedAt,
+                tradition: entry.tradition,
+                source: entry.source,
+                teaching: entry.teaching,
+                reflection: entry.reflection,
+                baseId: entry.baseId || entry.id
+            };
+        }
+
+        function generateWisdomEntry(seed, options = {}) {
+            const sourceIndex = stableIndex(`${seed}:source`, SCRIPTURE_WISDOM_BANK.length);
+            const lensIndex = stableIndex(`${seed}:lens`, WISDOM_REFLECTION_LENSES.length);
+            const practiceIndex = stableIndex(`${seed}:practice`, WISDOM_DAILY_PRACTICES.length);
+            const source = SCRIPTURE_WISDOM_BANK[sourceIndex];
+            const generatedAt = options.generatedAt || new Date().toISOString();
+            const dateKey = options.dateKey || getLocalDateKey(new Date(generatedAt));
+            const id = options.id || `generated-${dateKey}-${source.id}-${lensIndex}-${practiceIndex}`;
+
+            return {
+                id,
+                dateKey,
+                dateLabel: options.dateLabel || formatDisplayDate(new Date(generatedAt)),
+                generatedAt,
+                tradition: source.tradition,
+                source: source.source,
+                teaching: source.teaching,
+                reflection: `${WISDOM_REFLECTION_LENSES[lensIndex]} Practice: ${WISDOM_DAILY_PRACTICES[practiceIndex]}`,
+                baseId: source.id,
+                generated: true
+            };
+        }
+
+        function normalizeStoredWisdom(rawEntry) {
+            if (typeof rawEntry === 'string') {
+                const legacyEntry = findWisdomById(rawEntry);
+                return legacyEntry ? createStoredEntry(legacyEntry, { id: `legacy-${legacyEntry.id}` }) : null;
+            }
+
+            if (!rawEntry || typeof rawEntry !== 'object') return null;
+            if (!rawEntry.id || !rawEntry.teaching || !rawEntry.source || !rawEntry.tradition) return null;
+
+            return {
+                id: String(rawEntry.id),
+                dateKey: rawEntry.dateKey || '',
+                dateLabel: rawEntry.dateLabel || '',
+                generatedAt: rawEntry.generatedAt || '',
+                tradition: String(rawEntry.tradition),
+                source: String(rawEntry.source),
+                teaching: String(rawEntry.teaching),
+                reflection: String(rawEntry.reflection || ''),
+                baseId: rawEntry.baseId || rawEntry.id,
+                generated: Boolean(rawEntry.generated)
+            };
+        }
+
+        function getWisdomHistory() {
+            const rawHistory = readJsonStorage(WISDOM_HISTORY_KEY, []);
+            const sourceHistory = Array.isArray(rawHistory) && rawHistory.length
+                ? rawHistory
+                : readJsonStorage(WISDOM_LEGACY_HISTORY_KEY, []);
+
+            if (!Array.isArray(sourceHistory)) return [];
+
+            const seenIds = new Set();
+            const entries = [];
+
+            sourceHistory.forEach((item) => {
+                const entry = normalizeStoredWisdom(item);
+                if (entry && !seenIds.has(entry.id)) {
+                    seenIds.add(entry.id);
+                    entries.push(entry);
+                }
+            });
+
+            if (!Array.isArray(rawHistory) || !rawHistory.length) {
+                saveWisdomHistory(entries);
+            }
+
+            return entries;
+        }
+
+        function saveWisdomHistory(history) {
+            const normalized = Array.isArray(history)
+                ? history.map((entry) => normalizeStoredWisdom(entry)).filter(Boolean)
+                : [];
+
+            writeJsonStorage(WISDOM_HISTORY_KEY, normalized);
+        }
+
+        function stableIndex(seed, length) {
+            let hash = 0;
+            for (let i = 0; i < seed.length; i += 1) {
+                hash = ((hash << 5) - hash) + seed.charCodeAt(i);
+                hash |= 0;
+            }
+            return Math.abs(hash) % length;
+        }
+
+        function pickUnseenWisdom(seed, history, avoidId) {
+            const usedIds = new Set(history.map((entry) => entry.id));
+            let attempt = 0;
+            let entry = generateWisdomEntry(`${seed}:${attempt}`);
+
+            while ((usedIds.has(entry.id) || entry.id === avoidId) && attempt < 100) {
+                attempt += 1;
+                entry = generateWisdomEntry(`${seed}:${attempt}`);
+            }
+
+            if (usedIds.has(entry.id) || entry.id === avoidId) {
+                entry = generateWisdomEntry(`${seed}:fallback:${Date.now()}`, {
+                    id: `generated-${getLocalDateKey()}-${Date.now()}`
+                });
+            }
+
+            return entry;
+        }
+
+        function commitWisdom(entry, dateKey = getLocalDateKey()) {
+            const storedEntry = normalizeStoredWisdom({
+                ...entry,
+                dateKey,
+                dateLabel: entry.dateLabel || formatDisplayDate(),
+                generatedAt: entry.generatedAt || new Date().toISOString()
+            });
+            const history = getWisdomHistory().filter((item) => item.id !== storedEntry.id);
+            history.unshift(storedEntry);
+
+            saveWisdomHistory(history);
+            writeJsonStorage(WISDOM_DAILY_KEY, { dateKey, id: storedEntry.id, entry: storedEntry });
+            activeScriptureWisdom = storedEntry;
+            return storedEntry;
+        }
+
+        function getDailyWisdom() {
+            const dateKey = getLocalDateKey();
+            const storedDaily = readJsonStorage(WISDOM_DAILY_KEY, null);
+
+            if (storedDaily?.dateKey === dateKey) {
+                const storedEntry = normalizeStoredWisdom(storedDaily.entry) ||
+                    getWisdomHistory().find((entry) => entry.id === storedDaily.id);
+                if (storedEntry) {
+                    activeScriptureWisdom = storedEntry;
+                    return storedEntry;
+                }
+            }
+
+            const history = getWisdomHistory();
+            const entry = pickUnseenWisdom(dateKey, history, history[0]?.id);
+            return commitWisdom(entry, dateKey);
+        }
+
+        function ensureTodayCardControls(card) {
+            const dateEl = card.firstElementChild;
+            if (dateEl) {
+                dateEl.id = 'today-date';
+            }
+
+            let sourceEl = document.getElementById('today-source');
+            if (!sourceEl && dateEl) {
+                sourceEl = document.createElement('div');
+                sourceEl.id = 'today-source';
+                sourceEl.className = 'source-pill mx-auto mb-5';
+                dateEl.insertAdjacentElement('afterend', sourceEl);
+            }
+
+            let reflectionEl = document.getElementById('today-reflection');
+            const authorEl = document.getElementById('today-author');
+            if (!reflectionEl && authorEl) {
+                reflectionEl = document.createElement('div');
+                reflectionEl.id = 'today-reflection';
+                reflectionEl.className = 'wisdom-note rounded-2xl p-5 text-left text-white/70 leading-relaxed mt-5';
+                authorEl.insertAdjacentElement('afterend', reflectionEl);
+            }
+
+            let controlsEl = document.getElementById('today-wisdom-controls');
+            if (!controlsEl && reflectionEl) {
+                controlsEl = document.createElement('div');
+                controlsEl.id = 'today-wisdom-controls';
+                controlsEl.className = 'mt-6 flex flex-col sm:flex-row justify-center gap-3';
+                controlsEl.innerHTML = `
+                    <button onclick="revealAnotherWisdom()" class="px-5 py-2.5 rounded-2xl border border-white/20 hover:bg-white/5 transition text-sm font-medium inline-flex items-center justify-center gap-x-2">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>Reveal Another Unseen Wisdom</span>
+                    </button>
+                    <button onclick="copyTodaysWisdom()" class="px-5 py-2.5 rounded-2xl border border-white/20 hover:bg-white/5 transition text-sm font-medium inline-flex items-center justify-center gap-x-2">
+                        <i class="fa-solid fa-copy"></i>
+                        <span>Copy Today's Wisdom</span>
+                    </button>
+                `;
+                reflectionEl.insertAdjacentElement('afterend', controlsEl);
+            }
+        }
+
+        function renderTodayWisdom(entry) {
+            const quoteEl = document.getElementById('today-wisdom');
+            const authorEl = document.getElementById('today-author');
+            if (!quoteEl || !authorEl) return;
+
+            const card = quoteEl.closest('.cosmic-card');
+            if (card) {
+                ensureTodayCardControls(card);
+            }
+
+            const dateEl = document.getElementById('today-date');
+            const sourceEl = document.getElementById('today-source');
+            const reflectionEl = document.getElementById('today-reflection');
+
+            if (dateEl) dateEl.textContent = `TODAY'S WISDOM - ${formatDisplayDate()}`;
+            if (sourceEl) {
+                sourceEl.innerHTML = `<i class="fa-solid fa-book-open"></i><span>${escapeHtml(entry.tradition)}</span>`;
+            }
+
+            quoteEl.textContent = entry.teaching;
+            authorEl.textContent = `- ${entry.source}`;
+
+            if (reflectionEl) {
+                reflectionEl.innerHTML = `<strong class="text-white">Reflection:</strong> ${escapeHtml(entry.reflection)}`;
+            }
+        }
+
+        function renderWisdomArchive(activeEntry) {
+            const archiveEl = document.getElementById('wisdom-archive');
+            if (!archiveEl) return;
+
+            const entries = getWisdomHistory();
+
+            if (!entries.length && activeEntry) {
+                entries.push(activeEntry);
+            }
+
+            archiveEl.innerHTML = entries.map((entry, index) => `
+                <div class="wisdom-card rounded-3xl p-10 group">
+                    <div class="flex items-start gap-x-4">
+                        <div class="text-4xl text-[#00f3ff]/60 group-hover:scale-110 transition">"</div>
+                        <div class="flex-1">
+                            <div class="mb-4 flex flex-wrap items-center gap-2">
+                                <span class="source-pill"><i class="fa-solid fa-book-open"></i><span>${escapeHtml(entry.tradition)}</span></span>
+                                ${index === 0 ? '<span class="text-xs uppercase tracking-[2px] text-white/40">Latest</span>' : ''}
+                            </div>
+                            <div class="wisdom-entry-text text-2xl leading-snug font-light tracking-tight">
+                                ${escapeHtml(entry.teaching)}
+                            </div>
+                            <div class="wisdom-note rounded-2xl p-5 text-white/70 leading-relaxed mt-6">
+                                ${escapeHtml(entry.reflection)}
+                            </div>
+                            <div class="mt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                                <div>
+                                    <div class="wisdom-entry-source text-[#00f3ff] font-medium">- ${escapeHtml(entry.source)}</div>
+                                    <div class="text-xs text-white/40">${escapeHtml(entry.dateLabel || 'Saved in your wisdom history')}</div>
+                                </div>
+                                <button onclick="copyQuote(this)" class="text-sm px-4 py-2 border border-white/20 rounded-2xl hover:bg-white/5 transition flex items-center justify-center gap-x-2">
+                                    <i class="fa-solid fa-copy"></i> <span>Copy</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            const noteEl = document.querySelector('.text-center.mt-12 p');
+            if (noteEl) {
+                noteEl.textContent = `${entries.length} wisdom entries are saved in this browser. A new dated entry is added each day and shown here together.`;
+            }
+        }
+
+        function loadTodaysWisdom() {
+            const wisdom = getDailyWisdom();
+            renderTodayWisdom(wisdom);
+            renderWisdomArchive(wisdom);
+        }
+
+        function revealAnotherWisdom() {
+            const history = getWisdomHistory();
+            const avoidId = activeScriptureWisdom?.id || history[0]?.id;
+            const seed = `${getLocalDateKey()}-${Date.now()}-${history.length}`;
+            const wisdom = pickUnseenWisdom(seed, history, avoidId);
+            commitWisdom(wisdom);
+            renderTodayWisdom(wisdom);
+            renderWisdomArchive(wisdom);
+            document.getElementById('today-wisdom')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function copyTodaysWisdom() {
+            if (!activeScriptureWisdom) return;
+
+            const text = `${activeScriptureWisdom.teaching}\n- ${activeScriptureWisdom.source}\n\n${activeScriptureWisdom.reflection}`;
+            navigator.clipboard.writeText(text);
+        }
+
+        function copyQuote(btn) {
+            const card = btn.closest('.wisdom-card');
+            const quoteText = card?.querySelector('.wisdom-entry-text')?.textContent.trim();
+            const sourceText = card?.querySelector('.wisdom-entry-source')?.textContent.trim();
+            const text = [quoteText, sourceText].filter(Boolean).join('\n');
+
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                }, 1800);
+            });
+        }
+
+        function copyPageLink() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                const activeButton = document.activeElement;
+                if (!activeButton || activeButton.tagName !== 'BUTTON') return;
+
+                const originalText = activeButton.innerHTML;
+                activeButton.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+                setTimeout(() => {
+                    activeButton.innerHTML = originalText;
                 }, 1500);
             });
         }
