@@ -388,6 +388,23 @@
             text-underline-offset: 3px;
         }
 
+        .newsletter-brevo .welcome-gift-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0.9rem;
+            padding: 0.85rem 1.25rem;
+            border-radius: 9999px;
+            background: linear-gradient(135deg, #00f3ff, #7c3aed);
+            color: #020617 !important;
+            font-weight: 800;
+            text-decoration: none !important;
+        }
+
+        .newsletter-brevo.is-subscribed #sib-container {
+            display: none;
+        }
+
         .newsletter-brevo .sib-form-block__button {
             display: inline-flex;
             align-items: center;
@@ -411,12 +428,6 @@
         .newsletter-brevo .sib-form-block__button:hover {
             transform: translateY(-1px) scale(1.03);
             box-shadow: 0 0 28px rgba(0, 243, 255, 0.42);
-        }
-
-        .newsletter-brevo .progress-indicator__icon {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
         }
 
         .newsletter-brevo .input--hidden {
@@ -794,14 +805,14 @@
                                     <path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z" />
                                 </svg>
                                 <span class="sib-form-message-panel__inner-text">
-                                    Your subscription has been successful. Your Special Welcome Gift is here.
-                                    <a href="welcome_email.html" target="_blank" rel="noopener">Click here</a>
+                                    Success. Opening your welcome gift page.
+                                    <a class="welcome-gift-link" href="welcome_email.html">Choose Your Welcome Gift</a>
                                 </span>
                             </div>
                         </div>
 
                         <div id="sib-container" class="sib-container--large sib-container--vertical" dir="ltr">
-                            <form id="sib-form" method="POST" action="https://8d6c3703.sibforms.com/serve/MUIFAMbTmXr9KJdU-mQcophS0HFESaiL8LQ8ymifHDmF4Q5FnVY7I7lFYFlTZ9L6AX1YtD2McQ5YSHKHsL2giHRu8mnK20_ijhoFl4ww6j083pcbeW0Fnljwd515sJ89P1Eg6DHmlzQRvXvpi-quwioAHiAhv8WLlKRcw4nVQHba2rAfptgu3fofOsF6KMVVC84oEKQPb9Tu86xwRA==" data-type="subscription">
+                            <form id="sib-form" method="POST" action="https://8d6c3703.sibforms.com/serve/MUIFAMbTmXr9KJdU-mQcophS0HFESaiL8LQ8ymifHDmF4Q5FnVY7I7lFYFlTZ9L6AX1YtD2McQ5YSHKHsL2giHRu8mnK20_ijhoFl4ww6j083pcbeW0Fnljwd515sJ89P1Eg6DHmlzQRvXvpi-quwioAHiAhv8WLlKRcw4nVQHba2rAfptgu3fofOsF6KMVVC84oEKQPb9Tu86xwRA==" data-type="subscription" onsubmit="return handleBrevoSubscribe(event)">
                                 <div class="sib-input sib-form-block">
                                     <div class="form__entry entry_block">
                                         <div class="form__label-row">
@@ -817,11 +828,8 @@
                                 </div>
 
                                 <div class="sib-form-block">
-                                    <button class="sib-form-block__button sib-form-block__button-with-loader" form="sib-form" type="submit">
-                                        <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512" aria-hidden="true">
-                                            <path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z" />
-                                        </svg>
-                                        Join the Journey
+                                    <button class="sib-form-block__button" form="sib-form" type="submit">
+                                        <span class="subscribe-button__text">Join the Journey</span>
                                     </button>
                                 </div>
 
@@ -1130,22 +1138,144 @@
         }
 
         function showBrevoWelcomeGiftMessage() {
+            const wrapper = document.querySelector('.newsletter-brevo');
             const successPanel = document.getElementById('success-message');
+            const errorPanel = document.getElementById('error-message');
             const messageText = successPanel?.querySelector('.sib-form-message-panel__inner-text');
             if (!successPanel || !messageText) return;
+
+            wrapper?.classList.add('is-subscribed');
+            errorPanel?.classList.remove('sib-form-message-panel--active');
+            if (errorPanel) errorPanel.style.display = 'none';
 
             successPanel.classList.add('sib-form-message-panel--active');
             successPanel.style.display = 'block';
 
-            if (messageText.querySelector('a[href="welcome_email.html"]')) return;
+            if (messageText.querySelector('.welcome-gift-link')) return;
 
             messageText.innerHTML = `
-                Your subscription has been successful. Your Special Welcome Gift is here.
-                <a href="welcome_email.html" target="_blank" rel="noopener">Click here</a>
+                Success. Opening your welcome gift page.
+                <a class="welcome-gift-link" href="welcome_email.html">Choose Your Welcome Gift</a>
             `;
         }
 
+        function showBrevoErrorMessage(message) {
+            const errorPanel = document.getElementById('error-message');
+            const successPanel = document.getElementById('success-message');
+            const messageText = errorPanel?.querySelector('.sib-form-message-panel__inner-text');
+            if (!errorPanel || !messageText) return;
+
+            successPanel?.classList.remove('sib-form-message-panel--active');
+            if (successPanel) successPanel.style.display = 'none';
+
+            messageText.textContent = message || 'Your subscription could not be saved. Please try again.';
+            errorPanel.classList.add('sib-form-message-panel--active');
+            errorPanel.style.display = 'block';
+        }
+
+        function submitBrevoInBackground(action, formData) {
+            if (!action || !formData) return;
+
+            if (window.fetch) {
+                try {
+                    window.fetch(action, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        body: formData,
+                        keepalive: true
+                    }).catch((error) => {
+                        console.warn('Brevo background submit failed:', error);
+                    });
+                    return;
+                } catch (error) {
+                    console.warn('Brevo fetch submit failed, falling back to a hidden form:', error);
+                }
+            }
+
+            try {
+                const frameName = 'brevo-background-frame';
+                let iframe = document.getElementById(frameName);
+                if (!iframe) {
+                    iframe = document.createElement('iframe');
+                    iframe.id = frameName;
+                    iframe.name = frameName;
+                    iframe.title = 'Brevo background subscription submission';
+                    iframe.style.display = 'none';
+                    document.body.appendChild(iframe);
+                }
+
+                const backgroundForm = document.createElement('form');
+                backgroundForm.method = 'POST';
+                backgroundForm.action = action;
+                backgroundForm.target = frameName;
+                backgroundForm.style.display = 'none';
+
+                formData.forEach((value, name) => {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = name;
+                    input.value = value;
+                    backgroundForm.appendChild(input);
+                });
+
+                document.body.appendChild(backgroundForm);
+                HTMLFormElement.prototype.submit.call(backgroundForm);
+                window.setTimeout(() => backgroundForm.remove(), 4000);
+            } catch (error) {
+                console.warn('Brevo background form submit failed:', error);
+            }
+        }
+
+        window.handleBrevoSubscribe = function(event) {
+            const form = document.getElementById('sib-form');
+            const emailInput = document.getElementById('EMAIL');
+            if (!form || !emailInput) return false;
+
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                if (typeof event.stopImmediatePropagation === 'function') {
+                    event.stopImmediatePropagation();
+                }
+            }
+
+            if (form.dataset.cosmicBrevoSubmitting === 'true') return false;
+
+            const honeyPot = form.querySelector('input[name="email_address_check"]');
+            if (honeyPot?.value) return false;
+
+            if (!emailInput.value.trim() || !emailInput.checkValidity()) {
+                showBrevoErrorMessage('Please enter a valid email address.');
+                emailInput.reportValidity();
+                return false;
+            }
+
+            form.dataset.cosmicBrevoSubmitting = 'true';
+            const formData = new FormData(form);
+            const action = form.action;
+
+            showBrevoWelcomeGiftMessage();
+            submitBrevoInBackground(action, formData);
+            form.reset();
+            form.dataset.cosmicBrevoSubmitting = 'false';
+            window.setTimeout(() => {
+                window.location.href = 'welcome_email.html';
+            }, 900);
+
+            return false;
+        };
+
+        function setupBrevoFormSubmitFallback() {
+            const form = document.getElementById('sib-form');
+            if (!form || form.dataset.cosmicBrevoReady === 'true') return;
+
+            form.dataset.cosmicBrevoReady = 'true';
+            form.onsubmit = window.handleBrevoSubscribe;
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            setupBrevoFormSubmitFallback();
+
             const successPanel = document.getElementById('success-message');
             if (!successPanel || !window.MutationObserver) return;
 
@@ -1183,6 +1313,5 @@
         };
         var AUTOHIDE = Boolean(1);
     </script>
-    <script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
 </body>
 </html>
