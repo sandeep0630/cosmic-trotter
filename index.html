@@ -237,35 +237,47 @@
             isolation: isolate;
             overflow: visible;
             border-radius: 9999px;
-            transition: transform 0.4s ease;
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease;
         }
 
         .logo-orb::before {
             content: "";
             position: absolute;
-            inset: -20px;
+            inset: -22px;
             z-index: 0;
             border-radius: 9999px;
             pointer-events: none;
             background:
-                radial-gradient(circle,
-                    rgba(0, 243, 255, 0.34) 0%,
-                    rgba(124, 58, 237, 0.24) 44%,
-                    rgba(124, 58, 237, 0.08) 60%,
-                    transparent 76%);
-            filter: blur(9px);
+                radial-gradient(circle at 50% 50%,
+                    rgba(0, 243, 255, 0.45) 0%,
+                    rgba(124, 58, 237, 0.32) 38%,
+                    rgba(124, 58, 237, 0.12) 58%,
+                    transparent 78%);
+            filter: blur(11px);
             transform: translateZ(0);
-            animation: logo-aura-pulse 4s ease-in-out infinite;
+            animation: logo-aura-pulse 5s ease-in-out infinite;
+            box-shadow: 0 0 60px rgba(0, 243, 255, 0.15);
+        }
+
+        .logo-orb::after {
+            content: "";
+            position: absolute;
+            inset: -3px;
+            z-index: 2;
+            border-radius: 9999px;
+            pointer-events: none;
+            border: 1px solid rgba(0, 243, 255, 0.25);
+            box-shadow: inset 0 0 12px rgba(255,255,255,0.06);
         }
 
         .logo-orb:hover {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .logo-orb--footer::before {
-            inset: -14px;
-            opacity: 0.72;
-            filter: blur(7px);
+            inset: -16px;
+            opacity: 0.65;
+            filter: blur(8px);
         }
 
         .logo-disk {
@@ -275,11 +287,13 @@
             height: 100%;
             overflow: hidden;
             border-radius: 9999px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1.5px solid rgba(255, 255, 255, 0.18);
             background: #0a0a0f;
             box-shadow:
-                0 0 12px rgba(0, 243, 255, 0.35),
-                0 0 28px rgba(124, 58, 237, 0.24);
+                0 0 18px rgba(0, 243, 255, 0.45),
+                0 0 36px rgba(124, 58, 237, 0.32),
+                inset 0 1px 0 rgba(255,255,255,0.12),
+                inset 0 -6px 12px rgba(0,0,0,0.5);
         }
 
         .gradient-text {
@@ -524,6 +538,12 @@
         .newsletter-brevo .sib-form-block__button:hover {
             transform: translateY(-1px) scale(1.03);
             box-shadow: 0 0 28px rgba(0, 243, 255, 0.42);
+        }
+
+        .newsletter-brevo .sib-form-block__button.loading {
+            pointer-events: none;
+            opacity: 0.75;
+            cursor: wait;
         }
 
         .newsletter-brevo .input--hidden {
@@ -1033,9 +1053,23 @@
         
         window.onload = function() {
             initializeTailwind();
-            
-            // Hide Intro Screen with cosmic flight transition
-            setTimeout(() => {
+
+            // Only run the fancy logo fly-in animation on direct visits to the homepage.
+            // When navigating internally (e.g. clicking Explore from other pages), skip the splash entirely.
+            const isInternalNav = document.referrer && document.referrer.includes(window.location.hostname);
+            const hasPlayedIntro = sessionStorage.getItem('cosmicIntroPlayed') === 'true';
+
+            if (isInternalNav || hasPlayedIntro) {
+                const intro = document.getElementById('intro-screen');
+                if (intro && intro.parentNode) {
+                    intro.parentNode.removeChild(intro);
+                }
+            } else {
+                // first/direct load to cosmictrotter.com -> play the animation
+                sessionStorage.setItem('cosmicIntroPlayed', 'true');
+                
+                // Hide Intro Screen with cosmic flight transition
+                setTimeout(() => {
                 const intro = document.getElementById('intro-screen');
                 const introLogo = document.getElementById('intro-logo-container');
                 const navLogo = document.querySelector('nav .logo-orb');
@@ -1730,6 +1764,16 @@
             }
 
             form.dataset.cosmicBrevoSubmitting = 'true';
+
+            // Take immediate control of button to prevent Brevo library "loading" hang
+            const submitBtn = form.querySelector('.sib-form-block__button');
+            if (submitBtn) {
+                submitBtn.classList.add('loading');
+                submitBtn.disabled = true;
+                const txt = submitBtn.querySelector('.subscribe-button__text');
+                if (txt) txt.textContent = 'Processing...';
+            }
+
             const formData = new FormData(form);
             const action = form.action;
 
@@ -1737,9 +1781,11 @@
             submitBrevoInBackground(action, formData);
             form.reset();
             form.dataset.cosmicBrevoSubmitting = 'false';
+
+            // Show success briefly then navigate to welcome/gift page
             window.setTimeout(() => {
                 window.location.href = 'welcome_email.html';
-            }, 900);
+            }, 1100);
 
             return false;
         };

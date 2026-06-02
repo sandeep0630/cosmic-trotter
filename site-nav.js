@@ -123,21 +123,39 @@
                 flex: 0 0 3.5rem;
                 overflow: visible;
                 border-radius: 9999px;
-                transition: transform 0.3s ease;
+                transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease;
             }
 
             .cosmic-site-nav .logo-orb::before {
                 content: "";
                 position: absolute;
-                inset: -18px;
+                inset: -22px;
                 z-index: 0;
                 border-radius: 9999px;
-                background: radial-gradient(circle, rgba(0, 243, 255, 0.34), rgba(124, 58, 237, 0.2) 50%, transparent 74%);
-                filter: blur(8px);
+                pointer-events: none;
+                background:
+                    radial-gradient(circle at 50% 50%,
+                        rgba(0, 243, 255, 0.45) 0%,
+                        rgba(124, 58, 237, 0.32) 38%,
+                        rgba(124, 58, 237, 0.12) 58%,
+                        transparent 78%);
+                filter: blur(11px);
+                box-shadow: 0 0 60px rgba(0, 243, 255, 0.15);
+            }
+
+            .cosmic-site-nav .logo-orb::after {
+                content: "";
+                position: absolute;
+                inset: -3px;
+                z-index: 2;
+                border-radius: 9999px;
+                pointer-events: none;
+                border: 1px solid rgba(0, 243, 255, 0.25);
+                box-shadow: inset 0 0 12px rgba(255,255,255,0.06);
             }
 
             .cosmic-site-nav .logo-orb:hover {
-                transform: scale(1.04);
+                transform: scale(1.08);
             }
 
             .cosmic-site-nav .logo-disk {
@@ -146,10 +164,14 @@
                 width: 100%;
                 height: 100%;
                 overflow: hidden;
-                border: 1px solid rgba(255, 255, 255, 0.12);
+                border: 1.5px solid rgba(255, 255, 255, 0.18);
                 border-radius: 9999px;
                 background: #0a0a0f;
-                box-shadow: 0 0 14px rgba(0, 243, 255, 0.34);
+                box-shadow:
+                    0 0 18px rgba(0, 243, 255, 0.45),
+                    0 0 36px rgba(124, 58, 237, 0.32),
+                    inset 0 1px 0 rgba(255,255,255,0.12),
+                    inset 0 -6px 12px rgba(0,0,0,0.5);
             }
 
             .cosmic-site-nav__logo {
