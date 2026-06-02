@@ -1,17 +1,37 @@
-# === Main Redirects for Static Site ===
-/*                                    /index.html   200
+# CosmicTrotter - Netlify Redirects & Rewrites
+# Clean URLs + security + fallback for static multi-page site
+
+# === Clean URL Rewrites (support nice/canonical extensionless paths) ===
+# Must appear early: rewrite clean slug -> actual .html file (200). Exact file matches + these win before the final fallback.
+# Home and deep pages with .html in their canonicals work via direct files.
+/wisdom                              /wisdom.html                              200
+/space                               /space.html                               200
+/philosophy                          /philosophy.html                          200
+/quantum                             /quantum.html                             200
+/ev-guide                            /ev-guide.html                            200
+/pm_e-drive_ev_charging_guide        /PM_E-DRIVE_EV_Charging_Guide.html        200
+
+# Friendly aliases for the EV guide (common misspellings/variations)
+/pm-e-drive                          /PM_E-DRIVE_EV_Charging_Guide.html        200
+/pm-edrive                           /PM_E-DRIVE_EV_Charging_Guide.html        200
+
+# No broad catch-all: unmatched paths will 404 (we provide 404.html below for nice themed error).
+# Specific clean URL rewrites + exact files win. Unknown -> real 404.
 
 # === Security Redirects (Block Common Bot Attacks) ===
-/wp-admin/*                           /index.html   301
-/wp-login.php                         /index.html   301
-/wp-admin                             /index.html   301
-/wp-admin/install.php                 /index.html   301
-/xmlrpc.php                           /index.html   301
-/wp-json/*                            /index.html   301
-/author/*                             /index.html   301
-/comments/*                           /index.html   301
-/.env                                 /index.html   301
-/git/*                                /index.html   301
+/wp-admin/*                          /index.html                               301
+/wp-login.php                        /index.html                               301
+/wp-admin                            /index.html                               301
+/wp-admin/install.php                /index.html                               301
+/xmlrpc.php                          /index.html                               301
+/wp-json/*                           /index.html                               301
+/author/*                            /index.html                               301
+/comments/*                          /index.html                               301
+/.env                                /index.html                               301
+/git/*                               /index.html                               301
 
-# === WWW to Non-WWW Redirect ===
-https://www.cosmictrotter.com/*       https://cosmictrotter.com/:splat   301!
+# === WWW to Non-WWW + HTTPS (force, with !) ===
+https://www.cosmictrotter.com/*      https://cosmictrotter.com/:splat          301!
+
+# (Optional) Old hyphenated domain redirect - uncomment if needed
+# https://cosmic-trotter.com/*       https://cosmictrotter.com/:splat          301!

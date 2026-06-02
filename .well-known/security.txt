@@ -1,0 +1,11 @@
+# CosmicTrotter Security Policy
+# We take security seriously. Report vulnerabilities responsibly.
+
+Contact: mailto:hello@cosmictrotter.com
+Expires: 2027-06-03T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://cosmictrotter.com/.well-known/security.txt
+
+# This is a static site with no user accounts or sensitive data processing on our servers.
+# Client-side only features (chats, forms via Brevo). Please report any XSS, CSP bypass, or supply-chain concerns in our static assets / CDNs.
+# No bug bounty program at this time; we appreciate responsible disclosure.

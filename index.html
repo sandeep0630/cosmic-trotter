@@ -26,8 +26,8 @@
     <meta name="twitter:image" content="https://cosmictrotter.com/logo.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" integrity="sha384-5uUK1NTA/P91HY+cXyokmqpOPyjKnVEN7kGZ+GDSLKWY4ZecgMCRxcEyuYRL4IFe" crossorigin="anonymous">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
         
@@ -215,6 +215,21 @@
             box-shadow:
                 0 0 22px rgba(0, 243, 255, 0.38),
                 0 0 56px rgba(124, 58, 237, 0.28);
+        }
+
+        /* Mobile-friendly intro splash logo */
+        @media (max-width: 640px) {
+            #intro-logo-container {
+                width: 128px !important;
+                height: 128px !important;
+                margin-bottom: 1.5rem !important;
+            }
+        }
+        @media (max-width: 380px) {
+            #intro-logo-container {
+                width: 108px !important;
+                height: 108px !important;
+            }
         }
 
         .logo-orb {
@@ -526,7 +541,7 @@
             <!-- Animated Logo (Full Circle) - Same as Desktop -->
             <div id="intro-logo-container" class="relative mx-auto mb-8 transition-all duration-700" style="width: 170px; height: 170px;">
                 <div class="intro-logo-disk">
-                    <img src="logo.png" alt="CosmicTrotter Logo" class="w-full h-full object-contain p-2" style="border-radius: 9999px;">
+                    <img src="logo.png" alt="CosmicTrotter Logo" width="170" height="170" class="w-full h-full object-contain p-2" style="border-radius: 9999px;">
                 </div>
             </div>
 
@@ -552,7 +567,7 @@
                 <a href="#" class="flex items-center gap-x-3 flex-shrink-0" aria-label="CosmicTrotter home">
                     <div class="logo-orb h-12 w-12 sm:h-14 sm:w-14 flex-shrink-0">
                         <div class="logo-disk">
-                            <img src="logo.png" alt="CosmicTrotter Logo" class="w-full h-full object-contain p-1.5" style="border-radius: 9999px;">
+                            <img src="logo.png" alt="CosmicTrotter Logo" width="56" height="56" class="w-full h-full object-contain p-1.5" style="border-radius: 9999px;">
                         </div>
                     </div>
                     <div class="min-w-0">
@@ -709,7 +724,7 @@
                 <span class="text-xs uppercase tracking-[2px] text-white/70">A Universe of Knowledge</span>
             </div>
             
-            <h1 class="text-6xl md:text-7xl font-bold tracking-tighter leading-none mb-6">
+            <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tighter leading-none mb-6">
                 Travel Through<br>
                 <span class="gradient-text">Knowledge</span>
             </h1>
@@ -768,7 +783,7 @@
             <p class="mt-4 text-xl text-white/60 max-w-md mx-auto">Curated journeys across science, philosophy, space, and ancient wisdom.</p>
         </div>
         
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <!-- Card 1: Ancient Wisdom -->
             <div class="cosmic-card rounded-3xl p-8 group cursor-pointer" onclick="window.location.href='ancient.html'">
                 <div class="w-14 h-14 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
@@ -905,7 +920,7 @@
                 <i class="fa-brands fa-instagram text-4xl mb-6 text-white/70"></i>
                 <h4 class="font-semibold text-xl mb-2">Follow on Instagram</h4>
                 <p class="text-white/60 text-sm mb-6">Daily cosmic visuals &amp; behind-the-scenes</p>
-                <a href="https://www.instagram.com/cosmictrotter108/" target="_blank" 
+                <a href="https://www.instagram.com/cosmictrotter108/" target="_blank" rel="noopener noreferrer" 
                    class="inline-block text-sm px-6 py-2 border border-white/30 rounded-2xl hover:bg-white/5">Follow @CosmicTrotter108</a>
             </div>
         </div>
@@ -996,10 +1011,11 @@
                 </div>
                 
                 <div class="flex items-center gap-x-8 text-sm text-white/50">
-                    <a href="https://www.instagram.com/cosmictrotter108/" target="_blank" class="hover:text-white transition">Instagram</a>
-                    <a href="#" class="hover:text-white transition">Privacy</a>
-                    <a href="#" class="hover:text-white transition">Terms</a>
-                    <a href="#" class="hover:text-white transition">Contact</a>
+                    <a href="https://www.instagram.com/cosmictrotter108/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">Instagram</a>
+                    <a href="/" class="hover:text-white transition">Home</a>
+                    <a href="mailto:hello@cosmictrotter.com" class="hover:text-white transition">Contact</a>
+                    <span class="text-white/30">•</span>
+                    <span class="text-white/40 cursor-default">Legal</span>
                 </div>
             </div>
             
@@ -1012,7 +1028,7 @@
     <script>
         // Tailwind script
         function initializeTailwind() {
-            console.log('%c[CosmicTrotter] Website initialized successfully', 'color:#00f3ff');
+            /* [CosmicTrotter] Website initialized */
         }
         
         window.onload = function() {
@@ -1086,7 +1102,7 @@
                 logo.addEventListener('click', () => {
                     const msg = document.createElement('div');
                     msg.className = 'fixed bottom-8 left-1/2 -translate-x-1/2 bg-white/10 text-white text-sm px-6 py-3 rounded-3xl border border-white/20 backdrop-blur-lg';
-                    msg.innerHTML = '✨ The universe just winked at you';
+                    msg.textContent = '✨ The universe just winked at you';
                     document.body.appendChild(msg);
                     setTimeout(() => msg.remove(), 2200);
                 });
@@ -1234,7 +1250,7 @@
                 const btns = document.querySelectorAll('#daily-wisdom button');
                 if (btns[1]) {
                     const original = btns[1].innerHTML;
-                    btns[1].innerHTML = 'Copied! ✓';
+                    btns[1].textContent = 'Copied! ✓';
                     setTimeout(() => btns[1].innerHTML = original, 1500);
                 }
             });
@@ -1705,7 +1721,9 @@
             const honeyPot = form.querySelector('input[name="email_address_check"]');
             if (honeyPot?.value) return false;
 
-            if (!emailInput.value.trim() || !emailInput.checkValidity()) {
+            const emailVal = (emailInput.value || '').trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+            if (!emailVal || emailVal.length > 254 || !emailRegex.test(emailVal) || !emailInput.checkValidity()) {
                 showBrevoErrorMessage('Please enter a valid email address.');
                 emailInput.reportValidity();
                 return false;

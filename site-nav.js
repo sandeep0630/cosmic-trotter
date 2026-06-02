@@ -687,6 +687,47 @@
             html[data-theme="light"] .cosmic-site-nav__cta {
                 color: #020617 !important;
             }
+
+            /* === Mobile enhancements (global, loaded on all pages via site-nav) === */
+            html, body {
+                overflow-x: hidden; /* stronger than clip for older browsers */
+            }
+
+            /* Better tap targets */
+            button,
+            .cosmic-btn,
+            a[onclick],
+            [role="button"] {
+                min-height: 44px;
+                -webkit-tap-highlight-color: rgba(0, 243, 255, 0.25);
+            }
+
+            @media (max-width: 640px) {
+                /* Slightly more breathing room on small screens */
+                .cosmic-card,
+                .wisdom-card {
+                    padding-left: 1.25rem !important;
+                    padding-right: 1.25rem !important;
+                }
+
+                /* Inputs and buttons easier to tap */
+                input[type="text"],
+                input[type="email"],
+                button {
+                    font-size: 16px; /* prevent iOS auto-zoom on focus */
+                }
+
+                .cosmic-btn,
+                button[class*="py-"] {
+                    min-height: 48px;
+                }
+            }
+
+            /* Chat / form message bubbles should not cause scroll */
+            .message-krishna, .message-user {
+                max-width: 85%;
+                word-wrap: break-word;
+            }
         `;
 
         document.head.appendChild(style);
@@ -744,7 +785,7 @@
                         <a class="cosmic-site-nav__brand" href="${navHref(base, "home")}" aria-label="CosmicTrotter home">
                             <span class="logo-orb">
                                 <span class="logo-disk">
-                                    <img class="cosmic-site-nav__logo" src="${logo}" alt="CosmicTrotter Logo">
+                                    <img class="cosmic-site-nav__logo" src="${logo}" alt="CosmicTrotter Logo" width="56" height="56">
                                 </span>
                             </span>
                             <span class="cosmic-site-nav__brand-copy">

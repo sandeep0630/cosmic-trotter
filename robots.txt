@@ -1,0 +1,18 @@
+# CosmicTrotter robots.txt
+# Static site - allow all legitimate crawlers
+
+User-agent: *
+Allow: /
+
+# Sitemap location (must be full URL)
+Sitemap: https://cosmictrotter.com/sitemap.xml
+
+# Optional: discourage indexing of the email gift success page if desired (commented)
+# Disallow: /welcome_email.html
+
+# Block common bot paths (defense in depth; _redirects also handles many)
+Disallow: /wp-admin/
+Disallow: /wp-login.php
+Disallow: /xmlrpc.php
+Disallow: /.env
+Disallow: /git/
