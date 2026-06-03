@@ -123,39 +123,26 @@
                 flex: 0 0 3.5rem;
                 overflow: visible;
                 border-radius: 9999px;
-                transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease;
+                transition: transform 0.4s ease;
             }
 
             .cosmic-site-nav .logo-orb::before {
                 content: "";
                 position: absolute;
-                inset: -22px;
+                inset: -18px;
                 z-index: 0;
                 border-radius: 9999px;
                 pointer-events: none;
                 background:
-                    radial-gradient(circle at 50% 50%,
-                        rgba(0, 243, 255, 0.45) 0%,
-                        rgba(124, 58, 237, 0.32) 38%,
-                        rgba(124, 58, 237, 0.12) 58%,
+                    radial-gradient(circle,
+                        rgba(0, 243, 255, 0.28) 0%,
+                        rgba(124, 58, 237, 0.18) 50%,
                         transparent 78%);
-                filter: blur(11px);
-                box-shadow: 0 0 60px rgba(0, 243, 255, 0.15);
-            }
-
-            .cosmic-site-nav .logo-orb::after {
-                content: "";
-                position: absolute;
-                inset: -3px;
-                z-index: 2;
-                border-radius: 9999px;
-                pointer-events: none;
-                border: 1px solid rgba(0, 243, 255, 0.25);
-                box-shadow: inset 0 0 12px rgba(255,255,255,0.06);
+                filter: blur(10px);
             }
 
             .cosmic-site-nav .logo-orb:hover {
-                transform: scale(1.08);
+                transform: scale(1.06);
             }
 
             .cosmic-site-nav .logo-disk {
@@ -164,22 +151,26 @@
                 width: 100%;
                 height: 100%;
                 overflow: hidden;
-                border: 1.5px solid rgba(255, 255, 255, 0.18);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 6px;
+                border: 1px solid rgba(255, 255, 255, 0.14);
                 border-radius: 9999px;
                 background: #0a0a0f;
                 box-shadow:
-                    0 0 18px rgba(0, 243, 255, 0.45),
-                    0 0 36px rgba(124, 58, 237, 0.32),
-                    inset 0 1px 0 rgba(255,255,255,0.12),
-                    inset 0 -6px 12px rgba(0,0,0,0.5);
+                    0 0 10px rgba(0, 243, 255, 0.25),
+                    0 0 22px rgba(124, 58, 237, 0.18),
+                    inset 0 1px 0 rgba(255,255,255,0.1);
             }
 
             .cosmic-site-nav__logo {
-                width: 100%;
-                height: 100%;
+                max-width: 78%;
+                max-height: 78%;
+                width: auto;
+                height: auto;
                 object-fit: contain;
-                padding: 0.375rem;
-                border-radius: 9999px;
+                border-radius: 50%;
             }
 
             .cosmic-site-nav__brand-copy {
