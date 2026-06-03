@@ -967,7 +967,7 @@
                                 </svg>
                                 <span class="sib-form-message-panel__inner-text">
                                     Success. Opening your welcome gift page.
-                                    <a class="welcome-gift-link" href="welcome_email.html">Choose Your Welcome Gift</a>
+                                    <a class="welcome-gift-link" href="welcome.html">Choose Your Welcome Gift</a>
                                 </span>
                             </div>
                         </div>
@@ -1658,7 +1658,7 @@
 
             messageText.innerHTML = `
                 Success. Opening your welcome gift page.
-                <a class="welcome-gift-link" href="welcome_email.html">Choose Your Welcome Gift</a>
+                <a class="welcome-gift-link" href="welcome.html">Choose Your Welcome Gift</a>
             `;
         }
 
@@ -1757,27 +1757,29 @@
 
             form.dataset.cosmicBrevoSubmitting = 'true';
 
-            // Take immediate control of button to prevent Brevo library "loading" hang
+            // Immediately control the button to avoid any Brevo library loading/hang state
             const submitBtn = form.querySelector('.sib-form-block__button');
             if (submitBtn) {
-                submitBtn.classList.add('loading');
                 submitBtn.disabled = true;
                 const txt = submitBtn.querySelector('.subscribe-button__text');
-                if (txt) txt.textContent = 'Processing...';
+                if (txt) txt.textContent = 'Joining the Cosmos...';
             }
 
             const formData = new FormData(form);
             const action = form.action;
 
-            showBrevoWelcomeGiftMessage();
+            // Fire the subscription to Brevo in the background.
+            // This ensures Brevo processes the signup and sends the welcome email.
             submitBrevoInBackground(action, formData);
+
+            // Reset form for good measure (though we navigate away)
             form.reset();
             form.dataset.cosmicBrevoSubmitting = 'false';
 
-            // Show success briefly then navigate to welcome/gift page
-            window.setTimeout(() => {
-                window.location.href = 'welcome_email.html';
-            }, 1100);
+            // Navigate immediately to the welcome experience.
+            // User sees the archetype gift chooser right away.
+            // No waiting on Brevo response (no-cors anyway), no showing of inline success panel.
+            window.location.href = 'welcome.html';
 
             return false;
         };

@@ -8,7 +8,7 @@ Allow: /
 Sitemap: https://cosmictrotter.com/sitemap.xml
 
 # Optional: discourage indexing of the email gift success page if desired (commented)
-# Disallow: /welcome_email.html
+# welcome.html is the public welcome landing - do not disallow
 
 # Block common bot paths (defense in depth; _redirects also handles many)
 Disallow: /wp-admin/
