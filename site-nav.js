@@ -1171,6 +1171,8 @@
 
         if (lang === 'en') {
             localStorage.setItem('preferredLang', 'en');  // force clear Telugu preference
+            deactivateGoogleWidget();  // remove any in-place Google widget
+
             let target = getEnglishEquivalentUrl(window.location.href);
             if (!target.startsWith('http')) {
                 target = window.location.origin + (target.startsWith('/') ? target : '/' + target);
@@ -1199,17 +1201,13 @@
                     // Use our clean, accurate translation
                     window.location.href = teTarget + window.location.search + window.location.hash;
                 } else {
-                    // No dedicated page yet -> directly go to Google Translate (user's request)
-                    const cleanEnglish = getCleanEnglishUrl();
-                    const googleTranslateUrl = `https://translate.google.com/translate?sl=en&tl=te&hl=te&u=${encodeURIComponent(cleanEnglish)}`;
-                    window.location.href = googleTranslateUrl;
+                    // No dedicated page yet -> use in-place Google widget (keeps our nav, logo, toggle)
+                    activateGoogleTeluguWidget();
                 }
             })
             .catch(() => {
-                // Network error or something -> fallback to Google Translate
-                const cleanEnglish = getCleanEnglishUrl();
-                const googleTranslateUrl = `https://translate.google.com/translate?sl=en&tl=te&hl=te&u=${encodeURIComponent(cleanEnglish)}`;
-                window.location.href = googleTranslateUrl;
+                // Network error -> use in-place widget
+                activateGoogleTeluguWidget();
             });
     }
 
@@ -1232,6 +1230,105 @@
         return clean;
     }
 
+    // In-place Google Translate widget for fallback (keeps our nav/logo/toggle visible)
+    function activateGoogleTeluguWidget() {
+        // Create the element container (Google will style it as the language bar)
+        let container = document.getElementById('google_translate_element');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'google_translate_element';
+            // Position it nicely below our nav if needed, but Google usually injects its own bar
+            document.body.insertBefore(container, document.body.firstChild);
+        }
+
+        // Load the Google script once
+        if (!window.googleTranslateElementInitTe) {
+            const script = document.createElement('script');
+            script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInitTe';
+            document.head.appendChild(script);
+
+            window.googleTranslateElementInitTe = function() {
+                new google.translate.TranslateElement({
+                    pageLanguage: 'en',
+                    includedLanguages: 'te',
+                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                    autoDisplay: true
+                }, 'google_translate_element');
+
+                // Attempt to auto-select Telugu
+                setTimeout(() => {
+                    const select = document.querySelector('.goog-te-combo');
+                    if (select) {
+                        select.value = 'te';
+                        select.dispatchEvent(new Event('change'));
+                    }
+                }, 1200);
+            };
+        } else {
+            // Script already loaded, re-init if needed
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'te',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: true
+            }, 'google_translate_element');
+        }
+
+        // Optional small note under the widget
+        setTimeout(() => {
+            if (container && !document.getElementById('te-widget-note')) {
+                const note = document.createElement('div');
+                note.id = 'te-widget-note';
+                note.style.cssText = 'font-size:11px; color:#666; text-align:center; margin-top:2px;';
+                note.innerHTML = 'Telugu via Google (temporary) — click EN to return to original';
+                container.appendChild(note);
+            }
+        }, 1500);
+
+        // Give space if Google adds its banner at top
+        setTimeout(() => {
+            const googleBanner = document.querySelector('.goog-te-banner-frame');
+            if (googleBanner) {
+                document.body.style.paddingTop = '40px';
+            }
+        }, 2000);
+
+        // Ensure toggle buttons reflect Telugu active
+        document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
+            if (btn.getAttribute('data-lang') === 'te') {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    function deactivateGoogleWidget() {
+        const container = document.getElementById('google_translate_element');
+        if (container) container.remove();
+
+        // Remove Google's injected elements (the bar, etc.)
+        const googleBar = document.querySelector('.goog-te-banner-frame');
+        if (googleBar && googleBar.parentNode) googleBar.parentNode.removeChild(googleBar);
+
+        // Clear any Google cookies/classes if possible (best effort)
+        document.documentElement.classList.remove('translated-ltr', 'translated-rtl');
+        const skipTranslate = document.querySelector('iframe.goog-te-banner-frame');
+        if (skipTranslate) skipTranslate.remove();
+
+        // Reset body padding
+        document.body.style.paddingTop = '';
+
+        // Reset toggle buttons to EN active
+        document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
+            if (btn.getAttribute('data-lang') === 'en') {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
 
 
 
@@ -1239,6 +1336,10 @@
     function initLanguage() {
         const saved = localStorage.getItem('preferredLang') || 'en';
         const currentPath = window.location.pathname;
+
+        if (saved === 'en') {
+            deactivateGoogleWidget();
+        }
 
         // Set active button state
         document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
@@ -1250,10 +1351,10 @@
             }
         });
 
-        // Auto-redirect if saved preference doesn't match current page
-        // Only auto-redirect for *dedicated* -te.html files.
-        // For Google fallback, do NOT auto-redirect on load (prevents being stuck).
-        // User must explicitly click the తెలుగు button to get the Google version.
+        // Handle language preference on load
+        // - Dedicated -te.html → redirect to it (best quality, full our UI)
+        // - Otherwise → activate in-place Google widget for Telugu (toggle/logo always visible, stay on our domain)
+        // - EN always results in clean regular page (widget removed if any)
         const isTeluguPage = currentPath.includes('-te');
         if (saved === 'te' && !isTeluguPage) {
             const referrer = document.referrer || '';
@@ -1267,16 +1368,13 @@
                         if (res.ok) {
                             window.location.replace(teTarget + window.location.search);
                         } else {
-                            // No dedicated page yet — directly go to Google Translate (as requested)
-                            const cleanEnglish = getCleanEnglishUrl();
-                            const googleTranslateUrl = `https://translate.google.com/translate?sl=en&tl=te&hl=te&u=${encodeURIComponent(cleanEnglish)}`;
-                            window.location.replace(googleTranslateUrl);
+                            // No dedicated page yet — activate in-place Google widget (keeps our UI)
+                            activateGoogleTeluguWidget();
                         }
                     })
                     .catch(() => {
-                        const cleanEnglish = getCleanEnglishUrl();
-                        const googleTranslateUrl = `https://translate.google.com/translate?sl=en&tl=te&hl=te&u=${encodeURIComponent(cleanEnglish)}`;
-                        window.location.replace(googleTranslateUrl);
+                        // fallback to widget
+                        activateGoogleTeluguWidget();
                     });
             }
         }
