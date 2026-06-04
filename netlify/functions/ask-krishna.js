@@ -9,7 +9,8 @@
 //    - Add new variable:
 //      Key:   GEMINI_API_KEY
 //      Value: paste-your-gemini-key-here
-// 3. Click "Deploy" or push a new commit to trigger a redeploy.
+// 3. **Important:** After adding the variable, you MUST trigger a new deploy (env vars are only injected on deploy).
+//    - Go to Deploys tab → "Trigger deploy" → "Clear cache and deploy site"
 // 4. On your live site, hard refresh (Ctrl + Shift + R) the home page.
 //
 // Once configured, the floating "Ask Krishna" widget will use real AI (Gemini) for natural,
