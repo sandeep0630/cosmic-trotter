@@ -1,4 +1,5 @@
 (function () {
+    console.log('%c[Ask Krishna Widget] Script parsed and started. Current protocol:', 'color:#7c3aed', location.protocol);
     const widgetState = {
         isOpen: false,
         isReady: false,
@@ -9,6 +10,35 @@
         turnCount: 0,
         recentHistory: []   // small rolling history for better real-AI context
     };
+
+    // === LOCAL DIRECT GEMINI SUPPORT (for file:// or localhost testing ONLY) ===
+    // Put your Gemini API key here temporarily to test the widget by opening index.html directly.
+    // This bypasses the Netlify function and calls Gemini API directly from browser.
+    // DO NOT commit a real key. Clear this before any push.
+    const LOCAL_GEMINI_API_KEY = "";   // local file:// testing only - clear before commit/push
+
+    // Duplicate of the Krishna system prompt for direct browser calls
+    const LOCAL_KRISHNA_SYSTEM_PROMPT = `You are Lord Krishna from the Bhagavad Gita, speaking directly and personally to the user as if they are Arjuna coming to you for guidance in the middle of their life struggles.
+
+Core identity and voice:
+- You are Krishna: calm, compassionate, wise, loving, and slightly playful at times. You speak in the first person when appropriate ("I say to you...").
+- You are deeply rooted in the Bhagavad Gita. When it fits naturally, quote or reference a relevant verse accurately with chapter and verse number.
+- You help humans solve real problems — stress, fear, relationships, purpose, anger, loss, work, money, habits, self-doubt, AI/job fears, etc. — by offering Gita wisdom + one small, practical, doable next step they can take today.
+- You also happily answer questions about life, dharma, the Gita, philosophy, or the universe in a clear, insightful way.
+- Greet warmly and naturally when the user says "hi", "hello", "hey", "namaste", "hare krishna", "radhe radhe", or similar. Respond in character.
+
+Conversation style (GPT-like naturalness):
+- Speak in clear, modern, warm English with a timeless, gentle, slightly poetic quality.
+- Be conversational and flowing — listen to what they actually said, refer back to previous parts of the conversation naturally.
+- Keep most replies helpful and not too long (usually 4–8 sentences), but vary length based on the depth of the question.
+- Always offer one concrete, small practical action or reflection at the end, phrased gently as an invitation.
+- Stay completely in character at all times. Never mention AI, models, prompts, or that you are "based on the Gita". You simply are Krishna offering guidance.
+- Vary your language. Do not start every response with repetitive phrases like "Oh my friend", "My dear friend", "Oh dear", "Arjuna", "Dear one", or similar. Use such terms sparingly and only when they feel natural in context. Speak directly and wisely to the user's current message.
+
+Safety:
+- If the user expresses serious distress, suicidal thoughts, or self-harm, respond with compassion but immediately and clearly direct them to seek real human help (crisis lines, friends, professionals). Do not try to philosophize it away.
+
+You have the recent conversation history. Use it to make the conversation feel continuous and personal.`;
 
     const wisdomByTopic = {
         stress: {
@@ -773,7 +803,31 @@
     // - Solves human problems + answers life/Gita questions
     // - Excellent greetings ("Hi", "Namaste", etc.)
     // Falls back to the curated local Gita wisdom engine when needed.
+    //
+    // For local file:// testing (opening index.html directly on your PC):
+    //   - Put your Gemini key in LOCAL_GEMINI_API_KEY below
+    //   - The widget will call Gemini API directly from the browser (no Netlify function needed)
+    //   - Clear the key before any commit/push.
     async function tryRealKrishna(userMessage) {
+        const isLocal = location.protocol === 'file:' || 
+                        location.hostname === 'localhost' || 
+                        location.hostname === '127.0.0.1';
+
+        // Direct Gemini call for local file:// testing (uses your browser + Gemini key)
+        if (LOCAL_GEMINI_API_KEY && isLocal) {
+            try {
+                const reply = await callGeminiDirect(userMessage);
+                if (reply) {
+                    console.info('[Ask Krishna] Using DIRECT Gemini API (local file:// mode - for testing only)');
+                    return reply;
+                }
+            } catch (e) {
+                console.error('[Ask Krishna] Direct Gemini call failed:', e);
+                return null;
+            }
+        }
+
+        // Normal production path via Netlify function
         try {
             // Pass rolling history so responses feel truly conversational and contextual (like GPT)
             const res = await fetch('/.netlify/functions/ask-krishna', {
@@ -790,12 +844,89 @@
             }
             const data = await res.json();
             if (data.useLocal) {
-                console.info('[Ask Krishna] Function returned useLocal=true. Message:', data.message || data.debug);
+                console.info('[Ask Krishna] Function returned useLocal=true. Full response from function (check debug for real error):', data);
             }
             return (data.reply && !data.useLocal) ? data.reply : null;
         } catch (e) {
             return null;
         }
+    }
+
+    // Direct browser call to Gemini (replicates the Netlify function logic)
+    async function callGeminiDirect(userMessage) {
+        if (!LOCAL_GEMINI_API_KEY) return null;
+
+        const recentHistory = widgetState.recentHistory.slice(-8);
+
+        const contents = [];
+
+        // Inject system prompt as the very first user message (workaround for "systemInstruction" not recognized in some Gemini API setups / keys)
+        contents.push({
+            role: 'user',
+            parts: [{ text: "You are to act as Lord Krishna from the Bhagavad Gita. " + LOCAL_KRISHNA_SYSTEM_PROMPT }]
+        });
+
+        recentHistory.forEach(m => {
+            contents.push({
+                role: m.role === 'user' ? 'user' : 'model',
+                parts: [{ text: m.content }]
+            });
+        });
+        contents.push({
+            role: 'user',
+            parts: [{ text: userMessage }]
+        });
+
+        // Try multiple model names for compatibility with free tier / v1 API
+        // Use current available models from Google (as of 2026). 
+        // To see exact models available for YOUR key, run in browser console:
+        // fetch(`https://generativelanguage.googleapis.com/v1/models?key=YOUR_KEY_HERE`).then(r=>r.json()).then(c=>console.log(c.models.filter(m=>m.supportedGenerationMethods.includes('generateContent')).map(m=>m.name)))
+        // Then use the base name like 'gemini-2.5-flash'
+        const modelCandidates = [
+            'gemini-2.5-flash',
+            'gemini-2.5-flash-lite',
+            'gemini-2.0-flash-exp'
+        ];
+
+        for (const model of modelCandidates) {
+            console.log(`[Ask Krishna] Trying direct model: ${model}`);
+            const url = `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${LOCAL_GEMINI_API_KEY}`;
+
+            const bodyPayload = {
+                contents: contents,
+                generationConfig: {
+                    temperature: 0.85,
+                    maxOutputTokens: 800,
+                    topP: 0.95
+                }
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(bodyPayload)
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+                    if (reply) {
+                        console.info(`[Ask Krishna] Direct Gemini succeeded with model: ${model}`);
+                        return reply;
+                    }
+                } else {
+                    const errText = await response.text();
+                    console.warn(`[Ask Krishna] Model ${model} failed:`, response.status, errText);
+                }
+            } catch (e) {
+                console.warn(`[Ask Krishna] Model ${model} error:`, e);
+            }
+        }
+
+        throw new Error('All Gemini models failed for direct call');
     }
 
     async function respondToMessage(message) {
@@ -827,7 +958,7 @@
             }
         } else {
             // Local high-quality Gita wisdom (always works)
-            console.warn('[Ask Krishna Widget] Using LOCAL fallback (real AI not available). Check Netlify env var GEMINI_API_KEY and redeploy. (Open Netlify function logs for details)');
+            console.warn('[Ask Krishna Widget] Using LOCAL fallback. The function returned useLocal=true. Check Netlify function logs for the detailed Gemini error (look for "Gemini API error:").');
             const wisdom = getWisdom(text);
 
             widgetState.turnCount += 1;
