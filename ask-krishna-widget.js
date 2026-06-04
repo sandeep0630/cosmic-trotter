@@ -821,6 +821,7 @@
             }
         } else {
             // Local high-quality Gita wisdom (always works)
+            console.warn('[Ask Krishna Widget] Using LOCAL fallback (real AI not available). Check Netlify env var GEMINI_API_KEY and redeploy.');
             const wisdom = getWisdom(text);
 
             widgetState.turnCount += 1;
