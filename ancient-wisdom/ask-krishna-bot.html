@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -107,6 +107,7 @@
         
         <h1 class="text-5xl md:text-6xl font-bold tracking-tighter mb-3">Ask Krishna</h1>
         <p class="text-2xl text-white/80 max-w-2xl mx-auto">Talk to Krishna. Get real wisdom from the Bhagavad Gita. Voice enabled.</p>
+        <p class="text-xs text-white/50 mt-2">Local Gita engine active • Real conversational AI available when configured on Netlify</p>
     </div>
 
     <!-- Chat Container -->
@@ -116,6 +117,7 @@
             <!-- Chat Messages -->
             <div id="chat-messages" class="flex-1 overflow-y-auto p-6 space-y-6 bg-[#0f0f1a]">
                 <!-- Messages will be added here by JavaScript -->
+                <!-- On first load the JS adds a welcoming message from Krishna -->
             </div>
             
             <!-- Input Area -->
@@ -176,6 +178,33 @@
             lastUserMessage: "",
             turnCount: 0
         };
+
+        // Real LLM integration (Netlify function) - makes the bot feel like a true GPT-style conversation with Krishna
+        // Falls back gracefully to the rich local Gita wisdom engine below.
+        async function getRealKrishnaReply(userMessage, history = []) {
+            try {
+                const res = await fetch('/.netlify/functions/ask-krishna', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        messages: history.map(m => ({ role: m.role, content: m.content })),
+                        userMessage: userMessage
+                    })
+                });
+
+                if (!res.ok) throw new Error('Function call failed');
+
+                const data = await res.json();
+
+                if (data.useLocal || !data.reply) {
+                    return null; // signal to use local engine
+                }
+                return data.reply;
+            } catch (err) {
+                // Silent fallback — the local wisdom engine is still excellent
+                return null;
+            }
+        }
         
         // Expanded Gita Wisdom Database (40+ verses)
         const gitaWisdom = {
@@ -920,50 +949,55 @@
             });
         }
 
-        function respondToUserMessage(message) {
+        async function respondToUserMessage(message) {
             if (!message || isResponding) return;
 
             addMessage(message, true);
             setRespondingState(true);
             showTypingIndicator();
 
-            const delay = Math.min(1700, 850 + (message.length * 8));
+            // Try the real AI-powered Krishna first (when netlify function + API key are configured)
+            let realReply = null;
+            try {
+                realReply = await getRealKrishnaReply(message, conversationHistory);
+            } catch (e) {
+                // ignore - will fallback
+            }
 
-            setTimeout(() => {
-                try {
-                    removeTypingIndicator();
+            removeTypingIndicator();
 
-                    const wisdom = getGitaResponse(message);
-                    addMessage(formatWisdomResponse(wisdom), false);
+            if (realReply) {
+                // GPT-like generative response from the model (in character as Krishna)
+                addMessage(realReply, false);
+            } else {
+                // High-quality local engine (always available, deeply rooted in the Gita)
+                const wisdom = getGitaResponse(message);
+                addMessage(formatWisdomResponse(wisdom), false);
 
-                    setTimeout(() => {
-                        addMessage(getFollowUpPrompt(wisdom), false, { save: false });
-                        setRespondingState(false);
+                // Gentle follow-up prompt
+                setTimeout(() => {
+                    addMessage(getFollowUpPrompt(wisdom), false, { save: false });
+                }, 650);
+            }
 
-                        const input = document.getElementById('user-input');
-                        if (input) input.focus();
-                    }, 700);
-                } catch (error) {
-                    console.error('Ask Krishna bot response failed:', error);
-                    removeTypingIndicator();
-                    addMessage("I am sorry, something interrupted the response. Please ask again in a simple sentence.", false, { save: false });
-                    setRespondingState(false);
-                }
-            }, delay);
+            setRespondingState(false);
+
+            const input = document.getElementById('user-input');
+            if (input) input.focus();
         }
 
-        function sendMessage() {
+        async function sendMessage() {
             const input = document.getElementById('user-input');
             const message = input.value.trim();
 
             if (!message || isResponding) return;
 
             input.value = '';
-            respondToUserMessage(message);
+            await respondToUserMessage(message);
         }
 
-        function quickQuestion(question) {
-            respondToUserMessage(question);
+        async function quickQuestion(question) {
+            await respondToUserMessage(question);
         }
 
         // Voice Input
@@ -1025,7 +1059,7 @@
                 const welcomeMsg = `
                     Namaste, my child.<br><br>
                     I am Krishna. Whatever is troubling you — stress, fear, confusion, or pain — I have already answered it in the Bhagavad Gita.<br><br>
-                    Speak your heart. I am listening.
+                    Speak your heart. When real AI is configured, our conversation can flow even more naturally.
                 `;
                 addMessage(welcomeMsg, false, { save: false });
             }, 800);

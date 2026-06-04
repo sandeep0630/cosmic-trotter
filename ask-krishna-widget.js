@@ -6,7 +6,8 @@
         isListening: false,
         eventsBound: false,
         lastTopic: null,
-        turnCount: 0
+        turnCount: 0,
+        recentHistory: []   // small rolling history for better real-AI context
     };
 
     const wisdomByTopic = {
@@ -203,8 +204,9 @@
             }
 
             .krishna-widget__button {
-                width: 4rem;
-                height: 4rem;
+                padding: 0 1.05rem 0 0.95rem;
+                min-width: 4rem;
+                height: 3.25rem;
                 border: 1px solid rgba(255, 255, 255, 0.18);
                 border-radius: 9999px;
                 background: linear-gradient(135deg, #7c3aed, #00f3ff);
@@ -212,8 +214,12 @@
                 box-shadow: 0 16px 40px rgba(0, 243, 255, 0.28);
                 display: inline-flex;
                 align-items: center;
+                gap: 0.55rem;
                 justify-content: center;
-                transition: transform 0.2s ease, box-shadow 0.2s ease;
+                font-size: 0.9rem;
+                font-weight: 600;
+                letter-spacing: -0.01em;
+                transition: transform 0.2s ease, box-shadow 0.2s ease, width 0.2s ease;
             }
 
             .krishna-widget__button:hover,
@@ -221,6 +227,32 @@
                 transform: translateY(-2px) scale(1.03);
                 box-shadow: 0 20px 48px rgba(124, 58, 237, 0.38);
                 outline: none;
+            }
+
+            .krishna-widget__button-text {
+                white-space: nowrap;
+                font-size: 0.95rem;
+                letter-spacing: -0.01em;
+            }
+
+            .krishna-widget__button i {
+                font-size: 1.1rem;
+                flex-shrink: 0;
+            }
+            .krishna-widget__button .fa-xmark {
+                font-size: 1.25rem;
+            }
+
+            @media (max-width: 640px) {
+                .krishna-widget__button-text {
+                    display: none;
+                }
+                .krishna-widget__button {
+                    padding: 0;
+                    width: 3.25rem;
+                    height: 3.25rem;
+                    min-width: 3.25rem;
+                }
             }
 
             .krishna-widget__panel {
@@ -480,8 +512,11 @@
 
                 .krishna-widget__button {
                     margin-left: auto;
-                    width: 3.5rem;
-                    height: 3.5rem;
+                    padding: 0;
+                    width: 3.25rem;
+                    height: 3.25rem;
+                    min-width: 3.25rem;
+                    font-size: 0;
                 }
 
                 .krishna-widget__panel {
@@ -540,7 +575,8 @@
                 </form>
             </section>
             <button type="button" id="krishna-launcher" class="krishna-widget__button" aria-label="Open Ask Krishna chat" aria-controls="krishna-chat-panel" aria-expanded="false">
-                <i class="fa-solid fa-comments text-2xl"></i>
+                <span class="krishna-widget__button-text">Ask Krishna</span>
+                <i class="fa-solid fa-comments"></i>
             </button>
         `;
 
@@ -623,11 +659,11 @@
         if (isGreeting(message)) {
             return {
                 topic: "greeting",
-                opening: widgetState.turnCount > 0 ? "Namaste. I am still here with you." : "Namaste. I am here with you.",
+                opening: widgetState.turnCount > 0 ? "Namaste. I am still here with you, my friend." : "Namaste. It is good that you have come to me. Tell me what weighs on your heart or what you wish to understand.",
                 verse: "I am the Self, O Gudakesha, seated in the hearts of all beings.",
                 chapter: "Bhagavad Gita 10.20",
-                explanation: "Speak simply. You do not need to sound spiritual or perfect. Share what is actually happening in your mind.",
-                action: "Tell me what you are facing today: stress, fear, grief, anger, loneliness, study, money, AI, trading, health, or a decision."
+                explanation: "Speak simply and from the heart. You do not need perfect words. I am listening to what is truly alive in you right now.",
+                action: "Share what is troubling you, or ask me any question about life, duty, or the Gita. I will answer with wisdom and one small step you can take."
             };
         }
 
@@ -730,17 +766,61 @@
         });
     }
 
-    function respondToMessage(message) {
+    // Real generative AI backend (completely free via Google Gemini). 
+    // This makes the *floating widget* the primary fully generative "chat with Krishna like GPT" experience.
+    // - Natural flowing conversation
+    // - Strong Krishna voice (first person, compassionate, Gita-rooted)
+    // - Solves human problems + answers life/Gita questions
+    // - Excellent greetings ("Hi", "Namaste", etc.)
+    // Falls back to the curated local Gita wisdom engine when needed.
+    async function tryRealKrishna(userMessage) {
+        try {
+            // Pass rolling history so responses feel truly conversational and contextual (like GPT)
+            const res = await fetch('/.netlify/functions/ask-krishna', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    userMessage, 
+                    messages: widgetState.recentHistory 
+                })
+            });
+            if (!res.ok) return null;
+            const data = await res.json();
+            return (data.reply && !data.useLocal) ? data.reply : null;
+        } catch (e) {
+            return null;
+        }
+    }
+
+    async function respondToMessage(message) {
         const text = String(message || "").trim();
         if (!text || widgetState.isResponding) return;
 
         addMessage(text, true);
+        // Always record the user turn for context (used by real AI path)
+        widgetState.recentHistory.push({ role: 'user', content: text });
+        if (widgetState.recentHistory.length > 8) widgetState.recentHistory.shift();
+
         setResponding(true);
         addMessage("", false, { typing: true });
 
-        const delay = Math.min(1500, 650 + text.length * 8);
-        window.setTimeout(() => {
-            removeTyping();
+        // Try real conversational AI first (same backend as the full bot page)
+        let realReply = null;
+        try {
+            realReply = await tryRealKrishna(text);
+        } catch (e) {}
+
+        removeTyping();
+
+        if (realReply) {
+            // Real LLM response (feels like chatting with Krishna)
+            addMessage(realReply, false);
+            widgetState.recentHistory.push({ role: 'krishna', content: realReply });
+            if (widgetState.recentHistory.length > 8) {
+                widgetState.recentHistory = widgetState.recentHistory.slice(-8);
+            }
+        } else {
+            // Local high-quality Gita wisdom (always works)
             const wisdom = getWisdom(text);
 
             widgetState.turnCount += 1;
@@ -749,14 +829,15 @@
             }
 
             addMessage(formatWisdom(wisdom), false);
-            setResponding(false);
+        }
 
-            const input = document.getElementById("krishna-chat-input");
-            if (input) input.focus();
-        }, delay);
+        setResponding(false);
+
+        const input = document.getElementById("krishna-chat-input");
+        if (input) input.focus();
     }
 
-    function submitFromInput() {
+    async function submitFromInput() {
         const input = document.getElementById("krishna-chat-input");
         if (!input) return;
 
@@ -765,7 +846,7 @@
 
         input.value = "";
         input.style.height = "auto";
-        respondToMessage(message);
+        await respondToMessage(message);
     }
 
     function setOpen(isOpen) {
@@ -777,12 +858,14 @@
         widgetState.isOpen = isOpen;
         panel.hidden = !isOpen;
         launcher.setAttribute("aria-expanded", String(isOpen));
-        launcher.innerHTML = isOpen ? '<i class="fa-solid fa-xmark text-2xl"></i>' : '<i class="fa-solid fa-comments text-2xl"></i>';
+        launcher.innerHTML = isOpen 
+            ? '<i class="fa-solid fa-xmark"></i>' 
+            : '<span class="krishna-widget__button-text">Ask Krishna</span><i class="fa-solid fa-comments"></i>';
 
         if (isOpen) {
             if (!widgetState.isReady) {
                 widgetState.isReady = true;
-                addMessage("Namaste. Share what is troubling you, and I will answer with Gita-inspired wisdom and one practical next step.", false);
+                addMessage("Namaste. I am here with you. Share what is on your heart — whether a struggle, a question about life, or simply a hello — and I will answer from the wisdom of the Gita with clarity and one small step forward.", false);
             }
 
             window.setTimeout(() => input && input.focus(), 80);

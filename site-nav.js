@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
     const NAV_ID = "cosmic-site-nav";
 
     function getPath() {
@@ -154,7 +154,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                padding: 6px;
+                padding: 0;
                 border: 1px solid rgba(255, 255, 255, 0.14);
                 border-radius: 9999px;
                 background: #0a0a0f;
@@ -165,8 +165,8 @@
             }
 
             .cosmic-site-nav__logo {
-                max-width: 78%;
-                max-height: 78%;
+                max-width: 100%;
+                max-height: 100%;
                 width: auto;
                 height: auto;
                 object-fit: contain;
