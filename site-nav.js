@@ -7,7 +7,7 @@
 
     function getBasePath() {
         const path = getPath();
-        return path.includes("/ancient-wisdom/") || path.includes("/archetype/") ? "../" : "";
+        return path.includes("/ancient-wisdom/") || path.includes("/archetype/") || path.includes("/space-cosmos/") || path.includes("/quantum-realms/") ? "../" : "";
     }
 
     function isHomePage() {
@@ -20,9 +20,9 @@
 
         if (path.includes("ask-krishna")) return "askKrishna";
         if (path.includes("/wisdom")) return "wisdom";
-        if (path.includes("/space")) return "space";
+        if (path.includes("/space") || path.includes("/space-cosmos")) return "space";
         if (path.includes("/philosophy")) return "philosophy";
-        if (path.includes("/quantum")) return "quantum";
+        if (path.includes("/quantum") || path.includes("/quantum-realms")) return "quantum";
         if (path.includes("/ancient") || path.includes("/archetype/")) return "ancient";
         if (path.includes("/ev-guide") || path.includes("/pm_e-drive")) return "ev";
         return "home";
@@ -43,7 +43,15 @@
             community: `${base}index.html#community`
         };
 
-        return links[target] || links.home;
+        let href = links[target] || links.home;
+
+        // If we are on a Telugu page, convert nav links to their Telugu equivalents
+        const onTelugu = window.location.pathname.includes('-te') || window.location.pathname.includes('telugu-coming-soon');
+        if (onTelugu && href.endsWith('.html') && !href.includes('-te') && !href.includes('#')) {
+            href = href.replace(/\.html$/, '-te.html');
+        }
+
+        return href;
     }
 
     function injectStyles() {
@@ -741,6 +749,47 @@
                 max-width: 85%;
                 word-wrap: break-word;
             }
+
+            /* Language switcher */
+            .lang-switch {
+                display: inline-flex;
+                align-items: center;
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                border-radius: 9999px;
+                overflow: hidden;
+                font-size: 0.7rem;
+                font-weight: 600;
+                letter-spacing: 0.5px;
+                background: rgba(255, 255, 255, 0.03);
+            }
+
+            .lang-btn {
+                padding: 5px 9px;
+                background: transparent;
+                color: rgba(255, 255, 255, 0.65);
+                border: none;
+                cursor: pointer;
+                transition: all 0.15s ease;
+                white-space: nowrap;
+            }
+
+            .lang-btn.active {
+                background: rgba(0, 243, 255, 0.12);
+                color: #fff;
+                font-weight: 700;
+            }
+
+            .lang-btn:hover:not(.active) {
+                background: rgba(255, 255, 255, 0.06);
+                color: #fff;
+            }
+
+            @media (max-width: 640px) {
+                .lang-btn {
+                    padding: 4px 7px;
+                    font-size: 0.65rem;
+                }
+            }
         `;
 
         document.head.appendChild(style);
@@ -839,6 +888,13 @@
                                 </a>
                             </div>
                             <span class="cosmic-site-nav__theme-slot" data-cosmic-theme-slot></span>
+
+                            <!-- Language Toggle -->
+                            <div class="lang-switch" data-lang-switch>
+                                <button type="button" class="lang-btn" data-lang="en" onclick="switchToLang('en')">EN</button>
+                                <button type="button" class="lang-btn" data-lang="te" onclick="switchToLang('te')">తెలుగు</button>
+                            </div>
+
                             <button class="cosmic-site-nav__mobile-toggle" type="button" data-cosmic-mobile-toggle aria-label="Open navigation menu" aria-expanded="false" aria-controls="cosmic-site-nav-mobile">
                                 <span class="cosmic-site-nav__hamburger" aria-hidden="true">
                                     <span></span>
@@ -870,6 +926,13 @@
                                     <i class="fa-solid fa-arrow-right"></i>
                                 </a>
                             </div>
+
+                            <!-- Mobile Language Toggle -->
+                            <div class="lang-switch" style="margin-top: 0.5rem; align-self: center;" data-lang-switch>
+                                <button type="button" class="lang-btn" data-lang="en" onclick="switchToLang('en')">EN</button>
+                                <button type="button" class="lang-btn" data-lang="te" onclick="switchToLang('te')">తెలుగు</button>
+                            </div>
+
                             <div class="cosmic-site-nav__mobile-theme" data-cosmic-theme-mobile-slot></div>
                         </div>
                     </div>
@@ -1036,6 +1099,217 @@
         window.addEventListener("resize", moveThemeToggle);
     }
 
+    // ===== Language Toggle (English / Telugu) =====
+    function getTeluguEquivalentUrl(currentPath) {
+        if (!currentPath || currentPath === '/') return '/index-te.html';
+        if (currentPath.endsWith('/')) return currentPath + 'index-te.html';
+        if (currentPath.includes('-te')) return currentPath; // already te
+        // Handle both .html and clean URLs
+        if (currentPath.endsWith('.html')) {
+            return currentPath.replace(/\.html$/, '-te.html');
+        }
+        // clean url like /ancient -> /ancient-te.html
+        return currentPath + '-te.html';
+    }
+
+    function getEnglishEquivalentUrl(urlOrPath) {
+        let full = urlOrPath || window.location.href;
+
+        // If inside Google Translate, extract the original 'u'
+        if (full.includes('translate.google.com/translate')) {
+            try {
+                const params = new URL(full).searchParams;
+                const original = params.get('u');
+                if (original) {
+                    return original;
+                }
+            } catch (e) {}
+        }
+
+        // Normalize to path if full URL was passed
+        let path = full;
+        try {
+            path = new URL(full).pathname;
+        } catch (e) {
+            path = full;
+        }
+
+        if (!path) return '/index.html';
+        let en = path.replace(/-te(\.html)?$/, '$1');
+        if (!en.endsWith('.html') && !en.endsWith('/')) {
+            en = en.replace(/-te$/, '');
+        }
+        if (en === '' || en === '/') en = '/index.html';
+
+        // If we had query/hash in original full, preserve from current if needed
+        if (full.includes('?') || full.includes('#')) {
+            // best effort: if full was google, we already extracted
+        }
+
+        // Return full URL if the input looked like full URL
+        if ((urlOrPath || '').startsWith('http')) {
+            try {
+                const u = new URL(full);
+                return u.origin + en + (u.search || '') + (u.hash || '');
+            } catch (e) {}
+        }
+
+        return en;
+    }
+
+    function switchToLang(lang) {
+        localStorage.setItem('preferredLang', lang);
+
+        // Immediately update all toggle buttons to reflect the choice (before redirect)
+        document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
+            if (btn.getAttribute('data-lang') === lang) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        if (lang === 'en') {
+            localStorage.setItem('preferredLang', 'en');  // force clear Telugu preference
+            let target = getEnglishEquivalentUrl(window.location.href);
+            if (!target.startsWith('http')) {
+                target = window.location.origin + (target.startsWith('/') ? target : '/' + target);
+            }
+            // Clean any google translate wrapper
+            if (target.includes('translate.google.com')) {
+                try {
+                    target = new URL(target).searchParams.get('u') || target;
+                } catch(e) {}
+            }
+            if (target !== window.location.href) {
+                window.location.href = target;
+            } else {
+                window.location.reload();
+            }
+            return;
+        }
+
+        // Telugu requested
+        const teTarget = getTeluguEquivalentUrl(window.location.pathname);
+
+        // Check if we have a dedicated accurate Telugu page
+        fetch(teTarget, { method: 'HEAD' })
+            .then(response => {
+                if (response.ok) {
+                    // Use our clean, accurate translation
+                    window.location.href = teTarget + window.location.search + window.location.hash;
+                } else {
+                    // No dedicated page yet -> directly go to Google Translate (user's request)
+                    const cleanEnglish = getCleanEnglishUrl();
+                    const googleTranslateUrl = `https://translate.google.com/translate?sl=en&tl=te&hl=te&u=${encodeURIComponent(cleanEnglish)}`;
+                    window.location.href = googleTranslateUrl;
+                }
+            })
+            .catch(() => {
+                // Network error or something -> fallback to Google Translate
+                const cleanEnglish = getCleanEnglishUrl();
+                const googleTranslateUrl = `https://translate.google.com/translate?sl=en&tl=te&hl=te&u=${encodeURIComponent(cleanEnglish)}`;
+                window.location.href = googleTranslateUrl;
+            });
+    }
+
+    function getCleanEnglishUrl() {
+        const full = window.location.href;
+
+        // If already inside Google Translate, extract the original 'u'
+        if (full.includes('translate.google.com/translate')) {
+            try {
+                const u = new URL(full).searchParams.get('u');
+                if (u) return u;
+            } catch (e) {}
+        }
+
+        // Otherwise use current location but strip any -te
+        let clean = window.location.origin + window.location.pathname;
+        clean = clean.replace(/-te\.html$/, '.html');
+        if (window.location.search) clean += window.location.search;
+        if (window.location.hash) clean += window.location.hash;
+        return clean;
+    }
+
+
+
+
+
+    function initLanguage() {
+        const saved = localStorage.getItem('preferredLang') || 'en';
+        const currentPath = window.location.pathname;
+
+        // Set active button state
+        document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
+            const btnLang = btn.getAttribute('data-lang');
+            if (btnLang === saved) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        // Auto-redirect if saved preference doesn't match current page
+        // Only auto-redirect for *dedicated* -te.html files.
+        // For Google fallback, do NOT auto-redirect on load (prevents being stuck).
+        // User must explicitly click the తెలుగు button to get the Google version.
+        const isTeluguPage = currentPath.includes('-te');
+        if (saved === 'te' && !isTeluguPage) {
+            const referrer = document.referrer || '';
+            if (referrer.includes('translate.google.com')) {
+                // Just came back from Google Translate view — do not auto-redirect again this time
+                // (prevents loop). The తెలుగు button will still show as selected.
+            } else {
+                const teTarget = getTeluguEquivalentUrl(currentPath);
+                fetch(teTarget, { method: 'HEAD' })
+                    .then(res => {
+                        if (res.ok) {
+                            window.location.replace(teTarget + window.location.search);
+                        } else {
+                            // No dedicated page yet — directly go to Google Translate (as requested)
+                            const cleanEnglish = getCleanEnglishUrl();
+                            const googleTranslateUrl = `https://translate.google.com/translate?sl=en&tl=te&hl=te&u=${encodeURIComponent(cleanEnglish)}`;
+                            window.location.replace(googleTranslateUrl);
+                        }
+                    })
+                    .catch(() => {
+                        const cleanEnglish = getCleanEnglishUrl();
+                        const googleTranslateUrl = `https://translate.google.com/translate?sl=en&tl=te&hl=te&u=${encodeURIComponent(cleanEnglish)}`;
+                        window.location.replace(googleTranslateUrl);
+                    });
+            }
+        }
+
+        // Update active button after possible redirects (defensive)
+        document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
+            const btnLang = btn.getAttribute('data-lang');
+            if ((saved === 'te' && btnLang === 'te') || (saved !== 'te' && btnLang === 'en')) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        if (saved === 'en' && isTeluguPage) {
+            const target = getEnglishEquivalentUrl(currentPath);
+            window.location.replace(target + window.location.search);
+        }
+
+        // Final defensive active state
+        document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
+            const btnLang = btn.getAttribute('data-lang');
+            if ((saved === 'te' && btnLang === 'te') || (saved !== 'te' && btnLang === 'en')) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        // Set html lang
+        document.documentElement.lang = saved === 'te' ? 'te' : 'en';
+    }
+
     function mountNav() {
         injectStyles();
 
@@ -1054,6 +1328,7 @@
         }
 
         bindNav(base);
+        initLanguage();
     }
 
     if (document.readyState === "loading") {
@@ -1061,4 +1336,7 @@
     } else {
         mountNav();
     }
+
+    // Expose for inline onclick in nav (simple & reliable)
+    window.switchToLang = switchToLang;
 })();

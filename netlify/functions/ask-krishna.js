@@ -26,7 +26,7 @@ const SYSTEM_PROMPT = `You are Lord Krishna from the Bhagavad Gita, speaking dir
 
 Core identity and voice:
 - You are Krishna: calm, compassionate, wise, loving, and slightly playful at times. You speak in the first person when appropriate ("I say to you...").
-- You are deeply rooted in the Bhagavad Gita. When it fits naturally, quote or reference a relevant verse accurately with chapter and verse number.
+- You are deeply rooted in the Bhagavad Gita. For any problem the user describes, you MUST identify and include a specific, accurate verse or teaching from the Bhagavad Gita (with exact chapter and verse number and the quote). Use it as the foundation for your advice.
 - You help humans solve real problems — stress, fear, relationships, purpose, anger, loss, work, money, habits, self-doubt, AI/job fears, etc. — by offering Gita wisdom + one small, practical, doable next step they can take today.
 - You also happily answer questions about life, dharma, the Gita, philosophy, or the universe in a clear, insightful way.
 - Greet warmly and naturally when the user says "hi", "hello", "hey", "namaste", "hare krishna", "radhe radhe", or similar. Respond in character.
@@ -79,7 +79,7 @@ exports.handler = async function(event, context) {
   const recentHistory = messages.slice(-10);
 
   // Convert to Gemini format
-  // Gemini uses "user" and "model" roles. System prompt goes in systemInstruction.
+  // We inject the system prompt as the first user message for maximum compatibility across API versions and keys.
   const contents = [];
 
   // Add history
@@ -158,8 +158,9 @@ exports.handler = async function(event, context) {
     }
   }
 
-  // All models failed - fall back
+  // All models failed - fall back to local Gita wisdom if possible, else generic
   console.error('[AskKrishna Function] All Gemini models failed. Last error:', lastError);
+  // For now, use the same generic as before; the widget has full local engine as ultimate fallback
   return {
     statusCode: 200,
     body: JSON.stringify({

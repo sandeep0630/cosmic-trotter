@@ -1,19 +1,23 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quantum Realms • CosmicTrotter</title>
     <link rel="canonical" href="https://cosmictrotter.com/quantum">
-    <meta name="description" content="Explore the strange and beautiful world of quantum physics — simplified for curious minds.">
+    <meta name="description" content="The strange and beautiful world of quantum physics — where observation, entanglement, and the void meet ancient insights into consciousness, oneness, and the vibration that gives rise to form.">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
     <style>
         body { font-family: 'Inter', system_ui, sans-serif; background: #0a0a0f; color: #e0e7ff; }
         .font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 600; }
         .cosmic-bg { background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 70%); }
-        .cosmic-card { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(0, 243, 255, 0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .cosmic-card:hover { border-color: rgba(0, 243, 255, 0.3); transform: translateY(-4px); }
+        .cosmic-card { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(124, 58, 237, 0.15); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .cosmic-card:hover { border-color: rgba(124, 58, 237, 0.4); transform: translateY(-6px); }
+        .section-header { font-size: 2.8rem; line-height: 3.1rem; font-weight: 700; letter-spacing: -0.03em; }
+        .quantum-accent { color: #a78bfa; }
+        .card-image { height: 180px; object-fit: cover; border-radius: 1rem 1rem 0 0; }
     </style>
     <script src="theme-toggle.js"></script>
     <script src="site-nav.js"></script>
@@ -31,7 +35,7 @@
                     <a href="wisdom.html" class="nav-link text-white/80 hover:text-white">Wisdom</a>
                     <a href="space.html" class="nav-link text-white/80 hover:text-white">Space</a>
                     <a href="philosophy.html" class="nav-link text-white/80 hover:text-white">Philosophy</a>
-                    <a href="quantum.html" class="nav-link text-[#00f3ff]">Quantum</a>
+                    <a href="quantum.html" class="nav-link text-[#a78bfa]">Quantum</a>
                     <a href="ancient.html" class="nav-link text-white/80 hover:text-white">Ancient</a>
                 </div>
                 <a href="index.html" class="text-sm px-5 py-2.5 border border-white/30 rounded-2xl hover:bg-white/5 transition">← Home</a>
@@ -40,32 +44,102 @@
     </nav>
 
     <div class="max-w-4xl mx-auto px-6 pt-16 pb-12 text-center">
-        <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 mb-6">
-            <i class="fa-solid fa-atom text-[#00f3ff]"></i>
-            <span class="text-xs uppercase tracking-[2px] text-white/70">The Strange &amp; Beautiful</span>
+        <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-violet-400/30 bg-violet-400/10 mb-6">
+            <i class="fa-solid fa-atom text-violet-400"></i>
+            <span class="text-xs uppercase tracking-[2px] text-violet-400 font-medium">The Strange &amp; Beautiful</span>
         </div>
         <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter mb-4">Quantum Realms</h1>
-        <p class="text-2xl text-white/60 max-w-lg mx-auto">The strange and beautiful world of quantum physics — simplified for curious minds.</p>
+        <p class="text-2xl text-white/60 max-w-2xl mx-auto">Where reality refuses to behave. The smallest scales of the universe reveal a world of observation, connection, and vibration that ancient insight recognized in the language of consciousness.</p>
     </div>
 
-    <div class="max-w-5xl mx-auto px-6 pb-20">
+    <div class="max-w-5xl mx-auto px-6 pb-12">
+        <div class="cosmic-card rounded-3xl p-10 border border-white/10">
+            <div class="prose prose-invert max-w-none text-lg leading-relaxed text-white/80">
+                <p>Particles that influence each other instantly across light-years. Reality that seems to wait for an observer before deciding what it is. A vacuum that is never truly empty.</p>
+                <p class="mt-4">The Upanishads and Vedantic traditions described consciousness as fundamental, not produced by matter. They spoke of an underlying oneness, of the world as name and form arising from vibration, and of the witness that remains untouched by the play of phenomena.</p>
+                <p class="mt-4">Quantum physics did not come from these texts. Yet when we hold both side by side, something fresh and alive appears — a sense that the strangest findings of modern physics were already being explored from the inside, through direct insight into mind and reality.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-6 pb-20">
+        <div class="flex items-end justify-between mb-8">
+            <div>
+                <span class="text-xs uppercase tracking-[3px] text-violet-400">The Discoveries</span>
+                <h2 class="text-4xl font-bold tracking-tight mt-1">Enter the Quantum</h2>
+            </div>
+            <div class="text-sm text-white/50 hidden md:block">4 Explorations • Mind-Bending &amp; Illuminating</div>
+        </div>
+
         <div class="grid md:grid-cols-2 gap-6">
-            <div class="cosmic-card rounded-3xl p-10">
-                <h3 class="text-3xl font-semibold mb-4">What is Quantum Entanglement?</h3>
-                <p class="text-white/60 leading-relaxed mb-6">Two particles can become "entangled" and instantly affect each other — even when separated by millions of light years. Einstein called it "spooky action at a distance." Scientists are now using this to build quantum computers and unbreakable encryption.</p>
-                <div class="text-sm text-[#00f3ff]">Coming soon as full article →</div>
-            </div>
-            
-            <div class="cosmic-card rounded-3xl p-10">
-                <h3 class="text-3xl font-semibold mb-4">The Double-Slit Experiment</h3>
-                <p class="text-white/60 leading-relaxed mb-6">When scientists shoot electrons at a barrier with two slits, the electrons behave like waves — creating an interference pattern. But when observed, they behave like particles. This suggests reality might only exist when we look at it.</p>
-                <div class="text-sm text-[#00f3ff]">Coming soon as full article →</div>
-            </div>
+            <!-- Card 1 -->
+            <a href="quantum-realms/witness-wave.html" class="cosmic-card rounded-3xl overflow-hidden group block">
+                <img src="quantum-realms/images/witness-wave.jpg" alt="The Witness and the Wave" class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-500">
+                <div class="p-8">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="text-xs uppercase tracking-widest text-violet-400 font-medium">OBSERVATION • REALITY</div>
+                        <div class="text-xs bg-white/10 px-2 py-1 rounded">12 min</div>
+                    </div>
+                    <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-violet-400 transition-colors">The Witness and the Wave</h3>
+                    <p class="text-white/60 line-clamp-3">In the famous double-slit experiment, electrons behave as waves — until they are observed. Then they become particles. Does reality require a witness? Ancient traditions placed pure awareness at the foundation of all manifestation.</p>
+                    <div class="mt-6 flex items-center text-sm text-violet-400">
+                        <span>Enter the mystery</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Card 2 -->
+            <a href="quantum-realms/entangled-unity.html" class="cosmic-card rounded-3xl overflow-hidden group block">
+                <img src="quantum-realms/images/entangled-unity.jpg" alt="Entangled Across the Void" class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-500">
+                <div class="p-8">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="text-xs uppercase tracking-widest text-violet-400 font-medium">NON-LOCALITY • ONENESS</div>
+                        <div class="text-xs bg-white/10 px-2 py-1 rounded">10 min</div>
+                    </div>
+                    <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-violet-400 transition-colors">Entangled Across the Void</h3>
+                    <p class="text-white/60 line-clamp-3">Two particles can become linked so that measuring one instantly determines the state of the other — no matter the distance. Einstein called it spooky. The sages called the underlying reality one single fabric.</p>
+                    <div class="mt-6 flex items-center text-sm text-violet-400">
+                        <span>Enter the mystery</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Card 3 -->
+            <a href="quantum-realms/born-of-void.html" class="cosmic-card rounded-3xl overflow-hidden group block">
+                <img src="quantum-realms/images/born-of-void.jpg" alt="Born of the Void" class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-500">
+                <div class="p-8">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="text-xs uppercase tracking-widest text-violet-400 font-medium">VACUUM • CREATION</div>
+                        <div class="text-xs bg-white/10 px-2 py-1 rounded">11 min</div>
+                    </div>
+                    <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-violet-400 transition-colors">Born of the Void</h3>
+                    <p class="text-white/60 line-clamp-3">The quantum vacuum is not empty. It seethes with virtual particles that flicker into and out of existence. From “nothing” the universe itself may have arisen. The Vedas described creation emerging from a state beyond existence and non-existence.</p>
+                    <div class="mt-6 flex items-center text-sm text-violet-400">
+                        <span>Enter the mystery</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Card 4 -->
+            <a href="quantum-realms/cosmic-hum.html" class="cosmic-card rounded-3xl overflow-hidden group block">
+                <img src="quantum-realms/images/cosmic-hum.jpg" alt="The Cosmic Hum" class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-500">
+                <div class="p-8">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="text-xs uppercase tracking-widest text-violet-400 font-medium">VIBRATION • FIELDS</div>
+                        <div class="text-xs bg-white/10 px-2 py-1 rounded">9 min</div>
+                    </div>
+                    <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-violet-400 transition-colors">The Cosmic Hum</h3>
+                    <p class="text-white/60 line-clamp-3">At the deepest level, quantum fields vibrate. Particles are excitations of these underlying fields — ripples in a cosmic ocean. The ancient seers declared that the entire universe arises from primordial vibration, the sound that is Om.</p>
+                    <div class="mt-6 flex items-center text-sm text-violet-400">
+                        <span>Enter the mystery</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+            </a>
         </div>
-        
-        <div class="text-center mt-12 text-white/50 text-sm">
-            More quantum content coming soon. <a href="index.html" class="text-[#00f3ff] hover:underline">Back to homepage</a>
-        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-6 pb-16 text-center">
+        <p class="text-white/50 text-sm">These are not explanations. They are invitations to stand at the edge where physics grows strange and insight grows deep — and to notice what shifts in how you experience being alive.</p>
     </div>
 
     <footer class="border-t border-white/10 py-12 text-center text-xs text-white/40">

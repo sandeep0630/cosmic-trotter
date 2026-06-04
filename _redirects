@@ -35,3 +35,5 @@ https://www.cosmictrotter.com/*      https://cosmictrotter.com/:splat          3
 
 # (Optional) Old hyphenated domain redirect - uncomment if needed
 # https://cosmic-trotter.com/*       https://cosmictrotter.com/:splat          301!
+
+# (Telugu fallback is now handled client-side in JS for better UX - dedicated -te.html or Google Translate)

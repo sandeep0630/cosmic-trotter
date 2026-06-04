@@ -1,11 +1,12 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space & Cosmos • CosmicTrotter</title>
+    <title>Space &amp; Cosmos • CosmicTrotter</title>
     <link rel="canonical" href="https://cosmictrotter.com/space">
-    <meta name="description" content="Explore black holes, exoplanets, the universe, and humanity's journey to the stars.">
+    <meta name="description" content="Where modern astronomy and cosmology meet the vast imagination of the Vedas and Puranas. Explore black holes, exoplanets, cyclic universes, and the scale of creation with wonder and fresh insight.">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
     <style>
@@ -13,7 +14,10 @@
         .font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 600; }
         .cosmic-bg { background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 70%); }
         .cosmic-card { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(0, 243, 255, 0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .cosmic-card:hover { border-color: rgba(0, 243, 255, 0.3); transform: translateY(-4px); }
+        .cosmic-card:hover { border-color: rgba(0, 243, 255, 0.3); transform: translateY(-6px); }
+        .section-header { font-size: 2.8rem; line-height: 3.1rem; font-weight: 700; letter-spacing: -0.03em; }
+        .space-accent { color: #14b8a6; }
+        .card-image { height: 180px; object-fit: cover; border-radius: 1rem 1rem 0 0; }
     </style>
     <script src="theme-toggle.js"></script>
     <script src="site-nav.js"></script>
@@ -29,8 +33,9 @@
                 <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
                     <a href="index.html#explore" class="nav-link text-white/80 hover:text-white">Explore</a>
                     <a href="wisdom.html" class="nav-link text-white/80 hover:text-white">Wisdom</a>
-                    <a href="space.html" class="nav-link text-[#00f3ff]">Space</a>
+                    <a href="space.html" class="nav-link text-[#14b8a6]">Space</a>
                     <a href="philosophy.html" class="nav-link text-white/80 hover:text-white">Philosophy</a>
+                    <a href="quantum.html" class="nav-link text-white/80 hover:text-white">Quantum</a>
                     <a href="ancient.html" class="nav-link text-white/80 hover:text-white">Ancient</a>
                 </div>
                 <a href="index.html" class="text-sm px-5 py-2.5 border border-white/30 rounded-2xl hover:bg-white/5 transition">← Home</a>
@@ -39,32 +44,102 @@
     </nav>
 
     <div class="max-w-4xl mx-auto px-6 pt-16 pb-12 text-center">
-        <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 mb-6">
-            <i class="fa-solid fa-rocket text-[#00f3ff]"></i>
-            <span class="text-xs uppercase tracking-[2px] text-white/70">The Final Frontier</span>
+        <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-emerald-400/30 bg-emerald-400/10 mb-6">
+            <i class="fa-solid fa-rocket text-emerald-400"></i>
+            <span class="text-xs uppercase tracking-[2px] text-emerald-400 font-medium">Vastness &amp; Wonder</span>
         </div>
-        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter mb-4">Space & Cosmos</h1>
-        <p class="text-2xl text-white/60 max-w-lg mx-auto">Black holes, exoplanets, and humanity’s journey to the stars.</p>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter mb-4">Space &amp; Cosmos</h1>
+        <p class="text-2xl text-white/60 max-w-2xl mx-auto">Where telescopes meet timeless insight. The universe as seen by modern science — illuminated by the cosmic imagination of the Vedas and Puranas.</p>
     </div>
 
-    <div class="max-w-5xl mx-auto px-6 pb-20">
+    <div class="max-w-5xl mx-auto px-6 pb-12">
+        <div class="cosmic-card rounded-3xl p-10 border border-white/10">
+            <div class="prose prose-invert max-w-none text-lg leading-relaxed text-white/80">
+                <p>Humanity has never known more about the universe — and never felt smaller. Black holes bend time. Exoplanets hint at other lives. The cosmos expands faster than we can explain.</p>
+                <p class="mt-4">Long before any telescope, the Vedic rishis and Puranic storytellers described creation as cyclic, vast beyond measure, and pulsing with breath-like rhythm. They spoke of multiple worlds, immense timescales, and a subtle space that holds everything.</p>
+                <p class="mt-4">This is not about who was first. It is about standing at the same mysteries with two powerful ways of seeing — and letting each deepen the other.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-6 pb-20">
+        <div class="flex items-end justify-between mb-8">
+            <div>
+                <span class="text-xs uppercase tracking-[3px] text-emerald-400">The Journeys</span>
+                <h2 class="text-4xl font-bold tracking-tight mt-1">Explore the Cosmos</h2>
+            </div>
+            <div class="text-sm text-white/50 hidden md:block">4 Explorations • Fresh Perspectives</div>
+        </div>
+
         <div class="grid md:grid-cols-2 gap-6">
-            <div class="cosmic-card rounded-3xl p-10">
-                <h3 class="text-3xl font-semibold mb-4">What Happens If You Fall Into a Black Hole?</h3>
-                <p class="text-white/60 leading-relaxed mb-6">Scientists call it “spaghettification.” Your body would be stretched like spaghetti while time slows down dramatically. You would watch the entire future of the universe play out in seconds… before being crushed into a single point.</p>
-                <div class="text-sm text-[#00f3ff]">Coming soon as full article →</div>
-            </div>
-            
-            <div class="cosmic-card rounded-3xl p-10">
-                <h3 class="text-3xl font-semibold mb-4">8 Planets That Could Support Life</h3>
-                <p class="text-white/60 leading-relaxed mb-6">From TRAPPIST-1e to Kepler-452b, scientists have identified several exoplanets that might have the right conditions for life. Which one is the most promising?</p>
-                <div class="text-sm text-[#00f3ff]">Coming soon as full article →</div>
-            </div>
+            <!-- Card 1 -->
+            <a href="space-cosmos/breathing-cosmos.html" class="cosmic-card rounded-3xl overflow-hidden group block">
+                <img src="space-cosmos/images/breathing-cosmos.jpg" alt="The Breathing Cosmos" class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-500">
+                <div class="p-8">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="text-xs uppercase tracking-widest text-emerald-400 font-medium">COSMOLOGY • CYCLIC TIME</div>
+                        <div class="text-xs bg-white/10 px-2 py-1 rounded">11 min</div>
+                    </div>
+                    <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-emerald-400 transition-colors">The Breathing Cosmos</h3>
+                    <p class="text-white/60 line-clamp-3">Modern cosmology flirts with cyclic universes and the Big Bounce. The Vedas and Puranas described the cosmos as the rhythmic breath of creation — expanding, dissolving, and arising again.</p>
+                    <div class="mt-6 flex items-center text-sm text-emerald-400">
+                        <span>Begin the journey</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Card 2 -->
+            <a href="space-cosmos/event-horizon.html" class="cosmic-card rounded-3xl overflow-hidden group block">
+                <img src="space-cosmos/images/event-horizon.jpg" alt="At the Edge of Forever" class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-500">
+                <div class="p-8">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="text-xs uppercase tracking-widest text-emerald-400 font-medium">BLACK HOLES • TIME</div>
+                        <div class="text-xs bg-white/10 px-2 py-1 rounded">13 min</div>
+                    </div>
+                    <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-emerald-400 transition-colors">At the Edge of Forever</h3>
+                    <p class="text-white/60 line-clamp-3">Fall toward a black hole and watch the entire future of the universe flash before your eyes. Ancient traditions described the final dissolution of form and the end of time itself.</p>
+                    <div class="mt-6 flex items-center text-sm text-emerald-400">
+                        <span>Begin the journey</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Card 3 -->
+            <a href="space-cosmos/worlds-without-number.html" class="cosmic-card rounded-3xl overflow-hidden group block">
+                <img src="space-cosmos/images/worlds-without-number.jpg" alt="Worlds Without Number" class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-500">
+                <div class="p-8">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="text-xs uppercase tracking-widest text-emerald-400 font-medium">EXOPLANETS • MULTIPLICITY</div>
+                        <div class="text-xs bg-white/10 px-2 py-1 rounded">9 min</div>
+                    </div>
+                    <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-emerald-400 transition-colors">Worlds Without Number</h3>
+                    <p class="text-white/60 line-clamp-3">Thousands of exoplanets confirmed, many potentially habitable. The Puranas spoke of countless Brahmandas — entire universes teeming with life and possibility.</p>
+                    <div class="mt-6 flex items-center text-sm text-emerald-400">
+                        <span>Begin the journey</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Card 4 -->
+            <a href="space-cosmos/rishis-stars.html" class="cosmic-card rounded-3xl overflow-hidden group block">
+                <img src="space-cosmos/images/rishis-stars.jpg" alt="The Rishis Who Measured the Stars" class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-500">
+                <div class="p-8">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="text-xs uppercase tracking-widest text-emerald-400 font-medium">ANCIENT ASTRONOMY • PRECISION</div>
+                        <div class="text-xs bg-white/10 px-2 py-1 rounded">10 min</div>
+                    </div>
+                    <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-emerald-400 transition-colors">The Rishis Who Measured the Stars</h3>
+                    <p class="text-white/60 line-clamp-3">Modern science gave us the size of the universe. Centuries earlier, Vedic astronomers calculated planetary distances, the circumference of the Earth, and even hints of the speed of light with remarkable accuracy.</p>
+                    <div class="mt-6 flex items-center text-sm text-emerald-400">
+                        <span>Begin the journey</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+            </a>
         </div>
-        
-        <div class="text-center mt-12 text-white/50 text-sm">
-            More space content coming soon. <a href="index.html" class="text-[#00f3ff] hover:underline">Back to homepage</a>
-        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-6 pb-16 text-center">
+        <p class="text-white/50 text-sm">These explorations stand on their own. Each one offers something you may not have heard before — and a perspective shift you can carry with you.</p>
     </div>
 
     <footer class="border-t border-white/10 py-12 text-center text-xs text-white/40">
