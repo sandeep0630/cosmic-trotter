@@ -784,8 +784,14 @@
                     messages: widgetState.recentHistory 
                 })
             });
-            if (!res.ok) return null;
+            if (!res.ok) {
+                console.error('[Ask Krishna] Function call failed with status', res.status);
+                return null;
+            }
             const data = await res.json();
+            if (data.useLocal) {
+                console.info('[Ask Krishna] Function returned useLocal=true. Message:', data.message || data.debug);
+            }
             return (data.reply && !data.useLocal) ? data.reply : null;
         } catch (e) {
             return null;
@@ -821,7 +827,7 @@
             }
         } else {
             // Local high-quality Gita wisdom (always works)
-            console.warn('[Ask Krishna Widget] Using LOCAL fallback (real AI not available). Check Netlify env var GEMINI_API_KEY and redeploy.');
+            console.warn('[Ask Krishna Widget] Using LOCAL fallback (real AI not available). Check Netlify env var GEMINI_API_KEY and redeploy. (Open Netlify function logs for details)');
             const wisdom = getWisdom(text);
 
             widgetState.turnCount += 1;

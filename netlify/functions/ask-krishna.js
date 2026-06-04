@@ -141,7 +141,8 @@ exports.handler = async function(event, context) {
       body: JSON.stringify({
         reply: null,
         useLocal: true,
-        message: 'The connection to the deeper wisdom is quiet for a moment. I will answer from the timeless teachings instead.'
+        message: 'The connection to the deeper wisdom is quiet for a moment. I will answer from the timeless teachings instead.',
+        debug: error.message || 'Unknown error. Check Netlify function logs for details.'
       })
     };
   }
