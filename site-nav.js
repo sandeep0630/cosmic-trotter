@@ -360,21 +360,39 @@
 
             .cosmic-site-nav__search {
                 position: relative;
+                width: 42px;
+                height: 42px;
+                border-radius: 9999px;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-radius 0.3s ease;
+                overflow: hidden;
+                cursor: pointer;
+            }
+
+            .cosmic-site-nav__search:focus-within {
                 width: 13rem;
+                border-radius: 0.5rem;
             }
 
             .cosmic-site-nav__search-input {
                 width: 100%;
                 min-height: 42px;
-                padding: 0 2.5rem 0 1rem;
+                padding: 0 2.5rem 0 0.75rem;
                 border: 1px solid rgba(255, 255, 255, 0.15);
-                border-radius: 0.5rem;
+                border-radius: 9999px;
                 background: rgba(255, 255, 255, 0.05);
                 color: #ffffff;
                 font: inherit;
                 font-size: 0.88rem;
                 outline: none;
-                transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+                opacity: 0;
+                transition: opacity 0.2s ease, border-radius 0.3s ease;
+            }
+
+            .cosmic-site-nav__search:focus-within .cosmic-site-nav__search-input {
+                opacity: 1;
+                border-radius: 0.5rem;
             }
 
             .cosmic-site-nav__search-input::placeholder {
@@ -390,10 +408,15 @@
             .cosmic-site-nav__search i {
                 position: absolute;
                 top: 50%;
-                right: 0.9rem;
+                right: 0.65rem;
                 color: rgba(255, 255, 255, 0.42);
                 transform: translateY(-50%);
                 pointer-events: none;
+                transition: color 0.2s ease;
+            }
+
+            .cosmic-site-nav__search:focus-within i {
+                color: rgba(255, 255, 255, 0.6);
             }
 
             .cosmic-site-nav__cta {
@@ -529,7 +552,22 @@
             }
 
             .cosmic-site-nav__mobile-tools .cosmic-site-nav__search {
+                width: 100% !important;
+                height: auto;
+                border-radius: 0.5rem;
+                overflow: visible;
+                background: transparent;
+                border: none;
+            }
+
+            .cosmic-site-nav__mobile-tools .cosmic-site-nav__search-input {
+                opacity: 1;
+                border-radius: 0.5rem;
                 width: 100%;
+            }
+
+            .cosmic-site-nav__mobile-tools .cosmic-site-nav__search i {
+                pointer-events: auto;
             }
 
             .cosmic-site-nav__mobile-theme {
@@ -539,7 +577,7 @@
             }
 
             @media (min-width: 1536px) {
-                .cosmic-site-nav__search {
+                .cosmic-site-nav__search:focus-within {
                     width: 15rem;
                 }
             }
@@ -695,6 +733,11 @@
                 color: #075985 !important;
             }
 
+            html[data-theme="light"] .cosmic-site-nav__search {
+                background: rgba(255, 255, 255, 0.7) !important;
+                border-color: rgba(36, 31, 24, 0.16) !important;
+            }
+
             html[data-theme="light"] .cosmic-site-nav__search-input {
                 background: rgba(255, 255, 255, 0.85) !important;
                 border-color: rgba(36, 31, 24, 0.16) !important;
@@ -703,6 +746,10 @@
 
             html[data-theme="light"] .cosmic-site-nav__search-input::placeholder {
                 color: rgba(36, 31, 24, 0.45) !important;
+            }
+
+            html[data-theme="light"] .cosmic-site-nav__search i {
+                color: rgba(36, 31, 24, 0.5) !important;
             }
 
             html[data-theme="light"] .cosmic-site-nav__cta {
@@ -1198,15 +1245,15 @@
         fetch(teTarget, { method: 'HEAD' })
             .then(response => {
                 if (response.ok) {
-                    // Use our clean, accurate translation
+                    // Use our clean, accurate translation (full page, our UI intact)
                     window.location.href = teTarget + window.location.search + window.location.hash;
                 } else {
-                    // No dedicated page yet -> use in-place Google widget (keeps our nav, logo, toggle)
+                    // No dedicated -te page yet: activate in-place Google widget immediately
+                    // This translates the current page to Telugu and keeps our nav + toggle visible
                     activateGoogleTeluguWidget();
                 }
             })
             .catch(() => {
-                // Network error -> use in-place widget
                 activateGoogleTeluguWidget();
             });
     }
@@ -1230,18 +1277,19 @@
         return clean;
     }
 
-    // In-place Google Translate widget for fallback (keeps our nav/logo/toggle visible)
+    // In-place Google Translate widget for fallback (keeps our nav/logo/toggle visible on our domain)
     function activateGoogleTeluguWidget() {
-        // Create the element container (Google will style it as the language bar)
+        const noteId = 'te-widget-note';
+
+        // Create or reuse the container for the widget
         let container = document.getElementById('google_translate_element');
         if (!container) {
             container = document.createElement('div');
             container.id = 'google_translate_element';
-            // Position it nicely below our nav if needed, but Google usually injects its own bar
             document.body.insertBefore(container, document.body.firstChild);
         }
 
-        // Load the Google script once
+        // Load Google script (once)
         if (!window.googleTranslateElementInitTe) {
             const script = document.createElement('script');
             script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInitTe';
@@ -1255,45 +1303,56 @@
                     autoDisplay: true
                 }, 'google_translate_element');
 
-                // Attempt to auto-select Telugu
-                setTimeout(() => {
+                // Robust force to Telugu with multiple retries
+                let attempts = 0;
+                const maxAttempts = 10;
+                const forceToTelugu = () => {
+                    attempts++;
                     const select = document.querySelector('.goog-te-combo');
                     if (select) {
-                        select.value = 'te';
-                        select.dispatchEvent(new Event('change'));
+                        if (select.value !== 'te') {
+                            select.value = 'te';
+                            select.dispatchEvent(new Event('change', { bubbles: true }));
+                        }
+                        // Hide Google's own selector to keep our EN/తెలుగు toggle as the control
+                        select.style.display = 'none';
+                    } else if (attempts < maxAttempts) {
+                        setTimeout(forceToTelugu, 350);
                     }
-                }, 1200);
+                };
+                setTimeout(forceToTelugu, 900);
             };
-        } else {
-            // Script already loaded, re-init if needed
+        } else if (window.google && window.google.translate) {
+            // Re-init if script was already loaded
             new google.translate.TranslateElement({
                 pageLanguage: 'en',
                 includedLanguages: 'te',
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
                 autoDisplay: true
             }, 'google_translate_element');
+
+            setTimeout(() => {
+                const select = document.querySelector('.goog-te-combo');
+                if (select && select.value !== 'te') {
+                    select.value = 'te';
+                    select.dispatchEvent(new Event('change', { bubbles: true }));
+                    select.style.display = 'none';
+                }
+            }, 700);
         }
 
-        // Optional small note under the widget
+        // Minimal, non-intrusive note (user can ignore)
         setTimeout(() => {
-            if (container && !document.getElementById('te-widget-note')) {
+            if (container && !document.getElementById(noteId)) {
                 const note = document.createElement('div');
-                note.id = 'te-widget-note';
-                note.style.cssText = 'font-size:11px; color:#666; text-align:center; margin-top:2px;';
-                note.innerHTML = 'Telugu via Google (temporary) — click EN to return to original';
+                note.id = noteId;
+                note.style.cssText = 'font-size:10px; color:#888; text-align:center; margin:2px 0; opacity:0.65;';
+                note.textContent = 'Telugu via Google (temporary) • use EN button anytime';
                 container.appendChild(note);
             }
-        }, 1500);
+        }, 1400);
 
-        // Give space if Google adds its banner at top
-        setTimeout(() => {
-            const googleBanner = document.querySelector('.goog-te-banner-frame');
-            if (googleBanner) {
-                document.body.style.paddingTop = '40px';
-            }
-        }, 2000);
-
-        // Ensure toggle buttons reflect Telugu active
+        // Force our toggle to show Telugu as active
         document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
             if (btn.getAttribute('data-lang') === 'te') {
                 btn.classList.add('active');
@@ -1301,6 +1360,13 @@
                 btn.classList.remove('active');
             }
         });
+
+        // Push page content down a bit if Google injects its banner
+        setTimeout(() => {
+            if (document.querySelector('.goog-te-banner-frame')) {
+                document.body.style.paddingTop = '38px';
+            }
+        }, 1600);
     }
 
     function deactivateGoogleWidget() {
@@ -1351,32 +1417,26 @@
             }
         });
 
-        // Handle language preference on load
-        // - Dedicated -te.html → redirect to it (best quality, full our UI)
-        // - Otherwise → activate in-place Google widget for Telugu (toggle/logo always visible, stay on our domain)
-        // - EN always results in clean regular page (widget removed if any)
+        // Handle language preference on load for seamless experience across all pages
+        // - If a dedicated -te.html exists for this exact page → use the clean full translation (our nav + toggle intact)
+        // - Otherwise (most pages) → instantly activate the Google Translate widget in-place.
+        //   This translates the page content to Telugu right away (auto-forced via retries), and our EN/తెలుగు toggle + logo
+        //   remain fully visible and clickable no matter where the user navigates using the site links.
         const isTeluguPage = currentPath.includes('-te');
         if (saved === 'te' && !isTeluguPage) {
-            const referrer = document.referrer || '';
-            if (referrer.includes('translate.google.com')) {
-                // Just came back from Google Translate view — do not auto-redirect again this time
-                // (prevents loop). The తెలుగు button will still show as selected.
-            } else {
-                const teTarget = getTeluguEquivalentUrl(currentPath);
-                fetch(teTarget, { method: 'HEAD' })
-                    .then(res => {
-                        if (res.ok) {
-                            window.location.replace(teTarget + window.location.search);
-                        } else {
-                            // No dedicated page yet — activate in-place Google widget (keeps our UI)
-                            activateGoogleTeluguWidget();
-                        }
-                    })
-                    .catch(() => {
-                        // fallback to widget
+            const teTarget = getTeluguEquivalentUrl(currentPath);
+            fetch(teTarget, { method: 'HEAD' })
+                .then(res => {
+                    if (res.ok) {
+                        window.location.replace(teTarget + window.location.search);
+                    } else {
+                        // No dedicated accurate version yet → auto-translate via in-place Google widget
                         activateGoogleTeluguWidget();
-                    });
-            }
+                    }
+                })
+                .catch(() => {
+                    activateGoogleTeluguWidget();
+                });
         }
 
         // Update active button after possible redirects (defensive)

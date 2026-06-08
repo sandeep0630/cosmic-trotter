@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +6,7 @@
     <title>Ancient Wisdom • CosmicTrotter</title>
     <link rel="canonical" href="https://cosmictrotter.com/ancient.html">
     
-    <meta name="description" content="Timeless teachings from the Vedas, Upanishads, Sufi mystics, Taoism, and ancient wisdom traditions — explored with a cosmic lens.">
+    <meta name="description" content="Timeless teachings from the Vedas and Puranas. Explore Lord Vishnu's Dashavatara and other core wisdom from ancient India.">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
@@ -55,106 +55,84 @@
         .wisdom-card:hover {
             transform: translateY(-4px);
         }
+
+        /* Unified library section */
+        .wisdom-library {
+            border-color: rgba(251, 191, 36, 0.12);
+        }
+
+        .dashavatara-feature {
+            background: linear-gradient(145deg, rgba(251, 191, 36, 0.08), rgba(245, 158, 11, 0.03));
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .dashavatara-feature:hover {
+            border-color: rgba(251, 191, 36, 0.4);
+            transform: translateY(-2px);
+        }
     </style>
     <script src="theme-toggle.js"></script>
     <script src="site-nav.js"></script>
 </head>
 <body class="cosmic-bg">
 
-    <!-- Navbar -->
-    <nav class="border-b border-white/10 sticky top-0 z-50 bg-[#0a0a0f]/90 backdrop-blur-lg">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex justify-between items-center h-20">
-                <div class="flex items-center gap-x-4">
-                    <div class="logo-orb h-12 w-12 flex-shrink-0">
-                        <div class="logo-disk">
-                            <img src="logo.png" alt="CosmicTrotter" class="w-full h-full object-contain p-0" style="border-radius: 9999px;">
-                        </div>
-                    </div>
-                    <span class="font-display text-2xl font-semibold tracking-tighter">CosmicTrotter</span>
-                </div>
-                
-                <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
-                    <a href="index.html#explore" class="nav-link text-white/80 hover:text-white">Explore</a>
-                    <a href="wisdom.html" class="nav-link text-white/80 hover:text-white">Wisdom</a>
-                    <a href="space.html" class="nav-link text-white/80 hover:text-white">Space</a>
-                    <a href="philosophy.html" class="nav-link text-white/80 hover:text-white">Philosophy</a>
-                    <a href="quantum.html" class="nav-link text-white/80 hover:text-white">Quantum</a>
-                    <a href="ancient.html" class="nav-link text-[#00f3ff]">Ancient</a>
-                    <a href="ev-guide.html" class="nav-link text-white/80 hover:text-white">EV Guide</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <div class="max-w-5xl mx-auto px-6 pt-16 pb-20 text-center">
+    <!-- Hero -->
+    <div class="max-w-5xl mx-auto px-6 pt-16 pb-14 text-center">
         <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-amber-400/30 bg-amber-400/10 mb-6">
             <i class="fa-solid fa-globe text-amber-400"></i>
             <span class="text-xs uppercase tracking-[2px] text-amber-400 font-medium">Timeless Teachings</span>
         </div>
         
         <h1 class="section-header mb-6">Ancient Wisdom</h1>
-        <p class="text-2xl text-white/70 max-w-3xl mx-auto leading-tight">
-            The universe has been speaking to us for thousands of years.<br>
-            We’re finally learning how to listen again.
+        <p class="text-xl text-white/70 max-w-3xl mx-auto leading-tight">
+            Gods descend in extraordinary forms to protect dharma.<br>
+            Sages unveil the cosmos in the Vedas and Puranas.
         </p>
         
-        <div class="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-            <a href="ancient-wisdom/ask-krishna-bot.html"
-               class="px-8 py-3.5 rounded-2xl text-sm font-semibold border border-purple-400/50 hover:bg-purple-500/10 text-purple-300 flex items-center justify-center gap-x-2 transition-all">
-                <span>Ask Krishna</span>
-                <i class="fa-solid fa-arrow-right"></i>
-            </a>
-
-            <button onclick="document.getElementById('articles').scrollIntoView({ behavior: 'smooth' })" 
-                    class="px-8 py-3.5 rounded-2xl text-sm font-semibold border border-white/30 hover:bg-white/5 flex items-center justify-center gap-x-2 transition-all">
-                <span>Explore Teachings</span>
-                <i class="fa-solid fa-arrow-down"></i>
+        <div class="mt-8 flex justify-center">
+            <button onclick="document.getElementById('wisdom-library').scrollIntoView({ behavior: 'smooth' })" 
+                    class="px-7 py-3 rounded-2xl text-sm font-semibold border border-amber-400/40 hover:bg-amber-500/10 text-amber-300 flex items-center justify-center gap-x-2 transition-all">
+                <span>Explore the Library</span>
+                <i class="fa-solid fa-book-open"></i>
             </button>
         </div>
     </div>
 
     <!-- Introduction -->
-    <div class="max-w-4xl mx-auto px-6 pb-20">
-        <div class="cosmic-card rounded-3xl p-10 border border-white/10">
-            <div class="prose prose-invert max-w-none text-lg leading-relaxed text-white/80">
+    <div class="max-w-4xl mx-auto px-6 pb-10">
+        <div class="cosmic-card rounded-2xl p-6 border border-white/10">
+            <div class="prose prose-invert max-w-none text-base leading-relaxed text-white/80">
                 <p>
-                    The rishis of ancient India mapped the deepest truths of existence through direct insight and revelation. 
-                    The Vedas, Upanishads, Bhagavad Gita, and Puranas contain timeless stories, teachings, and wisdom 
-                    that guide the seeker toward the nature of reality, the self, and the Divine.
-                </p>
-                <p class="mt-4">
-                    On this page, we explore the most profound teachings from the Hindu tradition — the Vedas, Upanishads, 
-                    Bhagavad Gita, Puranas, and the wisdom of great acharyas — presented with clarity and reverence for the modern reader.
+                    The rishis of ancient India mapped the deepest truths through direct insight. The Vedas, Upanishads, Bhagavad Gita, and Puranas hold timeless stories and wisdom that guide us toward reality, the self, and the Divine.
                 </p>
             </div>
         </div>
     </div>
 
-    <!-- Featured: Ask Krishna -->
-    <div class="max-w-4xl mx-auto px-6 pb-20">
+    <!-- Featured Ask Krishna (compact) -->
+    <div class="max-w-4xl mx-auto px-6 pb-10">
         <a href="ancient-wisdom/ask-krishna-bot.html" class="group block">
-            <div class="cosmic-card rounded-3xl p-10 border border-purple-400/30 bg-gradient-to-br from-purple-900/20 to-violet-900/20 hover:border-purple-400/60 transition-all">
-                <div class="flex flex-col md:flex-row items-center gap-x-8">
-                    <div class="w-24 h-24 bg-gradient-to-br from-purple-500 to-violet-600 rounded-2xl flex items-center justify-center flex-shrink-0 mb-6 md:mb-0 relative">
-                        <i class="fa-solid fa-infinity text-white text-5xl"></i>
-                        <div class="absolute -top-1 -right-1 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center">
-                            <i class="fa-solid fa-microphone text-white text-xs"></i>
+            <div class="cosmic-card rounded-2xl p-6 border border-purple-400/30 bg-gradient-to-br from-purple-900/20 to-violet-900/20 hover:border-purple-400/60 transition-all">
+                <div class="flex flex-col sm:flex-row items-center gap-x-6">
+                    <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center flex-shrink-0 mb-4 sm:mb-0 relative">
+                        <i class="fa-solid fa-infinity text-white text-3xl"></i>
+                        <div class="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center">
+                            <i class="fa-solid fa-microphone text-white text-[10px]"></i>
                         </div>
                     </div>
                     
-                    <div class="flex-1 text-center md:text-left">
-                        <div class="inline-flex items-center gap-x-2 px-4 py-1 rounded-full bg-purple-500/20 text-purple-400 text-xs font-medium mb-3">
+                    <div class="flex-1 text-center sm:text-left">
+                        <div class="inline-flex items-center gap-x-2 px-3 py-0.5 rounded-full bg-purple-500/20 text-purple-400 text-[10px] font-medium mb-1.5">
                             <i class="fa-solid fa-om"></i>
                             <span>PERSONAL GITA COUNSEL</span>
                         </div>
                         
-                        <h3 class="text-4xl font-bold tracking-tight mb-3 group-hover:text-purple-400 transition-colors">Ask Krishna</h3>
-                        <p class="text-xl text-white/80 max-w-xl">When the mind is troubled, bring your question to Krishna. Receive guidance rooted in the Bhagavad Gita, shaped for your real problem, and return to your next step with clarity and peace.</p>
+                        <h3 class="text-2xl font-bold tracking-tight mb-1 group-hover:text-purple-400 transition-colors">Ask Krishna</h3>
+                        <p class="text-sm text-white/80 max-w-lg">When the mind is troubled, bring your question to Krishna. Receive Gita-rooted guidance and return with clarity.</p>
                         
-                        <div class="mt-6 inline-flex items-center gap-x-3 text-purple-400 font-medium">
-                            <span>Ask Krishna Now</span>
+                        <div class="mt-3 inline-flex items-center gap-x-2 text-purple-400 font-medium text-sm">
+                            <span>Open the Chat Bot</span>
                             <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
                         </div>
                     </div>
@@ -163,245 +141,47 @@
         </a>
     </div>
 
-    <!-- Search and Filters -->
-    <div class="max-w-6xl mx-auto px-6 pb-8">
-        <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
-            <!-- Search Bar -->
-            <div class="relative w-full md:w-96">
-                <input type="text" id="search-input" placeholder="Search articles..." 
-                       class="w-full bg-white/5 border border-white/20 rounded-2xl px-5 py-3 text-white placeholder-white/50 focus:outline-none focus:border-[#00f3ff] transition-all"
-                       onkeyup="filterArticles()">
-                <i class="fa-solid fa-search absolute right-4 top-4 text-white/50"></i>
-            </div>
+    <!-- Unified Library Section -->
+    <div id="wisdom-library" class="max-w-6xl mx-auto px-6 pb-20">
+        <div class="wisdom-library cosmic-card rounded-3xl p-8 md:p-10 border border-white/10">
             
-            <!-- Category Filters -->
-            <div class="flex flex-wrap gap-2">
-                <button onclick="filterByCategory('all')" class="category-btn active px-4 py-2 rounded-full text-sm border border-white/30 hover:bg-white/5 transition-all">All</button>
-                <button onclick="filterByCategory('vedas')" class="category-btn px-4 py-2 rounded-full text-sm border border-white/30 hover:bg-white/5 transition-all">Vedas</button>
-                <button onclick="filterByCategory('upanishads')" class="category-btn px-4 py-2 rounded-full text-sm border border-white/30 hover:bg-white/5 transition-all">Upanishads</button>
-                <button onclick="filterByCategory('gita')" class="category-btn px-4 py-2 rounded-full text-sm border border-white/30 hover:bg-white/5 transition-all">Gita</button>
-                <button onclick="filterByCategory('puranas')" class="category-btn px-4 py-2 rounded-full text-sm border border-white/30 hover:bg-white/5 transition-all">Puranas</button>
+            <!-- General Library Title -->
+            <div class="mb-6">
+                <span class="text-xs uppercase tracking-[3px] text-amber-400">Ancient Wisdom</span>
+                <h2 class="text-3xl font-bold tracking-tight mt-1">The Library</h2>
+                <p class="mt-1 text-sm text-white/70 max-w-2xl">Sacred stories and teachings from the Vedas, Puranas, and ancient Indian traditions — illustrated journeys and clear wisdom for modern seekers.</p>
             </div>
-        </div>
-    </div>
 
-    <!-- Articles Section -->
-    <div id="articles" class="max-w-6xl mx-auto px-6 pb-24">
-        <div class="flex items-end justify-between mb-10">
+            <!-- Search, Filters and Articles Grid (Dashavatara integrated as first card) -->
             <div>
-                <span class="text-xs uppercase tracking-[3px] text-amber-400">The Library</span>
-                <h2 class="text-4xl font-bold tracking-tight mt-1">Core Teachings</h2>
+                <div class="flex flex-col sm:flex-row gap-3 items-center justify-between mb-4">
+                    <!-- Search -->
+                    <div class="relative w-full sm:w-64">
+                        <input type="text" id="search-input" placeholder="Search the library..." 
+                               class="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-2 text-sm text-white placeholder-white/50 focus:outline-none focus:border-[#00f3ff] transition-all"
+                               onkeyup="filterCoreArticles()">
+                        <i class="fa-solid fa-search absolute right-3 top-2.5 text-white/50 text-sm"></i>
+                    </div>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <button onclick="filterByCategory('all')" class="category-btn active px-3 py-1 rounded-full text-xs border border-white/30 hover:bg-white/5 transition-all">All</button>
+                    <button onclick="filterByCategory('vedas')" class="category-btn px-3 py-1 rounded-full text-xs border border-white/30 hover:bg-white/5 transition-all">Vedas</button>
+                    <button onclick="filterByCategory('upanishads')" class="category-btn px-3 py-1 rounded-full text-xs border border-white/30 hover:bg-white/5 transition-all">Upanishads</button>
+                    <button onclick="filterByCategory('gita')" class="category-btn px-3 py-1 rounded-full text-xs border border-white/30 hover:bg-white/5 transition-all">Gita</button>
+                    <button onclick="filterByCategory('puranas')" class="category-btn px-3 py-1 rounded-full text-xs border border-white/30 hover:bg-white/5 transition-all">Puranas</button>
+                </div>
+
+                <!-- Articles Grid (compact, includes Dashavatara as first) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="articles-grid">
+                    <!-- Populated dynamically by JS -->
+                </div>
             </div>
-            <div class="text-sm text-white/50 hidden md:block">7 Core Articles • Updated May 2026</div>
-        </div>
 
-        <div class="grid md:grid-cols-2 gap-6" id="articles-grid">
-            
-            <!-- Article 1: Upanishads -->
-            <a href="ancient-wisdom/upanishads.html" class="wisdom-card cosmic-card rounded-3xl p-8 border border-white/10 group" data-category="upanishads" data-level="intermediate">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center gap-x-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center">
-                            <i class="fa-solid fa-book text-black text-xl"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs uppercase tracking-widest text-amber-400 font-medium">DEEP DIVE</div>
-                            <div class="text-[10px] text-white/50">Upanishads • Intermediate</div>
-                        </div>
-                    </div>
-                    <div class="text-xs bg-white/10 px-2 py-1 rounded">12 min</div>
-                </div>
-                <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-[#00f3ff] transition-colors">
-                    The Upanishads: The First Cosmic Manuals
-                </h3>
-                <p class="text-white/60 line-clamp-3">
-                    Discover how ancient Indian sages decoded the nature of reality, consciousness, and the self — 
-                    3,000 years before modern physics.
-                </p>
-                <div class="mt-6 flex items-center justify-between text-sm">
-                    <span class="text-[#00f3ff]">Read Article <i class="fa-solid fa-arrow-right ml-1 group-hover:translate-x-1 transition"></i></span>
-                    <div class="flex gap-x-2">
-                        <button onclick="event.preventDefault(); shareArticle(this)" class="text-white/60 hover:text-white"><i class="fa-solid fa-share-alt"></i></button>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Article 2: Nasadiya Sukta -->
-            <a href="ancient-wisdom/nasadiya-sukta.html" class="wisdom-card cosmic-card rounded-3xl p-8 border border-white/10 group" data-category="vedas" data-level="intermediate">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center gap-x-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-2xl flex items-center justify-center">
-                            <i class="fa-solid fa-scroll text-black text-xl"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs uppercase tracking-widest text-amber-400 font-medium">DEEP DIVE</div>
-                            <div class="text-[10px] text-white/50">Vedas • Intermediate</div>
-                        </div>
-                    </div>
-                    <div class="text-xs bg-white/10 px-2 py-1 rounded">9 min</div>
-                </div>
-                <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-[#00f3ff] transition-colors">
-                    Nasadiya Sukta: The Mystery of Creation
-                </h3>
-                <p class="text-white/60 line-clamp-3">
-                    The Rigvedic hymn that questions the very origin of the universe — one of the most profound and mysterious texts in human history.
-                </p>
-                <div class="mt-6 flex items-center justify-between text-sm">
-                    <span class="text-[#00f3ff]">Read Article <i class="fa-solid fa-arrow-right ml-1 group-hover:translate-x-1 transition"></i></span>
-                    <div class="flex gap-x-2">
-                        <button onclick="event.preventDefault(); shareArticle(this)" class="text-white/60 hover:text-white"><i class="fa-solid fa-share-alt"></i></button>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Article 3: Hiranyagarbha -->
-            <a href="ancient-wisdom/hiranyagarbha.html" class="wisdom-card cosmic-card rounded-3xl p-8 border border-white/10 group" data-category="vedas" data-level="beginner">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center gap-x-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-2xl flex items-center justify-center">
-                            <i class="fa-solid fa-egg text-black text-xl"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs uppercase tracking-widest text-amber-400 font-medium">DEEP DIVE</div>
-                            <div class="text-[10px] text-white/50">Vedas • Beginner Friendly</div>
-                        </div>
-                    </div>
-                    <div class="text-xs bg-white/10 px-2 py-1 rounded">8 min</div>
-                </div>
-                <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-[#00f3ff] transition-colors">
-                    Hiranyagarbha: The Golden Womb
-                </h3>
-                <p class="text-white/60 line-clamp-3">
-                    The ancient Vedic concept of the Cosmic Egg — the golden womb from which the entire universe emerged.
-                </p>
-                <div class="mt-6 flex items-center justify-between text-sm">
-                    <span class="text-[#00f3ff]">Read Article <i class="fa-solid fa-arrow-right ml-1 group-hover:translate-x-1 transition"></i></span>
-                    <div class="flex gap-x-2">
-                        <button onclick="event.preventDefault(); shareArticle(this)" class="text-white/60 hover:text-white"><i class="fa-solid fa-share-alt"></i></button>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Article 4: Vishwaroopa -->
-            <a href="ancient-wisdom/vishwaroopa.html" class="wisdom-card cosmic-card rounded-3xl p-8 border border-white/10 group" data-category="gita" data-level="advanced">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center gap-x-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-2xl flex items-center justify-center">
-                            <i class="fa-solid fa-infinity text-white text-xl"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs uppercase tracking-widest text-purple-400 font-medium">DEEP DIVE</div>
-                            <div class="text-[10px] text-white/50">Gita • Advanced</div>
-                        </div>
-                    </div>
-                    <div class="text-xs bg-white/10 px-2 py-1 rounded">14 min</div>
-                </div>
-                <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-[#00f3ff] transition-colors">
-                    Vishwaroopa: Krishna’s Cosmic Form
-                </h3>
-                <p class="text-white/60 line-clamp-3">
-                    When Arjuna saw the entire universe inside the body of Krishna — the most magnificent vision in the Bhagavad Gita.
-                </p>
-                <div class="mt-6 flex items-center justify-between text-sm">
-                    <span class="text-[#00f3ff]">Read Article <i class="fa-solid fa-arrow-right ml-1 group-hover:translate-x-1 transition"></i></span>
-                    <div class="flex gap-x-2">
-                        <button onclick="event.preventDefault(); shareArticle(this)" class="text-white/60 hover:text-white"><i class="fa-solid fa-share-alt"></i></button>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Article 5: Panchakosha -->
-            <a href="ancient-wisdom/panchakosha.html" class="wisdom-card cosmic-card rounded-3xl p-8 border border-white/10 group" data-category="upanishads" data-level="beginner">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center gap-x-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center">
-                            <i class="fa-solid fa-layer-group text-black text-xl"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs uppercase tracking-widest text-emerald-400 font-medium">DEEP DIVE</div>
-                            <div class="text-[10px] text-white/50">Upanishads • Beginner Friendly</div>
-                        </div>
-                    </div>
-                    <div class="text-xs bg-white/10 px-2 py-1 rounded">10 min</div>
-                </div>
-                <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-[#00f3ff] transition-colors">
-                    The Panchakosha: Five Sheaths of the Self
-                </h3>
-                <p class="text-white/60 line-clamp-3">
-                    The ancient map of human consciousness — from the physical body to pure bliss — and how to go beyond all layers.
-                </p>
-                <div class="mt-6 flex items-center justify-between text-sm">
-                    <span class="text-[#00f3ff]">Read Article <i class="fa-solid fa-arrow-right ml-1 group-hover:translate-x-1 transition"></i></span>
-                    <div class="flex gap-x-2">
-                        <button onclick="event.preventDefault(); shareArticle(this)" class="text-white/60 hover:text-white"><i class="fa-solid fa-share-alt"></i></button>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Article 6: Akasha -->
-            <a href="ancient-wisdom/akasha.html" class="wisdom-card cosmic-card rounded-3xl p-8 border border-white/10 group" data-category="vedas" data-level="beginner">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center gap-x-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-sky-400 to-blue-500 rounded-2xl flex items-center justify-center">
-                            <i class="fa-solid fa-infinity text-white text-xl"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs uppercase tracking-widest text-sky-400 font-medium">COSMIC DROP</div>
-                            <div class="text-[10px] text-white/50">Vedas • Beginner Friendly</div>
-                        </div>
-                    </div>
-                    <div class="text-xs bg-white/10 px-2 py-1 rounded">6 min</div>
-                </div>
-                <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-[#00f3ff] transition-colors">
-                    Akasha: The Cosmic Ether
-                </h3>
-                <p class="text-white/60 line-clamp-3">
-                    The ancient Hindu concept of the subtle space that is the foundation of all creation — the medium of sound, thought, and cosmic connection.
-                </p>
-                <div class="mt-6 flex items-center justify-between text-sm">
-                    <span class="text-[#00f3ff]">Read Article <i class="fa-solid fa-arrow-right ml-1 group-hover:translate-x-1 transition"></i></span>
-                    <div class="flex gap-x-2">
-                        <button onclick="event.preventDefault(); shareArticle(this)" class="text-white/60 hover:text-white"><i class="fa-solid fa-share-alt"></i></button>
-                    </div>
-                </div>
-            </a>
-
-            <!-- Article 7: Kala -->
-            <a href="ancient-wisdom/kala.html" class="wisdom-card cosmic-card rounded-3xl p-8 border border-white/10 group" data-category="puranas" data-level="intermediate">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center gap-x-3">
-                        <div class="w-10 h-10 bg-gradient-to-br from-orange-400 to-red-500 rounded-2xl flex items-center justify-center">
-                            <i class="fa-solid fa-clock text-white text-xl"></i>
-                        </div>
-                        <div>
-                            <div class="text-xs uppercase tracking-widest text-orange-400 font-medium">DEEP DIVE</div>
-                            <div class="text-[10px] text-white/50">Puranas • Intermediate</div>
-                        </div>
-                    </div>
-                    <div class="text-xs bg-white/10 px-2 py-1 rounded">11 min</div>
-                </div>
-                <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-[#00f3ff] transition-colors">
-                    Kala: The Hindu Philosophy of Time
-                </h3>
-                <p class="text-white/60 line-clamp-3">
-                    Time as a divine, cyclical force — the Yugas, cosmic ages, and how to live wisely in the flow of eternal time.
-                </p>
-                <div class="mt-6 flex items-center justify-between text-sm">
-                    <span class="text-[#00f3ff]">Read Article <i class="fa-solid fa-arrow-right ml-1 group-hover:translate-x-1 transition"></i></span>
-                    <div class="flex gap-x-2">
-                        <button onclick="event.preventDefault(); shareArticle(this)" class="text-white/60 hover:text-white"><i class="fa-solid fa-share-alt"></i></button>
-                    </div>
-                </div>
-            </a>
-
-        </div>
-        
-        <div class="mt-8 text-center">
-            <p class="text-emerald-400 text-sm font-medium">7 Core Articles • Full Ancient Wisdom Library Now Live</p>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="border-t border-white/10 py-12">
         <div class="max-w-5xl mx-auto px-6 text-center text-sm text-white/50">
             <p>Ancient Wisdom • CosmicTrotter • 2026</p>
@@ -409,76 +189,216 @@
     </footer>
 
     <script>
-        // Search and Filter Functionality
-        function filterArticles() {
-            const searchTerm = document.getElementById('search-input').value.toLowerCase();
-            const cards = document.querySelectorAll('#articles-grid .wisdom-card');
-            
-            cards.forEach(card => {
-                const title = card.querySelector('h3').textContent.toLowerCase();
-                const desc = card.querySelector('p').textContent.toLowerCase();
+        // Library items - Dashavatara as first compact card, then core teachings
+        const coreArticles = [
+            {
+                href: "dashavatara.html",
+                category: "puranas",
+                level: "11 Stories",
+                read: "Journey",
+                title: "Lord Vishnu's Dashavatara",
+                desc: "The complete illustrated stories of the ten divine avatars of Lord Vishnu.",
+                icon: "fa-om",
+                iconColor: "from-amber-400 to-yellow-500",
+                iconBg: "text-black",
+                isDashavatara: true
+            },
+            {
+                href: "ancient-wisdom/upanishads.html",
+                category: "upanishads",
+                level: "Intermediate",
+                read: "12 min",
+                title: "The Upanishads: The First Cosmic Manuals",
+                desc: "Discover how ancient Indian sages decoded the nature of reality, consciousness, and the self — 3,000 years before modern physics.",
+                icon: "fa-book",
+                iconColor: "from-amber-400 to-orange-500",
+                iconBg: "text-black"
+            },
+            {
+                href: "ancient-wisdom/nasadiya-sukta.html",
+                category: "vedas",
+                level: "Intermediate",
+                read: "9 min",
+                title: "Nasadiya Sukta: The Mystery of Creation",
+                desc: "The Rigvedic hymn that questions the very origin of the universe — one of the most profound and mysterious texts in human history.",
+                icon: "fa-scroll",
+                iconColor: "from-amber-400 to-yellow-500",
+                iconBg: "text-black"
+            },
+            {
+                href: "ancient-wisdom/hiranyagarbha.html",
+                category: "vedas",
+                level: "Beginner Friendly",
+                read: "8 min",
+                title: "Hiranyagarbha: The Golden Womb",
+                desc: "The ancient Vedic concept of the Cosmic Egg — the golden womb from which the entire universe emerged.",
+                icon: "fa-egg",
+                iconColor: "from-yellow-400 to-amber-500",
+                iconBg: "text-black"
+            },
+            {
+                href: "ancient-wisdom/vishwaroopa.html",
+                category: "gita",
+                level: "Advanced",
+                read: "14 min",
+                title: "Vishwaroopa: Krishna’s Cosmic Form",
+                desc: "When Arjuna saw the entire universe inside the body of Krishna — the most magnificent vision in the Bhagavad Gita.",
+                icon: "fa-infinity",
+                iconColor: "from-purple-500 to-indigo-500",
+                iconBg: "text-white"
+            },
+            {
+                href: "ancient-wisdom/panchakosha.html",
+                category: "upanishads",
+                level: "Beginner Friendly",
+                read: "10 min",
+                title: "The Panchakosha: Five Sheaths of the Self",
+                desc: "The ancient map of human consciousness — from the physical body to pure bliss — and how to go beyond all layers.",
+                icon: "fa-layer-group",
+                iconColor: "from-emerald-400 to-teal-500",
+                iconBg: "text-black"
+            },
+            {
+                href: "ancient-wisdom/akasha.html",
+                category: "vedas",
+                level: "Beginner Friendly",
+                read: "6 min",
+                title: "Akasha: The Cosmic Ether",
+                desc: "The ancient Hindu concept of the subtle space that is the foundation of all creation — the medium of sound, thought, and cosmic connection.",
+                icon: "fa-infinity",
+                iconColor: "from-sky-400 to-blue-500",
+                iconBg: "text-white"
+            },
+            {
+                href: "ancient-wisdom/kala.html",
+                category: "puranas",
+                level: "Intermediate",
+                read: "11 min",
+                title: "Kala: The Hindu Philosophy of Time",
+                desc: "Time as a divine, cyclical force — the Yugas, cosmic ages, and how to live wisely in the flow of eternal time.",
+                icon: "fa-clock",
+                iconColor: "from-orange-400 to-red-500",
+                iconBg: "text-white"
+            }
+        ];
+
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        function renderCoreArticles() {
+            const container = document.getElementById('articles-grid');
+            if (!container) return;
+
+            let filtered = coreArticles;
+
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(a => a.category === currentFilter);
+            }
+
+            if (currentSearch) {
+                const term = currentSearch.toLowerCase();
+                filtered = filtered.filter(a =>
+                    a.title.toLowerCase().includes(term) ||
+                    a.desc.toLowerCase().includes(term)
+                );
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="col-span-2 text-center py-6 text-white/60 text-sm">No items match your search.</div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(a => {
+                const isDash = a.isDashavatara;
+                const cardClasses = `wisdom-card cosmic-card rounded-xl p-5 border border-white/10 group ${isDash ? 'border-amber-400/30 bg-amber-900/5' : ''}`;
+                const titleHover = isDash ? 'group-hover:text-amber-300' : 'group-hover:text-[#00f3ff]';
+                const badgeText = isDash ? 'ILLUSTRATED JOURNEY' : 'DEEP DIVE';
+                const badgeColor = isDash ? 'text-amber-300' : 'text-amber-400';
+                const readBadge = isDash ? 'bg-amber-400/10 text-amber-300' : 'bg-white/10';
                 
-                if (title.includes(searchTerm) || desc.includes(searchTerm)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+                return `
+                <a href="${a.href}" class="${cardClasses}" data-category="${a.category}">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-x-2.5">
+                            <div class="w-8 h-8 bg-gradient-to-br ${a.iconColor} rounded-lg flex items-center justify-center">
+                                <i class="fa-solid ${a.icon} ${a.iconBg} text-base"></i>
+                            </div>
+                            <div>
+                                <div class="text-[9px] uppercase tracking-widest ${badgeColor} font-medium">${badgeText}</div>
+                                <div class="text-[8px] text-white/50">${a.category.charAt(0).toUpperCase() + a.category.slice(1)} • ${a.level}</div>
+                            </div>
+                        </div>
+                        <div class="text-[10px] ${readBadge} px-1.5 py-0.5 rounded">${a.read}</div>
+                    </div>
+                    <h3 class="text-lg font-semibold leading-tight mb-1.5 ${titleHover} transition-colors">
+                        ${a.title}
+                    </h3>
+                    <p class="text-white/60 text-xs line-clamp-2">
+                        ${a.desc}
+                    </p>
+                    <div class="mt-3 text-xs ${isDash ? 'text-amber-300' : 'text-[#00f3ff]'} flex items-center">
+                        ${isDash ? 'Start the Journey' : 'Read Article'} <i class="fa-solid fa-arrow-right ml-1.5 group-hover:translate-x-0.5 transition"></i>
+                    </div>
+                </a>`;
+            }).join('');
         }
-        
+
+        function filterCoreArticles() {
+            const input = document.getElementById('search-input');
+            currentSearch = input ? input.value : '';
+            renderCoreArticles();
+        }
+
         function filterByCategory(category) {
-            const cards = document.querySelectorAll('#articles-grid .wisdom-card');
+            currentFilter = category;
+
             const buttons = document.querySelectorAll('.category-btn');
-            
-            // Remove active class from all buttons
-            buttons.forEach(btn => btn.classList.remove('active', 'bg-[#00f3ff]', 'text-black'));
-            buttons.forEach(btn => btn.classList.add('border-white/30'));
-            
-            // Add active class to clicked button
-            event.target.classList.add('active', 'bg-[#00f3ff]', 'text-black');
-            event.target.classList.remove('border-white/30');
-            
-            cards.forEach(card => {
-                if (category === 'all') {
-                    card.style.display = 'block';
-                } else {
-                    if (card.dataset.category === category) {
-                        card.style.display = 'block';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                }
+            buttons.forEach(btn => {
+                btn.classList.remove('active', 'bg-[#00f3ff]', 'text-black');
+                btn.classList.add('border-white/30');
             });
+
+            const clicked = Array.from(buttons).find(b => {
+                const t = b.textContent.trim().toLowerCase();
+                if (category === 'all' && t === 'all') return true;
+                if (category === 'vedas' && t === 'vedas') return true;
+                if (category === 'upanishads' && t === 'upanishads') return true;
+                if (category === 'gita' && t === 'gita') return true;
+                if (category === 'puranas' && t === 'puranas') return true;
+                return false;
+            });
+
+            if (clicked) {
+                clicked.classList.add('active', 'bg-[#00f3ff]', 'text-black');
+                clicked.classList.remove('border-white/30');
+            } else if (buttons[0] && category === 'all') {
+                buttons[0].classList.add('active', 'bg-[#00f3ff]', 'text-black');
+            }
+
+            renderCoreArticles();
         }
-        
-        // Share Article Function
-        function shareArticle(element) {
-            const card = element.closest('.wisdom-card');
-            const title = card.querySelector('h3').textContent;
-            const url = card.href;
-            
-            if (navigator.share) {
-                navigator.share({
-                    title: title,
-                    url: url
-                });
-            } else {
-                // Fallback: Copy to clipboard
-                navigator.clipboard.writeText(url).then(() => {
-                    const originalText = element.innerHTML;
-                    element.innerHTML = '<i class="fa-solid fa-check"></i>';
-                    setTimeout(() => {
-                        element.innerHTML = originalText;
-                    }, 1500);
+
+        function initAncientPage() {
+            // Render the library grid (Dashavatara is now the first compact card)
+            renderCoreArticles();
+
+            // Make first filter button active
+            const firstBtn = document.querySelector('.category-btn');
+            if (firstBtn) {
+                firstBtn.classList.add('active', 'bg-[#00f3ff]', 'text-black');
+                firstBtn.classList.remove('border-white/30');
+            }
+
+            // Search on Enter
+            const search = document.getElementById('search-input');
+            if (search) {
+                search.addEventListener('keyup', (e) => {
+                    if (e.key === 'Enter') filterCoreArticles();
                 });
             }
         }
-        
-        // Initialize category buttons
-        document.addEventListener('DOMContentLoaded', function() {
-            const firstBtn = document.querySelector('.category-btn');
-            if (firstBtn) firstBtn.classList.add('active', 'bg-[#00f3ff]', 'text-black');
-        });
+
+        document.addEventListener('DOMContentLoaded', initAncientPage);
     </script>
     <script src="ask-krishna-widget.js"></script>
 </body>

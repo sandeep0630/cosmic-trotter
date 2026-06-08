@@ -213,6 +213,22 @@
     <priority>0.65</priority>
   </url>
 
+  <!-- Dedicated Dashavatara experience (all avatars and chapters in one beautiful book-like page) -->
+  <url>
+    <loc>https://cosmictrotter.com/dashavatara.html</loc>
+    <lastmod>2026-06-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.72</priority>
+  </url>
+
+  <!-- Legacy Matsya redirect note -->
+  <url>
+    <loc>https://cosmictrotter.com/ancient-wisdom/matsya.html</loc>
+    <lastmod>2026-06-05</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
   <!-- Ancient Wisdom - Deep dives -->
   <url>
     <loc>https://cosmictrotter.com/ancient-wisdom/akasha-deep.html</loc>
