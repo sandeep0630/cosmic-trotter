@@ -45,8 +45,14 @@
 
         let href = links[target] || links.home;
 
-        // If we are on a Telugu page, convert nav links to their Telugu equivalents
-        const onTelugu = window.location.pathname.includes('-te') || window.location.pathname.includes('telugu-coming-soon');
+        // Determine if we should serve Telugu versions of links.
+        // This now correctly handles:
+        // - Actual *-te.html pages (pathname check)
+        // - Widget fallback mode (preferredLang=te but still on English URL for pages without dedicated -te yet)
+        const pathname = window.location.pathname;
+        const preferred = (typeof localStorage !== 'undefined' && localStorage.getItem('preferredLang')) || 'en';
+        const onTelugu = pathname.includes('-te') || pathname.includes('telugu-coming-soon') || preferred === 'te';
+
         if (onTelugu && href.endsWith('.html') && !href.includes('-te') && !href.includes('#')) {
             href = href.replace(/\.html$/, '-te.html');
         }
@@ -1148,15 +1154,21 @@
 
     // ===== Language Toggle (English / Telugu) =====
     function getTeluguEquivalentUrl(currentPath) {
-        if (!currentPath || currentPath === '/') return '/index-te.html';
+        if (!currentPath || currentPath === '/' || currentPath === '') return '/index-te.html';
         if (currentPath.endsWith('/')) return currentPath + 'index-te.html';
-        if (currentPath.includes('-te')) return currentPath; // already te
-        // Handle both .html and clean URLs
-        if (currentPath.endsWith('.html')) {
-            return currentPath.replace(/\.html$/, '-te.html');
+
+        // Normalize: ensure starts with /
+        let p = currentPath;
+        if (!p.startsWith('/')) p = '/' + p;
+
+        if (p.includes('-te')) return p; // already te version
+
+        // Handle both .html and clean URLs (e.g. /ancient or /ancient-wisdom/foo)
+        if (p.endsWith('.html')) {
+            return p.replace(/\.html$/, '-te.html');
         }
-        // clean url like /ancient -> /ancient-te.html
-        return currentPath + '-te.html';
+        // clean url like /ancient -> /ancient-te.html or /ancient-wisdom/bar -> /ancient-wisdom/bar-te.html
+        return p.replace(/\/$/, '') + '-te.html';
     }
 
     function getEnglishEquivalentUrl(urlOrPath) {
@@ -1241,19 +1253,23 @@
         // Telugu requested
         const teTarget = getTeluguEquivalentUrl(window.location.pathname);
 
-        // Check if we have a dedicated accurate Telugu page
-        fetch(teTarget, { method: 'HEAD' })
+        // Check if we have a dedicated accurate Telugu page.
+        // Use a short timeout so we don't hang on slow networks or file://
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 1200);
+
+        fetch(teTarget, { method: 'HEAD', signal: controller.signal })
             .then(response => {
+                clearTimeout(timeout);
                 if (response.ok) {
                     // Use our clean, accurate translation (full page, our UI intact)
                     window.location.href = teTarget + window.location.search + window.location.hash;
                 } else {
-                    // No dedicated -te page yet: activate in-place Google widget immediately
-                    // This translates the current page to Telugu and keeps our nav + toggle visible
                     activateGoogleTeluguWidget();
                 }
             })
             .catch(() => {
+                clearTimeout(timeout);
                 activateGoogleTeluguWidget();
             });
     }
@@ -1425,8 +1441,12 @@
         const isTeluguPage = currentPath.includes('-te');
         if (saved === 'te' && !isTeluguPage) {
             const teTarget = getTeluguEquivalentUrl(currentPath);
-            fetch(teTarget, { method: 'HEAD' })
+            const controller = new AbortController();
+            const timeout = setTimeout(() => controller.abort(), 1200);
+
+            fetch(teTarget, { method: 'HEAD', signal: controller.signal })
                 .then(res => {
+                    clearTimeout(timeout);
                     if (res.ok) {
                         window.location.replace(teTarget + window.location.search);
                     } else {
@@ -1435,6 +1455,7 @@
                     }
                 })
                 .catch(() => {
+                    clearTimeout(timeout);
                     activateGoogleTeluguWidget();
                 });
         }
