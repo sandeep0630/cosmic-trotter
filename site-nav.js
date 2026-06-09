@@ -44,7 +44,7 @@
         };
 
         // Always return the base English .html (or hash) version.
-        // The Google Translate widget (if preferredLang === 'te') will translate the content in-place on the target page.
+        // If preferredLang === 'te', the language initializer translates the current page in-place.
         return links[target] || links.home;
     }
 
@@ -880,9 +880,12 @@
             */
             .goog-te-banner-frame,
             iframe.goog-te-banner-frame,
+            body > .skiptranslate,
+            iframe.skiptranslate,
+            .VIpgJd-ZVi9od-ORHb-OEVmcd.skiptranslate,
+            .VIpgJd-ZVi9od-xl07Ob-OEVmcd.skiptranslate,
             .goog-te-ftab,
             .goog-te-balloon-frame,
-            .skiptranslate,
             .goog-te-spinner-pos,
             .goog-te-spinner,
             .goog-te-menu-value,
@@ -1268,7 +1271,8 @@
     // ===== Language Toggle (English / Telugu) =====
     // getTeluguEquivalentUrl kept for backward compatibility in a couple of places
     // but with dedicated -te.html pages removed, it is no longer used for navigation.
-    // Telugu is always applied via Google Translate widget on the English pages.
+    // Telugu is applied in-place on the English pages through our text translation flow,
+    // keeping Google's visible toolbar out of the page chrome.
     function getTeluguEquivalentUrl(currentPath) {
         // Return the current path unchanged � widget will translate in place.
         return currentPath || window.location.pathname;
@@ -1355,30 +1359,21 @@
             return;
         }
 
-        // Telugu: set preference + cookie, then **reload immediately**.
-        // This is the most reliable way to get automatic translation to Telugu
-        // without Google showing the language selector popup.
-        // On the fresh page load the cookie is present from the very beginning,
-        // our init code runs early, forces the combo via observer + poller,
-        // hides all Google UI, and the page translates automatically.
+        // Telugu: translate this page in-place without loading Google's toolbar UI.
+        // initLanguage() uses the same preference to translate future pages after navigation.
         // The EN/తెలుగు buttons remain in the injected nav on every page.
         localStorage.setItem('preferredLang', 'te');
+        removeGoogleTranslateChrome(true);
 
-        try {
-            document.cookie = "googtrans=/en/te; path=/; max-age=31536000";
-            if (location.hostname) {
-                document.cookie = "googtrans=/en/te; path=/; domain=" + location.hostname + "; max-age=31536000";
-            }
-        } catch (e) {}
-
-        // Update buttons for visual feedback before reload
+        // Update buttons for visual feedback before translation completes.
         document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
             btn.classList.toggle('active', btn.getAttribute('data-lang') === 'te');
         });
 
-        // Clean reload so the next load starts with the cookie already set.
-        // This avoids the flaky in-place activation that was causing the popup + manual select.
-        window.location.reload();
+        document.documentElement.lang = 'te';
+        applyTeluguFallbackTranslation();
+        setTimeout(() => applyTeluguFallbackTranslation(), 1200);
+        setTimeout(() => applyTeluguFallbackTranslation(), 5000);
         return;
     }
 
@@ -1401,6 +1396,40 @@
         return clean;
     }
 
+    function removeGoogleTranslateChrome(clearCookie) {
+        document.querySelectorAll([
+            '#google_translate_element',
+            '.goog-te-banner-frame',
+            'iframe.goog-te-banner-frame',
+            '.goog-te-balloon-frame',
+            '.goog-te-ftab',
+            '.goog-te-spinner-pos',
+            '.goog-te-spinner',
+            '.goog-te-gadget',
+            '.goog-te-menu-frame',
+            '.goog-te-menu2',
+            'body > .skiptranslate',
+            'iframe.skiptranslate'
+        ].join(',')).forEach(el => {
+            if (el && el.parentNode) el.parentNode.removeChild(el);
+        });
+
+        document.documentElement.classList.remove('translated-ltr', 'translated-rtl');
+
+        if (document.body) {
+            document.body.style.top = '0px';
+            document.body.style.marginTop = '0px';
+            document.body.style.paddingTop = '';
+        }
+
+        if (clearCookie) {
+            try {
+                document.cookie = "googtrans=;path=/;max-age=0";
+                document.cookie = "googtrans=;path=/;domain=" + location.hostname + ";max-age=0";
+            } catch (e) {}
+        }
+    }
+
     // Robust watcher using MutationObserver so we force 'te' the *instant* Google injects the combo.
     // This prevents the 10s delay + language selector popup that appears when the force is too slow.
     function setupTeluguComboWatcher() {
@@ -1413,21 +1442,16 @@
             let didForce = false;
             if (select.value !== 'te') {
                 select.value = 'te';
-                select.dispatchEvent(new Event('change', { bubbles: true }));
-                try { select.dispatchEvent(new Event('input', { bubbles: true })); } catch (e) {}
-                didForce = true;
             }
+            select.dispatchEvent(new Event('change', { bubbles: true }));
+            try { select.dispatchEvent(new Event('input', { bubbles: true })); } catch (e) {}
+            didForce = true;
 
-            // Hide the gadget immediately so no Google UI (dropdown, "select language", etc.) is visible
-            const gadget = document.querySelector('.goog-te-gadget');
-            if (gadget) {
-                gadget.style.cssText = 'display:none !important; visibility:hidden !important; position:absolute !important; left:-9999px !important; width:0 !important; height:0 !important; overflow:hidden !important;';
-            }
-
-            // Also fully park our container
+            // Keep the widget renderable but invisible until Google finishes translating.
+            // Hiding it too early can leave the page marked translated without rewritten text.
             const cont = document.getElementById('google_translate_element');
             if (cont) {
-                cont.style.cssText = 'position:fixed !important; left:-9999px !important; top:-9999px !important; width:1px !important; height:1px !important; opacity:0 !important; pointer-events:none !important; overflow:hidden !important;';
+                cont.style.cssText = 'position:fixed !important; left:-220px !important; top:0 !important; width:200px !important; height:40px !important; opacity:0 !important; z-index:-9999 !important; overflow:hidden !important; pointer-events:none !important;';
             }
 
             return didForce || select.value === 'te';
@@ -1452,10 +1476,316 @@
         setTimeout(forceNow, 520);
     }
 
-    // Initialize the hidden Google Translate widget for Telugu on page load.
-    // Because we reload on Telugu click (after setting the googtrans cookie), this runs
-    // with the cookie already present from the start of the load. This is the most reliable
-    // way to get automatic translation without Google showing a "select Telugu" popup.
+    const TELUGU_FALLBACK_CACHE_KEY = 'cosmicTeTranslationCacheV1';
+    const TELUGU_FALLBACK_SPLIT = '\n[[[CT_SPLIT]]]\n';
+    let teluguFallbackCache = null;
+
+    function getTeluguFallbackCache() {
+        if (teluguFallbackCache) return teluguFallbackCache;
+        try {
+            teluguFallbackCache = JSON.parse(localStorage.getItem(TELUGU_FALLBACK_CACHE_KEY) || '{}') || {};
+        } catch (e) {
+            teluguFallbackCache = {};
+        }
+        return teluguFallbackCache;
+    }
+
+    function saveTeluguFallbackCache() {
+        try {
+            const cache = getTeluguFallbackCache();
+            const entries = Object.entries(cache);
+            const trimmed = entries.length > 500 ? Object.fromEntries(entries.slice(entries.length - 500)) : cache;
+            teluguFallbackCache = trimmed;
+            localStorage.setItem(TELUGU_FALLBACK_CACHE_KEY, JSON.stringify(trimmed));
+        } catch (e) {}
+    }
+
+    function shouldSkipTranslationNode(node) {
+        const parent = node && node.parentElement;
+        if (!parent) return true;
+        if (parent.closest('#google_translate_element, [data-lang-switch], .notranslate, [translate="no"]')) return true;
+
+        const blockedTags = new Set(['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEXTAREA', 'INPUT', 'SELECT', 'OPTION', 'SVG', 'CANVAS', 'IFRAME', 'CODE', 'PRE', 'KBD', 'SAMP']);
+        let el = parent;
+        while (el && el !== document.body) {
+            if (blockedTags.has(el.tagName)) return true;
+            el = el.parentElement;
+        }
+
+        const text = node.nodeValue || '';
+        const trimmed = text.replace(/\s+/g, ' ').trim();
+        if (!trimmed || trimmed.length < 2) return true;
+        if (/[\u0C00-\u0C7F]/.test(trimmed)) return true;
+        if (!/[A-Za-z]/.test(trimmed)) return true;
+        return false;
+    }
+
+    function scheduleTeluguFallbackTranslation(delay) {
+        if (localStorage.getItem('preferredLang') !== 'te') return;
+        clearTimeout(window._cosmicTeFallbackTimer);
+        window._cosmicTeFallbackTimer = setTimeout(() => applyTeluguFallbackTranslation(), delay || 250);
+    }
+
+    function setupTeluguFallbackObserver() {
+        if (window._cosmicTeFallbackObserver || !document.body) return;
+
+        window._cosmicTeFallbackObserver = new MutationObserver(mutations => {
+            if (localStorage.getItem('preferredLang') !== 'te') return;
+            if (window._cosmicTeFallbackMuting) return;
+
+            const hasAddedText = mutations.some(mutation => {
+                if (mutation.type === 'characterData') {
+                    return !shouldSkipTranslationNode(mutation.target);
+                }
+
+                return Array.from(mutation.addedNodes || []).some(node => {
+                    if (node.nodeType === Node.TEXT_NODE) return !shouldSkipTranslationNode(node);
+                    if (node.nodeType !== Node.ELEMENT_NODE) return false;
+                    if (node.matches && node.matches('#google_translate_element, [data-lang-switch], .notranslate, [translate="no"]')) return false;
+                    return /[A-Za-z]/.test(node.innerText || node.textContent || '');
+                });
+            });
+
+            if (hasAddedText) scheduleTeluguFallbackTranslation(350);
+        });
+
+        window._cosmicTeFallbackObserver.observe(document.body, {
+            childList: true,
+            characterData: true,
+            subtree: true
+        });
+    }
+
+    function collectTranslatableTextNodes() {
+        if (!document.body) return [];
+        const nodes = [];
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+            acceptNode(node) {
+                return shouldSkipTranslationNode(node) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT;
+            }
+        });
+
+        let node = walker.nextNode();
+        while (node) {
+            nodes.push(node);
+            node = walker.nextNode();
+        }
+        return nodes;
+    }
+
+    function collectTranslatableAttributeItems() {
+        if (!document.body) return [];
+        const attrs = ['placeholder', 'title', 'aria-label'];
+        const items = [];
+
+        document.querySelectorAll('[placeholder], [title], [aria-label]').forEach(el => {
+            if (el.closest('#google_translate_element, [data-lang-switch], .notranslate, [translate="no"]')) return;
+
+            attrs.forEach(attr => {
+                const value = el.getAttribute(attr);
+                if (!value) return;
+                const core = value.replace(/\s+/g, ' ').trim();
+                if (!core || /[\u0C00-\u0C7F]/.test(core) || !/[A-Za-z]/.test(core)) return;
+                items.push({ el, attr, core });
+            });
+        });
+
+        return items;
+    }
+
+    function collectResidualEnglishTextNodes() {
+        if (!document.body) return [];
+        const nodes = [];
+        const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+            acceptNode(node) {
+                const parent = node && node.parentElement;
+                if (!parent) return NodeFilter.FILTER_REJECT;
+                if (parent.closest('#google_translate_element, [data-lang-switch], .notranslate, [translate="no"]')) return NodeFilter.FILTER_REJECT;
+                const text = node.nodeValue || '';
+                if (!/[\u0C00-\u0C7F]/.test(text) || !/[A-Za-z]/.test(text)) return NodeFilter.FILTER_REJECT;
+                return NodeFilter.FILTER_ACCEPT;
+            }
+        });
+
+        let node = walker.nextNode();
+        while (node) {
+            nodes.push(node);
+            node = walker.nextNode();
+        }
+        return nodes;
+    }
+
+    async function translateTextBatchToTelugu(texts) {
+        const query = texts.join(TELUGU_FALLBACK_SPLIT);
+        const url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=te&dt=t&q=' + encodeURIComponent(query);
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Translation request failed: ' + response.status);
+        const data = await response.json();
+        const translated = ((data && data[0]) || []).map(part => part && part[0] ? part[0] : '').join('');
+        const parts = translated.split(/\s*\[\[\[CT_SPLIT\]\]\]\s*/);
+        if (parts.length === texts.length) return parts;
+
+        const translatedTexts = [];
+        for (const text of texts) {
+            const singleUrl = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=te&dt=t&q=' + encodeURIComponent(text);
+            const singleResponse = await fetch(singleUrl);
+            if (!singleResponse.ok) throw new Error('Translation request failed: ' + singleResponse.status);
+            const singleData = await singleResponse.json();
+            translatedTexts.push(((singleData && singleData[0]) || []).map(part => part && part[0] ? part[0] : '').join('') || text);
+        }
+        return translatedTexts;
+    }
+
+    async function translateAndCacheItems(cache, items) {
+        const uncached = items.filter(item => item && item.core && !cache[item.core]);
+        let index = 0;
+
+        while (index < uncached.length && localStorage.getItem('preferredLang') === 'te') {
+            const batch = [];
+            let charCount = 0;
+
+            while (index < uncached.length && batch.length < 18 && charCount + uncached[index].core.length < 2800) {
+                batch.push(uncached[index]);
+                charCount += uncached[index].core.length + TELUGU_FALLBACK_SPLIT.length;
+                index++;
+            }
+
+            if (!batch.length) {
+                batch.push(uncached[index]);
+                index++;
+            }
+
+            const translations = await translateTextBatchToTelugu(batch.map(item => item.core));
+            translations.forEach((translated, i) => {
+                cache[batch[i].core] = translated || batch[i].core;
+            });
+            saveTeluguFallbackCache();
+        }
+    }
+
+    async function translateVisibleAttributesToTelugu(cache) {
+        const items = collectTranslatableAttributeItems();
+        await translateAndCacheItems(cache, items);
+
+        items.forEach(item => {
+            if (localStorage.getItem('preferredLang') !== 'te') return;
+            if (!cache[item.core]) return;
+            item.el.setAttribute(item.attr, cache[item.core]);
+        });
+    }
+
+    async function translateResidualEnglishTextToTelugu(cache) {
+        const nodes = collectResidualEnglishTextNodes();
+        const segmentPattern = /[A-Za-z][A-Za-z0-9'’&-]*(?:\s+[A-Za-z0-9'’&-]+)*/g;
+        const items = [];
+        const seen = new Set();
+
+        nodes.forEach(node => {
+            const matches = (node.nodeValue || '').match(segmentPattern) || [];
+            matches.forEach(match => {
+                const core = match.replace(/\s+/g, ' ').trim();
+                if (core.length < 3 || seen.has(core)) return;
+                seen.add(core);
+                items.push({ core });
+            });
+        });
+
+        await translateAndCacheItems(cache, items);
+
+        nodes.forEach(node => {
+            if (localStorage.getItem('preferredLang') !== 'te') return;
+            const next = (node.nodeValue || '').replace(segmentPattern, match => {
+                const core = match.replace(/\s+/g, ' ').trim();
+                return cache[core] || match;
+            });
+            if (next !== node.nodeValue) {
+                window._cosmicTeFallbackMuting = true;
+                node.nodeValue = next;
+                window._cosmicTeFallbackMuting = false;
+            }
+        });
+    }
+
+    async function applyTeluguFallbackTranslation() {
+        if (localStorage.getItem('preferredLang') !== 'te') return;
+        if (window._cosmicTeFallbackRunning) {
+            window._cosmicTeFallbackPending = true;
+            return;
+        }
+
+        window._cosmicTeFallbackRunning = true;
+        document.documentElement.classList.add('cosmic-te-fallback-active');
+        setupTeluguFallbackObserver();
+
+        try {
+            const cache = getTeluguFallbackCache();
+            const nodes = collectTranslatableTextNodes();
+            const uncached = [];
+
+            nodes.forEach(node => {
+                if (!node._cosmicOriginalText) node._cosmicOriginalText = node.nodeValue;
+                const original = node._cosmicOriginalText || '';
+                const leading = (original.match(/^\s*/) || [''])[0];
+                const trailing = (original.match(/\s*$/) || [''])[0];
+                const core = original.replace(/\s+/g, ' ').trim();
+                if (!core) return;
+
+                if (cache[core]) {
+                    window._cosmicTeFallbackMuting = true;
+                    node.nodeValue = leading + cache[core] + trailing;
+                    window._cosmicTeFallbackMuting = false;
+                    return;
+                }
+
+                uncached.push({ node, original, leading, trailing, core });
+            });
+
+            let index = 0;
+            while (index < uncached.length && localStorage.getItem('preferredLang') === 'te') {
+                const batch = [];
+                let charCount = 0;
+
+                while (index < uncached.length && batch.length < 18 && charCount + uncached[index].core.length < 2800) {
+                    batch.push(uncached[index]);
+                    charCount += uncached[index].core.length + TELUGU_FALLBACK_SPLIT.length;
+                    index++;
+                }
+
+                if (!batch.length) {
+                    batch.push(uncached[index]);
+                    index++;
+                }
+
+                const translations = await translateTextBatchToTelugu(batch.map(item => item.core));
+                translations.forEach((translated, i) => {
+                    const item = batch[i];
+                    const finalText = translated || item.core;
+                    cache[item.core] = finalText;
+                    if (localStorage.getItem('preferredLang') === 'te') {
+                        window._cosmicTeFallbackMuting = true;
+                        item.node.nodeValue = item.leading + finalText + item.trailing;
+                        window._cosmicTeFallbackMuting = false;
+                    }
+                });
+                saveTeluguFallbackCache();
+            }
+
+            await translateVisibleAttributesToTelugu(cache);
+            await translateResidualEnglishTextToTelugu(cache);
+        } catch (e) {
+            console.warn('[CosmicLang] Telugu fallback translation failed', e);
+        } finally {
+            window._cosmicTeFallbackRunning = false;
+            document.documentElement.classList.remove('cosmic-te-fallback-active');
+            if (window._cosmicTeFallbackPending) {
+                window._cosmicTeFallbackPending = false;
+                setTimeout(() => applyTeluguFallbackTranslation(), 300);
+            }
+        }
+    }
+
+    // Initialize the hidden Google Translate widget for Telugu.
+    // The text fallback below covers cases where the widget initializes but does not rewrite the DOM.
     function activateGoogleTeluguWidget() {
         console.log('[CosmicLang] activateGoogleTeluguWidget called');
 
@@ -1524,7 +1854,7 @@
         makeBootstrapVisible();
 
         const killBanner = () => {
-            document.querySelectorAll('.goog-te-banner-frame, iframe.goog-te-banner-frame, .skiptranslate').forEach(b => {
+            document.querySelectorAll('.goog-te-banner-frame, iframe.goog-te-banner-frame').forEach(b => {
                 if (b && b.parentNode) b.parentNode.removeChild(b);
             });
             if (document.body) {
@@ -1557,7 +1887,6 @@
                 new google.translate.TranslateElement({
                     pageLanguage: 'en',
                     includedLanguages: 'te',
-                    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
                     autoDisplay: false
                 }, 'google_translate_element');
             } catch (e) {
@@ -1589,34 +1918,39 @@
 
                         if (select.value !== 'te') {
                             select.value = 'te';
-                            select.dispatchEvent(new Event('change', { bubbles: true }));
-                            try { select.dispatchEvent(new Event('input', { bubbles: true })); } catch (e) {}
                         }
+                        select.dispatchEvent(new Event('change', { bubbles: true }));
+                        try { select.dispatchEvent(new Event('input', { bubbles: true })); } catch (e) {}
 
-                        // Hide Google UI immediately
+                        // Keep Google UI renderable but invisible until translation settles.
                         const gadget = document.querySelector('.goog-te-gadget');
                         if (gadget) {
-                            gadget.style.cssText = 'display:none !important; visibility:hidden !important; position:absolute !important; left:-9999px !important; width:0 !important; height:0 !important; overflow:hidden !important;';
+                            gadget.style.cssText = 'position:absolute !important; left:-220px !important; top:0 !important; width:200px !important; height:40px !important; opacity:0 !important; overflow:hidden !important; pointer-events:none !important;';
                         }
-
-                        // Now that we have forced, fully hide the container
-                        hardHideContainer();
 
                         const isTranslated = document.documentElement.classList.contains('translated-ltr') ||
                                              document.documentElement.classList.contains('translated-rtl');
 
-                        if (isTranslated || pollAttempts > 15) {
+                        if (isTranslated || pollAttempts > 60) {
                             clearInterval(poller);
                             // One final reinforcement
                             setTimeout(() => {
                                 const s2 = document.querySelector('.goog-te-combo');
-                                if (s2 && s2.value !== 'te') {
-                                    s2.value = 'te';
+                                if (s2) {
+                                    if (s2.value !== 'te') {
+                                        s2.value = 'te';
+                                    }
                                     s2.dispatchEvent(new Event('change', { bubbles: true }));
                                 }
-                                hardHideContainer();
                                 killBanner();
-                            }, 600);
+                                setTimeout(() => {
+                                    hardHideContainer();
+                                    const g2 = document.querySelector('.goog-te-gadget');
+                                    if (g2) {
+                                        g2.style.cssText = 'display:none !important; visibility:hidden !important; position:absolute !important; left:-9999px !important; width:0 !important; height:0 !important; overflow:hidden !important;';
+                                    }
+                                }, 3000);
+                            }, 800);
                         }
                     }
 
@@ -1637,7 +1971,6 @@
                             new google.translate.TranslateElement({
                                 pageLanguage: 'en',
                                 includedLanguages: 'te',
-                                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
                                 autoDisplay: false
                             }, 'google_translate_element');
 
@@ -1651,11 +1984,11 @@
                                     if (s) {
                                         if (s.value !== 'te') {
                                             s.value = 'te';
-                                            s.dispatchEvent(new Event('change', { bubbles: true }));
                                         }
+                                        s.dispatchEvent(new Event('change', { bubbles: true }));
                                         const g = document.querySelector('.goog-te-gadget');
-                                        if (g) g.style.cssText = 'display:none !important; visibility:hidden !important; position:absolute !important; left:-9999px !important;';
-                                        hardHideContainer();
+                                        if (g) g.style.cssText = 'position:absolute !important; left:-220px !important; top:0 !important; width:200px !important; height:40px !important; opacity:0 !important; overflow:hidden !important; pointer-events:none !important;';
+                                        setTimeout(() => hardHideContainer(), 3000);
                                         clearInterval(retryPoller);
                                     }
                                     if (retryAttempts > 40) clearInterval(retryPoller);
@@ -1681,48 +2014,26 @@
                 console.error('[CosmicLang] Google Translate script failed to load. Check network / blockers.');
                 window._cosmicTeActive = false;
             };
-            document.head.appendChild(script);
-
             window.googleTranslateElementInitTe = function () {
                 console.log('[CosmicLang] Google callback fired');
                 initWidgetAndForce();
                 // release guard after a while
                 setTimeout(() => { window._cosmicTeActive = false; }, 15000);
             };
+            document.head.appendChild(script);
         } else if (window.google && window.google.translate) {
             initWidgetAndForce();
             setTimeout(() => { window._cosmicTeActive = false; }, 15000);
         } else {
             setTimeout(() => {
-                activateGoogleTeluguWidget();
                 window._cosmicTeActive = false;
+                activateGoogleTeluguWidget();
             }, 300);
         }
     }
 
     function deactivateGoogleWidget() {
-        const container = document.getElementById('google_translate_element');
-        if (container) container.remove();
-
-        // Remove any Google injected banner/frame
-        const googleBar = document.querySelector('.goog-te-banner-frame');
-        if (googleBar && googleBar.parentNode) googleBar.parentNode.removeChild(googleBar);
-
-        document.documentElement.classList.remove('translated-ltr', 'translated-rtl');
-
-        const skipTranslate = document.querySelector('iframe.goog-te-banner-frame');
-        if (skipTranslate) skipTranslate.remove();
-
-        // Clear the Google language cookie so the page stays in English
-        try {
-            document.cookie = "googtrans=;path=/;max-age=0";
-            document.cookie = "googtrans=;path=/;domain=" + location.hostname + ";max-age=0";
-        } catch (e) {}
-
-        // Reset any padding Google may have added
-        document.body.style.paddingTop = '';
-        document.body.style.top = '';
-        document.body.style.marginTop = '';
+        removeGoogleTranslateChrome(true);
 
         // Reset our toggle
         document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
@@ -1745,13 +2056,7 @@
         // Early defensive removal of any Google banner (in case it tries to appear before our code runs)
         if (saved === 'te') {
             const earlyKill = () => {
-                document.querySelectorAll('.goog-te-banner-frame, iframe.goog-te-banner-frame').forEach(el => {
-                    if (el && el.parentNode) el.parentNode.removeChild(el);
-                });
-                if (document.body) {
-                    document.body.style.top = '0px';
-                    document.body.style.marginTop = '0px';
-                }
+                removeGoogleTranslateChrome(true);
             };
             earlyKill();
             setTimeout(earlyKill, 50);
@@ -1771,78 +2076,13 @@
             }
         });
 
-        // Auto-apply Telugu via direct Google Translate on every page load when preferred.
-        // This is the only mechanism now (no dedicated -te.html pages).
-        // The widget translates the current English page in-place, keeps our full nav/logo/toggle,
-        // and works across navigation because the preference is in localStorage.
+        // Auto-apply Telugu on every page load when preferred.
+        // This avoids Google's visible toolbar and works across navigation via localStorage.
         if (saved === 'te') {
-            // Start the instant MutationObserver watcher as early as possible.
-            // This is critical so we catch and force the combo before Google can show any language selector popup.
-            if (typeof setupTeluguComboWatcher === 'function') {
-                setupTeluguComboWatcher();
-            }
-
-            // Pre-create the container in "invisible but renderable" bootstrap mode.
-            // Negative left + real dimensions lets the widget create .goog-te-combo without showing UI.
-            let earlyC = document.getElementById('google_translate_element');
-            if (!earlyC) {
-                earlyC = document.createElement('div');
-                earlyC.id = 'google_translate_element';
-                earlyC.style.cssText = 'position:fixed !important; left:-220px !important; top:0 !important; width:200px !important; height:40px !important; opacity:0 !important; z-index:-9999 !important; overflow:hidden !important;';
-                document.body.appendChild(earlyC);
-            }
-
-            // Ensure cookie is present on load for returning visitors
-            try {
-                document.cookie = "googtrans=/en/te; path=/; max-age=31536000";
-            } catch (e) {}
-
-            // Eagerly load the Google script on page load when Telugu is preferred.
-            // This makes the first click (or auto) much more reliable.
-            if (!window.googleTranslateElementInitTe) {
-                console.log('[CosmicLang] Eager loading Google Translate script because preferred=te');
-                const script = document.createElement('script');
-                script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInitTe';
-                script.async = true;
-                document.head.appendChild(script);
-
-                window.googleTranslateElementInitTe = () => {
-                    console.log('[CosmicLang] Eager callback fired');
-                    // Start watcher immediately when the script reports ready
-                    if (typeof setupTeluguComboWatcher === 'function') {
-                        setupTeluguComboWatcher();
-                    }
-
-                    // For preferred=te on initial page load we *do* want automatic translation.
-                    // Create container (slightly visible trick is inside activate) and then kick off the force.
-                    let c = document.getElementById('google_translate_element');
-                    if (!c) {
-                        c = document.createElement('div');
-                        c.id = 'google_translate_element';
-                        // Invisible but renderable bootstrap so .goog-te-combo gets created
-                        c.style.cssText = 'position:fixed !important; left:-220px !important; top:0 !important; width:200px !important; height:40px !important; opacity:0 !important; z-index:-9999 !important; overflow:hidden !important;';
-                        document.body.appendChild(c);
-                    }
-                    // Call activate — it will see the google object is now available and run doInitAndForce.
-                    setTimeout(() => {
-                        if (typeof activateGoogleTeluguWidget === 'function') {
-                            activateGoogleTeluguWidget();
-                        }
-                    }, 50);
-                };
-            }
-
-            // Make the fast combo watcher active as early as possible on this page load.
-            if (typeof setupTeluguComboWatcher === 'function') {
-                setupTeluguComboWatcher();
-            }
-
-            // Activate as early as possible (will use the already-loading script)
-            if (document.readyState === 'complete') {
-                activateGoogleTeluguWidget();
-            } else {
-                setTimeout(() => activateGoogleTeluguWidget(), 30);
-            }
+            removeGoogleTranslateChrome(true);
+            applyTeluguFallbackTranslation();
+            setTimeout(() => applyTeluguFallbackTranslation(), 1200);
+            setTimeout(() => applyTeluguFallbackTranslation(), 5000);
         }
 
         // Set html lang attribute for accessibility/SEO
