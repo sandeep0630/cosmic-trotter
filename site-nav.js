@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     const NAV_ID = "cosmic-site-nav";
 
     function getPath() {
@@ -43,21 +43,9 @@
             community: `${base}index.html#community`
         };
 
-        let href = links[target] || links.home;
-
-        // Determine if we should serve Telugu versions of links.
-        // This now correctly handles:
-        // - Actual *-te.html pages (pathname check)
-        // - Widget fallback mode (preferredLang=te but still on English URL for pages without dedicated -te yet)
-        const pathname = window.location.pathname;
-        const preferred = (typeof localStorage !== 'undefined' && localStorage.getItem('preferredLang')) || 'en';
-        const onTelugu = pathname.includes('-te') || pathname.includes('telugu-coming-soon') || preferred === 'te';
-
-        if (onTelugu && href.endsWith('.html') && !href.includes('-te') && !href.includes('#')) {
-            href = href.replace(/\.html$/, '-te.html');
-        }
-
-        return href;
+        // Always return the base English .html (or hash) version.
+        // The Google Translate widget (if preferredLang === 'te') will translate the content in-place on the target page.
+        return links[target] || links.home;
     }
 
     function injectStyles() {
@@ -453,6 +441,7 @@
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
+                flex-shrink: 0;
             }
 
             .cosmic-site-nav .theme-toggle {
@@ -461,6 +450,24 @@
                 right: auto !important;
                 z-index: auto !important;
                 flex: 0 0 auto;
+            }
+
+            /* When the toggle lives in the header (or mobile panel), the word "Dark"/"Light" takes too much space next to lang+Join.
+               Hide the label; the track/thumb switch is sufficient and compact. */
+            .cosmic-site-nav .theme-toggle__label {
+                display: none !important;
+            }
+
+            /* Safety net: if the floating toggle created by theme-toggle.js hasn't been moved into a slot yet,
+               park it leftward so it cannot cover the Join button or lang switch in the header. */
+            .cosmic-site-nav ~ .theme-toggle,
+            body > .theme-toggle {
+                /* Only affect the raw floating version; the one inside slots is selected by the rule above */
+            }
+            .cosmic-site-nav ~ .theme-toggle:not(.cosmic-site-nav *),
+            body > .theme-toggle {
+                right: 108px !important; /* clear the lang + Join + mobile toggle cluster on wide headers */
+                z-index: 55 !important;
             }
 
             .cosmic-site-nav__mobile-toggle {
@@ -619,6 +626,12 @@
                     justify-self: end;
                     z-index: 3;
                     transform: none;
+                }
+
+                /* Hide desktop lang + Join in the top bar on collapsed header; their mobile versions live in the opened panel */
+                .cosmic-site-nav__right > .lang-switch,
+                .cosmic-site-nav__right > [data-cosmic-join] {
+                    display: none !important;
                 }
 
                 .cosmic-site-nav__theme-slot {
@@ -814,6 +827,7 @@
                 font-weight: 600;
                 letter-spacing: 0.5px;
                 background: rgba(255, 255, 255, 0.03);
+                flex-shrink: 0;
             }
 
             .lang-btn {
@@ -837,11 +851,76 @@
                 color: #fff;
             }
 
+            /* Strongly protect our language switcher from Google Translate mangling the labels or layout */
+            .lang-switch.notranslate,
+            .lang-switch[translate="no"] {
+                translate: no;
+            }
+            .lang-switch.notranslate .lang-btn,
+            .lang-switch[translate="no"] .lang-btn {
+                unicode-bidi: isolate;
+            }
+
             @media (max-width: 640px) {
                 .lang-btn {
                     padding: 4px 7px;
                     font-size: 0.65rem;
                 }
+            }
+
+            /* Ensure controls don't collapse and overlap in tight headers */
+            .cosmic-site-nav__right > * {
+                flex-shrink: 0;
+            }
+
+            /* Hide Google Translate UI that can appear as a popup / banner / "select language" prompt / menu.
+               We deliberately do NOT hide .goog-te-gadget or .goog-te-combo with *initial* CSS 
+               because Google needs to render them to create the internal select we can control.
+               JS will hide the gadget the instant we force the value (via watcher + poller).
+            */
+            .goog-te-banner-frame,
+            iframe.goog-te-banner-frame,
+            .goog-te-ftab,
+            .goog-te-balloon-frame,
+            .skiptranslate,
+            .goog-te-spinner-pos,
+            .goog-te-spinner,
+            .goog-te-menu-value,
+            .goog-te-menu2,
+            .goog-te-menu2-col,
+            .goog-te-menu2-item,
+            .goog-te-menu2-item-selected,
+            .goog-te-combo-wrapper {
+                display: none !important;
+                visibility: hidden !important;
+                height: 0 !important;
+                width: 0 !important;
+                overflow: hidden !important;
+                position: absolute !important;
+                left: -9999px !important;
+                pointer-events: none !important;
+            }
+
+            body {
+                top: 0px !important;
+                margin-top: 0px !important;
+                position: static !important;
+            }
+
+            /* Extra safety for the common banner */
+            .goog-te-banner-frame.skiptranslate,
+            iframe.goog-te-banner-frame.skiptranslate {
+                display: none !important;
+            }
+
+            /* After we have forced (or when translated class is present), hide any remaining gadget via CSS as belt-and-suspenders.
+               The JS watcher/poller does the primary hide right after forcing the combo value. */
+            html.translated-ltr .goog-te-gadget,
+            html.translated-rtl .goog-te-gadget {
+                display: none !important;
+                visibility: hidden !important;
+                position: absolute !important;
+                left: -9999px !important;
             }
         `;
 
@@ -935,18 +1014,19 @@
                         <div class="cosmic-site-nav__right">
                             <div class="cosmic-site-nav__utilities">
                                 ${buildSearch("cosmic-site-nav-search")}
-                                <a class="cosmic-site-nav__cta" href="${navHref(base, "community")}" data-cosmic-join>
-                                    <span>Join</span>
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                </a>
                             </div>
                             <span class="cosmic-site-nav__theme-slot" data-cosmic-theme-slot></span>
 
-                            <!-- Language Toggle -->
-                            <div class="lang-switch" data-lang-switch>
+                            <!-- Language Toggle (notranslate so Google doesn't mangle our switcher when page is translated) -->
+                            <div class="lang-switch notranslate" translate="no" data-lang-switch>
                                 <button type="button" class="lang-btn" data-lang="en" onclick="switchToLang('en')">EN</button>
                                 <button type="button" class="lang-btn" data-lang="te" onclick="switchToLang('te')">తెలుగు</button>
                             </div>
+
+                            <a class="cosmic-site-nav__cta" href="${navHref(base, "community")}" data-cosmic-join>
+                                <span>Join</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
 
                             <button class="cosmic-site-nav__mobile-toggle" type="button" data-cosmic-mobile-toggle aria-label="Open navigation menu" aria-expanded="false" aria-controls="cosmic-site-nav-mobile">
                                 <span class="cosmic-site-nav__hamburger" aria-hidden="true">
@@ -974,19 +1054,20 @@
 
                             <div class="cosmic-site-nav__mobile-tools">
                                 ${buildSearch("cosmic-site-nav-mobile-search")}
-                                <a class="cosmic-site-nav__cta" href="${navHref(base, "community")}" data-cosmic-join>
-                                    <span>Join the Journey</span>
-                                    <i class="fa-solid fa-arrow-right"></i>
-                                </a>
                             </div>
 
-                            <!-- Mobile Language Toggle -->
-                            <div class="lang-switch" style="margin-top: 0.5rem; align-self: center;" data-lang-switch>
+                            <div class="cosmic-site-nav__mobile-theme" data-cosmic-theme-mobile-slot></div>
+
+                            <!-- Mobile Language Toggle (notranslate so Google doesn't mangle our switcher) -->
+                            <div class="lang-switch notranslate" translate="no" style="margin-top: 0.5rem; align-self: center;" data-lang-switch>
                                 <button type="button" class="lang-btn" data-lang="en" onclick="switchToLang('en')">EN</button>
                                 <button type="button" class="lang-btn" data-lang="te" onclick="switchToLang('te')">తెలుగు</button>
                             </div>
 
-                            <div class="cosmic-site-nav__mobile-theme" data-cosmic-theme-mobile-slot></div>
+                            <a class="cosmic-site-nav__cta" href="${navHref(base, "community")}" data-cosmic-join>
+                                <span>Join the Journey</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1042,7 +1123,24 @@
 
             if (slot && toggle && toggle.parentElement !== slot) {
                 slot.appendChild(toggle);
+                // Re-sync label/state after relocation (in case it was created before theme state was applied)
+                if (typeof window.__cosmicUpdateThemeToggle === 'function') {
+                    try { window.__cosmicUpdateThemeToggle(toggle); } catch (e) {}
+                }
             }
+        }
+
+        // Robust mover: handles cases where .theme-toggle is created after bindNav runs
+        function ensureThemeToggleMoved(retries = 8) {
+            moveThemeToggle();
+            if (retries <= 0) return;
+            const toggle = document.querySelector(".theme-toggle");
+            const desktopSlot = nav.querySelector("[data-cosmic-theme-slot]");
+            const mobileSlot = nav.querySelector("[data-cosmic-theme-mobile-slot]");
+            const useMobile = window.matchMedia("(max-width: 1279px)").matches;
+            const targetSlot = useMobile ? mobileSlot : desktopSlot;
+            if (!toggle || !targetSlot || toggle.parentElement === targetSlot) return;
+            setTimeout(() => ensureThemeToggleMoved(retries - 1), 60);
         }
 
         function setMenu(open) {
@@ -1147,28 +1245,33 @@
             }
         });
 
-        moveThemeToggle();
-        window.setTimeout(moveThemeToggle, 0);
-        window.addEventListener("resize", moveThemeToggle);
+        ensureThemeToggleMoved();
+        window.setTimeout(() => ensureThemeToggleMoved(5), 0);
+        window.addEventListener("resize", () => ensureThemeToggleMoved(3));
+
+        // Also watch for the toggle being added later (race with theme-toggle.js creation)
+        try {
+            const mo = new MutationObserver(() => {
+                const t = document.querySelector(".theme-toggle");
+                if (t) {
+                    ensureThemeToggleMoved(2);
+                    // If successfully moved at least once, we can disconnect to avoid noise
+                    if (t.parentElement && (t.parentElement.hasAttribute('data-cosmic-theme-slot') || t.parentElement.hasAttribute('data-cosmic-theme-mobile-slot'))) {
+                        mo.disconnect();
+                    }
+                }
+            });
+            mo.observe(document.body || document.documentElement, { childList: true, subtree: true });
+        } catch (e) {}
     }
 
     // ===== Language Toggle (English / Telugu) =====
+    // getTeluguEquivalentUrl kept for backward compatibility in a couple of places
+    // but with dedicated -te.html pages removed, it is no longer used for navigation.
+    // Telugu is always applied via Google Translate widget on the English pages.
     function getTeluguEquivalentUrl(currentPath) {
-        if (!currentPath || currentPath === '/' || currentPath === '') return '/index-te.html';
-        if (currentPath.endsWith('/')) return currentPath + 'index-te.html';
-
-        // Normalize: ensure starts with /
-        let p = currentPath;
-        if (!p.startsWith('/')) p = '/' + p;
-
-        if (p.includes('-te')) return p; // already te version
-
-        // Handle both .html and clean URLs (e.g. /ancient or /ancient-wisdom/foo)
-        if (p.endsWith('.html')) {
-            return p.replace(/\.html$/, '-te.html');
-        }
-        // clean url like /ancient -> /ancient-te.html or /ancient-wisdom/bar -> /ancient-wisdom/bar-te.html
-        return p.replace(/\/$/, '') + '-te.html';
+        // Return the current path unchanged � widget will translate in place.
+        return currentPath || window.location.pathname;
     }
 
     function getEnglishEquivalentUrl(urlOrPath) {
@@ -1217,9 +1320,11 @@
     }
 
     function switchToLang(lang) {
+        console.log('[CosmicLang] switchToLang called with:', lang);
+
         localStorage.setItem('preferredLang', lang);
 
-        // Immediately update all toggle buttons to reflect the choice (before redirect)
+        // Immediately update all toggle buttons to reflect the choice
         document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
             if (btn.getAttribute('data-lang') === lang) {
                 btn.classList.add('active');
@@ -1229,14 +1334,14 @@
         });
 
         if (lang === 'en') {
-            localStorage.setItem('preferredLang', 'en');  // force clear Telugu preference
-            deactivateGoogleWidget();  // remove any in-place Google widget
+            localStorage.setItem('preferredLang', 'en');
+            deactivateGoogleWidget();
 
+            // Go to clean English version (strip any Google Translate wrapper if present)
             let target = getEnglishEquivalentUrl(window.location.href);
             if (!target.startsWith('http')) {
                 target = window.location.origin + (target.startsWith('/') ? target : '/' + target);
             }
-            // Clean any google translate wrapper
             if (target.includes('translate.google.com')) {
                 try {
                     target = new URL(target).searchParams.get('u') || target;
@@ -1250,28 +1355,31 @@
             return;
         }
 
-        // Telugu requested
-        const teTarget = getTeluguEquivalentUrl(window.location.pathname);
+        // Telugu: set preference + cookie, then **reload immediately**.
+        // This is the most reliable way to get automatic translation to Telugu
+        // without Google showing the language selector popup.
+        // On the fresh page load the cookie is present from the very beginning,
+        // our init code runs early, forces the combo via observer + poller,
+        // hides all Google UI, and the page translates automatically.
+        // The EN/తెలుగు buttons remain in the injected nav on every page.
+        localStorage.setItem('preferredLang', 'te');
 
-        // Check if we have a dedicated accurate Telugu page.
-        // Use a short timeout so we don't hang on slow networks or file://
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 1200);
+        try {
+            document.cookie = "googtrans=/en/te; path=/; max-age=31536000";
+            if (location.hostname) {
+                document.cookie = "googtrans=/en/te; path=/; domain=" + location.hostname + "; max-age=31536000";
+            }
+        } catch (e) {}
 
-        fetch(teTarget, { method: 'HEAD', signal: controller.signal })
-            .then(response => {
-                clearTimeout(timeout);
-                if (response.ok) {
-                    // Use our clean, accurate translation (full page, our UI intact)
-                    window.location.href = teTarget + window.location.search + window.location.hash;
-                } else {
-                    activateGoogleTeluguWidget();
-                }
-            })
-            .catch(() => {
-                clearTimeout(timeout);
-                activateGoogleTeluguWidget();
-            });
+        // Update buttons for visual feedback before reload
+        document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-lang') === 'te');
+        });
+
+        // Clean reload so the next load starts with the cookie already set.
+        // This avoids the flaky in-place activation that was causing the popup + manual select.
+        window.location.reload();
+        return;
     }
 
     function getCleanEnglishUrl() {
@@ -1293,115 +1401,330 @@
         return clean;
     }
 
-    // In-place Google Translate widget for fallback (keeps our nav/logo/toggle visible on our domain)
-    function activateGoogleTeluguWidget() {
-        const noteId = 'te-widget-note';
+    // Robust watcher using MutationObserver so we force 'te' the *instant* Google injects the combo.
+    // This prevents the 10s delay + language selector popup that appears when the force is too slow.
+    function setupTeluguComboWatcher() {
+        if (window._teComboWatcher) return; // already watching
 
-        // Create or reuse the container for the widget
+        const forceNow = () => {
+            const select = document.querySelector('.goog-te-combo');
+            if (!select) return false;
+
+            let didForce = false;
+            if (select.value !== 'te') {
+                select.value = 'te';
+                select.dispatchEvent(new Event('change', { bubbles: true }));
+                try { select.dispatchEvent(new Event('input', { bubbles: true })); } catch (e) {}
+                didForce = true;
+            }
+
+            // Hide the gadget immediately so no Google UI (dropdown, "select language", etc.) is visible
+            const gadget = document.querySelector('.goog-te-gadget');
+            if (gadget) {
+                gadget.style.cssText = 'display:none !important; visibility:hidden !important; position:absolute !important; left:-9999px !important; width:0 !important; height:0 !important; overflow:hidden !important;';
+            }
+
+            // Also fully park our container
+            const cont = document.getElementById('google_translate_element');
+            if (cont) {
+                cont.style.cssText = 'position:fixed !important; left:-9999px !important; top:-9999px !important; width:1px !important; height:1px !important; opacity:0 !important; pointer-events:none !important; overflow:hidden !important;';
+            }
+
+            return didForce || select.value === 'te';
+        };
+
+        // Watch the entire document so we catch the combo no matter where Google inserts it
+        window._teComboWatcher = new MutationObserver(() => {
+            forceNow();
+        });
+
+        window._teComboWatcher.observe(document.documentElement || document.body, {
+            childList: true,
+            subtree: true,
+            attributes: false
+        });
+
+        // Also run an immediate check (in case the nodes are already there)
+        // and a couple of fast follow-ups
+        forceNow();
+        setTimeout(forceNow, 80);
+        setTimeout(forceNow, 220);
+        setTimeout(forceNow, 520);
+    }
+
+    // Initialize the hidden Google Translate widget for Telugu on page load.
+    // Because we reload on Telugu click (after setting the googtrans cookie), this runs
+    // with the cookie already present from the start of the load. This is the most reliable
+    // way to get automatic translation without Google showing a "select Telugu" popup.
+    function activateGoogleTeluguWidget() {
+        console.log('[CosmicLang] activateGoogleTeluguWidget called');
+
+        // Guard against too many overlapping calls
+        if (window._cosmicTeActive) {
+            console.log('[CosmicLang] activate skipped (already active)');
+            return;
+        }
+        window._cosmicTeActive = true;
+
+        setupTeluguComboWatcher();
+
+        try {
+            document.cookie = "googtrans=/en/te; path=/; max-age=31536000";
+            if (location.hostname) {
+                document.cookie = "googtrans=/en/te; path=/; domain=" + location.hostname + "; max-age=31536000";
+            }
+        } catch (e) {}
+
+        // === Critical for the widget to actually create the .goog-te-combo ===
+        // The Google Translate widget is extremely picky. If the container has zero or near-zero
+        // size or is completely offscreen/opacity 0 from the start, it often skips injecting the
+        // internal .goog-te-gadget and .goog-te-combo entirely (that's why we see "combo never appeared").
+        //
+        // Solution: Give it a small but real "bootstrap" footprint (30x30px is enough for its internal
+        // rendering) positioned at top-left with extremely low opacity + negative z so the user never
+        // sees anything. We keep this state until we have forced 'te', then we hard-hide it.
         let container = document.getElementById('google_translate_element');
+        const makeBootstrapVisible = () => {
+            if (!container) return;
+            // "Invisible but renderable" bootstrap: slightly off left edge with enough width/height
+            // for the Google widget to actually create its internal .goog-te-gadget and .goog-te-combo.
+            // Using negative left + real size allows rendering without the user seeing the bar.
+            // This is the key fix for "combo never appeared".
+            container.style.cssText =
+                'position:fixed !important;' +
+                'left:-220px !important;' +
+                'top:0 !important;' +
+                'width:200px !important;' +
+                'height:40px !important;' +
+                'opacity:0 !important;' +
+                'z-index:-9999 !important;' +
+                'overflow:hidden !important;' +
+                'pointer-events:none !important;';
+        };
+        const hardHideContainer = () => {
+            if (!container) return;
+            container.style.cssText =
+                'position:fixed !important;' +
+                'left:-9999px !important;' +
+                'top:-9999px !important;' +
+                'width:1px !important;' +
+                'height:1px !important;' +
+                'opacity:0 !important;' +
+                'overflow:hidden !important;' +
+                'pointer-events:none !important;';
+        };
+
         if (!container) {
             container = document.createElement('div');
             container.id = 'google_translate_element';
-            document.body.insertBefore(container, document.body.firstChild);
+            document.body.appendChild(container);
         }
 
-        // Load Google script (once)
-        if (!window.googleTranslateElementInitTe) {
-            const script = document.createElement('script');
-            script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInitTe';
-            document.head.appendChild(script);
+        // Start in the bootstrap size so Google will actually create the combo for us to control.
+        makeBootstrapVisible();
 
-            window.googleTranslateElementInitTe = function() {
+        const killBanner = () => {
+            document.querySelectorAll('.goog-te-banner-frame, iframe.goog-te-banner-frame, .skiptranslate').forEach(b => {
+                if (b && b.parentNode) b.parentNode.removeChild(b);
+            });
+            if (document.body) {
+                document.body.style.top = '0px';
+                document.body.style.marginTop = '0px';
+            }
+        };
+        killBanner();
+
+        if (!window._teBannerKiller) {
+            window._teBannerKiller = new MutationObserver(() => killBanner());
+            window._teBannerKiller.observe(document.documentElement || document.body, { childList: true, subtree: true });
+        }
+
+        function initWidgetAndForce() {
+            setupTeluguComboWatcher();
+
+            try {
+                // Ensure bootstrap style right before init — this is critical for the widget
+                // to decide to create the gadget and combo. We use a renderable offscreen box
+                // (200px wide, just off the left edge, fully transparent) so Google actually
+                // injects .goog-te-combo instead of skipping it.
+                makeBootstrapVisible();
+
+                // Clear previous content to avoid duplicate gadgets
+                if (container) container.innerHTML = '';
+
+                console.log('[CosmicLang] Creating TranslateElement with bootstrap container (200px renderable offscreen)');
+
                 new google.translate.TranslateElement({
                     pageLanguage: 'en',
                     includedLanguages: 'te',
                     layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                    autoDisplay: true
+                    autoDisplay: false
                 }, 'google_translate_element');
+            } catch (e) {
+                console.error('[CosmicLang] TranslateElement error', e);
+            }
 
-                // Robust force to Telugu with multiple retries
-                let attempts = 0;
-                const maxAttempts = 10;
-                const forceToTelugu = () => {
-                    attempts++;
-                    const select = document.querySelector('.goog-te-combo');
+            document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === 'te');
+            });
+
+            // Give the widget a moment to inject after creation, then start aggressive forcing.
+            // The observer is already watching, this poller is the reliable backup.
+            // We start looking fairly soon after the init call.
+            setTimeout(() => {
+                let pollAttempts = 0;
+                const maxPollAttempts = 120; // ~19s — be patient with Google's slow injection
+                const poller = setInterval(() => {
+                    pollAttempts++;
+                    killBanner();
+
+                    // Try both document and inside the container
+                    let select = document.querySelector('.goog-te-combo');
+                    if (!select && container) {
+                        select = container.querySelector('.goog-te-combo');
+                    }
+
                     if (select) {
+                        console.log('[CosmicLang] Found .goog-te-combo, forcing te (attempt ' + pollAttempts + ')');
+
                         if (select.value !== 'te') {
                             select.value = 'te';
                             select.dispatchEvent(new Event('change', { bubbles: true }));
+                            try { select.dispatchEvent(new Event('input', { bubbles: true })); } catch (e) {}
                         }
-                        // Hide Google's own selector to keep our EN/తెలుగు toggle as the control
-                        select.style.display = 'none';
-                    } else if (attempts < maxAttempts) {
-                        setTimeout(forceToTelugu, 350);
-                    }
-                };
-                setTimeout(forceToTelugu, 900);
-            };
-        } else if (window.google && window.google.translate) {
-            // Re-init if script was already loaded
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'te',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-                autoDisplay: true
-            }, 'google_translate_element');
 
-            setTimeout(() => {
-                const select = document.querySelector('.goog-te-combo');
-                if (select && select.value !== 'te') {
-                    select.value = 'te';
-                    select.dispatchEvent(new Event('change', { bubbles: true }));
-                    select.style.display = 'none';
-                }
-            }, 700);
+                        // Hide Google UI immediately
+                        const gadget = document.querySelector('.goog-te-gadget');
+                        if (gadget) {
+                            gadget.style.cssText = 'display:none !important; visibility:hidden !important; position:absolute !important; left:-9999px !important; width:0 !important; height:0 !important; overflow:hidden !important;';
+                        }
+
+                        // Now that we have forced, fully hide the container
+                        hardHideContainer();
+
+                        const isTranslated = document.documentElement.classList.contains('translated-ltr') ||
+                                             document.documentElement.classList.contains('translated-rtl');
+
+                        if (isTranslated || pollAttempts > 15) {
+                            clearInterval(poller);
+                            // One final reinforcement
+                            setTimeout(() => {
+                                const s2 = document.querySelector('.goog-te-combo');
+                                if (s2 && s2.value !== 'te') {
+                                    s2.value = 'te';
+                                    s2.dispatchEvent(new Event('change', { bubbles: true }));
+                                }
+                                hardHideContainer();
+                                killBanner();
+                            }, 600);
+                        }
+                    }
+
+                    if (pollAttempts >= maxPollAttempts) {
+                        clearInterval(poller);
+                        hardHideContainer();
+                        console.warn('[CosmicLang] Gave up after many attempts. The .goog-te-combo never appeared. Translation may need a manual refresh or the widget failed to initialize.');
+
+                        // Aggressive last-ditch: destroy and recreate the container with fresh bootstrap size
+                        // then re-init the widget. This often succeeds on the second try.
+                        try {
+                            if (container && container.parentNode) container.parentNode.removeChild(container);
+                            container = document.createElement('div');
+                            container.id = 'google_translate_element';
+                            document.body.appendChild(container);
+                            makeBootstrapVisible();   // give it the 30px bootstrap footprint again
+
+                            new google.translate.TranslateElement({
+                                pageLanguage: 'en',
+                                includedLanguages: 'te',
+                                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                                autoDisplay: false
+                            }, 'google_translate_element');
+
+                            // Restart a shorter poller for the new instance
+                            setTimeout(() => {
+                                let retryAttempts = 0;
+                                const retryPoller = setInterval(() => {
+                                    retryAttempts++;
+                                    killBanner();
+                                    const s = document.querySelector('.goog-te-combo');
+                                    if (s) {
+                                        if (s.value !== 'te') {
+                                            s.value = 'te';
+                                            s.dispatchEvent(new Event('change', { bubbles: true }));
+                                        }
+                                        const g = document.querySelector('.goog-te-gadget');
+                                        if (g) g.style.cssText = 'display:none !important; visibility:hidden !important; position:absolute !important; left:-9999px !important;';
+                                        hardHideContainer();
+                                        clearInterval(retryPoller);
+                                    }
+                                    if (retryAttempts > 40) clearInterval(retryPoller);
+                                }, 150);
+                            }, 500);
+                        } catch (e) {}
+                    }
+                }, 160);
+            }, 450); // small delay after new TranslateElement so it can start rendering
         }
 
-        // Minimal, non-intrusive note (user can ignore)
-        setTimeout(() => {
-            if (container && !document.getElementById(noteId)) {
-                const note = document.createElement('div');
-                note.id = noteId;
-                note.style.cssText = 'font-size:10px; color:#888; text-align:center; margin:2px 0; opacity:0.65;';
-                note.textContent = 'Telugu via Google (temporary) • use EN button anytime';
-                container.appendChild(note);
-            }
-        }, 1400);
+        // Do NOT hard-hide on a timer anymore. We keep the bootstrap size (30x30 low opacity)
+        // until the poller actually finds the combo and forces 'te'. Only then do we hard-hide.
+        // This is what finally makes .goog-te-combo appear.
 
-        // Force our toggle to show Telugu as active
-        document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
-            if (btn.getAttribute('data-lang') === 'te') {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
-        });
+        // Load the Google script or run init now
+        if (!window.googleTranslateElementInitTe) {
+            console.log('[CosmicLang] Loading Google Translate script for te...');
+            const script = document.createElement('script');
+            script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInitTe';
+            script.async = true;
+            script.onerror = () => {
+                console.error('[CosmicLang] Google Translate script failed to load. Check network / blockers.');
+                window._cosmicTeActive = false;
+            };
+            document.head.appendChild(script);
 
-        // Push page content down a bit if Google injects its banner
-        setTimeout(() => {
-            if (document.querySelector('.goog-te-banner-frame')) {
-                document.body.style.paddingTop = '38px';
-            }
-        }, 1600);
+            window.googleTranslateElementInitTe = function () {
+                console.log('[CosmicLang] Google callback fired');
+                initWidgetAndForce();
+                // release guard after a while
+                setTimeout(() => { window._cosmicTeActive = false; }, 15000);
+            };
+        } else if (window.google && window.google.translate) {
+            initWidgetAndForce();
+            setTimeout(() => { window._cosmicTeActive = false; }, 15000);
+        } else {
+            setTimeout(() => {
+                activateGoogleTeluguWidget();
+                window._cosmicTeActive = false;
+            }, 300);
+        }
     }
 
     function deactivateGoogleWidget() {
         const container = document.getElementById('google_translate_element');
         if (container) container.remove();
 
-        // Remove Google's injected elements (the bar, etc.)
+        // Remove any Google injected banner/frame
         const googleBar = document.querySelector('.goog-te-banner-frame');
         if (googleBar && googleBar.parentNode) googleBar.parentNode.removeChild(googleBar);
 
-        // Clear any Google cookies/classes if possible (best effort)
         document.documentElement.classList.remove('translated-ltr', 'translated-rtl');
+
         const skipTranslate = document.querySelector('iframe.goog-te-banner-frame');
         if (skipTranslate) skipTranslate.remove();
 
-        // Reset body padding
-        document.body.style.paddingTop = '';
+        // Clear the Google language cookie so the page stays in English
+        try {
+            document.cookie = "googtrans=;path=/;max-age=0";
+            document.cookie = "googtrans=;path=/;domain=" + location.hostname + ";max-age=0";
+        } catch (e) {}
 
-        // Reset toggle buttons to EN active
+        // Reset any padding Google may have added
+        document.body.style.paddingTop = '';
+        document.body.style.top = '';
+        document.body.style.marginTop = '';
+
+        // Reset our toggle
         document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
             if (btn.getAttribute('data-lang') === 'en') {
                 btn.classList.add('active');
@@ -1419,11 +1742,26 @@
         const saved = localStorage.getItem('preferredLang') || 'en';
         const currentPath = window.location.pathname;
 
+        // Early defensive removal of any Google banner (in case it tries to appear before our code runs)
+        if (saved === 'te') {
+            const earlyKill = () => {
+                document.querySelectorAll('.goog-te-banner-frame, iframe.goog-te-banner-frame').forEach(el => {
+                    if (el && el.parentNode) el.parentNode.removeChild(el);
+                });
+                if (document.body) {
+                    document.body.style.top = '0px';
+                    document.body.style.marginTop = '0px';
+                }
+            };
+            earlyKill();
+            setTimeout(earlyKill, 50);
+        }
+
         if (saved === 'en') {
             deactivateGoogleWidget();
         }
 
-        // Set active button state
+        // Set active button state for our custom EN / ?????? toggle (always visible, no Google dropdown)
         document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
             const btnLang = btn.getAttribute('data-lang');
             if (btnLang === saved) {
@@ -1433,59 +1771,81 @@
             }
         });
 
-        // Handle language preference on load for seamless experience across all pages
-        // - If a dedicated -te.html exists for this exact page → use the clean full translation (our nav + toggle intact)
-        // - Otherwise (most pages) → instantly activate the Google Translate widget in-place.
-        //   This translates the page content to Telugu right away (auto-forced via retries), and our EN/తెలుగు toggle + logo
-        //   remain fully visible and clickable no matter where the user navigates using the site links.
-        const isTeluguPage = currentPath.includes('-te');
-        if (saved === 'te' && !isTeluguPage) {
-            const teTarget = getTeluguEquivalentUrl(currentPath);
-            const controller = new AbortController();
-            const timeout = setTimeout(() => controller.abort(), 1200);
+        // Auto-apply Telugu via direct Google Translate on every page load when preferred.
+        // This is the only mechanism now (no dedicated -te.html pages).
+        // The widget translates the current English page in-place, keeps our full nav/logo/toggle,
+        // and works across navigation because the preference is in localStorage.
+        if (saved === 'te') {
+            // Start the instant MutationObserver watcher as early as possible.
+            // This is critical so we catch and force the combo before Google can show any language selector popup.
+            if (typeof setupTeluguComboWatcher === 'function') {
+                setupTeluguComboWatcher();
+            }
 
-            fetch(teTarget, { method: 'HEAD', signal: controller.signal })
-                .then(res => {
-                    clearTimeout(timeout);
-                    if (res.ok) {
-                        window.location.replace(teTarget + window.location.search);
-                    } else {
-                        // No dedicated accurate version yet → auto-translate via in-place Google widget
-                        activateGoogleTeluguWidget();
+            // Pre-create the container in "invisible but renderable" bootstrap mode.
+            // Negative left + real dimensions lets the widget create .goog-te-combo without showing UI.
+            let earlyC = document.getElementById('google_translate_element');
+            if (!earlyC) {
+                earlyC = document.createElement('div');
+                earlyC.id = 'google_translate_element';
+                earlyC.style.cssText = 'position:fixed !important; left:-220px !important; top:0 !important; width:200px !important; height:40px !important; opacity:0 !important; z-index:-9999 !important; overflow:hidden !important;';
+                document.body.appendChild(earlyC);
+            }
+
+            // Ensure cookie is present on load for returning visitors
+            try {
+                document.cookie = "googtrans=/en/te; path=/; max-age=31536000";
+            } catch (e) {}
+
+            // Eagerly load the Google script on page load when Telugu is preferred.
+            // This makes the first click (or auto) much more reliable.
+            if (!window.googleTranslateElementInitTe) {
+                console.log('[CosmicLang] Eager loading Google Translate script because preferred=te');
+                const script = document.createElement('script');
+                script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInitTe';
+                script.async = true;
+                document.head.appendChild(script);
+
+                window.googleTranslateElementInitTe = () => {
+                    console.log('[CosmicLang] Eager callback fired');
+                    // Start watcher immediately when the script reports ready
+                    if (typeof setupTeluguComboWatcher === 'function') {
+                        setupTeluguComboWatcher();
                     }
-                })
-                .catch(() => {
-                    clearTimeout(timeout);
-                    activateGoogleTeluguWidget();
-                });
+
+                    // For preferred=te on initial page load we *do* want automatic translation.
+                    // Create container (slightly visible trick is inside activate) and then kick off the force.
+                    let c = document.getElementById('google_translate_element');
+                    if (!c) {
+                        c = document.createElement('div');
+                        c.id = 'google_translate_element';
+                        // Invisible but renderable bootstrap so .goog-te-combo gets created
+                        c.style.cssText = 'position:fixed !important; left:-220px !important; top:0 !important; width:200px !important; height:40px !important; opacity:0 !important; z-index:-9999 !important; overflow:hidden !important;';
+                        document.body.appendChild(c);
+                    }
+                    // Call activate — it will see the google object is now available and run doInitAndForce.
+                    setTimeout(() => {
+                        if (typeof activateGoogleTeluguWidget === 'function') {
+                            activateGoogleTeluguWidget();
+                        }
+                    }, 50);
+                };
+            }
+
+            // Make the fast combo watcher active as early as possible on this page load.
+            if (typeof setupTeluguComboWatcher === 'function') {
+                setupTeluguComboWatcher();
+            }
+
+            // Activate as early as possible (will use the already-loading script)
+            if (document.readyState === 'complete') {
+                activateGoogleTeluguWidget();
+            } else {
+                setTimeout(() => activateGoogleTeluguWidget(), 30);
+            }
         }
 
-        // Update active button after possible redirects (defensive)
-        document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
-            const btnLang = btn.getAttribute('data-lang');
-            if ((saved === 'te' && btnLang === 'te') || (saved !== 'te' && btnLang === 'en')) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
-        });
-
-        if (saved === 'en' && isTeluguPage) {
-            const target = getEnglishEquivalentUrl(currentPath);
-            window.location.replace(target + window.location.search);
-        }
-
-        // Final defensive active state
-        document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
-            const btnLang = btn.getAttribute('data-lang');
-            if ((saved === 'te' && btnLang === 'te') || (saved !== 'te' && btnLang === 'en')) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
-        });
-
-        // Set html lang
+        // Set html lang attribute for accessibility/SEO
         document.documentElement.lang = saved === 'te' ? 'te' : 'en';
     }
 

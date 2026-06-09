@@ -63,8 +63,14 @@
     button.setAttribute('aria-pressed', String(isLight));
     button.setAttribute('title', isLight ? 'Switch to dark theme' : 'Switch to light theme');
     button.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light theme');
-    button.querySelector('.theme-toggle__label').textContent = isLight ? 'Light' : 'Dark';
+    var labelEl = button.querySelector('.theme-toggle__label');
+    if (labelEl) labelEl.textContent = isLight ? 'Light' : 'Dark';
   }
+
+  // Exposed for site-nav.js mover to re-sync state after moving the button between slots
+  window.__cosmicUpdateThemeToggle = function (button) {
+    updateToggle(button || document.querySelector('.theme-toggle'));
+  };
 
   function setTheme(theme) {
     root.setAttribute('data-theme', theme);
@@ -92,6 +98,49 @@
 
     document.body.appendChild(button);
     updateToggle(button);
+
+    // Immediately try to move into the cosmic site nav slots (if site-nav has already rendered them).
+    // This + the mover in site-nav.js eliminates the fixed toggle overlapping Join / hamburger.
+    tryRelocateToggleToNavSlot(button);
+  }
+
+  function tryRelocateToggleToNavSlot(button) {
+    if (!button) button = document.querySelector('.theme-toggle');
+    if (!button) return;
+
+    var desktopSlot = document.querySelector('[data-cosmic-theme-slot]');
+    var mobileSlot = document.querySelector('[data-cosmic-theme-mobile-slot]');
+    var useMobile = window.matchMedia && window.matchMedia('(max-width: 1279px)').matches;
+    var slot = useMobile ? mobileSlot : desktopSlot;
+
+    if (slot && button.parentElement !== slot) {
+      slot.appendChild(button);
+      updateToggle(button);
+    }
+
+    // A couple of follow-up attempts in case slots appear slightly later
+    setTimeout(function () {
+      var b = document.querySelector('.theme-toggle');
+      var ds = document.querySelector('[data-cosmic-theme-slot]');
+      var ms = document.querySelector('[data-cosmic-theme-mobile-slot]');
+      var um = window.matchMedia && window.matchMedia('(max-width: 1279px)').matches;
+      var s = um ? ms : ds;
+      if (s && b && b.parentElement !== s) {
+        s.appendChild(b);
+        updateToggle(b);
+      }
+    }, 80);
+    setTimeout(function () {
+      var b = document.querySelector('.theme-toggle');
+      var ds = document.querySelector('[data-cosmic-theme-slot]');
+      var ms = document.querySelector('[data-cosmic-theme-mobile-slot]');
+      var um = window.matchMedia && window.matchMedia('(max-width: 1279px)').matches;
+      var s = um ? ms : ds;
+      if (s && b && b.parentElement !== s) {
+        s.appendChild(b);
+        updateToggle(b);
+      }
+    }, 220);
   }
 
   installStyles();
