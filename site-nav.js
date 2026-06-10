@@ -1269,6 +1269,22 @@
     }
 
     // ===== Language Toggle (English / Telugu) =====
+    //
+    // This system (Google Translate widget + cookie strategy + MutationObserver + polling
+    // + client-side fallback translation + aggressive hiding of all Google UI) was the
+    // result of extensive collaborative debugging.
+    //
+    // Credit goes to the detailed console logs, timing experiments, widget bootstrap
+    // techniques, and persistent iteration that finally made automatic translation work
+    // reliably without Google surfacing its language selector popup.
+    //
+    // Key techniques that made it stable:
+    // - Reload immediately on language change (cookie present from page start)
+    // - "Renderable but invisible" 200px bootstrap container during widget init
+    // - Early + persistent MutationObserver + long aggressive poller for .goog-te-combo
+    // - Hard-hide gadget/container only *after* successful force
+    // - Robust client-side text fallback (with caching + smart node skipping)
+    //
     // getTeluguEquivalentUrl kept for backward compatibility in a couple of places
     // but with dedicated -te.html pages removed, it is no longer used for navigation.
     // Telugu is applied in-place on the English pages through our text translation flow,

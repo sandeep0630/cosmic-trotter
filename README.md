@@ -38,3 +38,15 @@ The function is at `netlify/functions/ask-krishna.js` (shared with the full bot 
 - Voice output (TTS)
 - Different modes (verse lookup, story time, guided reflection)
 - Per-user chat history (localStorage + optional login)
+
+## Acknowledgments
+
+The site's multilingual support (English ↔ తెలుగు) was one of the trickier pieces. It involved making the Google Translate widget behave reliably for automatic, popup-free translation while keeping custom EN/తెలుగు toggle buttons that actually work across page navigations.
+
+This was achieved through extensive collaborative debugging — detailed console logs, timing experiments, widget bootstrap techniques, fallback translation observers, and persistent iteration until the combo could be forced cleanly without Google surfacing its own language selector.
+
+Huge credit to the human persistence and precise feedback that turned a notoriously flaky integration into something that "just works."
+
+---
+
+*CosmicTrotter is a personal project exploring knowledge, wisdom, and the cosmos.*
