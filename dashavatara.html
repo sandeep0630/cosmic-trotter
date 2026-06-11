@@ -108,15 +108,168 @@
             border-color: rgba(251, 191, 36, 0.45);
         }
 
+        .reading-progress-shell {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 150;
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.08);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .reading-mode .reading-progress-shell {
+            opacity: 1;
+        }
+
+        #reading-progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #facc15, #22d3ee);
+            box-shadow: 0 0 14px rgba(250, 204, 21, 0.45);
+            transition: width 0.08s linear;
+        }
+
+        .reading-mode {
+            background: radial-gradient(circle at top, #15131f 0%, #07070b 58%);
+        }
+
         .reading-mode .avatar-story {
-            max-width: 72ch;
+            max-width: 76ch;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 3rem;
+        }
+
+        .reading-mode .chapter {
+            margin-bottom: 3.2rem;
+            scroll-margin-top: 6.5rem;
+        }
+
+        .reading-mode .chapter h3 {
+            font-size: 1.45rem;
+            line-height: 1.35;
+            margin-bottom: 1rem;
+        }
+
+        .reading-mode .chapter p {
+            font-size: 1.08rem;
+            line-height: 1.95;
+            color: rgba(238, 242, 255, 0.9);
+            margin-bottom: 1.05rem;
+        }
+
+        .reading-mode .chapter-img,
+        .reading-mode .avatar-title-img {
             margin-left: auto;
             margin-right: auto;
         }
 
-        .reading-mode .chapter p {
-            font-size: 1.05rem;
-            line-height: 1.9;
+        #reading-mode-btn[aria-pressed="true"] {
+            border-color: rgba(251, 191, 36, 0.5);
+            background: rgba(251, 191, 36, 0.1);
+            color: #fde68a;
+        }
+
+        .chapter-heading {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .chapter-heading .heading-text {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .bookmark-toggle {
+            width: 2rem;
+            height: 2rem;
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            border: 1px solid rgba(251, 191, 36, 0.24);
+            background: rgba(15, 23, 42, 0.82);
+            color: rgba(255, 255, 255, 0.68);
+            box-shadow: 0 10px 26px -18px rgba(0, 0, 0, 0.75);
+            transition: transform 0.18s ease, opacity 0.18s ease, background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+        }
+
+        .bookmark-toggle:hover,
+        .bookmark-toggle:focus-visible,
+        .bookmark-toggle.is-saved {
+            border-color: rgba(251, 191, 36, 0.7);
+            background: rgba(251, 191, 36, 0.16);
+            color: #fcd34d;
+            transform: translateY(-1px);
+        }
+
+        .bookmark-toggle i {
+            pointer-events: none;
+        }
+
+        .chapter-bookmark {
+            margin-top: -0.25rem;
+        }
+
+        .bookmarkable-paragraph {
+            position: relative;
+            scroll-margin-top: 6.25rem;
+        }
+
+        .bookmarkable-paragraph.is-bookmarked {
+            background: linear-gradient(90deg, rgba(251, 191, 36, 0.12), rgba(251, 191, 36, 0.025));
+            box-shadow: -3px 0 0 rgba(251, 191, 36, 0.65);
+        }
+
+        .para-bookmark {
+            position: absolute;
+            top: 0.12rem;
+            left: -2.75rem;
+            opacity: 0;
+            transform: translateX(0.35rem);
+        }
+
+        .bookmarkable-paragraph:hover .para-bookmark,
+        .bookmarkable-paragraph:focus-within .para-bookmark,
+        .reading-mode .para-bookmark,
+        .para-bookmark.is-saved {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .bookmark-panel-card {
+            width: min(46rem, calc(100vw - 1.5rem));
+            max-height: min(78vh, 44rem);
+        }
+
+        .bookmark-item {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        @media (max-width: 768px) {
+            .chapter-heading {
+                gap: 0.5rem;
+            }
+
+            .para-bookmark {
+                position: static;
+                float: right;
+                margin: 0.1rem 0 0.35rem 0.65rem;
+                opacity: 0.76;
+                transform: none;
+            }
+
+            .reading-mode .chapter p {
+                font-size: 1.02rem;
+                line-height: 1.85;
+            }
         }
 
         .temp-highlight {
@@ -152,6 +305,9 @@
     <script src="site-nav.js"></script>
 </head>
 <body class="cosmic-bg">
+    <div class="reading-progress-shell" aria-hidden="true">
+        <div id="reading-progress-bar"></div>
+    </div>
 
     <!-- Hero -->
     <div class="max-w-5xl mx-auto px-6 pt-14 pb-10 text-center">
@@ -185,12 +341,16 @@
             <div class="text-sm text-white/60">All stories true to the Vedas, Puranas and scriptures • Traditional Indian depictions</div>
             <div class="flex gap-x-2">
                 <button id="reading-mode-btn" 
-                        class="px-4 py-1.5 text-sm rounded-xl border border-white/20 hover:bg-white/5 flex items-center gap-x-2 transition-colors">
+                        class="px-4 py-1.5 text-sm rounded-xl border border-white/20 hover:bg-white/5 flex items-center gap-x-2 transition-colors"
+                        aria-pressed="false"
+                        title="Toggle reading mode">
                     <i class="fa-solid fa-book"></i>
                     <span class="hidden sm:inline">Reading mode</span>
                 </button>
                 <button id="bookmarks-btn"
-                        class="px-4 py-1.5 text-sm rounded-xl border border-white/20 hover:bg-white/5 flex items-center gap-x-2 transition-colors">
+                        class="px-4 py-1.5 text-sm rounded-xl border border-white/20 hover:bg-white/5 flex items-center gap-x-2 transition-colors"
+                        title="Open saved places"
+                        aria-label="Open saved places">
                     <i class="fa-solid fa-bookmark"></i>
                     <span class="hidden sm:inline">My places</span>
                     <span id="bookmark-count" class="text-[10px] px-1.5 rounded bg-white/10">0</span>
@@ -1415,89 +1575,350 @@
             ).join('');
         }
 
-        // Reading Mode
+        // Reading mode and chapter/paragraph bookmarks
+        const READING_MODE_KEY = 'cosmic_dashavatara_reading_mode';
+        const BOOKMARK_KEY = 'cosmic_dashavatara_bookmarks';
         let readingMode = false;
-        function toggleReadingMode() {
-            readingMode = !readingMode;
-            const btn = document.getElementById('reading-mode-btn');
-            if (readingMode) {
-                document.body.classList.add('reading-mode');
-                btn.innerHTML = `<i class="fa-solid fa-times"></i> <span class="hidden sm:inline">Exit reading mode</span>`;
-            } else {
-                document.body.classList.remove('reading-mode');
-                btn.innerHTML = `<i class="fa-solid fa-book"></i> <span class="hidden sm:inline">Reading mode</span>`;
+        let progressFrame = null;
+
+        function escapeHtml(value) {
+            return String(value || '').replace(/[&<>"']/g, ch => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            }[ch]));
+        }
+
+        function compactText(value, limit = 180) {
+            const text = String(value || '').replace(/\s+/g, ' ').trim();
+            return text.length > limit ? `${text.slice(0, limit - 1).trim()}...` : text;
+        }
+
+        function bookmarkKey(type, targetId) {
+            return `${type}:${targetId}`;
+        }
+
+        function normalizeBookmark(bookmark) {
+            if (!bookmark) return null;
+            const targetId = bookmark.targetId || bookmark.id;
+            if (!targetId) return null;
+            const type = bookmark.type || (targetId.startsWith('para-') ? 'paragraph' : targetId.startsWith('chapter-') ? 'chapter' : 'section');
+            return {
+                key: bookmark.key || bookmarkKey(type, targetId),
+                type,
+                targetId,
+                title: bookmark.title || 'Saved place',
+                avatar: bookmark.avatar || '',
+                chapter: bookmark.chapter || '',
+                excerpt: bookmark.excerpt || '',
+                ts: bookmark.ts || Date.now()
+            };
+        }
+
+        function getBookmarks() {
+            try {
+                const parsed = JSON.parse(localStorage.getItem(BOOKMARK_KEY) || '[]');
+                return Array.isArray(parsed) ? parsed.map(normalizeBookmark).filter(Boolean) : [];
+            } catch(e) {
+                return [];
             }
         }
 
-        // Bookmarks
-        const BOOKMARK_KEY = 'cosmic_dashavatara_bookmarks';
-        function getBookmarks() {
-            try { return JSON.parse(localStorage.getItem(BOOKMARK_KEY) || '[]'); } catch(e) { return []; }
-        }
         function saveBookmarks(list) {
-            localStorage.setItem(BOOKMARK_KEY, JSON.stringify(list));
-            updateBookmarkCount();
-        }
-        function updateBookmarkCount() {
-            const el = document.getElementById('bookmark-count');
-            if (el) el.textContent = getBookmarks().length;
+            const seen = new Set();
+            const normalized = [];
+            list.map(normalizeBookmark).filter(Boolean).forEach(bookmark => {
+                if (seen.has(bookmark.key)) return;
+                seen.add(bookmark.key);
+                normalized.push(bookmark);
+            });
+            localStorage.setItem(BOOKMARK_KEY, JSON.stringify(normalized.slice(0, 200)));
+            updateBookmarkCount(normalized);
+            syncBookmarkButtons(normalized);
         }
 
-        function saveCurrentPlace() {
-            const bookmarks = getBookmarks();
-            let nearest = null;
-            let min = Infinity;
-            document.querySelectorAll('.avatar-story').forEach(sec => {
-                const dist = Math.abs(sec.getBoundingClientRect().top);
-                if (dist < min) { min = dist; nearest = sec; }
+        function updateBookmarkCount(list = getBookmarks()) {
+            const el = document.getElementById('bookmark-count');
+            if (el) el.textContent = list.length;
+        }
+
+        function showBookmarkToast(message) {
+            const existing = document.querySelector('[data-bookmark-toast]');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.dataset.bookmarkToast = 'true';
+            toast.className = 'fixed left-1/2 bottom-5 z-[180] -translate-x-1/2 rounded-full border border-amber-300/35 bg-[#111827]/95 px-4 py-2 text-sm text-amber-100 shadow-2xl shadow-black/40';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 1600);
+        }
+
+        function createBookmarkButton(type, targetId) {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = `bookmark-toggle ${type === 'chapter' ? 'chapter-bookmark' : 'para-bookmark'}`;
+            button.dataset.bookmarkType = type;
+            button.dataset.bookmarkTarget = targetId;
+            button.setAttribute('aria-label', `Bookmark ${type}`);
+            button.setAttribute('title', `Bookmark ${type}`);
+            button.setAttribute('aria-pressed', 'false');
+            button.innerHTML = '<i class="fa-regular fa-bookmark"></i>';
+            return button;
+        }
+
+        function sectionTitle(section) {
+            const title = section ? section.querySelector('h2') : null;
+            return title ? compactText(title.textContent, 90) : 'Dashavatara';
+        }
+
+        function prepareBookmarkTargets() {
+            document.querySelectorAll('.avatar-story').forEach(section => {
+                const sectionSlug = (section.id || 'avatar-story').replace(/^avatar-/, '');
+                const avatar = sectionTitle(section);
+
+                section.querySelectorAll('.chapter').forEach((chapter, chapterIndex) => {
+                    if (!chapter.id) chapter.id = `chapter-${sectionSlug}-${chapterIndex + 1}`;
+
+                    const heading = chapter.querySelector('h3');
+                    const rawChapterTitle = heading ? compactText(heading.textContent, 120) : `Chapter ${chapterIndex + 1}`;
+                    chapter.dataset.bookmarkAvatar = avatar;
+                    chapter.dataset.bookmarkTitle = rawChapterTitle;
+
+                    if (heading && !heading.querySelector('.chapter-bookmark')) {
+                        heading.classList.add('chapter-heading');
+                        heading.textContent = '';
+
+                        const headingText = document.createElement('span');
+                        headingText.className = 'heading-text';
+                        headingText.textContent = rawChapterTitle;
+                        heading.appendChild(headingText);
+                        heading.appendChild(createBookmarkButton('chapter', chapter.id));
+                    }
+
+                    Array.from(chapter.children)
+                        .filter(child => child.tagName === 'P')
+                        .forEach((paragraph, paragraphIndex) => {
+                            if (!paragraph.id) paragraph.id = `para-${sectionSlug}-${chapterIndex + 1}-${paragraphIndex + 1}`;
+                            paragraph.classList.add('bookmarkable-paragraph');
+                            paragraph.dataset.bookmarkAvatar = avatar;
+                            paragraph.dataset.bookmarkChapter = rawChapterTitle;
+                            paragraph.dataset.bookmarkExcerpt = compactText(paragraph.textContent, 220);
+
+                            if (!paragraph.querySelector('.para-bookmark')) {
+                                paragraph.prepend(createBookmarkButton('paragraph', paragraph.id));
+                            }
+                        });
+                });
             });
-            if (!nearest) return;
-            const titleEl = nearest.querySelector('h2');
-            const title = titleEl ? titleEl.textContent.trim().slice(0, 60) : 'Avatar section';
-            bookmarks.unshift({ id: nearest.id, title, y: window.scrollY, ts: Date.now() });
-            if (bookmarks.length > 10) bookmarks.pop();
-            saveBookmarks(bookmarks);
-            alert('Place saved! Return via "My places".');
+
+            syncBookmarkButtons();
+        }
+
+        function buildBookmark(targetId, type) {
+            const target = document.getElementById(targetId);
+            if (!target) return null;
+
+            const chapter = type === 'chapter' ? target : target.closest('.chapter');
+            const section = target.closest('.avatar-story');
+            const avatar = target.dataset.bookmarkAvatar || (chapter && chapter.dataset.bookmarkAvatar) || sectionTitle(section);
+            const chapterTitle = type === 'chapter'
+                ? (target.dataset.bookmarkTitle || compactText(target.querySelector('h3')?.textContent, 120))
+                : (target.dataset.bookmarkChapter || chapter?.dataset.bookmarkTitle || 'Chapter');
+            const excerpt = type === 'paragraph' ? compactText(target.dataset.bookmarkExcerpt || target.textContent, 220) : '';
+
+            return {
+                key: bookmarkKey(type, targetId),
+                type,
+                targetId,
+                title: type === 'chapter' ? chapterTitle : 'Paragraph note',
+                avatar,
+                chapter: chapterTitle,
+                excerpt,
+                ts: Date.now()
+            };
+        }
+
+        function toggleBookmark(targetId, type) {
+            const key = bookmarkKey(type, targetId);
+            const bookmarks = getBookmarks();
+            const existingIndex = bookmarks.findIndex(bookmark => bookmark.key === key);
+
+            if (existingIndex >= 0) {
+                bookmarks.splice(existingIndex, 1);
+                saveBookmarks(bookmarks);
+                showBookmarkToast('Bookmark removed');
+                return;
+            }
+
+            const bookmark = buildBookmark(targetId, type);
+            if (!bookmark) return;
+            saveBookmarks([bookmark, ...bookmarks]);
+            showBookmarkToast(type === 'chapter' ? 'Chapter bookmarked' : 'Paragraph bookmarked');
+        }
+
+        function syncBookmarkButtons(list = getBookmarks()) {
+            const saved = new Set(list.map(bookmark => bookmark.key));
+
+            document.querySelectorAll('[data-bookmark-target]').forEach(button => {
+                const key = bookmarkKey(button.dataset.bookmarkType, button.dataset.bookmarkTarget);
+                const isSaved = saved.has(key);
+                button.classList.toggle('is-saved', isSaved);
+                button.setAttribute('aria-pressed', isSaved ? 'true' : 'false');
+                button.setAttribute('title', isSaved ? `Remove ${button.dataset.bookmarkType} bookmark` : `Bookmark ${button.dataset.bookmarkType}`);
+                const icon = button.querySelector('i');
+                if (icon) icon.className = isSaved ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark';
+            });
+
+            document.querySelectorAll('.bookmarkable-paragraph').forEach(paragraph => {
+                paragraph.classList.toggle('is-bookmarked', saved.has(bookmarkKey('paragraph', paragraph.id)));
+            });
         }
 
         function showBookmarks() {
             const bookmarks = getBookmarks();
             const panel = document.createElement('div');
-            panel.className = 'fixed inset-0 bg-black/70 z-[120] flex items-end md:items-center justify-center';
+            panel.className = 'fixed inset-0 bg-black/70 z-[160] flex items-end md:items-center justify-center p-0 md:p-4';
             panel.innerHTML = `
-                <div onclick="event.target.remove()" class="absolute inset-0"></div>
-                <div onclick="event.stopImmediatePropagation()" class="relative w-full max-w-md bg-[#111827] border border-white/10 rounded-t-2xl md:rounded-2xl p-5 text-sm max-h-[70vh] overflow-auto">
-                    <div class="flex justify-between mb-4">
-                        <div class="font-semibold">Your saved places</div>
-                        <button class="text-white/60">✕</button>
+                <div class="absolute inset-0" data-close-bookmarks></div>
+                <div class="bookmark-panel-card relative bg-[#111827] border border-white/10 rounded-t-2xl md:rounded-2xl p-5 text-sm overflow-hidden shadow-2xl shadow-black/50">
+                    <div class="flex items-start justify-between gap-4 border-b border-white/10 pb-4">
+                        <div>
+                            <div class="font-semibold text-white">My places</div>
+                            <div class="text-xs text-white/50">${bookmarks.length} saved</div>
+                        </div>
+                        <button class="bookmark-toggle" data-close-bookmarks aria-label="Close bookmarks" title="Close">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
                     </div>
-                    ${bookmarks.length === 0 ? '<div class="text-white/60 py-6 text-center">No places saved yet.</div>' : 
+                    <div class="mt-4 max-h-[60vh] space-y-2 overflow-auto pr-1">
+                    ${bookmarks.length === 0 ? '<div class="text-white/60 py-8 text-center">No saved chapters or paragraphs yet.</div>' : 
                     bookmarks.map((b, i) => `
-                        <div class="flex justify-between items-center p-3 border-b border-white/10 last:border-0">
-                            <div><div class="text-white/90">${b.title}</div><div class="text-xs text-white/50">${new Date(b.ts).toLocaleDateString()}</div></div>
-                            <button class="text-xs px-3 py-1 rounded border border-white/20" data-jump="${i}">Go</button>
+                        <div class="bookmark-item rounded-xl p-3">
+                            <div class="flex items-start justify-between gap-3">
+                                <div class="min-w-0">
+                                    <div class="mb-1 flex items-center gap-2">
+                                        <span class="rounded-full border border-amber-300/25 bg-amber-300/10 px-2 py-0.5 text-[10px] uppercase tracking-wide text-amber-200">${b.type === 'paragraph' ? 'Paragraph' : b.type === 'chapter' ? 'Chapter' : 'Place'}</span>
+                                        <span class="text-[11px] text-white/45">${new Date(b.ts).toLocaleDateString()}</span>
+                                    </div>
+                                    <div class="truncate text-white/90">${escapeHtml(b.avatar)}</div>
+                                    <div class="text-xs text-amber-200/80">${escapeHtml(b.chapter || b.title)}</div>
+                                    ${b.excerpt ? `<div class="mt-1 line-clamp-2 text-xs leading-relaxed text-white/55">${escapeHtml(b.excerpt)}</div>` : ''}
+                                </div>
+                                <div class="flex shrink-0 gap-1">
+                                    <button class="bookmark-toggle" data-jump="${i}" aria-label="Go to bookmark" title="Go to bookmark"><i class="fa-solid fa-arrow-right"></i></button>
+                                    <button class="bookmark-toggle" data-remove="${i}" aria-label="Remove bookmark" title="Remove bookmark"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                            </div>
                         </div>
                     `).join('')}
+                    </div>
+                    ${bookmarks.length ? '<button class="mt-4 w-full rounded-xl border border-white/10 px-3 py-2 text-xs text-white/60 hover:bg-white/5 hover:text-white" data-clear-bookmarks>Clear all</button>' : ''}
                 </div>
             `;
             document.body.appendChild(panel);
-            panel.querySelectorAll('[data-jump]').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const idx = parseInt(btn.getAttribute('data-jump'));
-                    const bm = bookmarks[idx];
+            panel.addEventListener('click', event => {
+                const close = event.target.closest('[data-close-bookmarks]');
+                const jump = event.target.closest('[data-jump]');
+                const remove = event.target.closest('[data-remove]');
+                const clear = event.target.closest('[data-clear-bookmarks]');
+
+                if (close) {
                     panel.remove();
-                    const el = document.getElementById(bm.id);
-                    if (el) {
-                        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        setTimeout(() => { el.classList.add('temp-highlight'); setTimeout(() => el.classList.remove('temp-highlight'), 2200); }, 650);
-                    }
-                });
+                    return;
+                }
+
+                if (jump) {
+                    const bookmark = bookmarks[parseInt(jump.dataset.jump, 10)];
+                    panel.remove();
+                    scrollToBookmark(bookmark);
+                    return;
+                }
+
+                if (remove) {
+                    const idx = parseInt(remove.dataset.remove, 10);
+                    bookmarks.splice(idx, 1);
+                    saveBookmarks(bookmarks);
+                    panel.remove();
+                    showBookmarks();
+                    return;
+                }
+
+                if (clear) {
+                    saveBookmarks([]);
+                    panel.remove();
+                }
             });
-            panel.querySelector('button').onclick = () => panel.remove();
+        }
+
+        function scrollToBookmark(bookmark) {
+            const targetId = bookmark && (bookmark.targetId || bookmark.id);
+            const target = targetId ? document.getElementById(targetId) : null;
+            if (!target) {
+                showBookmarkToast('Saved place not found');
+                return;
+            }
+
+            const top = target.getBoundingClientRect().top + window.scrollY - 88;
+            window.scrollTo({ top, behavior: 'smooth' });
+            history.replaceState(null, '', `#${target.id}`);
+            setTimeout(() => {
+                target.classList.add('temp-highlight');
+                setTimeout(() => target.classList.remove('temp-highlight'), 2400);
+            }, 500);
+        }
+
+        function applyReadingMode(enabled, persist = true) {
+            readingMode = enabled;
+            document.body.classList.toggle('reading-mode', enabled);
+
+            const button = document.getElementById('reading-mode-btn');
+            if (button) {
+                button.setAttribute('aria-pressed', enabled ? 'true' : 'false');
+                button.innerHTML = enabled
+                    ? '<i class="fa-solid fa-times"></i> <span class="hidden sm:inline">Exit reading mode</span>'
+                    : '<i class="fa-solid fa-book"></i> <span class="hidden sm:inline">Reading mode</span>';
+            }
+
+            if (persist) localStorage.setItem(READING_MODE_KEY, enabled ? 'true' : 'false');
+            queueReadingProgress();
+        }
+
+        function toggleReadingMode() {
+            applyReadingMode(!readingMode);
+        }
+
+        function updateReadingProgress() {
+            const bar = document.getElementById('reading-progress-bar');
+            if (!bar) return;
+
+            const doc = document.documentElement;
+            const maxScroll = Math.max(1, doc.scrollHeight - doc.clientHeight);
+            const progress = Math.min(100, Math.max(0, (window.scrollY / maxScroll) * 100));
+            bar.style.width = `${progress}%`;
+        }
+
+        function queueReadingProgress() {
+            if (progressFrame) return;
+            progressFrame = requestAnimationFrame(() => {
+                updateReadingProgress();
+                progressFrame = null;
+            });
+        }
+
+        function handleBookmarkClick(event) {
+            const button = event.target.closest('[data-bookmark-target]');
+            if (!button) return;
+            event.preventDefault();
+            event.stopPropagation();
+            toggleBookmark(button.dataset.bookmarkTarget, button.dataset.bookmarkType);
         }
 
         function initPage() {
             renderQuickNav();
+            prepareBookmarkTargets();
 
             const rmBtn = document.getElementById('reading-mode-btn');
             if (rmBtn) rmBtn.addEventListener('click', toggleReadingMode);
@@ -1505,10 +1926,16 @@
             const bmBtn = document.getElementById('bookmarks-btn');
             if (bmBtn) bmBtn.addEventListener('click', showBookmarks);
 
+            document.addEventListener('click', handleBookmarkClick);
+            window.addEventListener('scroll', queueReadingProgress, { passive: true });
+            window.addEventListener('resize', queueReadingProgress);
+
             updateBookmarkCount();
+            applyReadingMode(localStorage.getItem(READING_MODE_KEY) === 'true', false);
 
             document.addEventListener('keydown', (e) => {
-                if (e.key.toLowerCase() === 'r' && document.activeElement.tagName === 'BODY') {
+                const activeTag = document.activeElement ? document.activeElement.tagName : '';
+                if (e.key.toLowerCase() === 'r' && activeTag === 'BODY') {
                     e.preventDefault();
                     toggleReadingMode();
                 }
@@ -1516,9 +1943,9 @@
 
             if (window.location.hash) {
                 setTimeout(() => {
-                    const target = document.querySelector(window.location.hash);
+                    const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
                     if (target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
+                        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 88, behavior: 'smooth' });
                         target.classList.add('temp-highlight');
                         setTimeout(() => target.classList.remove('temp-highlight'), 2400);
                     }
