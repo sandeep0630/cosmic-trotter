@@ -621,15 +621,17 @@
 
                 .cosmic-site-nav__right {
                     position: static;
-                    width: 2.75rem;
+                    width: auto;
                     margin-left: 0;
                     justify-self: end;
                     z-index: 3;
                     transform: none;
+                    gap: 0.5rem;
+                    display: flex;
+                    align-items: center;
                 }
 
-                /* Hide desktop lang + Join in the top bar on collapsed header; their mobile versions live in the opened panel */
-                .cosmic-site-nav__right > .lang-switch,
+                /* Hide Join in the top bar on collapsed header; lang-switch stays visible on left */
                 .cosmic-site-nav__right > [data-cosmic-join] {
                     display: none !important;
                 }
@@ -1060,12 +1062,6 @@
                             </div>
 
                             <div class="cosmic-site-nav__mobile-theme" data-cosmic-theme-mobile-slot></div>
-
-                            <!-- Mobile Language Toggle (notranslate so Google doesn't mangle our switcher) -->
-                            <div class="lang-switch notranslate" translate="no" style="margin-top: 0.5rem; align-self: center;" data-lang-switch>
-                                <button type="button" class="lang-btn" data-lang="en" onclick="switchToLang('en')">EN</button>
-                                <button type="button" class="lang-btn" data-lang="te" onclick="switchToLang('te')">తెలుగు</button>
-                            </div>
 
                             <a class="cosmic-site-nav__cta" href="${navHref(base, "community")}" data-cosmic-join>
                                 <span>Join the Journey</span>
