@@ -44,7 +44,7 @@
         };
 
         // Always return the base English .html (or hash) version.
-        // If preferredLang === 'te', the language initializer translates the current page in-place.
+        // If preferredLang is Telugu or Kannada, the language initializer translates the current page in-place.
         return links[target] || links.home;
     }
 
@@ -64,8 +64,8 @@
                 position: sticky;
                 top: 0;
                 z-index: 70;
-                width: 100vw;
-                max-width: 100vw;
+                width: 100%;
+                max-width: 100%;
                 overflow-x: clip;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.1);
                 background: rgba(10, 10, 15, 0.95);
@@ -597,14 +597,14 @@
 
             @media (max-width: 1279px) {
                 .cosmic-site-nav__shell {
-                    width: calc(100vw - 2rem);
+                    width: calc(100% - 2rem);
                     margin-left: 1rem;
                     margin-right: 1rem;
                 }
 
                 .cosmic-site-nav__bar {
                     display: grid;
-                    grid-template-columns: minmax(0, 1fr) 2.75rem;
+                    grid-template-columns: minmax(0, 1fr) auto;
                     align-items: center;
                     gap: 0.75rem;
                     padding-right: 0;
@@ -621,7 +621,8 @@
 
                 .cosmic-site-nav__right {
                     position: static;
-                    width: auto;
+                    width: max-content;
+                    max-width: 100%;
                     margin-left: 0;
                     justify-self: end;
                     z-index: 3;
@@ -652,13 +653,35 @@
 
             @media (max-width: 640px) {
                 .cosmic-site-nav__shell {
-                    width: calc(100vw - 1.25rem);
+                    width: calc(100% - 1.25rem);
                     margin-left: 0.625rem;
                     margin-right: 0.625rem;
                 }
 
                 .cosmic-site-nav__bar {
                     min-height: 74px;
+                    grid-template-columns: minmax(0, 1fr) auto;
+                    padding: 0.6rem 0;
+                }
+
+                .cosmic-site-nav__brand {
+                    max-width: 100%;
+                }
+
+                .cosmic-site-nav__right {
+                    display: flex;
+                    gap: 0.4rem;
+                }
+
+                .cosmic-site-nav__right .lang-switch {
+                    position: static;
+                    max-width: none;
+                    transform: none;
+                }
+
+                .cosmic-site-nav__mobile-toggle {
+                    position: static;
+                    z-index: 4;
                 }
 
                 .cosmic-site-nav .logo-orb {
@@ -668,15 +691,15 @@
                 }
 
                 .cosmic-site-nav__name {
-                    font-size: 1.35rem;
+                    font-size: 1.12rem;
                 }
 
                 .cosmic-site-nav__tagline {
                     display: none;
                 }
 
-                .cosmic-site-nav__right {
-                    gap: 0.5rem;
+                .cosmic-site-nav__brand-copy {
+                    display: block;
                 }
 
                 .cosmic-site-nav__mobile-grid {
@@ -699,8 +722,12 @@
                     flex-basis: 2.65rem;
                 }
 
-                .cosmic-site-nav__name {
-                    font-size: 1.15rem;
+                .cosmic-site-nav__brand-copy {
+                    display: none;
+                }
+
+                .cosmic-site-nav__right {
+                    gap: 0.35rem;
                 }
             }
 
@@ -833,7 +860,7 @@
             }
 
             .lang-btn {
-                padding: 5px 9px;
+                padding: 5px 8px;
                 background: transparent;
                 color: rgba(255, 255, 255, 0.65);
                 border: none;
@@ -865,8 +892,8 @@
 
             @media (max-width: 640px) {
                 .lang-btn {
-                    padding: 4px 7px;
-                    font-size: 0.65rem;
+                    padding: 4px 6px;
+                    font-size: 0.62rem;
                 }
             }
 
@@ -1026,6 +1053,7 @@
                             <div class="lang-switch notranslate" translate="no" data-lang-switch>
                                 <button type="button" class="lang-btn" data-lang="en" onclick="switchToLang('en')">EN</button>
                                 <button type="button" class="lang-btn" data-lang="te" onclick="switchToLang('te')">తెలుగు</button>
+                                <button type="button" class="lang-btn" data-lang="kn" onclick="switchToLang('kn')">ಕನ್ನಡ</button>
                             </div>
 
                             <a class="cosmic-site-nav__cta" href="${navHref(base, "community")}" data-cosmic-join>
@@ -1264,7 +1292,7 @@
         } catch (e) {}
     }
 
-    // ===== Language Toggle (English / Telugu) =====
+    // ===== Language Toggle (English / Telugu / Kannada) =====
     //
     // This system (Google Translate widget + cookie strategy + MutationObserver + polling
     // + client-side fallback translation + aggressive hiding of all Google UI) was the
@@ -1283,10 +1311,33 @@
     //
     // getTeluguEquivalentUrl kept for backward compatibility in a couple of places
     // but with dedicated -te.html pages removed, it is no longer used for navigation.
-    // Telugu is applied in-place on the English pages through our text translation flow,
+    // Telugu and Kannada are applied in-place on the English pages through our text translation flow,
     // keeping Google's visible toolbar out of the page chrome.
+    const LANGUAGE_CONFIG = {
+        en: { label: 'English', script: null },
+        te: { label: 'Telugu', script: /[\u0C00-\u0C7F]/ },
+        kn: { label: 'Kannada', script: /[\u0C80-\u0CFF]/ }
+    };
+    const TRANSLATION_LANGS = new Set(['te', 'kn']);
+    const INDIC_TRANSLATION_SCRIPT = /[\u0C00-\u0C7F\u0C80-\u0CFF]/;
+
+    function normalizePreferredLang(lang) {
+        return LANGUAGE_CONFIG[lang] ? lang : 'en';
+    }
+
+    function isTranslationLang(lang) {
+        return TRANSLATION_LANGS.has(lang);
+    }
+
+    function setLanguageButtonState(lang) {
+        const activeLang = normalizePreferredLang(lang);
+        document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-lang') === activeLang);
+        });
+    }
+
     function getTeluguEquivalentUrl(currentPath) {
-        // Return the current path unchanged � widget will translate in place.
+        // Return the current path unchanged; the page translates in place.
         return currentPath || window.location.pathname;
     }
 
@@ -1336,18 +1387,11 @@
     }
 
     function switchToLang(lang) {
+        lang = normalizePreferredLang(lang);
         console.log('[CosmicLang] switchToLang called with:', lang);
 
         localStorage.setItem('preferredLang', lang);
-
-        // Immediately update all toggle buttons to reflect the choice
-        document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
-            if (btn.getAttribute('data-lang') === lang) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
-        });
+        setLanguageButtonState(lang);
 
         if (lang === 'en') {
             localStorage.setItem('preferredLang', 'en');
@@ -1371,21 +1415,16 @@
             return;
         }
 
-        // Telugu: translate this page in-place without loading Google's toolbar UI.
+        // Telugu/Kannada: translate this page in-place without loading Google's toolbar UI.
         // initLanguage() uses the same preference to translate future pages after navigation.
-        // The EN/తెలుగు buttons remain in the injected nav on every page.
-        localStorage.setItem('preferredLang', 'te');
+        // The EN/Telugu/Kannada buttons remain in the injected nav on every page.
+        localStorage.setItem('preferredLang', lang);
         removeGoogleTranslateChrome(true);
-
-        // Update buttons for visual feedback before translation completes.
-        document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
-            btn.classList.toggle('active', btn.getAttribute('data-lang') === 'te');
-        });
-
-        document.documentElement.lang = 'te';
-        applyTeluguFallbackTranslation();
-        setTimeout(() => applyTeluguFallbackTranslation(), 1200);
-        setTimeout(() => applyTeluguFallbackTranslation(), 5000);
+        setLanguageButtonState(lang);
+        document.documentElement.lang = lang;
+        applyFallbackTranslation(lang);
+        setTimeout(() => applyFallbackTranslation(lang), 1200);
+        setTimeout(() => applyFallbackTranslation(lang), 5000);
         return;
     }
 
@@ -1488,27 +1527,41 @@
         setTimeout(forceNow, 520);
     }
 
-    const TELUGU_FALLBACK_CACHE_KEY = 'cosmicTeTranslationCacheV1';
-    const TELUGU_FALLBACK_SPLIT = '\n[[[CT_SPLIT]]]\n';
-    let teluguFallbackCache = null;
+    const FALLBACK_CACHE_KEYS = {
+        te: 'cosmicTeTranslationCacheV1',
+        kn: 'cosmicKnTranslationCacheV1'
+    };
+    const FALLBACK_SPLIT = '\n[[[CT_SPLIT]]]\n';
+    const fallbackCaches = {};
 
-    function getTeluguFallbackCache() {
-        if (teluguFallbackCache) return teluguFallbackCache;
-        try {
-            teluguFallbackCache = JSON.parse(localStorage.getItem(TELUGU_FALLBACK_CACHE_KEY) || '{}') || {};
-        } catch (e) {
-            teluguFallbackCache = {};
-        }
-        return teluguFallbackCache;
+    function getCurrentTranslationLang() {
+        const lang = normalizePreferredLang(localStorage.getItem('preferredLang') || 'en');
+        return isTranslationLang(lang) ? lang : null;
     }
 
-    function saveTeluguFallbackCache() {
+    function getFallbackCache(lang) {
+        lang = normalizePreferredLang(lang);
+        const key = FALLBACK_CACHE_KEYS[lang];
+        if (!key) return {};
+        if (fallbackCaches[lang]) return fallbackCaches[lang];
         try {
-            const cache = getTeluguFallbackCache();
+            fallbackCaches[lang] = JSON.parse(localStorage.getItem(key) || '{}') || {};
+        } catch (e) {
+            fallbackCaches[lang] = {};
+        }
+        return fallbackCaches[lang];
+    }
+
+    function saveFallbackCache(lang) {
+        lang = normalizePreferredLang(lang);
+        const key = FALLBACK_CACHE_KEYS[lang];
+        if (!key) return;
+        try {
+            const cache = getFallbackCache(lang);
             const entries = Object.entries(cache);
             const trimmed = entries.length > 500 ? Object.fromEntries(entries.slice(entries.length - 500)) : cache;
-            teluguFallbackCache = trimmed;
-            localStorage.setItem(TELUGU_FALLBACK_CACHE_KEY, JSON.stringify(trimmed));
+            fallbackCaches[lang] = trimmed;
+            localStorage.setItem(key, JSON.stringify(trimmed));
         } catch (e) {}
     }
 
@@ -1525,25 +1578,27 @@
         }
 
         const text = node.nodeValue || '';
-        const trimmed = text.replace(/\s+/g, ' ').trim();
+        const sourceText = node._cosmicOriginalText || text;
+        const trimmed = sourceText.replace(/\s+/g, ' ').trim();
         if (!trimmed || trimmed.length < 2) return true;
-        if (/[\u0C00-\u0C7F]/.test(trimmed)) return true;
+        if (!node._cosmicOriginalText && INDIC_TRANSLATION_SCRIPT.test(text)) return true;
         if (!/[A-Za-z]/.test(trimmed)) return true;
         return false;
     }
 
-    function scheduleTeluguFallbackTranslation(delay) {
-        if (localStorage.getItem('preferredLang') !== 'te') return;
-        clearTimeout(window._cosmicTeFallbackTimer);
-        window._cosmicTeFallbackTimer = setTimeout(() => applyTeluguFallbackTranslation(), delay || 250);
+    function scheduleFallbackTranslation(delay) {
+        const lang = getCurrentTranslationLang();
+        if (!lang) return;
+        clearTimeout(window._cosmicFallbackTimer);
+        window._cosmicFallbackTimer = setTimeout(() => applyFallbackTranslation(lang), delay || 250);
     }
 
-    function setupTeluguFallbackObserver() {
-        if (window._cosmicTeFallbackObserver || !document.body) return;
+    function setupFallbackObserver() {
+        if (window._cosmicFallbackObserver || !document.body) return;
 
-        window._cosmicTeFallbackObserver = new MutationObserver(mutations => {
-            if (localStorage.getItem('preferredLang') !== 'te') return;
-            if (window._cosmicTeFallbackMuting) return;
+        window._cosmicFallbackObserver = new MutationObserver(mutations => {
+            if (!getCurrentTranslationLang()) return;
+            if (window._cosmicFallbackMuting) return;
 
             const hasAddedText = mutations.some(mutation => {
                 if (mutation.type === 'characterData') {
@@ -1558,10 +1613,10 @@
                 });
             });
 
-            if (hasAddedText) scheduleTeluguFallbackTranslation(350);
+            if (hasAddedText) scheduleFallbackTranslation(350);
         });
 
-        window._cosmicTeFallbackObserver.observe(document.body, {
+        window._cosmicFallbackObserver.observe(document.body, {
             childList: true,
             characterData: true,
             subtree: true
@@ -1596,8 +1651,10 @@
             attrs.forEach(attr => {
                 const value = el.getAttribute(attr);
                 if (!value) return;
-                const core = value.replace(/\s+/g, ' ').trim();
-                if (!core || /[\u0C00-\u0C7F]/.test(core) || !/[A-Za-z]/.test(core)) return;
+                const originalKey = `_cosmicOriginalAttr_${attr}`;
+                if (!el[originalKey]) el[originalKey] = value;
+                const core = String(el[originalKey] || '').replace(/\s+/g, ' ').trim();
+                if (!core || INDIC_TRANSLATION_SCRIPT.test(core) || !/[A-Za-z]/.test(core)) return;
                 items.push({ el, attr, core });
             });
         });
@@ -1605,8 +1662,10 @@
         return items;
     }
 
-    function collectResidualEnglishTextNodes() {
+    function collectResidualEnglishTextNodes(lang) {
         if (!document.body) return [];
+        const scriptPattern = LANGUAGE_CONFIG[normalizePreferredLang(lang)].script;
+        if (!scriptPattern) return [];
         const nodes = [];
         const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
             acceptNode(node) {
@@ -1614,7 +1673,7 @@
                 if (!parent) return NodeFilter.FILTER_REJECT;
                 if (parent.closest('#google_translate_element, [data-lang-switch], .notranslate, [translate="no"]')) return NodeFilter.FILTER_REJECT;
                 const text = node.nodeValue || '';
-                if (!/[\u0C00-\u0C7F]/.test(text) || !/[A-Za-z]/.test(text)) return NodeFilter.FILTER_REJECT;
+                if (!scriptPattern.test(text) || !/[A-Za-z]/.test(text)) return NodeFilter.FILTER_REJECT;
                 return NodeFilter.FILTER_ACCEPT;
             }
         });
@@ -1627,9 +1686,10 @@
         return nodes;
     }
 
-    async function translateTextBatchToTelugu(texts) {
-        const query = texts.join(TELUGU_FALLBACK_SPLIT);
-        const url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=te&dt=t&q=' + encodeURIComponent(query);
+    async function translateTextBatch(texts, lang) {
+        lang = normalizePreferredLang(lang);
+        const query = texts.join(FALLBACK_SPLIT);
+        const url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=' + encodeURIComponent(lang) + '&dt=t&q=' + encodeURIComponent(query);
         const response = await fetch(url);
         if (!response.ok) throw new Error('Translation request failed: ' + response.status);
         const data = await response.json();
@@ -1639,7 +1699,7 @@
 
         const translatedTexts = [];
         for (const text of texts) {
-            const singleUrl = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=te&dt=t&q=' + encodeURIComponent(text);
+            const singleUrl = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=' + encodeURIComponent(lang) + '&dt=t&q=' + encodeURIComponent(text);
             const singleResponse = await fetch(singleUrl);
             if (!singleResponse.ok) throw new Error('Translation request failed: ' + singleResponse.status);
             const singleData = await singleResponse.json();
@@ -1648,17 +1708,21 @@
         return translatedTexts;
     }
 
-    async function translateAndCacheItems(cache, items) {
+    async function translateTextBatchToTelugu(texts) {
+        return translateTextBatch(texts, 'te');
+    }
+
+    async function translateAndCacheItems(lang, cache, items) {
         const uncached = items.filter(item => item && item.core && !cache[item.core]);
         let index = 0;
 
-        while (index < uncached.length && localStorage.getItem('preferredLang') === 'te') {
+        while (index < uncached.length && getCurrentTranslationLang() === lang) {
             const batch = [];
             let charCount = 0;
 
             while (index < uncached.length && batch.length < 18 && charCount + uncached[index].core.length < 2800) {
                 batch.push(uncached[index]);
-                charCount += uncached[index].core.length + TELUGU_FALLBACK_SPLIT.length;
+                charCount += uncached[index].core.length + FALLBACK_SPLIT.length;
                 index++;
             }
 
@@ -1667,27 +1731,31 @@
                 index++;
             }
 
-            const translations = await translateTextBatchToTelugu(batch.map(item => item.core));
+            const translations = await translateTextBatch(batch.map(item => item.core), lang);
             translations.forEach((translated, i) => {
                 cache[batch[i].core] = translated || batch[i].core;
             });
-            saveTeluguFallbackCache();
+            saveFallbackCache(lang);
         }
     }
 
-    async function translateVisibleAttributesToTelugu(cache) {
+    async function translateVisibleAttributes(lang, cache) {
         const items = collectTranslatableAttributeItems();
-        await translateAndCacheItems(cache, items);
+        await translateAndCacheItems(lang, cache, items);
 
         items.forEach(item => {
-            if (localStorage.getItem('preferredLang') !== 'te') return;
+            if (getCurrentTranslationLang() !== lang) return;
             if (!cache[item.core]) return;
             item.el.setAttribute(item.attr, cache[item.core]);
         });
     }
 
-    async function translateResidualEnglishTextToTelugu(cache) {
-        const nodes = collectResidualEnglishTextNodes();
+    async function translateVisibleAttributesToTelugu(cache) {
+        return translateVisibleAttributes('te', cache);
+    }
+
+    async function translateResidualEnglishText(lang, cache) {
+        const nodes = collectResidualEnglishTextNodes(lang);
         const segmentPattern = /[A-Za-z][A-Za-z0-9'’&-]*(?:\s+[A-Za-z0-9'’&-]+)*/g;
         const items = [];
         const seen = new Set();
@@ -1702,35 +1770,40 @@
             });
         });
 
-        await translateAndCacheItems(cache, items);
+        await translateAndCacheItems(lang, cache, items);
 
         nodes.forEach(node => {
-            if (localStorage.getItem('preferredLang') !== 'te') return;
+            if (getCurrentTranslationLang() !== lang) return;
             const next = (node.nodeValue || '').replace(segmentPattern, match => {
                 const core = match.replace(/\s+/g, ' ').trim();
                 return cache[core] || match;
             });
             if (next !== node.nodeValue) {
-                window._cosmicTeFallbackMuting = true;
+                window._cosmicFallbackMuting = true;
                 node.nodeValue = next;
-                window._cosmicTeFallbackMuting = false;
+                window._cosmicFallbackMuting = false;
             }
         });
     }
 
-    async function applyTeluguFallbackTranslation() {
-        if (localStorage.getItem('preferredLang') !== 'te') return;
-        if (window._cosmicTeFallbackRunning) {
-            window._cosmicTeFallbackPending = true;
+    async function translateResidualEnglishTextToTelugu(cache) {
+        return translateResidualEnglishText('te', cache);
+    }
+
+    async function applyFallbackTranslation(lang) {
+        lang = normalizePreferredLang(lang || localStorage.getItem('preferredLang') || 'en');
+        if (!isTranslationLang(lang) || getCurrentTranslationLang() !== lang) return;
+        if (window._cosmicFallbackRunning) {
+            window._cosmicFallbackPendingLang = lang;
             return;
         }
 
-        window._cosmicTeFallbackRunning = true;
-        document.documentElement.classList.add('cosmic-te-fallback-active');
-        setupTeluguFallbackObserver();
+        window._cosmicFallbackRunning = true;
+        document.documentElement.classList.add('cosmic-lang-fallback-active', `cosmic-${lang}-fallback-active`);
+        setupFallbackObserver();
 
         try {
-            const cache = getTeluguFallbackCache();
+            const cache = getFallbackCache(lang);
             const nodes = collectTranslatableTextNodes();
             const uncached = [];
 
@@ -1743,9 +1816,9 @@
                 if (!core) return;
 
                 if (cache[core]) {
-                    window._cosmicTeFallbackMuting = true;
+                    window._cosmicFallbackMuting = true;
                     node.nodeValue = leading + cache[core] + trailing;
-                    window._cosmicTeFallbackMuting = false;
+                    window._cosmicFallbackMuting = false;
                     return;
                 }
 
@@ -1753,13 +1826,13 @@
             });
 
             let index = 0;
-            while (index < uncached.length && localStorage.getItem('preferredLang') === 'te') {
+            while (index < uncached.length && getCurrentTranslationLang() === lang) {
                 const batch = [];
                 let charCount = 0;
 
                 while (index < uncached.length && batch.length < 18 && charCount + uncached[index].core.length < 2800) {
                     batch.push(uncached[index]);
-                    charCount += uncached[index].core.length + TELUGU_FALLBACK_SPLIT.length;
+                    charCount += uncached[index].core.length + FALLBACK_SPLIT.length;
                     index++;
                 }
 
@@ -1768,32 +1841,41 @@
                     index++;
                 }
 
-                const translations = await translateTextBatchToTelugu(batch.map(item => item.core));
+                const translations = await translateTextBatch(batch.map(item => item.core), lang);
                 translations.forEach((translated, i) => {
                     const item = batch[i];
                     const finalText = translated || item.core;
                     cache[item.core] = finalText;
-                    if (localStorage.getItem('preferredLang') === 'te') {
-                        window._cosmicTeFallbackMuting = true;
+                    if (getCurrentTranslationLang() === lang) {
+                        window._cosmicFallbackMuting = true;
                         item.node.nodeValue = item.leading + finalText + item.trailing;
-                        window._cosmicTeFallbackMuting = false;
+                        window._cosmicFallbackMuting = false;
                     }
                 });
-                saveTeluguFallbackCache();
+                saveFallbackCache(lang);
             }
 
-            await translateVisibleAttributesToTelugu(cache);
-            await translateResidualEnglishTextToTelugu(cache);
+            await translateVisibleAttributes(lang, cache);
+            await translateResidualEnglishText(lang, cache);
         } catch (e) {
-            console.warn('[CosmicLang] Telugu fallback translation failed', e);
+            console.warn('[CosmicLang] ' + LANGUAGE_CONFIG[lang].label + ' fallback translation failed', e);
         } finally {
-            window._cosmicTeFallbackRunning = false;
-            document.documentElement.classList.remove('cosmic-te-fallback-active');
-            if (window._cosmicTeFallbackPending) {
-                window._cosmicTeFallbackPending = false;
-                setTimeout(() => applyTeluguFallbackTranslation(), 300);
+            window._cosmicFallbackRunning = false;
+            document.documentElement.classList.remove('cosmic-lang-fallback-active', `cosmic-${lang}-fallback-active`);
+            if (window._cosmicFallbackPendingLang) {
+                const pendingLang = window._cosmicFallbackPendingLang;
+                window._cosmicFallbackPendingLang = null;
+                setTimeout(() => applyFallbackTranslation(pendingLang), 300);
             }
         }
+    }
+
+    function setupTeluguFallbackObserver() {
+        setupFallbackObserver();
+    }
+
+    function applyTeluguFallbackTranslation() {
+        return applyFallbackTranslation('te');
     }
 
     // Initialize the hidden Google Translate widget for Telugu.
@@ -2046,15 +2128,7 @@
 
     function deactivateGoogleWidget() {
         removeGoogleTranslateChrome(true);
-
-        // Reset our toggle
-        document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
-            if (btn.getAttribute('data-lang') === 'en') {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
-        });
+        setLanguageButtonState('en');
     }
 
 
@@ -2062,11 +2136,11 @@
 
 
     function initLanguage() {
-        const saved = localStorage.getItem('preferredLang') || 'en';
-        const currentPath = window.location.pathname;
+        const saved = normalizePreferredLang(localStorage.getItem('preferredLang') || 'en');
+        localStorage.setItem('preferredLang', saved);
 
         // Early defensive removal of any Google banner (in case it tries to appear before our code runs)
-        if (saved === 'te') {
+        if (isTranslationLang(saved)) {
             const earlyKill = () => {
                 removeGoogleTranslateChrome(true);
             };
@@ -2078,27 +2152,20 @@
             deactivateGoogleWidget();
         }
 
-        // Set active button state for our custom EN / ?????? toggle (always visible, no Google dropdown)
-        document.querySelectorAll('[data-lang-switch] .lang-btn').forEach(btn => {
-            const btnLang = btn.getAttribute('data-lang');
-            if (btnLang === saved) {
-                btn.classList.add('active');
-            } else {
-                btn.classList.remove('active');
-            }
-        });
+        // Set active button state for our custom EN / Telugu / Kannada toggle.
+        setLanguageButtonState(saved);
 
-        // Auto-apply Telugu on every page load when preferred.
+        // Auto-apply Telugu/Kannada on every page load when preferred.
         // This avoids Google's visible toolbar and works across navigation via localStorage.
-        if (saved === 'te') {
+        if (isTranslationLang(saved)) {
             removeGoogleTranslateChrome(true);
-            applyTeluguFallbackTranslation();
-            setTimeout(() => applyTeluguFallbackTranslation(), 1200);
-            setTimeout(() => applyTeluguFallbackTranslation(), 5000);
+            applyFallbackTranslation(saved);
+            setTimeout(() => applyFallbackTranslation(saved), 1200);
+            setTimeout(() => applyFallbackTranslation(saved), 5000);
         }
 
         // Set html lang attribute for accessibility/SEO
-        document.documentElement.lang = saved === 'te' ? 'te' : 'en';
+        document.documentElement.lang = isTranslationLang(saved) ? saved : 'en';
     }
 
     function mountNav() {

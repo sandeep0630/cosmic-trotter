@@ -300,14 +300,61 @@
             border-color: rgba(251, 191, 36, 0.4);
             background: rgba(251, 191, 36, 0.06);
         }
+
+        .dash-top-button {
+            position: fixed;
+            right: 1.25rem;
+            bottom: 5.35rem;
+            z-index: 79;
+            width: 3rem;
+            height: 3rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            border: 1px solid rgba(251, 191, 36, 0.28);
+            background: rgba(15, 23, 42, 0.9);
+            color: #fde68a;
+            box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(0.5rem);
+            transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .dash-top-button.is-visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .dash-top-button:hover,
+        .dash-top-button:focus-visible {
+            background: rgba(251, 191, 36, 0.16);
+            border-color: rgba(251, 191, 36, 0.65);
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 640px) {
+            .dash-top-button {
+                right: 1rem;
+                bottom: 5rem;
+                width: 2.75rem;
+                height: 2.75rem;
+            }
+        }
     </style>
     <script src="theme-toggle.js"></script>
-    <script src="site-nav.js"></script>
+    <script src="site-nav.js?v=20260616-kannada-8"></script>
 </head>
 <body class="cosmic-bg">
     <div class="reading-progress-shell" aria-hidden="true">
         <div id="reading-progress-bar"></div>
     </div>
+    <button id="dash-top-button" class="dash-top-button notranslate" type="button" aria-label="Back to top" title="Back to top" translate="no">
+        <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+    </button>
 
     <!-- Hero -->
     <div class="max-w-5xl mx-auto px-6 pt-14 pb-10 text-center">
@@ -2360,6 +2407,17 @@
             });
         }
 
+        function updateBackToTopButton() {
+            const button = document.getElementById('dash-top-button');
+            if (!button) return;
+            button.classList.toggle('is-visible', window.scrollY > 520);
+        }
+
+        function scrollDashavataraToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+
         function handleBookmarkClick(event) {
             const button = event.target.closest('[data-bookmark-target]');
             if (!button) return;
@@ -2378,12 +2436,17 @@
             const bmBtn = document.getElementById('bookmarks-btn');
             if (bmBtn) bmBtn.addEventListener('click', showBookmarks);
 
+            const topBtn = document.getElementById('dash-top-button');
+            if (topBtn) topBtn.addEventListener('click', scrollDashavataraToTop);
+
             document.addEventListener('click', handleBookmarkClick);
             window.addEventListener('scroll', queueReadingProgress, { passive: true });
+            window.addEventListener('scroll', updateBackToTopButton, { passive: true });
             window.addEventListener('resize', queueReadingProgress);
 
             updateBookmarkCount();
             applyReadingMode(localStorage.getItem(READING_MODE_KEY) === 'true', false);
+            updateBackToTopButton();
 
             document.addEventListener('keydown', (e) => {
                 const activeTag = document.activeElement ? document.activeElement.tagName : '';
