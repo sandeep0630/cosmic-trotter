@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -64,8 +64,9 @@
             background: rgba(255, 255, 255, 0.045);
         }
     </style>
-    <script src="theme-toggle.js"></script>
-    <script src="site-nav.js"></script>
+    <script src="theme-toggle.js?v=20260616-light-5"></script>
+    <script src="site-nav.js?v=20260617-explore-1"></script>
+    <script src="daily-wisdom.js?v=20260616-wisdom-1"></script>
 </head>
 <body class="cosmic-bg">
     <!-- Navbar -->
@@ -730,22 +731,21 @@
             return storedEntry;
         }
 
-        function getDailyWisdom() {
-            const dateKey = getLocalDateKey();
-            const storedDaily = readJsonStorage(WISDOM_DAILY_KEY, null);
-
-            if (storedDaily?.dateKey === dateKey) {
-                const storedEntry = normalizeStoredWisdom(storedDaily.entry) ||
-                    getWisdomHistory().find((entry) => entry.id === storedDaily.id);
-                if (storedEntry) {
-                    activeScriptureWisdom = storedEntry;
-                    return storedEntry;
-                }
+        function getDailyWisdom(dateKey) {
+            if (window.CosmicDailyWisdom) {
+                const requestedKey = dateKey || window.CosmicDailyWisdom.fromUrl(window.CosmicDailyWisdom.todayKey());
+                const safeKey = window.CosmicDailyWisdom.isFuture(requestedKey)
+                    ? window.CosmicDailyWisdom.todayKey()
+                    : requestedKey;
+                const wisdom = window.CosmicDailyWisdom.wisdomForDate(safeKey);
+                activeScriptureWisdom = wisdom;
+                return wisdom;
             }
 
+            const dateKeyToday = getLocalDateKey();
             const history = getWisdomHistory();
-            const entry = pickUnseenWisdom(dateKey, history, history[0]?.id);
-            return commitWisdom(entry, dateKey);
+            const entry = pickUnseenWisdom(dateKeyToday, history, history[0]?.id);
+            return commitWisdom(entry, dateKeyToday);
         }
 
         function ensureTodayCardControls(card) {
@@ -771,22 +771,26 @@
                 authorEl.insertAdjacentElement('afterend', reflectionEl);
             }
 
+            let dateControlsEl = document.getElementById('wisdom-date-controls');
+            if (!dateControlsEl && reflectionEl) {
+                dateControlsEl = document.createElement('div');
+                dateControlsEl.id = 'wisdom-date-controls';
+                dateControlsEl.className = 'mt-6 grid grid-cols-2 sm:grid-cols-5 gap-2 text-sm';
+                reflectionEl.insertAdjacentElement('afterend', dateControlsEl);
+            }
+
             let controlsEl = document.getElementById('today-wisdom-controls');
             if (!controlsEl && reflectionEl) {
                 controlsEl = document.createElement('div');
                 controlsEl.id = 'today-wisdom-controls';
                 controlsEl.className = 'mt-6 flex flex-col sm:flex-row justify-center gap-3';
                 controlsEl.innerHTML = `
-                    <button onclick="revealAnotherWisdom()" class="px-5 py-2.5 rounded-2xl border border-white/20 hover:bg-white/5 transition text-sm font-medium inline-flex items-center justify-center gap-x-2">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        <span>Reveal Another Unseen Wisdom</span>
-                    </button>
                     <button onclick="copyTodaysWisdom()" class="px-5 py-2.5 rounded-2xl border border-white/20 hover:bg-white/5 transition text-sm font-medium inline-flex items-center justify-center gap-x-2">
                         <i class="fa-solid fa-copy"></i>
-                        <span>Copy Today's Wisdom</span>
+                        <span>Copy This Wisdom</span>
                     </button>
                 `;
-                reflectionEl.insertAdjacentElement('afterend', controlsEl);
+                (dateControlsEl || reflectionEl).insertAdjacentElement('afterend', controlsEl);
             }
         }
 
@@ -804,7 +808,15 @@
             const sourceEl = document.getElementById('today-source');
             const reflectionEl = document.getElementById('today-reflection');
 
-            if (dateEl) dateEl.textContent = `TODAY'S WISDOM - ${formatDisplayDate()}`;
+            const engine = window.CosmicDailyWisdom;
+            const currentKey = entry.dateKey || (engine ? engine.todayKey() : getLocalDateKey());
+            const todayKey = engine ? engine.todayKey() : getLocalDateKey();
+            const yesterdayKey = engine ? engine.yesterdayKey() : getLocalDateKey(new Date(Date.now() - 86400000));
+            const previousKey = engine ? engine.addDays(currentKey, -1) : currentKey;
+            const nextKey = engine ? engine.addDays(currentKey, 1) : currentKey;
+            const nextIsFuture = engine ? engine.isFuture(nextKey) : true;
+
+            if (dateEl) dateEl.textContent = `${currentKey === todayKey ? "TODAY'S WISDOM" : 'WISDOM FOR'} - ${entry.dateLabel || formatDisplayDate()}`;
             if (sourceEl) {
                 sourceEl.innerHTML = `<i class="fa-solid fa-book-open"></i><span>${escapeHtml(entry.tradition)}</span>`;
             }
@@ -815,17 +827,30 @@
             if (reflectionEl) {
                 reflectionEl.innerHTML = `<strong class="text-white">Reflection:</strong> ${escapeHtml(entry.reflection)}`;
             }
+
+            const dateControlsEl = document.getElementById('wisdom-date-controls');
+            if (dateControlsEl && engine) {
+                dateControlsEl.innerHTML = `
+                    <button onclick="showWisdomForDate('${previousKey}')" class="px-3 py-2 rounded-2xl border border-white/20 hover:bg-white/5 inline-flex items-center justify-center gap-x-2">
+                        <i class="fa-solid fa-chevron-left"></i><span>Previous</span>
+                    </button>
+                    <button onclick="showWisdomForDate('${yesterdayKey}')" class="px-3 py-2 rounded-2xl border border-white/20 hover:bg-white/5">Yesterday</button>
+                    <button onclick="showWisdomForDate('${todayKey}')" class="px-3 py-2 rounded-2xl border border-white/20 hover:bg-white/5">Today</button>
+                    <input id="wisdom-date-input" type="date" value="${currentKey}" max="${todayKey}" onchange="showWisdomForDate(this.value)" class="col-span-2 sm:col-span-1 bg-white/5 border border-white/20 rounded-2xl px-3 py-2 text-white">
+                    <button ${nextIsFuture ? 'disabled' : `onclick="showWisdomForDate('${nextKey}')"`} class="px-3 py-2 rounded-2xl border border-white/20 hover:bg-white/5 disabled:opacity-40 disabled:hover:bg-transparent inline-flex items-center justify-center gap-x-2">
+                        <span>Next</span><i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                `;
+            }
         }
 
         function renderWisdomArchive(activeEntry) {
             const archiveEl = document.getElementById('wisdom-archive');
             if (!archiveEl) return;
 
-            const entries = getWisdomHistory();
-
-            if (!entries.length && activeEntry) {
-                entries.push(activeEntry);
-            }
+            const entries = window.CosmicDailyWisdom
+                ? window.CosmicDailyWisdom.recent(12, activeEntry?.dateKey || window.CosmicDailyWisdom.todayKey())
+                : getWisdomHistory();
 
             archiveEl.innerHTML = entries.map((entry, index) => `
                 <div class="wisdom-card rounded-3xl p-10 group">
@@ -834,7 +859,7 @@
                         <div class="flex-1">
                             <div class="mb-4 flex flex-wrap items-center gap-2">
                                 <span class="source-pill"><i class="fa-solid fa-book-open"></i><span>${escapeHtml(entry.tradition)}</span></span>
-                                ${index === 0 ? '<span class="text-xs uppercase tracking-[2px] text-white/40">Latest</span>' : ''}
+                                ${index === 0 ? '<span class="text-xs uppercase tracking-[2px] text-white/40">Selected date</span>' : ''}
                             </div>
                             <div class="wisdom-entry-text text-2xl leading-snug font-light tracking-tight">
                                 ${escapeHtml(entry.teaching)}
@@ -858,25 +883,34 @@
 
             const noteEl = document.querySelector('.text-center.mt-12 p');
             if (noteEl) {
-                noteEl.textContent = `${entries.length} wisdom entries are saved in this browser. A new dated entry is added each day and shown here together.`;
+                noteEl.innerHTML = `Showing ${entries.length} dated wisdom entries. Pick any past date above, or <a href="index.html#wisdom" class="text-[#00f3ff] hover:underline">return to the homepage</a>.`;
             }
         }
 
-        function loadTodaysWisdom() {
-            const wisdom = getDailyWisdom();
+        function showWisdomForDate(dateKey, replaceUrl = false) {
+            const engine = window.CosmicDailyWisdom;
+            const requestedKey = dateKey || (engine ? engine.fromUrl(engine.todayKey()) : getLocalDateKey());
+            const safeKey = engine && engine.isFuture(requestedKey) ? engine.todayKey() : requestedKey;
+            const wisdom = getDailyWisdom(safeKey);
+
+            if (engine) {
+                engine.updateUrl(wisdom.dateKey, replaceUrl);
+            }
+
             renderTodayWisdom(wisdom);
             renderWisdomArchive(wisdom);
+            return wisdom;
+        }
+
+        function loadTodaysWisdom() {
+            const engine = window.CosmicDailyWisdom;
+            const selectedKey = engine ? engine.fromUrl(engine.todayKey()) : getLocalDateKey();
+            showWisdomForDate(selectedKey, true);
         }
 
         function revealAnotherWisdom() {
-            const history = getWisdomHistory();
-            const avoidId = activeScriptureWisdom?.id || history[0]?.id;
-            const seed = `${getLocalDateKey()}-${Date.now()}-${history.length}`;
-            const wisdom = pickUnseenWisdom(seed, history, avoidId);
-            commitWisdom(wisdom);
-            renderTodayWisdom(wisdom);
-            renderWisdomArchive(wisdom);
-            document.getElementById('today-wisdom')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (!window.CosmicDailyWisdom || !activeScriptureWisdom) return;
+            showWisdomForDate(window.CosmicDailyWisdom.addDays(activeScriptureWisdom.dateKey, -1));
         }
 
         function copyTodaysWisdom() {

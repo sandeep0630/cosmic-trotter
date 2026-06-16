@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -543,8 +543,9 @@
         }
 
     </style>
-    <script src="theme-toggle.js"></script>
-    <script src="site-nav.js"></script>
+    <script src="theme-toggle.js?v=20260616-light-5"></script>
+    <script src="site-nav.js?v=20260617-explore-1"></script>
+    <script src="daily-wisdom.js?v=20260616-wisdom-1"></script>
 </head>
 <body class="cosmic-bg">
     <!-- Intro Splash Screen -->
@@ -768,7 +769,7 @@
                 <i class="fa-solid fa-infinity text-6xl text-white/30 mb-6"></i>
                 <h2 class="text-4xl font-bold tracking-tight mb-4">Daily Cosmic Wisdom</h2>
                 <p class="text-xl text-white/60 mb-2">A new insight awaits you every day.</p>
-                <p class="text-sm text-white/40">Click below to receive today’s wisdom</p>
+                <p class="text-sm text-white/40">Pick today, yesterday, or any past date you missed.</p>
                 
                 <div class="mt-8 flex justify-center">
                     <button onclick="showDailyWisdom()" 
@@ -776,6 +777,16 @@
                         <span>Read Today’s Wisdom</span>
                         <i class="fa-solid fa-book-open"></i>
                     </button>
+                </div>
+                <div class="mt-5 flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <button onclick="showDailyWisdom(window.CosmicDailyWisdom.yesterdayKey())"
+                            class="px-4 py-2 rounded-2xl border border-white/20 hover:bg-white/5 text-sm font-medium inline-flex items-center gap-x-2">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <span>Yesterday</span>
+                    </button>
+                    <input id="home-wisdom-date-input" type="date"
+                           class="bg-white/5 border border-white/20 rounded-2xl px-4 py-2 text-sm text-white focus:outline-none focus:border-[#00f3ff]"
+                           onchange="showDailyWisdom(this.value)">
                 </div>
             </div>
         </div>
@@ -840,46 +851,8 @@
         </div>
     </div>
 
-    <!-- What's Next -->
-    <div id="next" class="max-w-5xl mx-auto px-6 pb-24">
-        <div class="text-center mb-12">
-            <span class="text-xs uppercase tracking-[3px] text-[#00f3ff]">THE ROAD AHEAD</span>
-            <h2 class="section-header mt-2">What's Next on Our Journey</h2>
-            <p class="mt-4 text-xl text-white/60 max-w-md mx-auto">We're just getting started. Here's what we're building next.</p>
-        </div>
-        
-        <div class="grid md:grid-cols-3 gap-6">
-            <!-- Card 1 -->
-            <div class="cosmic-card rounded-3xl p-8">
-                <div class="flex items-center gap-x-3 mb-4">
-                    <i class="fa-solid fa-calendar text-[#00f3ff] text-2xl"></i>
-                    <h4 class="font-semibold text-xl">Daily Wisdom</h4>
-                </div>
-                <p class="text-white/60">Short, powerful insights delivered every day to your feed and Instagram.</p>
-                <div class="mt-4 text-sm text-[#00f3ff]">Starting this week →</div>
-            </div>
-            
-            <!-- Card 2 -->
-            <div class="cosmic-card rounded-3xl p-8">
-                <div class="flex items-center gap-x-3 mb-4">
-                    <i class="fa-solid fa-rocket text-[#00f3ff] text-2xl"></i>
-                    <h4 class="font-semibold text-xl">New Topic Series</h4>
-                </div>
-                <p class="text-white/60">Deep dives into Space, Philosophy, Ancient Wisdom &amp; Future Tech.</p>
-                <div class="mt-4 text-sm text-[#00f3ff]">Starting May 2026 →</div>
-            </div>
-            
-            <!-- Card 3 -->
-            <div class="cosmic-card rounded-3xl p-8">
-                <div class="flex items-center gap-x-3 mb-4">
-                    <i class="fa-solid fa-users text-[#00f3ff] text-2xl"></i>
-                    <h4 class="font-semibold text-xl">Community Hub</h4>
-                </div>
-                <p class="text-white/60">A dedicated space for curious minds to connect, share ideas, and explore together.</p>
-                <div class="mt-4 text-sm text-[#00f3ff]">Coming soon →</div>
-            </div>
-        </div>
-    </div>
+    <!-- What's Next - removed as its not needed now -->
+    
 
     <!-- Community -->
     <div id="community" class="max-w-5xl mx-auto px-6 pb-24">
@@ -912,14 +885,16 @@
                 <i class="fa-brands fa-x-twitter text-4xl mb-6 text-white/70"></i>
                 <h4 class="font-semibold text-xl mb-2">Follow on X</h4>
                 <p class="text-white/60 text-sm mb-6">Daily cosmic insights &amp; knowledge drops</p>
-                <button class="text-sm px-6 py-2 border border-white/30 rounded-2xl hover:bg-white/5">Follow @CosmicTrotter</button>
+                <a href="https://x.com/CosmicTrotter/" target="_blank" rel="noopener noreferrer" 
+                   class="inline-block text-sm px-6 py-2 border border-white/30 rounded-2xl hover:bg-white/5">Follow @CosmicTrotter</a>
             </div>
             
             <div class="cosmic-card rounded-3xl p-8 text-center">
                 <i class="fa-brands fa-youtube text-4xl mb-6 text-white/70"></i>
                 <h4 class="font-semibold text-xl mb-2">Watch &amp; Learn</h4>
                 <p class="text-white/60 text-sm mb-6">Deep-dive video essays on science &amp; philosophy</p>
-                <button class="text-sm px-6 py-2 border border-white/30 rounded-2xl hover:bg-white/5">Subscribe on YouTube</button>
+                <a href="https://www.youtube.com/@CosmicTrotter108" target="_blank" rel="noopener noreferrer" 
+                   class="inline-block text-sm px-6 py-2 border border-white/30 rounded-2xl hover:bg-white/5">Subscribe on YouTube</a>
             </div>
             
             <div class="cosmic-card rounded-3xl p-8 text-center">
@@ -931,6 +906,8 @@
             </div>
         </div>
     </div>
+
+    <div data-story-community="home"></div>
 
     <!-- Email Capture with Brevo Form -->
     <div class="max-w-3xl mx-auto px-6 pb-16">
@@ -1043,12 +1020,17 @@
             // Only run the fancy logo fly-in animation on direct visits to the homepage.
             // When navigating internally (e.g. clicking Explore from other pages), skip the splash entirely.
             const isInternalNav = document.referrer && document.referrer.includes(window.location.hostname);
+            const hashTarget = window.location.hash ? document.getElementById(window.location.hash.slice(1)) : null;
 
-            if (isInternalNav) {
+            if (isInternalNav || hashTarget) {
                 // came from clicking link inside the site (e.g. Explore from another page) -> no splash animation
                 const intro = document.getElementById('intro-screen');
                 if (intro && intro.parentNode) {
                     intro.parentNode.removeChild(intro);
+                }
+                if (hashTarget) {
+                    requestAnimationFrame(() => hashTarget.scrollIntoView({ behavior: 'auto', block: 'start' }));
+                    setTimeout(() => hashTarget.scrollIntoView({ behavior: 'auto', block: 'start' }), 120);
                 }
             } else {
                 // direct load to cosmictrotter.com (new tab, bookmark, address bar, external) -> play the logo fly animation
@@ -1449,24 +1431,49 @@
             return wisdom;
         }
 
-        function getDailyWisdom() {
-            const dateKey = getHomeDateKey();
-            const storedDaily = readHomeWisdomStorage(homeWisdomDailyKey, null);
-
-            if (storedDaily?.dateKey === dateKey) {
-                const storedWisdom = normalizeHomeWisdom(storedDaily.entry);
-                if (storedWisdom) {
-                    activeHomeWisdom = storedWisdom;
-                    return storedWisdom;
-                }
+        function getDailyWisdom(dateKey) {
+            if (window.CosmicDailyWisdom) {
+                const requestedKey = dateKey || window.CosmicDailyWisdom.fromUrl(window.CosmicDailyWisdom.todayKey());
+                const safeKey = window.CosmicDailyWisdom.isFuture(requestedKey)
+                    ? window.CosmicDailyWisdom.todayKey()
+                    : requestedKey;
+                const wisdom = window.CosmicDailyWisdom.wisdomForDate(safeKey);
+                activeHomeWisdom = wisdom;
+                return wisdom;
             }
 
-            return saveHomeScriptureWisdom(generateHomeScriptureWisdom(dateKey));
+            const fallback = saveHomeScriptureWisdom(generateHomeScriptureWisdom(getHomeDateKey()));
+            activeHomeWisdom = fallback;
+            return fallback;
         }
 
-        function showDailyWisdom() {
-            const wisdom = getDailyWisdom();
+        function syncHomeWisdomDateInput(dateKey) {
+            if (!window.CosmicDailyWisdom) return;
+            const input = document.getElementById('home-wisdom-date-input');
+            if (!input) return;
+            input.max = window.CosmicDailyWisdom.todayKey();
+            input.value = dateKey || window.CosmicDailyWisdom.todayKey();
+        }
+
+        function showDailyWisdom(dateKey, replaceUrl = false) {
+            const engine = window.CosmicDailyWisdom;
+            const requestedKey = dateKey || (engine ? engine.todayKey() : getHomeDateKey());
+            const wisdom = getDailyWisdom(requestedKey);
+            const currentKey = wisdom.dateKey || requestedKey;
+            const todayKey = engine ? engine.todayKey() : getHomeDateKey();
+            const yesterdayKey = engine ? engine.yesterdayKey() : getHomeDateKey(new Date(Date.now() - 86400000));
+            const previousKey = engine ? engine.addDays(currentKey, -1) : currentKey;
+            const nextKey = engine ? engine.addDays(currentKey, 1) : currentKey;
+            const nextIsFuture = engine ? engine.isFuture(nextKey) : true;
+
+            if (engine) {
+                engine.updateUrl(currentKey, replaceUrl);
+            }
+            syncHomeWisdomDateInput(currentKey);
+
+            document.querySelector('[data-home-wisdom-modal]')?.remove();
             const modal = document.createElement('div');
+            modal.setAttribute('data-home-wisdom-modal', 'true');
             modal.className = 'fixed inset-0 bg-black/80 flex items-center justify-center z-[100] p-6';
             modal.innerHTML = `
                 <div class="cosmic-card max-w-2xl w-full rounded-3xl p-8 sm:p-10 text-center border border-white/20 relative">
@@ -1479,7 +1486,7 @@
                         <i class="fa-solid fa-infinity text-5xl text-[#00f3ff]"></i>
                     </div>
 
-                    <div class="text-xs uppercase tracking-[3px] text-[#00f3ff] mb-3">Today's Wisdom - ${escapeWisdomHtml(wisdom.dateLabel || formatHomeWisdomDate())}</div>
+                    <div class="text-xs uppercase tracking-[3px] text-[#00f3ff] mb-3">${currentKey === todayKey ? 'Today’s Wisdom' : 'Wisdom for'} - ${escapeWisdomHtml(wisdom.dateLabel || formatHomeWisdomDate())}</div>
                     <div class="inline-flex items-center gap-x-2 px-3 py-1 rounded-full bg-[#00f3ff]/10 border border-[#00f3ff]/20 text-[#00f3ff] text-xs font-semibold uppercase tracking-[1px] mb-6">
                         <i class="fa-solid fa-book-open"></i>
                         <span>${escapeWisdomHtml(wisdom.tradition)}</span>
@@ -1495,8 +1502,20 @@
                         <strong class="text-white">Reflection:</strong> ${escapeWisdomHtml(wisdom.reflection)}
                     </div>
 
+                    <div class="mt-6 grid grid-cols-2 sm:grid-cols-5 gap-2 text-sm">
+                        <button onclick="showDailyWisdom('${previousKey}')" class="px-3 py-2 rounded-2xl border border-white/20 hover:bg-white/5 inline-flex items-center justify-center gap-x-2">
+                            <i class="fa-solid fa-chevron-left"></i><span>Previous</span>
+                        </button>
+                        <button onclick="showDailyWisdom('${yesterdayKey}')" class="px-3 py-2 rounded-2xl border border-white/20 hover:bg-white/5">Yesterday</button>
+                        <button onclick="showDailyWisdom('${todayKey}')" class="px-3 py-2 rounded-2xl border border-white/20 hover:bg-white/5">Today</button>
+                        <input type="date" value="${currentKey}" max="${todayKey}" onchange="showDailyWisdom(this.value)" class="col-span-2 sm:col-span-1 bg-white/5 border border-white/20 rounded-2xl px-3 py-2 text-white">
+                        <button ${nextIsFuture ? 'disabled' : `onclick="showDailyWisdom('${nextKey}')"`} class="px-3 py-2 rounded-2xl border border-white/20 hover:bg-white/5 disabled:opacity-40 disabled:hover:bg-transparent inline-flex items-center justify-center gap-x-2">
+                            <span>Next</span><i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+
                     <div class="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-3 justify-center">
-                        <a href="wisdom.html" class="px-5 py-2.5 rounded-2xl border border-white/20 hover:bg-white/5 text-sm font-medium inline-flex items-center justify-center gap-x-2">
+                        <a href="wisdom.html?wisdom=${currentKey}" class="px-5 py-2.5 rounded-2xl border border-white/20 hover:bg-white/5 text-sm font-medium inline-flex items-center justify-center gap-x-2">
                             <i class="fa-solid fa-clock-rotate-left"></i>
                             <span>View Wisdom Archive</span>
                         </a>
@@ -1507,7 +1526,7 @@
                     </div>
 
                     <div class="mt-4 text-xs text-white/40">
-                        This same wisdom is saved to your Wisdom page history.
+                        Future dates stay hidden until their morning arrives.
                     </div>
                 </div>
             `;
@@ -1526,6 +1545,15 @@
                     document.removeEventListener('keydown', handler);
                 }
             });
+        }
+
+        function initializeHomeWisdomControls() {
+            if (!window.CosmicDailyWisdom) return;
+            syncHomeWisdomDateInput(window.CosmicDailyWisdom.todayKey());
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('wisdom')) {
+                showDailyWisdom(window.CosmicDailyWisdom.fromUrl(window.CosmicDailyWisdom.todayKey()), true);
+            }
         }
 
         function copyHomeDailyWisdom(button) {
@@ -1787,6 +1815,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            initializeHomeWisdomControls();
             setupBrevoFormSubmitFallback();
 
             const successPanel = document.getElementById('success-message');
@@ -1806,6 +1835,7 @@
             });
         });
     </script>
+    <script src="story-community.js?v=20260617-community-4"></script>
     <script src="ask-krishna-widget.js"></script>
     <!-- Brevo Scripts -->
     <script>

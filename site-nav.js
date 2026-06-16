@@ -1,5 +1,7 @@
 (function () {
     const NAV_ID = "cosmic-site-nav";
+    const SECTION_HASHES = new Set(["#explore", "#wisdom", "#community"]);
+    const PENDING_SECTION_KEY = "cosmicPendingSectionHash";
 
     function getPath() {
         return window.location.pathname.replace(/\\/g, "/").toLowerCase();
@@ -13,6 +15,75 @@
     function isHomePage() {
         const path = getPath();
         return path.endsWith("/") || path.endsWith("/index.html") || !path.includes(".html");
+    }
+
+    function normalizePagePath(pathname) {
+        let path = (pathname || "/").replace(/\\/g, "/").toLowerCase();
+        if (path.endsWith("/")) path += "index.html";
+        return path;
+    }
+
+    function isSamePageUrl(url) {
+        return normalizePagePath(url.pathname) === normalizePagePath(window.location.pathname);
+    }
+
+    function isHomepageUrl(url) {
+        const path = normalizePagePath(url.pathname);
+        return path.endsWith("/index.html");
+    }
+
+    function rememberSectionHash(hash) {
+        if (!SECTION_HASHES.has(hash)) return;
+
+        try {
+            sessionStorage.setItem(PENDING_SECTION_KEY, hash);
+        } catch (error) {}
+    }
+
+    function getPendingSectionHash() {
+        let pending = "";
+
+        try {
+            pending = sessionStorage.getItem(PENDING_SECTION_KEY) || "";
+        } catch (error) {}
+
+        if (SECTION_HASHES.has(window.location.hash)) {
+            return window.location.hash;
+        }
+
+        return SECTION_HASHES.has(pending) ? pending : "";
+    }
+
+    function clearPendingSectionHash() {
+        try {
+            sessionStorage.removeItem(PENDING_SECTION_KEY);
+        } catch (error) {}
+    }
+
+    function scrollToSectionHash(hash, behavior = "smooth") {
+        if (!SECTION_HASHES.has(hash)) return false;
+
+        const target = document.getElementById(hash.slice(1));
+        if (!target) return false;
+
+        const intro = document.getElementById("intro-screen");
+        if (intro && intro.parentNode) {
+            intro.parentNode.removeChild(intro);
+        }
+
+        const scroll = () => target.scrollIntoView({ behavior, block: "start" });
+        requestAnimationFrame(scroll);
+        window.setTimeout(scroll, 90);
+        return true;
+    }
+
+    function restoreSectionHashScroll() {
+        const hash = getPendingSectionHash();
+        if (!hash) return;
+
+        if (scrollToSectionHash(hash, "auto")) {
+            clearPendingSectionHash();
+        }
     }
 
     function getCurrentSection() {
@@ -804,6 +875,25 @@
                 color: #020617 !important;
             }
 
+            html[data-theme="light"] .lang-switch {
+                border-color: rgba(36, 31, 24, 0.16);
+                background: rgba(255, 255, 255, 0.72);
+            }
+
+            html[data-theme="light"] .lang-btn {
+                color: rgba(36, 31, 24, 0.68);
+            }
+
+            html[data-theme="light"] .lang-btn.active {
+                background: rgba(0, 142, 156, 0.14);
+                color: #241f18;
+            }
+
+            html[data-theme="light"] .lang-btn:hover:not(.active) {
+                background: rgba(36, 31, 24, 0.06);
+                color: #241f18;
+            }
+
             /* === Mobile enhancements (global, loaded on all pages via site-nav) === */
             html, body {
                 overflow-x: hidden; /* stronger than clip for older browsers */
@@ -1251,8 +1341,26 @@
         });
 
         nav.querySelectorAll("a").forEach((link) => {
-            link.addEventListener("click", () => {
+            link.addEventListener("click", (event) => {
+                const rawHref = link.getAttribute("href") || "";
                 closeNavigation();
+
+                let url;
+                try {
+                    url = new URL(rawHref, window.location.href);
+                } catch (error) {
+                    return;
+                }
+
+                if (!SECTION_HASHES.has(url.hash) || !isHomepageUrl(url)) return;
+
+                rememberSectionHash(url.hash);
+
+                if (isSamePageUrl(url) && scrollToSectionHash(url.hash)) {
+                    event.preventDefault();
+                    history.pushState(null, "", url.hash);
+                    clearPendingSectionHash();
+                }
             });
         });
 
@@ -2187,6 +2295,8 @@
 
         bindNav(base);
         initLanguage();
+        restoreSectionHashScroll();
+        window.setTimeout(restoreSectionHashScroll, 150);
     }
 
     if (document.readyState === "loading") {
