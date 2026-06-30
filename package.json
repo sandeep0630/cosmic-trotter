@@ -1,0 +1,14 @@
+{
+  "name": "cosmic-trotter",
+  "version": "1.0.0",
+  "description": "Local dev server for testing Netlify functions with Supabase",
+  "main": "local-dev-server.js",
+  "scripts": {
+    "dev": "node local-dev-server.js",
+    "start": "node local-dev-server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  }
+}

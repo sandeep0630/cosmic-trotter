@@ -843,6 +843,7 @@ You have the recent conversation history. Use it to make the conversation feel c
                 return null;
             }
             const data = await res.json();
+            console.info('[Ask Krishna] Function response:', data);
             if (data.useLocal) {
                 console.info('[Ask Krishna] Function returned useLocal=true. Full response from function (check debug for real error):', data);
             }
