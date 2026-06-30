@@ -54,6 +54,7 @@ create index if not exists community_likes_item_idx
 create or replace function public.set_community_item_updated_at()
 returns trigger
 language plpgsql
+set search_path = public
 as $$
 begin
   new.updated_at = now();
@@ -135,6 +136,15 @@ begin
   return null;
 end;
 $$;
+
+-- These functions are used internally by triggers only.
+-- Revoke direct RPC execution so anon/authenticated visitors cannot call
+-- SECURITY DEFINER functions through /rest/v1/rpc/*.
+revoke execute on function public.set_community_item_updated_at() from public, anon, authenticated;
+revoke execute on function public.refresh_community_like_count(uuid) from public, anon, authenticated;
+revoke execute on function public.refresh_community_comment_count(uuid) from public, anon, authenticated;
+revoke execute on function public.community_like_count_trigger() from public, anon, authenticated;
+revoke execute on function public.community_comment_count_trigger() from public, anon, authenticated;
 
 drop trigger if exists community_like_count_after_insert on public.community_likes;
 create trigger community_like_count_after_insert
