@@ -16,6 +16,57 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
+// Parse and apply _redirects rules
+function parseRedirects(filePath) {
+  const content = fs.readFileSync(filePath, 'utf-8');
+  const rules = [];
+  for (const line of content.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const parts = trimmed.split(/\s+/);
+    if (parts.length >= 2) {
+      const from = parts[0];
+      const to = parts[1];
+      const status = parts[2] ? parseInt(parts[2]) : 200;
+      const force = parts.slice(2).includes('!');
+      rules.push({ from, to, status, force });
+    }
+  }
+  return rules;
+}
+
+const redirectRules = parseRedirects(path.join(__dirname, '_redirects'));
+
+// Apply _redirects middleware (before static files)
+app.use((req, res, next) => {
+  const reqPath = req.path;
+  
+  for (const rule of redirectRules) {
+    const pattern = rule.from
+      .replace(/\*/g, '.*')
+      .replace(/\:splat/g, '(.*)')
+      .replace(/\$/g, '\\$');
+    const regex = new RegExp(`^${pattern}$`);
+    const match = regex.exec(reqPath);
+    
+    if (match) {
+      let dest = rule.to;
+      if (match[1]) {
+        dest = dest.replace(':splat', match[1]);
+      }
+      
+      if (rule.status === 301 || rule.status === 302) {
+        return res.redirect(rule.status, dest);
+      } else if (rule.status === 200) {
+        // Rewrite (internal redirect)
+        req.url = dest;
+        return next();
+      }
+    }
+  }
+  next();
+});
+
 // Serve static files
 app.use(express.static(path.join(__dirname)));
 

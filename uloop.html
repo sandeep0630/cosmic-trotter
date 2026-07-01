@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Uloop • CosmicTrotter</title>
+  <link rel="canonical" href="https://cosmictrotter.com/uloop" />
+  <meta name="description" content="A luminous story of return, remembrance, and the rhythm that moves through life and cosmos alike." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="storybook.css" />
+  <style>
+    body {
+      font-family: 'Inter', system_ui, sans-serif;
+      background: radial-gradient(circle at top, #17122c 0%, #09090f 55%, #050507 100%);
+      color: #e2e8f0;
+    }
+    .font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 600; }
+    .story-shell {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.68));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
+    }
+    .hero-glow {
+      background: radial-gradient(circle at top left, rgba(250,204,21,0.2), transparent 40%),
+                  radial-gradient(circle at bottom right, rgba(34,211,238,0.18), transparent 35%);
+    }
+    .story-card {
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+    }
+    .uloop-visual {
+      border-radius: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 24px 60px rgba(2, 8, 23, 0.35);
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 0.9));
+    }
+    .uloop-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #fcd34d;
+      margin-bottom: 0.8rem;
+    }
+    .core-wisdom {
+      background: linear-gradient(145deg, rgba(250,204,21,0.11), rgba(34,211,238,0.06));
+      border: 1px solid rgba(250,204,21,0.24);
+      border-radius: 1.5rem;
+      padding: 1.4rem 1.5rem;
+      margin: 2rem 0;
+    }
+    .story-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 1.5rem 0 2rem;
+    }
+    .story-nav a {
+      flex: 1 1 11rem;
+      text-align: center;
+      padding: 0.7rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.04);
+      color: rgba(255,255,255,0.85);
+      font-size: 0.92rem;
+      transition: all 0.2s ease;
+    }
+    .story-nav a:hover {
+      background: rgba(250,204,21,0.1);
+      border-color: rgba(250,204,21,0.34);
+      color: #fef3c7;
+    }
+    .chapter-block {
+      margin-top: 2.25rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+  </style>
+  <script src="theme-toggle.js?v=20260616-light-5"></script>
+  <script src="site-nav.js?v=20260617-explore-1"></script>
+</head>
+<body>
+  <nav class="border-b border-white/10 sticky top-0 z-50 bg-[#09090f]/90 backdrop-blur-lg">
+    <div class="max-w-6xl mx-auto px-6 flex justify-between items-center h-20">
+      <a href="index.html" class="flex items-center gap-x-3">
+        <img src="logo.png" alt="CosmicTrotter" class="w-10 h-10 rounded-full" />
+        <span class="font-display text-xl font-semibold tracking-tighter">CosmicTrotter</span>
+      </a>
+      <a href="ancient.html" class="text-sm px-5 py-2.5 border border-white/20 rounded-2xl hover:bg-white/5 transition">← Back to Ancient</a>
+    </div>
+  </nav>
+
+  <div class="hero-glow relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05),transparent_60%)]"></div>
+    <div class="relative max-w-6xl mx-auto px-6 py-20 md:py-24 text-center">
+      <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-amber-400/30 bg-amber-400/10 mb-6">
+        <i class="fa-solid fa-rotate text-amber-400"></i>
+        <span class="text-xs uppercase tracking-[2px] text-amber-400 font-medium">Return • Rhythm • Remembrance</span>
+      </div>
+      <h1 class="text-5xl md:text-6xl font-bold tracking-tighter mb-5">Uloop</h1>
+      <p class="text-xl md:text-2xl text-white/75 max-w-3xl mx-auto leading-tight">
+        A modern myth of the loop that turns loss into learning, endings into beginnings, and stillness into revelation.
+      </p>
+      <div class="mt-8 flex justify-center gap-x-3 flex-wrap">
+        <a href="#story-beginning" class="px-6 py-3 rounded-2xl border border-white/20 hover:bg-white/5 transition">Enter the story</a>
+        <a href="ancient.html" class="px-6 py-3 rounded-2xl border border-amber-400/30 bg-amber-400/10 text-amber-200 hover:bg-amber-400/20 transition">Open Ancient Wisdom</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-6 py-6">
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-white/10 pb-4">
+      <div class="text-sm text-white/55">A storybook page shaped in the mood of the Dashavatara experience.</div>
+      <div class="flex gap-x-2">
+        <button id="reading-mode-btn" class="px-4 py-1.5 text-sm rounded-xl border border-white/20 hover:bg-white/5 flex items-center gap-x-2 transition-colors" aria-pressed="false" title="Toggle reading mode">
+          <i class="fa-solid fa-book"></i>
+          <span class="hidden sm:inline">Reading mode</span>
+        </button>
+        <button id="bookmarks-btn" class="px-4 py-1.5 text-sm rounded-xl border border-white/20 hover:bg-white/5 flex items-center gap-x-2 transition-colors" title="Open saved places" aria-label="Open saved places">
+          <i class="fa-solid fa-bookmark"></i>
+          <span class="hidden sm:inline">My places</span>
+          <span id="bookmark-count" class="text-[10px] px-1.5 rounded bg-white/10">0</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-5xl mx-auto px-6 pb-16">
+    <section class="story-shell rounded-[2rem] p-8 md:p-10">
+      <div class="flex items-center gap-x-4 mb-8">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-400 to-cyan-400 flex items-center justify-center text-[#09090f] font-bold text-lg">U</div>
+        <div>
+          <h2 class="text-3xl font-bold tracking-tight">Uloop</h2>
+          <div class="text-sm text-amber-300/85">A rhythm that returns, again and again.</div>
+        </div>
+      </div>
+
+      <div class="storybook-content prose prose-invert max-w-none text-lg leading-relaxed text-white/80">
+        <p class="text-xl text-white/85 leading-relaxed mb-8">
+          A loop is not the same as a cage. It can be the shape of learning itself — a path that bends back toward truth until the soul recognizes what it already knew.
+        </p>
+
+        <div class="grid gap-6 md:grid-cols-[1.2fr_0.8fr] items-stretch my-8">
+          <div class="uloop-visual min-h-[280px]">
+            <img src="ancient-wisdom/images/uloop%20images/cover.jpg" alt="Cover illustration for the Uloop story" />
+          </div>
+          <div class="story-card rounded-[1.5rem] p-6 flex flex-col justify-center">
+            <p class="text-sm uppercase tracking-[0.25em] text-cyan-300/80 mb-3">The circle of return</p>
+            <p class="text-white/80 leading-relaxed">
+              Each turn of the loop reveals a deeper truth: endings are not failures, but invitations to enter the next level of remembrance.
+            </p>
+          </div>
+        </div>
+
+        <div class="story-nav">
+          <a href="#story-beginning">The First Turning</a>
+          <a href="#the-gift-of-recurrence">The Gift of Recurrence</a>
+          <a href="#the-shape-of-loss">The Shape of Loss</a>
+          <a href="#the-return-of-the-self">The Return of the Self</a>
+        </div>
+
+        <div class="chapter-block">
+          <h2 id="story-beginning">The First Turning</h2>
+          <p>
+            Every beginning looks like a line, but beneath it is a circle. At first we see the world as a straight march toward progress, success, and certainty. Yet the deeper teachers of the ancients understood that reality is not merely advancing; it is returning.
+          </p>
+          <p>
+            The uloop is the pattern of this return. It does not erase the journey. It gives the journey a memory. Every episode of growth arrives not as a random event but as a recurrence of something noble that the soul is learning to hold with greater clarity.
+          </p>
+          <div class="my-8 uloop-visual">
+            <img src="ancient-wisdom/images/uloop%20images/chapter1.jpg" alt="An illustrated chapter scene from the Uloop story" loading="lazy" />
+          </div>
+        </div>
+
+        <div class="chapter-block">
+          <h2 id="the-gift-of-recurrence">The Gift of Recurrence</h2>
+          <p>
+            When a chapter closes, the mind often resists. The heart asks whether something has been lost. But the uloop says otherwise: what seems to end is simply changing shape. A form dissolves so that a deeper pattern can be seen.
+          </p>
+          <p>
+            This is the quiet wisdom of recurrence. A person loses a role, a dream, a comfort, and discovers that the real lesson was never in the role itself. The lesson was in the return to a truer center — the center that was always there, waiting to be remembered.
+          </p>
+          <div class="story-card rounded-3xl p-6 my-8 border border-white/10">
+            <p class="text-white/90 italic">
+              “What seems like repetition is often revelation. The loop does not trap us; it teaches us how to recognize the same truth from a higher level.”
+            </p>
+          </div>
+          <div class="my-8 uloop-visual">
+            <img src="ancient-wisdom/images/uloop%20images/chapter3.jpg" alt="A symbolic chapter image for the Uloop narrative" loading="lazy" />
+          </div>
+        </div>
+
+        <div class="chapter-block">
+          <h2 id="the-shape-of-loss">The Shape of Loss</h2>
+          <p>
+            Loss is often described as a wound, yet within the loop it is also a doorway. The wound opens a wider field of awareness. The heart learns that pain is not only suffering; it is also a compass that points toward a deeper truth.
+          </p>
+          <p>
+            In the old traditions, the spiral was sometimes drawn as a path of descent and ascent. One enters the darkness, not to remain there forever, but to find the hidden light that can only be seen after the world has been stripped of its false glamour.
+          </p>
+          <div class="core-wisdom">
+            <div class="section-label"><i class="fa-solid fa-sparkles"></i> Core wisdom</div>
+            <p class="text-white/85 leading-relaxed m-0">
+              The loop is not cruelty. It is a patient teacher that returns the soul to the same lesson until the lesson becomes lived wisdom instead of mere thought.
+            </p>
+          </div>
+        </div>
+
+        <div class="chapter-block">
+          <h2 id="the-return-of-the-self">The Return of the Self</h2>
+          <p>
+            In the great stories of the ancient world, return is never a failure. It is the very mechanism of refinement. The hero leaves, wanders, suffers, remembers, and returns transformed. The circle has not failed; it has completed itself.
+          </p>
+          <p>
+            Uloop is the name for this sacred geometry of becoming. It is the movement from confusion to recognition, from motion to stillness, from forgetting to remembrance. And in that movement, the heart learns what the intellect alone cannot hold: that every ending is an invitation to enter a deeper beginning.
+          </p>
+          <div class="my-8 uloop-visual">
+            <img src="ancient-wisdom/images/uloop%20images/chapter4.jpg" alt="A visual image of the Uloop return path" loading="lazy" />
+          </div>
+          <p>
+            To live with the uloop is to stop fearing the return. It is to welcome the rhythm beneath life’s surface — the seasons, the cycles of grief and renewal, the returning questions, the recurring opportunities to become more awake.
+          </p>
+          <div class="my-8 uloop-visual">
+            <img src="ancient-wisdom/images/uloop%20images/chapter5.jpg" alt="A concluding visual for the Uloop journey" loading="lazy" />
+          </div>
+          <p>
+            The soul does not move in a straight line. It moves in a spiral. And in that spiral, what was once hidden becomes visible, and what was once closed becomes luminous.
+          </p>
+          <div class="my-8 uloop-visual">
+            <img src="ancient-wisdom/images/uloop%20images/chapter6.jpg" alt="A final illustration for the Uloop story" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="storybook.js"></script>
+</body>
+</html>

@@ -11,6 +11,34 @@
 /ev-guide                            /ev-guide.html                            200
 /pm_e-drive_ev_charging_guide        /PM_E-DRIVE_EV_Charging_Guide.html        200
 
+# Clean URL rewrites for merged storybook pages
+/space-cosmos/breathing-cosmos           /space-cosmos/breathing-cosmos.html     200
+/space-cosmos/event-horizon              /space-cosmos/event-horizon.html        200
+/space-cosmos/worlds-without-number      /space-cosmos/worlds-without-number.html 200
+/space-cosmos/rishis-stars               /space-cosmos/rishis-stars.html         200
+/quantum-realms/witness-wave             /quantum-realms/witness-wave.html       200
+/quantum-realms/entangled-unity          /quantum-realms/entangled-unity.html    200
+/quantum-realms/born-of-void             /quantum-realms/born-of-void.html       200
+/quantum-realms/cosmic-hum               /quantum-realms/cosmic-hum.html         200
+
+# Legacy deep article redirects to merged short storybook pages
+/space-cosmos/breathing-cosmos-deep      /space-cosmos/breathing-cosmos        301
+/space-cosmos/breathing-cosmos-deep.html /space-cosmos/breathing-cosmos        301
+/space-cosmos/event-horizon-deep         /space-cosmos/event-horizon           301
+/space-cosmos/event-horizon-deep.html    /space-cosmos/event-horizon           301
+/space-cosmos/worlds-without-number-deep /space-cosmos/worlds-without-number   301
+/space-cosmos/worlds-without-number-deep.html /space-cosmos/worlds-without-number 301
+/space-cosmos/rishis-stars-deep          /space-cosmos/rishis-stars            301
+/space-cosmos/rishis-stars-deep.html     /space-cosmos/rishis-stars            301
+/quantum-realms/witness-wave-deep        /quantum-realms/witness-wave         301
+/quantum-realms/witness-wave-deep.html   /quantum-realms/witness-wave         301
+/quantum-realms/entangled-unity-deep     /quantum-realms/entangled-unity      301
+/quantum-realms/entangled-unity-deep.html /quantum-realms/entangled-unity      301
+/quantum-realms/born-of-void-deep        /quantum-realms/born-of-void         301
+/quantum-realms/born-of-void-deep.html   /quantum-realms/born-of-void         301
+/quantum-realms/cosmic-hum-deep          /quantum-realms/cosmic-hum           301
+/quantum-realms/cosmic-hum-deep.html     /quantum-realms/cosmic-hum           301
+
 # Friendly aliases for the EV guide (common misspellings/variations)
 /pm-e-drive                          /PM_E-DRIVE_EV_Charging_Guide.html        200
 /pm-edrive                           /PM_E-DRIVE_EV_Charging_Guide.html        200

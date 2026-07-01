@@ -15,7 +15,7 @@
         .cosmic-bg { background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 70%); }
         .cosmic-card { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(0, 243, 255, 0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .cosmic-card:hover { border-color: rgba(0, 243, 255, 0.3); transform: translateY(-6px); }
-        .section-header { font-size: 2.8rem; line-height: 3.1rem; font-weight: 700; letter-spacing: -0.03em; }
+        .section-header { font-size: 2.8rem; line-height: 3.2rem; font-weight: 700; letter-spacing: -0.03em; }
         .space-accent { color: #14b8a6; }
         .card-image { height: 180px; object-fit: cover; border-radius: 1rem 1rem 0 0; }
     </style>
@@ -43,13 +43,25 @@
         </div>
     </nav>
 
-    <div class="max-w-4xl mx-auto px-6 pt-16 pb-12 text-center">
+    <div class="max-w-5xl mx-auto px-6 pt-16 pb-14 text-center">
         <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-emerald-400/30 bg-emerald-400/10 mb-6">
             <i class="fa-solid fa-rocket text-emerald-400"></i>
             <span class="text-xs uppercase tracking-[2px] text-emerald-400 font-medium">Vastness &amp; Wonder</span>
         </div>
-        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter mb-4">Space &amp; Cosmos</h1>
-        <p class="text-2xl text-white/60 max-w-2xl mx-auto">Where telescopes meet timeless insight. The universe as seen by modern science — illuminated by the cosmic imagination of the Vedas and Puranas.</p>
+        
+        <h1 class="section-header mb-6">Space &amp; Cosmos</h1>
+        <p class="text-xl text-white/70 max-w-3xl mx-auto leading-tight">
+            Where telescopes meet timeless insight.<br>
+            The universe as seen by modern science — illuminated by the cosmic imagination of the Vedas and Puranas.
+        </p>
+        
+        <div class="mt-8 flex justify-center">
+            <button onclick="document.getElementById('explore-section').scrollIntoView({ behavior: 'smooth' })" 
+                    class="px-7 py-3 rounded-2xl text-sm font-semibold border border-emerald-400/40 hover:bg-emerald-500/10 text-emerald-300 flex items-center justify-center gap-x-2 transition-all">
+                <span>Explore the Cosmos</span>
+                <i class="fa-solid fa-compass"></i>
+            </button>
+        </div>
     </div>
 
     <div class="max-w-5xl mx-auto px-6 pb-12">
@@ -62,7 +74,7 @@
         </div>
     </div>
 
-    <div class="max-w-6xl mx-auto px-6 pb-20">
+    <div class="max-w-6xl mx-auto px-6 pb-20" id="explore-section">
         <div class="flex items-end justify-between mb-8">
             <div>
                 <span class="text-xs uppercase tracking-[3px] text-emerald-400">The Journeys</span>
