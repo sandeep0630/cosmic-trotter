@@ -1,5 +1,31 @@
+const fs = require('fs');
+const path = require('path');
+
+function loadDotEnv() {
+  const envPath = path.resolve(process.cwd(), '.env');
+  if (!fs.existsSync(envPath)) return;
+
+  const contents = fs.readFileSync(envPath, 'utf8');
+  contents.split(/\r?\n/).forEach((line) => {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) return;
+    const sep = trimmed.indexOf('=');
+    if (sep === -1) return;
+    const name = trimmed.slice(0, sep).trim();
+    let value = trimmed.slice(sep + 1).trim();
+    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+      value = value.slice(1, -1);
+    }
+    if (process.env[name] === undefined) {
+      process.env[name] = value;
+    }
+  });
+}
+
+loadDotEnv();
+
 const SUPABASE_URL = (process.env.SUPABASE_URL || '').replace(/\/$/, '');
-const SUPABASE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_ANON_KEY || '';
+const SUPABASE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY || '';
 
 const jsonHeaders = {
   'Content-Type': 'application/json; charset=utf-8',

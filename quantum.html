@@ -15,7 +15,7 @@
         .cosmic-bg { background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 70%); }
         .cosmic-card { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(124, 58, 237, 0.15); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .cosmic-card:hover { border-color: rgba(124, 58, 237, 0.4); transform: translateY(-6px); }
-        .section-header { font-size: 2.8rem; line-height: 3.1rem; font-weight: 700; letter-spacing: -0.03em; }
+        .section-header { font-size: 2.8rem; line-height: 3.2rem; font-weight: 700; letter-spacing: -0.03em; }
         .quantum-accent { color: #a78bfa; }
         .card-image { height: 180px; object-fit: cover; border-radius: 1rem 1rem 0 0; }
     </style>
@@ -43,13 +43,25 @@
         </div>
     </nav>
 
-    <div class="max-w-4xl mx-auto px-6 pt-16 pb-12 text-center">
+    <div class="max-w-5xl mx-auto px-6 pt-16 pb-14 text-center">
         <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-violet-400/30 bg-violet-400/10 mb-6">
             <i class="fa-solid fa-atom text-violet-400"></i>
             <span class="text-xs uppercase tracking-[2px] text-violet-400 font-medium">The Strange &amp; Beautiful</span>
         </div>
-        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter mb-4">Quantum Realms</h1>
-        <p class="text-2xl text-white/60 max-w-2xl mx-auto">Where reality refuses to behave. The smallest scales of the universe reveal a world of observation, connection, and vibration that ancient insight recognized in the language of consciousness.</p>
+        
+        <h1 class="section-header mb-6">Quantum Realms</h1>
+        <p class="text-xl text-white/70 max-w-3xl mx-auto leading-tight">
+            Where reality refuses to behave.<br>
+            The smallest scales reveal observation, connection, and vibration that ancient insight recognized.
+        </p>
+        
+        <div class="mt-8 flex justify-center">
+            <button onclick="document.getElementById('explore-section').scrollIntoView({ behavior: 'smooth' })" 
+                    class="px-7 py-3 rounded-2xl text-sm font-semibold border border-violet-400/40 hover:bg-violet-500/10 text-violet-300 flex items-center justify-center gap-x-2 transition-all">
+                <span>Enter the Quantum</span>
+                <i class="fa-solid fa-flask"></i>
+            </button>
+        </div>
     </div>
 
     <div class="max-w-5xl mx-auto px-6 pb-12">
@@ -62,7 +74,7 @@
         </div>
     </div>
 
-    <div class="max-w-6xl mx-auto px-6 pb-20">
+    <div class="max-w-6xl mx-auto px-6 pb-20" id="explore-section">
         <div class="flex items-end justify-between mb-8">
             <div>
                 <span class="text-xs uppercase tracking-[3px] text-violet-400">The Discoveries</span>

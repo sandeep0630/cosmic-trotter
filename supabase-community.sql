@@ -51,9 +51,40 @@ create table if not exists public.community_likes (
 create index if not exists community_likes_item_idx
   on public.community_likes (item_id);
 
+create table if not exists public.ask_krishna_qa (
+  id uuid primary key default gen_random_uuid(),
+  question text not null,
+  answer_text text,
+  source_type text not null default 'ai_generated',
+  created_at timestamptz not null default now()
+);
+
+create index if not exists ask_krishna_qa_created_idx
+  on public.ask_krishna_qa (created_at desc);
+
+alter table public.ask_krishna_qa enable row level security;
+
+drop policy if exists "ask krishna qa are publicly readable" on public.ask_krishna_qa;
+create policy "ask krishna qa are publicly readable"
+  on public.ask_krishna_qa
+  for select
+  to anon, authenticated
+  using (true);
+
+drop policy if exists "ask krishna qa can be publicly created" on public.ask_krishna_qa;
+create policy "ask krishna qa can be publicly created"
+  on public.ask_krishna_qa
+  for insert
+  to anon, authenticated
+  with check (
+    char_length(trim(question)) between 1 and 2000
+    and char_length(trim(source_type)) between 1 and 80
+  );
+
 create or replace function public.set_community_item_updated_at()
 returns trigger
 language plpgsql
+set search_path = public
 as $$
 begin
   new.updated_at = now();
@@ -135,6 +166,15 @@ begin
   return null;
 end;
 $$;
+
+-- These functions are used internally by triggers only.
+-- Revoke direct RPC execution so anon/authenticated visitors cannot call
+-- SECURITY DEFINER functions through /rest/v1/rpc/*.
+revoke execute on function public.set_community_item_updated_at() from public, anon, authenticated;
+revoke execute on function public.refresh_community_like_count(uuid) from public, anon, authenticated;
+revoke execute on function public.refresh_community_comment_count(uuid) from public, anon, authenticated;
+revoke execute on function public.community_like_count_trigger() from public, anon, authenticated;
+revoke execute on function public.community_comment_count_trigger() from public, anon, authenticated;
 
 drop trigger if exists community_like_count_after_insert on public.community_likes;
 create trigger community_like_count_after_insert

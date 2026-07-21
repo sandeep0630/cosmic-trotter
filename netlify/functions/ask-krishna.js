@@ -20,7 +20,83 @@
 // Note: Groq was previously recommended but is geo-blocked in many countries (including India).
 // We now use Google Gemini which works globally and is completely free.
 
+const fs = require('fs');
+const path = require('path');
+
+function loadDotEnv() {
+  const envPath = path.resolve(process.cwd(), '.env');
+  if (!fs.existsSync(envPath)) return;
+
+  const contents = fs.readFileSync(envPath, 'utf8');
+  contents.split(/\r?\n/).forEach((line) => {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) return;
+    const sep = trimmed.indexOf('=');
+    if (sep === -1) return;
+    const name = trimmed.slice(0, sep).trim();
+    let value = trimmed.slice(sep + 1).trim();
+    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+      value = value.slice(1, -1);
+    }
+    if (process.env[name] === undefined) {
+      process.env[name] = value;
+    }
+  });
+}
+
+loadDotEnv();
+
 const API_KEY = process.env.GEMINI_API_KEY; // Completely free: Use Google Gemini (generous free tier)
+const SUPABASE_URL = (process.env.SUPABASE_URL || '').replace(/\/$/, '');
+const SUPABASE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY || '';
+const SUPABASE_HEADERS = {
+  apikey: SUPABASE_KEY,
+  Authorization: `Bearer ${SUPABASE_KEY}`
+};
+
+async function saveAskKrishnaQA(question, answer, sourceType = 'ai_generated') {
+  if (!SUPABASE_URL || !SUPABASE_KEY) {
+    return { saved: false, attempted: false, error: 'missing_supabase_env' };
+  }
+
+  const payload = {
+    question,
+    answer_text: answer,
+    source_type: 'ai_generated'
+  };
+
+  try {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/ask_krishna_qa`, {
+      method: 'POST',
+      headers: {
+        ...SUPABASE_HEADERS,
+        'Content-Type': 'application/json',
+        Prefer: 'return=representation'
+      },
+      body: JSON.stringify([payload])
+    });
+
+    const text = await response.text();
+    if (!response.ok) {
+      console.warn('[AskKrishna Function] Supabase insert failed:', response.status, text);
+      return { saved: false, attempted: true, error: text || `status:${response.status}` };
+    }
+
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (parseError) {
+      console.warn('[AskKrishna Function] Supabase insert parse failed:', parseError, text);
+      return { saved: false, attempted: true, error: `parse_error:${parseError.message}` };
+    }
+
+    const record = Array.isArray(data) && data[0] ? data[0] : null;
+    return { saved: !!record, attempted: true, record, error: record ? null : 'no_record_returned' };
+  } catch (error) {
+    console.warn('[AskKrishna Function] Supabase insert error:', error);
+    return { saved: false, attempted: true, error: error.message || String(error) };
+  }
+}
 
 const SYSTEM_PROMPT = `You are Lord Krishna from the Bhagavad Gita, speaking directly and personally to the user as if they are Arjuna coming to you for guidance in the middle of their life struggles.
 
@@ -50,18 +126,6 @@ exports.handler = async function(event, context) {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
-  if (!API_KEY) {
-    console.warn('[AskKrishna Function] No GEMINI_API_KEY found in environment. Returning local fallback.');
-    return {
-      statusCode: 200,
-      body: JSON.stringify({
-        reply: null,
-        useLocal: true,
-        message: "I am here with the eternal teachings. For a more flowing conversation, the site owner can connect me to Google Gemini (free)."
-      })
-    };
-  }
-
   let body;
   try {
     body = JSON.parse(event.body || '{}');
@@ -73,6 +137,27 @@ exports.handler = async function(event, context) {
 
   if (!userMessage || typeof userMessage !== 'string') {
     return { statusCode: 400, body: JSON.stringify({ error: 'userMessage is required' }) };
+  }
+
+  if (!API_KEY) {
+    console.warn('[AskKrishna Function] No GEMINI_API_KEY found in environment. Returning local fallback.');
+    const saveResult = await saveAskKrishnaQA(userMessage, null, 'local_fallback');
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        reply: null,
+        useLocal: true,
+        saved: saveResult.saved,
+        saveAttempted: saveResult.attempted,
+        saveError: saveResult.error,
+        qa: saveResult.record ? { id: saveResult.record.id } : null,
+        message: "I am here with the eternal teachings. For a more flowing conversation, the site owner can connect me to Google Gemini (free)."
+      })
+    };
+  }
+
+  if (!SUPABASE_URL || !SUPABASE_KEY) {
+    console.warn('[AskKrishna Function] Supabase environment variables are missing. Skipping storage.');
   }
 
   // Build messages for Gemini (last ~10 turns for context)
@@ -141,10 +226,18 @@ exports.handler = async function(event, context) {
         const reply = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
         if (reply) {
           console.info(`[AskKrishna Function] Gemini succeeded with model: ${model}`);
+          const saveResult = await saveAskKrishnaQA(userMessage, reply);
           return {
             statusCode: 200,
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ reply, source: 'llm' })
+            body: JSON.stringify({
+              reply,
+              source: 'llm',
+              saved: saveResult.saved,
+              saveAttempted: saveResult.attempted,
+              saveError: saveResult.error,
+              qa: saveResult.record ? { id: saveResult.record.id } : null
+            })
           };
         }
       } else {
@@ -160,12 +253,15 @@ exports.handler = async function(event, context) {
 
   // All models failed - fall back to local Gita wisdom if possible, else generic
   console.error('[AskKrishna Function] All Gemini models failed. Last error:', lastError);
-  // For now, use the same generic as before; the widget has full local engine as ultimate fallback
+  const saveResult = await saveAskKrishnaQA(userMessage, null, 'llm_error');
   return {
     statusCode: 200,
     body: JSON.stringify({
       reply: null,
       useLocal: true,
+      saved: saveResult.saved,
+      saveAttempted: saveResult.attempted,
+      saveError: saveResult.error,
       message: 'The connection to the deeper wisdom is quiet for a moment. I will answer from the timeless teachings instead.',
       debug: {
         message: lastError ? lastError.message : 'All models failed',

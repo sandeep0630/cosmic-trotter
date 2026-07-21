@@ -195,6 +195,7 @@
                 if (!res.ok) throw new Error('Function call failed');
 
                 const data = await res.json();
+                console.info('[Ask Krishna Bot] Function response:', data);
 
                 if (data.useLocal || !data.reply) {
                     return null; // signal to use local engine
