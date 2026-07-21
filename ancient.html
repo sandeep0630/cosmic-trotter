@@ -6,7 +6,7 @@
     <title>Ancient Wisdom • CosmicTrotter</title>
     <link rel="canonical" href="https://cosmictrotter.com/ancient.html">
     
-    <meta name="description" content="Timeless teachings from the Vedas and Puranas. Explore Lord Vishnu's Dashavatara, Lord Jagannath of Puri, and other core wisdom from ancient India.">
+    <meta name="description" content="Timeless teachings from the Vedas and Puranas. Explore Dashavatara, Lord Jagannath of Puri, and other core wisdom from ancient India.">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
@@ -204,19 +204,6 @@
                 isDashavatara: true
             },
             {
-
-                href: "uloop.html",
-                category: "puranas",
-                level: "Storybook",
-                read: "5 min",
-                title: "Uloop: The Rhythm of Return",
-                desc: "A luminous story of recurrence, remembrance, and the sacred loop that turns endings into beginnings.",
-                icon: "fa-rotate",
-                iconColor: "from-cyan-400 to-emerald-500",
-                iconBg: "text-black",
-                isUloop: true
-            },
-            {
                 href: "puri-jaganath.html",
                 category: "puranas",
                 level: "Origin → Rituals",
@@ -334,13 +321,13 @@
             }
 
             container.innerHTML = filtered.map(a => {
-                const isFeatured = a.isDashavatara || a.isUloop;
+                const isFeatured = a.isDashavatara;
                 const cardClasses = `wisdom-card cosmic-card rounded-xl p-5 border border-white/10 group ${isFeatured ? 'border-amber-400/30 bg-amber-900/5' : ''}`;
                 const titleHover = isFeatured ? 'group-hover:text-amber-300' : 'group-hover:text-[#00f3ff]';
-                const badgeText = a.isDashavatara ? 'ILLUSTRATED JOURNEY' : a.isUloop ? 'STORYBOOK PATH' : 'DEEP DIVE';
+                const badgeText = a.isDashavatara ? 'ILLUSTRATED JOURNEY' : 'DEEP DIVE';
                 const badgeColor = isFeatured ? 'text-amber-300' : 'text-amber-400';
                 const readBadge = isFeatured ? 'bg-amber-400/10 text-amber-300' : 'bg-white/10';
-                const actionText = a.isDashavatara ? 'Start the Journey' : a.isUloop ? 'Enter the Story' : 'Read Article';
+                const actionText = a.isDashavatara ? 'Start the Journey' : 'Read Article';
                 const actionColor = isFeatured ? 'text-amber-300' : 'text-[#00f3ff]';
                 
                 return `

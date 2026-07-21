@@ -227,7 +227,6 @@
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
-
   <!-- Legacy Matsya redirect note -->
   <url>
     <loc>https://cosmictrotter.com/ancient-wisdom/matsya.html</loc>
