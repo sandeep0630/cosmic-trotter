@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lord Jagannath of Puri • CosmicTrotter</title>
+    <link rel="canonical" href="https://cosmictrotter.com/puri-jaganath.html">
+
+    <meta name="description" content="Lord Jagannath of Puri — origin from the Puranas, the sacred temple, and living rituals from Snana Yatra to Rath Yatra and Nabakalebara. Traditional + historical, illustrated storybook.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
+
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+            background: #0a0a0f;
+            color: #e0e7ff;
+        }
+
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .cosmic-bg {
+            background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 70%);
+        }
+
+        .section-header {
+            font-size: 2.6rem;
+            line-height: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .avatar-story {
+            scroll-margin-top: 5rem;
+            border-top: 1px solid rgba(251, 191, 36, 0.1);
+            padding-top: 2.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .avatar-story:first-of-type {
+            border-top: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .chapter {
+            margin-bottom: 2.5rem;
+        }
+
+        .chapter h3 {
+            color: #fcd34d;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+        }
+
+        .avatar-title-img {
+            display: block;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+        }
+
+        .chapter-img {
+            border-radius: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.45);
+            margin: 0.8rem 0;
+        }
+
+        .illustration-caption {
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.55);
+            font-style: italic;
+            text-align: center;
+            margin-top: -0.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .core-wisdom {
+            background: linear-gradient(145deg, rgba(251, 191, 36, 0.09), rgba(245, 158, 11, 0.035));
+            border: 1px solid rgba(251, 191, 36, 0.22);
+        }
+
+        .story-nav {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .story-nav a {
+            flex: 1;
+            text-align: center;
+            padding: 0.6rem 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(251, 191, 36, 0.25);
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .story-nav a:hover {
+            background: rgba(251, 191, 36, 0.08);
+            border-color: rgba(251, 191, 36, 0.45);
+        }
+
+        .reading-progress-shell {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 150;
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.08);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .reading-mode .reading-progress-shell {
+            opacity: 1;
+        }
+
+        #reading-progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #facc15, #22d3ee);
+            box-shadow: 0 0 14px rgba(250, 204, 21, 0.45);
+            transition: width 0.08s linear;
+        }
+
+        .reading-mode {
+            background: radial-gradient(circle at top, #15131f 0%, #07070b 58%);
+        }
+
+        .reading-mode .avatar-story {
+            max-width: 76ch;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 3rem;
+        }
+
+        .reading-mode .chapter {
+            margin-bottom: 3.2rem;
+            scroll-margin-top: 6.5rem;
+        }
+
+        .reading-mode .chapter h3 {
+            font-size: 1.45rem;
+            line-height: 1.35;
+            margin-bottom: 1rem;
+        }
+
+        .reading-mode .chapter p {
+            font-size: 1.08rem;
+            line-height: 1.95;
+            color: rgba(238, 242, 255, 0.9);
+            margin-bottom: 1.05rem;
+        }
+
+        .reading-mode .chapter-img,
+        .reading-mode .avatar-title-img {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #reading-mode-btn[aria-pressed="true"] {
+            border-color: rgba(251, 191, 36, 0.5);
+            background: rgba(251, 191, 36, 0.1);
+            color: #fde68a;
+        }
+
+        .chapter-heading {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .chapter-heading .heading-text {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .bookmark-toggle {
+            width: 2rem;
+            height: 2rem;
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            border: 1px solid rgba(251, 191, 36, 0.24);
+            background: rgba(15, 23, 42, 0.82);
+            color: rgba(255, 255, 255, 0.68);
+            box-shadow: 0 10px 26px -18px rgba(0, 0, 0, 0.75);
+            transition: transform 0.18s ease, opacity 0.18s ease, background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+        }
+
+        .bookmark-toggle:hover,
+        .bookmark-toggle:focus-visible,
+        .bookmark-toggle.is-saved {
+            border-color: rgba(251, 191, 36, 0.7);
+            background: rgba(251, 191, 36, 0.16);
+            color: #fcd34d;
+            transform: translateY(-1px);
+        }
+
+        .bookmark-toggle i {
+            pointer-events: none;
+        }
+
+        .chapter-bookmark {
+            margin-top: -0.25rem;
+        }
+
+        .bookmarkable-paragraph {
+            position: relative;
+            scroll-margin-top: 6.25rem;
+        }
+
+        .bookmarkable-paragraph.is-bookmarked {
+            background: linear-gradient(90deg, rgba(251, 191, 36, 0.12), rgba(251, 191, 36, 0.025));
+            box-shadow: -3px 0 0 rgba(251, 191, 36, 0.65);
+        }
+
+        .para-bookmark {
+            position: absolute;
+            top: 0.12rem;
+            left: -2.75rem;
+            opacity: 0;
+            transform: translateX(0.35rem);
+        }
+
+        .bookmarkable-paragraph:hover .para-bookmark,
+        .bookmarkable-paragraph:focus-within .para-bookmark,
+        .reading-mode .para-bookmark,
+        .para-bookmark.is-saved {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .bookmark-panel-card {
+            width: min(46rem, calc(100vw - 1.5rem));
+            max-height: min(78vh, 44rem);
+        }
+
+        .bookmark-item {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        @media (max-width: 768px) {
+            .chapter-heading {
+                gap: 0.5rem;
+            }
+
+            .para-bookmark {
+                position: static;
+                float: right;
+                margin: 0.1rem 0 0.35rem 0.65rem;
+                opacity: 0.76;
+                transform: none;
+            }
+
+            .reading-mode .chapter p {
+                font-size: 1.02rem;
+                line-height: 1.85;
+            }
+        }
+
+        .temp-highlight {
+            animation: gentleHighlight 2.4s ease forwards;
+        }
+
+        @keyframes gentleHighlight {
+            0% { background-color: rgba(251, 191, 36, 0.18); }
+            100% { background-color: transparent; }
+        }
+
+        .avatar-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 0.6rem;
+        }
+
+        .avatar-chip {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(251, 191, 36, 0.15);
+            transition: all 0.25s ease;
+            padding: 0.5rem 0.65rem;
+            border-radius: 0.6rem;
+            font-size: 0.85rem;
+        }
+
+        .avatar-chip:hover {
+            border-color: rgba(251, 191, 36, 0.4);
+            background: rgba(251, 191, 36, 0.06);
+        }
+
+        .dash-top-button {
+            position: fixed;
+            right: 1.25rem;
+            bottom: 5.35rem;
+            z-index: 79;
+            width: 3rem;
+            height: 3rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            border: 1px solid rgba(251, 191, 36, 0.28);
+            background: rgba(15, 23, 42, 0.9);
+            color: #fde68a;
+            box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(0.5rem);
+            transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .dash-top-button.is-visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .dash-top-button:hover,
+        .dash-top-button:focus-visible {
+            background: rgba(251, 191, 36, 0.16);
+            border-color: rgba(251, 191, 36, 0.65);
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 640px) {
+            .dash-top-button {
+                right: 1rem;
+                bottom: 5rem;
+                width: 2.75rem;
+                height: 2.75rem;
+            }
+        }
+
+        .source-note {
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.5);
+            border-left: 2px solid rgba(251, 191, 36, 0.35);
+            padding-left: 0.75rem;
+            margin: 0.75rem 0 1rem;
+        }
+    </style>
+    <script src="theme-toggle.js?v=20260616-light-5"></script>
+    <script src="site-nav.js?v=20260617-explore-1"></script>
+</head>
+<body class="cosmic-bg">
+    <div class="reading-progress-shell" aria-hidden="true">
+        <div id="reading-progress-bar"></div>
+    </div>
+    <button id="dash-top-button" class="dash-top-button notranslate" type="button" aria-label="Back to top" title="Back to top" translate="no">
+        <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <!-- Hero -->
+    <div class="max-w-5xl mx-auto px-6 pt-14 pb-10 text-center">
+        <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-amber-400/30 bg-amber-400/10 mb-5">
+            <i class="fa-solid fa-om text-amber-400"></i>
+            <span class="text-xs uppercase tracking-[2px] text-amber-400 font-medium">From the Puranas &amp; Living Tradition</span>
+        </div>
+
+        <h1 class="section-header mb-4">Lord Jagannath of Puri</h1>
+        <p class="text-xl text-white/75 max-w-3xl mx-auto">పూరీ జగన్నాథుడు — who he is; the living Puri story of Krishna’s heart; how the public form appeared; how the temple endured; how he is loved today.</p>
+
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-4">
+            <a href="ancient.html" class="inline-flex items-center gap-x-2 text-sm text-amber-300 hover:text-amber-200">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Back to Ancient Wisdom</span>
+            </a>
+            <a href="dashavatara.html" class="inline-flex items-center gap-x-2 text-sm text-white/50 hover:text-amber-200">
+                <span>Sister journey: Dashavatara</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Quick Part Navigator -->
+    <div class="max-w-6xl mx-auto px-6 pb-8">
+        <div class="text-xs uppercase tracking-widest text-amber-400 mb-2">Jump to any Chapter</div>
+        <div class="avatar-selector" id="quick-nav"></div>
+    </div>
+
+    <!-- Reading tools -->
+    <div class="max-w-5xl mx-auto px-6">
+        <div class="flex items-center justify-between mb-5 border-b border-white/10 pb-3">
+            <div class="text-sm text-white/60">Storybook journey • EN + తెలుగు • Sources in References</div>
+            <div class="flex gap-x-2">
+                <button id="reading-mode-btn"
+                        class="px-4 py-1.5 text-sm rounded-xl border border-white/20 hover:bg-white/5 flex items-center gap-x-2 transition-colors"
+                        aria-pressed="false"
+                        title="Toggle reading mode">
+                    <i class="fa-solid fa-book"></i>
+                    <span class="hidden sm:inline">Reading mode</span>
+                </button>
+                <button id="bookmarks-btn"
+                        class="px-4 py-1.5 text-sm rounded-xl border border-white/20 hover:bg-white/5 flex items-center gap-x-2 transition-colors"
+                        title="Open saved places"
+                        aria-label="Open saved places">
+                    <i class="fa-solid fa-bookmark"></i>
+                    <span class="hidden sm:inline">My places</span>
+                    <span id="bookmark-count" class="text-[10px] px-1.5 rounded bg-white/10">0</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-6 pb-16">
+
+        <!-- 1 WHO -->
+        <section id="part-who" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">1</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Who Is Lord Jagannath of Puri?</h2>
+                    <div class="text-amber-300/90 text-sm">జగన్నాథుడు ఎవరు? • Lord of the Universe</div>
+                </div>
+            </div>
+
+            <img src="ancient-wisdom/images/jagannath-title.jpg" alt="Balabhadra, Subhadra, and Jagannath on the sacred throne — Subhadra in the middle" class="avatar-title-img w-full max-w-4xl mx-auto my-6 rounded-2xl border border-white/10 shadow-2xl shadow-black/40">
+            <p class="illustration-caption">Balabhadra, Subhadra, and Jagannath — traditional order with Subhadra in the middle.</p>
+
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>The name and the face of the Lord</h3>
+                    <p>On the eastern coast of India, in the city of <strong>Puri</strong> in Odisha, stands a temple that millions simply call <strong>Srimandir</strong>. Within its inner sanctum sits a form of the Divine unlike the polished stone gods of many other shrines. His name is <strong>Jagannath</strong> — Lord of the Universe — from the Sanskrit words <em>jagat</em> (the world) and <em>nātha</em> (lord).</p>
+                    <p>He is not alone. On the jewelled throne called the <em>ratnavedi</em> or <em>ratnasinghasana</em>, the three stand in their traditional order: elder brother <strong>Balabhadra</strong> to one side, sister <strong>Subhadra</strong> in the middle, and <strong>Jagannath</strong> to the other — with the companion presence of <strong>Sudarshana</strong>. Their bodies are carved from sacred neem wood, called <em>daru</em>. Their eyes are large and round — so large that living devotion calls him <strong>Chakadola</strong>, the round-eyed Lord who never looks away. Their limbs do not look like ordinary finished statues. To devotees, that look is not a defect. Later chapters tell both the Indradyumna workshop story and the living story of why those eyes grew so big in love. It is the face by which the Lord of the Universe has chosen to be known in Puri.</p>
+                    <p>In older sacred speech he is also called <strong>Purushottama</strong>, the Supreme Person. The land around him is <strong>Purushottama Kshetra</strong>, <strong>Shrikshetra</strong>, <strong>Nilachala</strong> — the blue mountain by the sea. For Vaishnavas he is Vishnu and Krishna in a uniquely approachable form. For Odisha he is the heart of a whole culture of food, festival, song, and service.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Why this story is told as a journey</h3>
+                    <p>To understand Jagannath is to walk a path that begins in mythic memory, moves through the building of a great temple, and arrives at the living worship of today. The pages that follow tell that path as a story: how many devotees connect him to the farewell of Krishna at Dwaraka, how tradition says his presence reached the eastern shore, how Nilamadhava and Indradyumna opened the public form of the Lord, how kings and saints built and guarded his house, and how the year still opens for him on chariots of wood.</p>
+                    <p>Where the tale comes from the Mahabharata, the Bhagavata, Odia poets, and temple legend, it is told as tradition and labeled as such. Where stone, kings, and recorded history speak, that too is woven in. We will not turn living mystery into fake science, and we will not pretend every strand is the same book written once.</p>
+                </div>
+            </div>
+
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• The Lord of the Universe also has a local home by the sea.</li>
+                    <li>• Wood, eyes, and unfinished limbs are signs of nearness, not of lesser divinity.</li>
+                    <li>• Brother, sister, and Lord sit together — devotion as a family of care.</li>
+                    <li>• To know Jagannath is to know both legend and living practice.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-heart">Next: Krishna’s Heart →</a>
+            </div>
+        </section>
+
+        <!-- 2 KRISHNA HEART — living Puri story -->
+        <section id="part-heart" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">2</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">The Living Story of Krishna’s Heart</h2>
+                    <div class="text-amber-300/90 text-sm">కృష్ణ హృదయం • As told and believed in Puri</div>
+                </div>
+            </div>
+
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-book-open"></i> How to hear this chapter</div>
+                <p class="text-sm text-white/85 leading-relaxed">What follows is told <strong>according to the living story of Puri and Odisha</strong> — the devotion that pilgrims hear from local lore, Odia poetic memory (especially the world shaped by <strong>Sarala Dasa</strong>), and the way many people of Shrikshetra connect Jagannath to Krishna of Dwaraka. It is a <strong>living sacred story</strong>, not a verse-by-verse quote from the Sanskrit Mahabharata or Bhagavatam. Those great books remember Krishna’s departure and Arjuna’s grief in their own way; Puri’s living story continues the love further, across the sea, into Nilachala.</p>
+            </div>
+
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>The curtain falls on Dwaraka</h3>
+                    <img src="ancient-wisdom/images/jagannath-chapter-11-krishna-departure.jpg" alt="Lord Krishna at Prabhasa under a tree as hunter Jara realizes his error" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">Prabhasa — where the living story of Puri begins its journey from Krishna’s farewell.</p>
+                    <p>In the living memory of Puri, the story of Jagannath does not begin only with a king and a temple. It begins with a farewell on the western sea. After the age of the Mahabharata war, after the long glory of Dwaraka, the Yadava world collapses under curse and conflict. The city that once shone like a jewel begins to empty of heroes. Krishna, the friend of Arjuna and the heart of the world, goes to Prabhasa. There, beneath a tree, he rests. A hunter named <strong>Jara</strong>, seeing the sole of the Lord’s foot and mistaking it for a deer, draws his bow. The arrow finds its mark. The age of Krishna’s earthly play, as people in Puri still say with tears in the voice, reaches its appointed end.</p>
+                    <p>The great Sanskrit books also remember this turning. The Mahabharata’s Mausala Parva and the Bhagavata Purana both know Jara, Krishna’s departure, the grief of the survivors, and the drowning of Dwaraka. But in Puri the story does not stop at departure. Living devotion asks a child’s question with a devotee’s seriousness: <em>If Krishna left, where did his love go?</em> The answer that lives on the Grand Road and in Odia storytelling is this: love did not vanish. Love took another form, another coast, another home — and that home is Nilachala.</p>
+                    <p class="source-note">Shared scriptural frame (departure of Krishna, Jara, Dwaraka’s end): Mahabharata and Bhagavatam. The continuation into “heart–ocean–Puri” is the living Puri/Odia story developed below — not a claim that every line is printed in those two Sanskrit works.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>Arjuna and the pyre that could not finish</h3>
+                    <img src="ancient-wisdom/images/jagannath-chapter-12-unburnt-heart.jpg" alt="Arjuna kneeling by a funeral pyre as Krishna’s realistic unburnt heart glows with golden divine aura on the sand" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">Living Puri story: Arjuna’s grief, the funeral fire, and the unburnt heart shining with golden aura.</p>
+                    <p>According to the <strong>living story told in Puri</strong>, Arjuna comes as friend, not only as warrior. He has shared Krishna’s life through exile, war, counsel, and laughter. Now he must face the silence after the Lord’s last play. In the Odia imagination shaped especially by poets like <strong>Sarala Dasa</strong>, Arjuna performs the last duties of love. A funeral fire is raised. Scents and wood are offered. The world expects the ordinary end of a body.</p>
+                    <p>But the fire, says the living story, cannot finish its work. When the flames have done all that fire can do, something remains — radiant, unconsumed, impossible to treat as ash. The people of Puri call it <strong>Krishna’s heart</strong>. Not a medical object for laboratories, but the living core of the Beloved that heaven itself will not let the world discard. Arjuna stands before a mystery: even death cannot take everything from Krishna. Something of the Lord still waits for another journey.</p>
+                    <p>Then, as so often in sacred story, a voice beyond the pyre speaks into Arjuna’s grief. He is told not to force this unfinished grace into ordinary burial. He is told to entrust the heart to the ocean — to join it with wood, a sacred log, and give it to the western sea that once held Dwaraka. The sea will become a road. Time will become a boatman. The heart will travel until it finds the shore where the next age of worship is waiting.</p>
+                    <p>In the Sanskrit Mahabharata, Arjuna does arrange the cremation of Rama (Balarama) and Vasudeva (Krishna) and performs the rites of the dead — but that text does not narrate an unburnt heart or a voyage to Puri. The living story of Puri takes the grief of Arjuna and the fire of farewell and continues them into a devotion the eastern coast still sings.</p>
+                    <p class="source-note">Living Puri / Odia story: unburnt heart, Arjuna’s entrusting of it to the sea with wood. Literary memory often linked to Sarala Dasa’s Odia Mahabharata world. Mahabharata Mausala confirms cremation rites by Arjuna’s care, not the heart-to-Puri voyage.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>The ocean road from west to east</h3>
+                    <img src="ancient-wisdom/images/jagannath-chapter-13-ocean-journey.jpg" alt="Realistic sacred heart of Krishna with golden-blue aura resting on a wooden log floating across the starlit ocean" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">According to Puri’s living story: the heart rides the ocean road from the west toward Nilachala.</p>
+                    <p>So, in the living story of Puri, Arjuna obeys. The heart of Krishna, bound to wood, is given to the waters off the western coast. The log does not merely drift for a day or a week in the tellings people love. It moves across a sacred stretch of time. It rounds the long curve of Bharata’s shore. From the west, where Dwaraka once glittered and then sank, the sacred burden travels toward the east, where another blue mountain rises beside another sea — <strong>Nilachala</strong>, the home that will be called Purushottama Kshetra, Shrikshetra, Puri.</p>
+                    <p>Pilgrims who hear this story on the sands of Puri often feel a simple thrill: the same ocean that swallowed Dwaraka becomes the path that delivers love to Odisha. West and east are not two different Gods. They are two chapters of one Beloved. When the waves strike the beach near the temple, some say they are still carrying the memory of that journey — the heart that would not burn, seeking the land that would never stop worshipping it.</p>
+                    <p>This is not a shipping log with dates and ports. It is theology told as tide. It answers the fear that Krishna’s age ended in silence. The living story of Puri answers: no — Krishna’s age changed coast, changed form, and kept its heart.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>When the hunter becomes the guardian</h3>
+                    <img src="ancient-wisdom/images/jagannath-chapter-14-heart-nilamadhava.jpg" alt="Viswabasu discovering a realistic deep-blue sacred heart glowing with golden aura among banyan roots by the sea" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">Living story: Viswabasu finds the blue sacred heart — Nilamadhava’s beginning.</p>
+                    <p>The living story grows still more tender. The hunter <strong>Jara</strong>, who released the arrow at Prabhasa, does not remain forever only the man of the wound. In the Odia weaving remembered in Puri, he is reborn in the forests of the east as <strong>Viswabasu</strong> (Biswa Basu) of the Sabara people. Destiny folds guilt into service. The hand that once hurt the Lord’s foot becomes the hand that will serve the Lord’s remaining presence.</p>
+                    <p>There, among trees and secret paths near the blue mountain, Viswabasu discovers what the sea and the ages have delivered. Living tellings speak of a congealed blue sacred presence — a blue stone, a heart become jewel, the living core of Krishna — and he worships it as <strong>Nilamadhava</strong>, the blue Madhava of the forest. No palace yet. No stone tower yet. Only a tribal devotee and a hidden God, offerings of deep simplicity, and a secret that kings do not own.</p>
+                    <p>This is why people in Puri often say that Jagannath’s love includes the forest and the palace, the Sabara and the king, the west and the east. The living heart-story makes Viswabasu not a side character, but the bridge between Krishna’s farewell and Puri’s beginning.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>How this living story meets Indradyumna’s temple story</h3>
+                    <p>Only after this, in the same continuous telling, does the royal chapter open. King <strong>Indradyumna</strong> hears of the miracle of the blue Lord. He longs for darshan. He sends <strong>Vidyapati</strong>. The search for Nilamadhava begins — and, as the next part of this book tells in full, the sapphire form is concealed, a divine log appears from the sea, and the public wooden forms of Balabhadra, Subhadra (in the middle), Jagannath, and Sudarshana are carved and consecrated.</p>
+                    <p>In the living story of Puri, these are not two unrelated myths stacked at random. They are one love told in two movements: first the heart that travels from Dwaraka; then the king who builds a house for the Lord of the Universe. Some tellings feel that the sacred log Indradyumna receives is itself bound to that same ocean journey of grace. Other official temple summaries begin with Nilamadhava and Indradyumna without always spelling out the heart voyage. Both ways of speaking live side by side in Odisha. A pilgrim can honour the Skanda–Purushottama cycle and still weep at the living story of Krishna’s heart. Devotion in Puri is large enough for both.</p>
+                    <p>And when, once in a generation, Nabakalebara renews the wooden body and transfers the secret <strong>Brahma padartha</strong>, many living voices quietly connect that protected essence to this same stream of belief — the sense that something of Krishna’s own core continues inside the Lord’s daru form. What that substance is, the temple does not publish. Respect stops at the closed door. The living story does not need a photograph of the secret to keep loving it.</p>
+                    <p class="source-note">Living story in Puri / Odisha: Krishna’s unburnt heart, Arjuna, ocean voyage to the eastern shore, Viswabasu and Nilamadhava, link in popular devotion to Jagannath’s continuity and (for many) to the mystery of Brahma padartha. Not identical to every line of Sanskrit Mahabharata/Bhagavatam or every official Indradyumna summary. Not a scientific claim about anatomy.</p>
+                </div>
+            </div>
+
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom from the Living Heart Story</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• In Puri’s living love, Krishna did not end at Dwaraka — he continued toward Nilachala.</li>
+                    <li>• What fire cannot finish, the sea may carry, and a forest may find.</li>
+                    <li>• The one who wounded can be reborn as the one who guards.</li>
+                    <li>• Official temple origin and living heart-story can both be honoured without forcing them into one sentence of fake certainty.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-who">← Who Is Jagannath?</a>
+                <a href="#part-origin">Nilamadhava &amp; Indradyumna →</a>
+            </div>
+        </section>
+
+        <!-- 3 ORIGIN -->
+        <section id="part-origin" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">3</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">How the Public Form of Jagannath Appeared</h2>
+                    <div class="text-amber-300/90 text-sm">మూల కథ • Nilamadhava and Indradyumna</div>
+                </div>
+            </div>
+
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>The hidden blue Lord in the forest</h3>
+                    <img src="ancient-wisdom/images/jagannath-chapter-02-nilamadhava.jpg" alt="Sabara devotee worshipping Nilamadhava in the forest" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">Nilamadhava — worshipped in secret before the world knew his public wooden form.</p>
+                    <p>In the living story of Puri told in the previous chapter, Viswabasu finds the blue heart of Krishna and worships it as Nilamadhava. The classic temple origin cycle now opens that same forest door more fully. Long before the tall stone tower rose over Puri, tradition says the Lord already lived near that shore as <strong>Nilamadhava</strong> — the blue Madhava — a radiant presence kept in seclusion among the forests of the blue hill.</p>
+                    <p>His guardian was not a palace priest. He was <strong>Viswabasu</strong> (also told as Viswavasu), chief of the <strong>Sabara</strong> people, a forest community. Every day Viswabasu went alone to serve the hidden Lord with simple offerings of deep devotion. The location of the shrine was a secret of his people. The world of kings did not yet know the path.</p>
+                    <p>This part of the story is essential. Jagannath’s tradition does not begin with a royal temple alone. It begins with a tribal devotee who loved the Lord when the Lord was still hidden — and, in Puri’s living heart-story, that devotee is also the healed continuation of Jara’s destiny.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>King Indradyumna’s longing</h3>
+                    <img src="ancient-wisdom/images/jagannath-chapter-03-indradyumna.jpg" alt="King Indradyumna in prayer before a vision of Vishnu" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p>In the age remembered as Satya Yuga, there lived a king named <strong>Indradyumna</strong> in the land of Malava. He was a ruler, but more than that he was a seeker. He longed not merely for victory or wealth, but for direct darshan of Vishnu.</p>
+                    <p>Through family priests and wandering pilgrims, word reached him of a blue form of the Lord worshipped on the shore of the southern sea. Hope caught fire in his heart. He sent a trusted man — <strong>Vidyapati</strong>, remembered in temple telling as the brother of his priest — to find that place and that God.</p>
+                    <p>Vidyapati travelled far and reached the Sabara country. There he met Viswabasu. At first the chief would not reveal the shrine. Later, remembering a prophecy that Nilamadhava would one day be established for the world by King Indradyumna, Viswabasu agreed to take him. Vidyapati saw the Lord. He also saw the sacred pool called <strong>Rohini Kunda</strong> and the divine banyan called <strong>Kalpabata</strong>. Then he returned to the king with news that would change the history of devotion on that coast forever.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>When the old form vanished and the sea sent a log</h3>
+                    <img src="ancient-wisdom/images/jagannath-chapter-01-nilachala.jpg" alt="Sacred blue mountain by the ocean" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">Nilachala — the blue mountain kshetra by the sea.</p>
+                    <p>Indradyumna did not delay. He came himself with family, ministers, and priests. Sage <strong>Narada</strong> joined them. But when the king reached the place of worship, the sapphire form of Nilamadhava was no longer to be found as before. Tradition holds that the Lord concealed that form. He was preparing a new way to be with the world — not as a secret of the forest alone, but as a public Lord of all people.</p>
+                    <p>The king performed a thousand <strong>ashvamedha</strong> sacrifices. Before the final offering was complete, a great <strong>divine log of wood</strong> appeared on the seashore. On Narada’s word, Indradyumna had that log brought to the high altar, the <strong>Mahavedi</strong>. The sea itself had become the messenger of God.</p>
+                    <img src="ancient-wisdom/images/jagannath-chapter-04-brahma-daru.jpg" alt="Sacred wooden log floating on the ocean with divine light" class="chapter-img w-full max-w-3xl mx-auto">
+                </div>
+
+                <div class="chapter">
+                    <h3>The closed workshop and the unfinished forms</h3>
+                    <img src="ancient-wisdom/images/jagannath-chapter-05-divine-carving.jpg" alt="Divine carpenter carving the sacred forms behind closed doors" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">The divine carpenter at work — tradition’s account of how the daru forms were made.</p>
+                    <p>Then the Lord Himself came in the form of a carpenter. Later tellings also name this craftsman as the divine architect <strong>Vishwakarma</strong>. He agreed to carve the deities from the sacred log, but only on one condition: no one must open the door of the workshop, and no one must disturb him, until the work was finished.</p>
+                    <p>Days passed. From inside the closed room came no sound. Anxiety grew. The king’s queen feared that the carpenter had died at his labour. She pressed Indradyumna to open the door. At last the door was opened.</p>
+                    <p>The carpenter was gone. On the altar stood the unfinished wooden images of <strong>Balabhadra</strong>, <strong>Subhadra</strong> (in the middle), and <strong>Jagannath</strong> — yet they were not fully carved. They had no complete hands and limbs such as ordinary human statues receive. That unfinished look is the same distinctive form still worshipped in Puri.</p>
+                    <p>Indradyumna’s heart sank. He believed the work had failed. Then a divine voice — and, in the traditional telling, the counsel of Narada — reassured him: these forms were accepted exactly as they were, and they must be installed. So the images were wrapped in silken cloth and painted in the prescribed colours. Near the Kalpabata a temple rose. Guided by Narada, the king invited <strong>Brahma</strong> to consecrate it. The deities were seated, and by the Lord’s order the daily rituals and festival rites of Purushottama began.</p>
+                    <p>Thus, in the story itself, the incomplete appearance of Jagannath is neither damage nor accident left unexplained. The carving was interrupted when the closed door was opened; the forms remained as they were; and the Divine accepted those forms as the true public body of the Lord.</p>
+                    <p class="source-note">Traditional layer: Shree Jagannatha Temple Administration — Ancient / Legendary Origin; Skanda Purana Purushottama / Indradyumna cycle; Madala Panji temple legend for the interrupted carving. Sacred narrative, not a modern calendar date.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>Why the eyes are so big — the living story of love’s form</h3>
+                    <img src="ancient-wisdom/images/jagannath-chapter-15-big-eyes-ecstasy.jpg" alt="Krishna Balarama and Subhadra transformed with huge dilated eyes as Rohini tells Vrindavana pastimes" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">Living Vaishnava story: eyes wide with Vrindavana love — Balabhadra, Subhadra in the middle, Jagannath.</p>
+                    <p>Still another living story explains the form people notice first — the huge, round, lidless eyes that never seem to sleep. In Odisha and in Vaishnava devotion far beyond Odisha, Jagannath is called <strong>Chakadola</strong>, the round-eyed Lord. Devotees say those eyes are the sun and the moon of mercy; they say he watches every being without blinking. But there is also a full sacred story of <em>how</em> those eyes became so large.</p>
+                    <p>According to a beloved living tradition — sung and retold especially in Gaudiya and related Vaishnava circles connected with Puri — the form of Jagannath is Krishna in the highest mood of love, transformed by separation from Vrindavana and from Radha and the gopis. In Dwaraka, the queens noticed that Krishna sometimes seemed far away, calling names of Vraja at night. They asked <strong>Rohini</strong>, mother of Balarama, to narrate the Vrindavana pastimes. Rohini agreed, but only if Krishna and Balarama were kept from hearing — for if they heard those stories of pure love, they might leave Dwaraka at once and return to Vraja.</p>
+                    <p>So <strong>Subhadra</strong> was set to watch the door. Rohini began the katha. The queens listened, lost in wonder. Subhadra herself, standing guard, was drawn into the sweetness of the story. Krishna and Balarama, sensing the vibration of those pastimes, came to the doorway and stood on either side of their sister — Subhadra in the middle, exactly as the three still sit on the ratnavedi. As they heard of Vrindavana, ecstasy rose beyond control. Their eyes grew huge and dilated. Their hands and legs seemed to withdraw into their bodies. The three became unrecognizable — the very forms later known as Balabhadra, Subhadra, and Jagannath.</p>
+                    <p>Then <strong>Narada</strong> arrived and begged to see that form again. In the living telling, the Lord promised that in Kali Yuga he would give darshan in that same ecstatic form — the form of wide eyes and shortened limbs — at his home in Nilachala. Thus Puri’s wooden Lord is not only the unfinished carving of Indradyumna’s workshop. For many devotees he is also <em>mahabhava-prakasha</em>: Krishna’s highest love made visible, eyes forever open so that no soul is missed.</p>
+                    <p>So the living culture of Puri holds more than one true door into the same face: the daru of Indradyumna, the heart that crossed the sea, and the eyes that opened wide in Vrindavana’s memory. They do not cancel each other. They are different lamps around one Lord.</p>
+                    <p class="source-note">Living Vaishnava / Puri-related tradition: Kurukshetra–Dwaraka narration of Rohini’s Vrindavana katha; ecstatic transformation of Krishna, Balarama, and Subhadra (Subhadra in the middle); Narada’s request; popular name Chakadola. Retold in Gaudiya sources and Odia devotion (e.g. discussions of mahabhava-prakasha). Complementary to, not a replacement of, the Indradyumna cycle.</p>
+                </div>
+            </div>
+
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom from the Origin Story</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• The Lord was loved in the forest before he was crowned in a temple.</li>
+                    <li>• A king’s longing can become a path for the whole world.</li>
+                    <li>• When one form is hidden, grace may return in a form more open to all.</li>
+                    <li>• The big eyes are not decoration — in living story they are love that refuses to look away.</li>
+                    <li>• What looks unfinished can be the shape of divine will.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-heart">← Krishna’s Heart</a>
+                <a href="#part-temple">The Temple by the Sea →</a>
+            </div>
+        </section>
+
+        <!-- 4 TEMPLE STORY -->
+        <section id="part-temple" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">4</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">The Temple That Rose by the Sea</h2>
+                    <div class="text-amber-300/90 text-sm">శ్రీమందిరం • From memory to the great house of the Lord</div>
+                </div>
+            </div>
+
+            <img src="ancient-wisdom/images/jagannath-chapter-06-srimandir.jpg" alt="Majestic Kalinga style temple of Jagannath at Puri" class="chapter-img w-full max-w-3xl mx-auto">
+            <p class="illustration-caption">Srimandir — the great house of Jagannath rising over Nilachala.</p>
+
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Before the tower we see today</h3>
+                    <p>Tradition holds that Indradyumna first gave the Lord a house and a life of daily service. But history also remembers that the fame of Purushottama was already alive for centuries before the present stone tower was finished. Pilgrims spoke of this kshetra. Poets and dramatists named Purushottama. Inscriptions from distant kingdoms mentioned the Lord of this coast. The holy place was not invented in a single royal year. It was loved, remembered, and approached long before the skyline we know was complete.</p>
+                    <p>Temple chronicles and regional memory also speak of earlier dynasties who cared for Madhava worship at Puri, of times of danger when sacred essence was protected and images renewed, and of scholars who placed an active shrine here well before the twelfth century. The precise year of every early episode is debated among historians. What is not debated is the continuous pull of this place: people came, and kept coming, to meet Purushottama.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>When a king built the house of stone</h3>
+                    <p>Then came a new age of power on this coast. In the early twelfth century, <strong>Anantavarman Chodaganga Deva</strong> of the Eastern Ganga line established his strength over Utkala and made this land part of a great kingdom stretching far along the eastern seaboard. He was a conqueror, but the story of Puri remembers him most for something quieter and more lasting: he raised a temple worthy of the Lord of the Universe.</p>
+                    <p>Stone by stone, the great Srimandir took shape in the Kalinga style — a soaring curvilinear sanctum, halls for gathering and offering, walls that would later reveal rows of divine forms when later plaster was removed. The work of finishing continued under later Ganga kings. Temple tradition remembers <strong>Anangabhima Deva III</strong> completing important consecration work in the thirteenth century and seating the deities with royal devotion. The king did not claim to be greater than God. He called himself the Lord’s servant, his <em>rauta</em>. The kingdom itself was imagined as belonging to Purushottama.</p>
+                    <p>That idea still walks the Grand Road every year. When the Gajapati Maharaja sweeps the chariot with a golden broom at Rath Yatra — the rite called <strong>Chhera Panhara</strong> — he is acting out that old truth: even a king is only a servant before Jagannath.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>What the house of the Lord looks like</h3>
+                    <p>If you stand before Srimandir today, you see more than architecture. You see a complete world. The main tower rises above the sanctum where the wooden triad sits. Before it stretch the halls of assembly and offering. Around it run fortified walls, and within those walls dozens of smaller shrines form a city of gods. On the tower shines the <strong>Nila Chakra</strong>, the blue disc, and a flag that is changed daily — as if the Lord’s house itself breathes with the days of the year.</p>
+                    <p>The kitchen of this temple is famous across India. Food cooked for the Lord becomes <strong>Mahaprasad</strong>, shared among devotees without the ordinary barriers of status. In that sharing, the theology of Jagannath becomes taste and hunger and grace: the Lord of the Universe feeds the world from his own plate.</p>
+                    <p class="source-note">Historical and architectural layer: Shree Jagannatha Temple Administration — Medieval and Architecture pages; Eastern Ganga construction of the present temple in the twelfth century, with later finishing and royal servant-ideology under Ganga and later kings.</p>
+                </div>
+            </div>
+
+            <div class="story-nav">
+                <a href="#part-origin">← Origin Story</a>
+                <a href="#part-ages">Through the Ages →</a>
+            </div>
+        </section>
+
+        <!-- 5 THROUGH AGES -->
+        <section id="part-ages" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">5</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Songs, Saints, and Storms</h2>
+                    <div class="text-amber-300/90 text-sm">యుగయుగాల కథ • How devotion endured</div>
+                </div>
+            </div>
+
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>When poetry entered the sanctum</h3>
+                    <p>As centuries passed, the Lord of Puri gathered not only kings but poets. In the Ganga age, <strong>Jayadeva</strong> of Kenduli sang the love of Radha and Krishna in the <em>Gita Govinda</em>. The song was so loved in Odisha that it was allowed to be sung before Jagannath himself. Even silk cloth woven with lines of that poem became part of the Lord’s ritual dress. The temple was no longer only stone and wood. It had become a place where music and scripture met the eyes of God.</p>
+                    <p>Later, under the Gajapati kings, Odia speech itself flowered. <strong>Sarala Das</strong> retold the Mahabharata in Odia and bound the people’s language to sacred story — including the deep Odia memory that links Krishna’s farewell to Puri’s living heart-story. Royal books of ritual and praise kept teaching how the Lord should be served. Jagannath was no longer only a temple deity. He had become the centre of a whole literary and moral world.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>Chaitanya and the fire of love</h3>
+                    <p>In the early sixteenth century, during the reign of Prataparudra Deva, a saint came to Puri who would change the emotional colour of Jagannath devotion forever. <strong>Sri Chaitanya Mahaprabhu</strong> lived here for about twenty-four years. He taught that God is reached by love — by the chanting of the holy names, by tears, by the heart’s surrender. For him and his followers, Jagannath was Krishna himself, waiting on the blue hill for the soul’s embrace.</p>
+                    <p>At the same time, Odia saints known as the <strong>Panchasakhas</strong> — five friends of wisdom — sang their own deep philosophy around Jagannath. They spoke of the Lord as the fullness from which all forms arise, and of the body and the kshetra as places where the infinite plays. Between Gaudiya love and Odia insight, Puri became a meeting place of many paths that still refused to leave the wooden Lord behind.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>When the temple was struck — and rose again</h3>
+                    <p>Devotion does not erase history’s hardness. In <strong>1568</strong>, after political collapse in Odisha, Afghan forces under <strong>Kalapahar</strong> attacked Puri. Temple chronicles remember looting and the desecration of the wooden images. It was a night of fear for the sacred city.</p>
+                    <p>Yet the story does not end in ash. Tradition remembers a devotee, <strong>Bisara Mohanty</strong>, who protected the secret sacred essence of the Lord — the <em>Brahma padartha</em> — so that worship could live again. In the years that followed, <strong>Ramachandra Deva</strong> of Khurda restored the temple’s life and new wooden images were made. Around <strong>1575</strong>, the Lord was reinstalled. From that restoration, the long practice of renewing the wooden body — remembered as the first great historical turn of <strong>Nabakalebara</strong> after catastrophe — entered the living memory of Puri.</p>
+                    <p>Later centuries brought more pressure under Mughal-period raids, temporary flights of the deities to safer places, and then British administrative control after 1803. Laws changed. Taxes rose and fell. Arguments about who should manage a Hindu shrine reached even distant parliaments. Through all of it, the niti of the temple — the daily service — struggled, bent, and continued. After Independence, modern Acts of 1952 and 1955 shaped the Shri Jagannath Temple Managing Committee, still headed in honour by the Gajapati Maharaja of Puri. The official living face of that administration today is the temple’s own presence in the digital age, even as the oldest rites remain older than any website.</p>
+                    <p class="source-note">Story woven from SJTA Medieval history, temple chronicle memory of 1568–1575, and standard later administrative history. Chronicle episodes are traditional-historical memory; legal Acts are modern record.</p>
+                </div>
+            </div>
+
+            <div class="story-nav">
+                <a href="#part-temple">← The Temple</a>
+                <a href="#part-year">How the Year Worships Him →</a>
+            </div>
+        </section>
+
+        <!-- 5 YEAR -->
+        <section id="part-year" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">6</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">How the Year Worships Him</h2>
+                    <div class="text-amber-300/90 text-sm">సంవత్సర సేవ • Bath, fever, rest, then the chariots</div>
+                </div>
+            </div>
+
+
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Snana Yatra — the grand bath of one hundred and eight pots</h3>
+                    <img src="ancient-wisdom/images/jagannath-chapter-07-snana-yatra.jpg" alt="Ceremonial bathing of Balabhadra Subhadra and Jagannath at Snana Yatra" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">Snana Yatra — Balabhadra, Subhadra in the middle, Jagannath bathed before the world.</p>
+                    <p>Every year, as the heat of summer deepens, the sacred calendar brings <strong>Snana Yatra</strong> on the full moon of Jyeshtha — often called Devasnana Purnima. Living tradition treats this day as the public birthday-bath of the Lord. Balabhadra, Subhadra (in the middle), Jagannath, and Sudarshana are brought out for a great ceremonial abhisheka. Temple and popular accounts speak of water drawn from the sacred well near the north side of the temple, and of bathing with many pots of sanctified water — widely remembered as <strong>one hundred and eight</strong> pots shared among the deities in fixed traditional counts.</p>
+                    <p>It is a day of beauty and intensity. The wooden Lords receive water, sandal, and the gaze of thousands. And then, according to the living belief of Puri, something tender and human happens to the Divine: after that enormous bath, the deities are said to catch a <strong>divine fever</strong> — <em>jwar</em>.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>Anavasara — when the Lord falls ill and the temple grows quiet</h3>
+                    <img src="ancient-wisdom/images/jagannath-chapter-16-anavasara-fever.jpg" alt="Deities in Anavasara seclusion receiving herbal care from Daita servitors" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">Anavasara — seclusion and recovery after the sacred bath.</p>
+                    <p>This is one of the most moving chapters in the living year of Srimandir, and it must not be skipped. After Snana Yatra, the deities retire into a sealed period called <strong>Anavasara</strong> (also Anasara / Anabasara) — roughly a fortnight, the dark half of the moon until the world is ready for the chariots. Public darshan of the main forms stops. The city of pilgrims feels the absence like a household feels a beloved parent resting with fever behind a closed door.</p>
+                    <p>In this time the care of the Lords is especially entrusted to the <strong>Daita</strong> servitors, whose lineage living tradition links to the old Sabara guardianship of the Lord. They offer special rites. Traditional accounts speak of light food — fruits, water mixed with cheese, and herbal medicines including the famous <em>dasamula</em> and related remedies — given as if to a living patient recovering from cold and fever after too grand a bath. The God of the universe, in Puri’s living love, allows himself to be nursed.</p>
+                    <p>Painted substitute forms and limited rites sustain the bond of devotees who cannot see the main murtis. The whole kshetra waits. Only when recovery is complete will the Lords reappear in youthful splendour — <strong>Nava Jaubana / Nabajaubana Darshan</strong> — and only then will the ropes of Rath Yatra be ready for human hands.</p>
+                    <p class="source-note">Living niti of Puri: Snana Yatra on Jyeshtha Purnima; Anavasara seclusion of about fifteen days; belief in divine fever after the bath; Daita care with fruits and traditional medicines. Official festive calendars list Snana and Anabasara start together.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>When doctors come — thermometer, stethoscope, and living faith</h3>
+                    <img src="ancient-wisdom/images/jagannath-chapter-17-doctors-checkup.jpg" alt="Ceremonial health check of Jagannath by doctors with thermometer before Rath Yatra" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">Living ceremonial tradition: a symbolic health check before the Lord rides out.</p>
+                    <p>Here is another living story people ask about — and it belongs firmly to the world of devotion, not to comedy. Because the Lord is believed to fall ill after Snana, living tradition in the Jagannath world includes a ceremonial <strong>health examination</strong> before he is declared fit for the great journey of Rath Yatra. In many temples of Jagannath — and in popular reportage of the rite as it is still performed with reverence — senior physicians come with the tools of their profession: stethoscope, clinical thermometer, the gestures of a real checkup. They “examine” the deity. They announce recovery. The symbolism is clear: the same Lord who accepts wooden form and festival fever also accepts the language of care that human families use when someone they love is unwell.</p>
+                    <p>At Puri itself the deepest continuous care remains the Anavasara niti of the Daita and the temple’s own Record of Rights. The modern image of doctors and thermometers is best heard as part of the wider living Jagannath culture of treating the deity as a living person — a culture that has grown around the ancient fever-and-rest belief. After the period of recovery and the declaration of fitness comes the reappearance, the youthful darshan, and then the opening of the chariot road.</p>
+                    <p>So the sequence the living year actually walks is not “sudden Rath Yatra.” It is: grand bath → divine fever → closed days of nursing → symbolic / ritual assurance of recovery → renewed darshan → then, and only then, the Lord comes to the street.</p>
+                    <p class="source-note">Living tradition: Anavasara recovery before Rath Yatra; ceremonial doctor health-check reported across Jagannath temples as symbolic examination (thermometer, stethoscope). Core Puri sequence remains Snana → Anavasara → Nabajaubana → Rath Yatra per temple calendars and niti descriptions.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>Rath Yatra — when God comes to the street</h3>
+                    <img src="ancient-wisdom/images/jagannath-chapter-08-rath-yatra.jpg" alt="Three chariots of Rath Yatra — Balabhadra Subhadra middle Jagannath" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">Rath Yatra — after fever and rest, the recovered Lord meets his people.</p>
+                    <p>Only after those quiet days of recovery does the festival the whole world knows arrive. On the second bright day of Ashadha, <strong>Rath Yatra</strong> — also called Shree Gundicha Yatra — begins. Temple tradition, drawing on the Skanda Purana’s praise of this festival, treats it as the most famous of the Lord’s journeys. After morning rites, the deities come out in the swaying ceremonial procession called <em>pahandi</em>. Sudarshana, Balabhadra, Subhadra, and Jagannath board their towering wooden chariots. The Gajapati Maharaja performs <strong>Chhera Panhara</strong>, sweeping the chariot floor like a servant of God. Then the ropes are given to the people.</p>
+                    <p>In the traditional chariot order, <strong>Balabhadra</strong> rides <strong>Taladhwaja</strong>, <strong>Subhadra</strong> rides her car in the middle place of the three, and <strong>Jagannath</strong> rides <strong>Nandighosha</strong>. The three great cars move along the Grand Road toward <strong>Gundicha Temple</strong>, about three kilometres away. There the Lord stays for days, as if visiting a garden home. On Hera Panchami, stories of divine longing and search colour the week. Devotees treasure evening darshan at the Adapa Mandap. Then comes <strong>Bahuda Yatra</strong>, the return journey southward, with its own stops, songs, and meetings — including the tender drama of Lakshmi and the Lord. Gold adornment on the chariots, the sweet drink of Adhara Pana, and finally <strong>Niladri Bije</strong> bring the deities home to the jewelled throne.</p>
+                    <p>What does this whole arc mean for ordinary people? It means the highest God does not only wait behind walls. He bathes in public, accepts fever and rest like love made near, lets doctors and servitors care for him in the language of a living household, and then comes out so human hands may pull him closer. Dust, sweat, rope, and joy become worship.</p>
+                    <p class="source-note">Living niti: Shree Jagannatha Temple Administration — Ratha Yatra page and festive calendars. Full living sequence: Snana → Anavasara (fever/rest) → recovery darshan → Rath Yatra → Bahuda → Niladri Bije.</p>
+                </div>
+            </div>
+
+            <div class="story-nav">
+                <a href="#part-ages">← Songs and Storms</a>
+                <a href="#part-nabakalebara">When the Body Is Renewed →</a>
+            </div>
+        </section>
+
+        <!-- 6 NABAKALEBARA -->
+        <section id="part-nabakalebara" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">7</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">When the Sacred Body Is Renewed</h2>
+                    <div class="text-amber-300/90 text-sm">నవకళేబర • Nabakalebara</div>
+                </div>
+            </div>
+
+            <img src="ancient-wisdom/images/jagannath-chapter-09-nabakalebara.jpg" alt="Priests seeking the sacred neem tree for Nabakalebara" class="chapter-img w-full max-w-3xl mx-auto">
+            <p class="illustration-caption">Banajaga — the quest for the marked sacred trees.</p>
+
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>The Lord who accepts a new body</h3>
+                    <p>Because Jagannath’s public form is wood, it does not last forever like polished stone. Temple tradition therefore keeps one of the most astonishing rites in the Hindu world: <strong>Nabakalebara</strong> — new embodiment. When the lunar calendar brings a special leap month of Ashadha, the time opens for the wooden deities to be remade. This may come after about eight, twelve, or nineteen years, according to the sky’s arithmetic and temple rule. Recent full ceremonies the modern world watched closely include those of <strong>1996</strong> and <strong>2015</strong>.</p>
+                    <p>The story of Nabakalebara begins not in the sanctum but in the forest. Chosen servitors set out on <strong>Banajaga Yatra</strong>, searching for neem trees that bear the traditional sacred marks for Balabhadra, Subhadra, Jagannath, and Sudarshana. When the trees are found, they are approached with fire-sacrifice, mantra, and restraint. The logs are brought to Puri, to the sacred ground of <strong>Koili Baikuntha</strong>. There, in secrecy, carvers shape new forms while the city waits.</p>
+                    <p>On a chosen night, the most protected act of all takes place: the transfer of the sacred essence called <strong>Brahma padartha</strong> from the old forms into the new. What that essence is, living tradition does not publish. Respect stops at the closed door of that mystery. In the <strong>living story of Puri</strong>, many devotees quietly connect this protected continuity with the same stream of belief that tells of Krishna’s unburnt heart — not as a laboratory proof, but as love’s way of saying: the Lord’s own core has never left this kshetra. The old bodies are buried with honour in the temple premises. The new deities are completed, dressed, and at last shown to the world — often as the great chariot festival approaches — so that the same Lord looks out through renewed wood upon a new generation of devotees.</p>
+                    <p class="source-note">Living niti: SJTA Nabakalebara page (official process outline). Brahma padartha’s nature is not publicly disclosed. Popular identification with “Krishna’s heart” belongs to living Puri belief, not to a published scientific claim.</p>
+                </div>
+            </div>
+
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Even sacred form participates in change; presence is deeper than timber.</li>
+                    <li>• Some holiness is protected by silence.</li>
+                    <li>• Burial of the old form is honour, not rejection.</li>
+                    <li>• Renewal joins the age of kings to the age of living pilgrims.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-year">← The Sacred Year</a>
+                <a href="#part-today">Worship and Belief Today →</a>
+            </div>
+        </section>
+
+        <!-- 7 TODAY -->
+        <section id="part-today" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">8</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">How He Is Worshipped — and What People Believe Today</h2>
+                    <div class="text-amber-300/90 text-sm">నేటి నమ్మకాలు • Living faith of Srimandir</div>
+                </div>
+            </div>
+
+            <img src="ancient-wisdom/images/jagannath-chapter-10-mahaprasad.jpg" alt="Mahaprasad shared among devotees" class="chapter-img w-full max-w-3xl mx-auto">
+            <p class="illustration-caption">Mahaprasad — the Lord’s food becoming the people’s grace.</p>
+
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>A day in the life of the Lord</h3>
+                    <p>If legend tells how Jagannath came, daily niti tells how he still lives. Before dawn the sealed doors of the temple are opened. Lamps are offered in the soft rite of Mangala Alati. Old garlands and clothes are removed. The deities are prepared for the day as a living sovereign would be — teeth cleaned and bathing performed through sacred reflections, the astrologer announcing the day’s lunar truth before the Lord. Breakfast comes as Gopal Ballav Bhoga. Then the great morning meal of Sakala Dhupa fills the air with the fragrance of temple cooking. Midday and evening offerings follow. Sandal paste is applied. In late night the Lord receives the beautiful Badasinghara dress, often linked with the silken memory of Gita Govinda, and a final meal before rest. Doors are sealed again. The house of God sleeps, watched by those appointed to guard it.</p>
+                    <p>Dozens of hereditary and trained servitors move through this day like characters in a continuous sacred drama. Festival days add extra scenes. Ordinary days already contain a whole kingdom of care. This is why devotees say Jagannath is not a statue visited once, but a Lord who is woken, fed, adorned, sung to, and put to rest.</p>
+                    <p class="source-note">Living niti: SJTA Daily Rituals — from Dwaraphita to Pahuda. Prescribed times may shift on crowded days; the order of love remains.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>What devotees say and believe now</h3>
+                    <p>Ask a pilgrim on the Grand Road what Jagannath means, and you will hear more than one true answer, because the tradition itself is wide.</p>
+                    <p>Many say he is <strong>Krishna</strong> — the same Lord of the Gita and the Bhagavata, come to Puri in a form that even a child can recognise by the eyes alone. In the <strong>living story of Puri</strong>, that identification is not abstract: people still tell how Krishna’s heart would not burn, how Arjuna trusted it to the sea, and how that grace found Nilachala. Others stress the older name <strong>Purushottama</strong>, the Supreme Person above all pairs of opposites. Odia devotion often holds that all avatars rise from him and return into him, so that Jagannath is not merely one descent among ten, but the ocean from which descents come.</p>
+                    <p>People also say he is the Lord of the poor and the broken, because he leaves the temple to ride among them. They say Mahaprasad erases false pride, because the same food is shared. They say the unfinished hands mean he needs the devotee’s hands — that human service completes the divine work. They say the Daitapati servitors carry an ancient link to the Sabara devotion of Viswabasu, so that tribal love and temple love still share one family story — and, in the heart-story, that Viswabasu is even the healed rebirth of Jara. Scholars may debate Buddhist or Jain echoes in history; living Puri, for the most part, bows to Jagannath as the one Lord who holds many meanings without losing his own face.</p>
+                    <p>And every year, when the chariots roll, a simple belief becomes public fact for a day: God is not only to be visited. God also visits.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>The story complete, and still unfinished</h3>
+                    <p>So the tale of Puri Jagannath runs like this. According to the living story of this kshetra, Krishna’s farewell at Dwaraka did not end love — a heart that fire could not finish crossed the ocean and woke as Nilamadhava in the forest. Through Indradyumna’s longing the Lord became the public wooden form of all. Kings built him a house of stone and called themselves his servants. Poets sang to him. Saints wept before him. Enemies struck the temple, and devotion restored it. Today he is still bathed, fed, dressed, renewed, and drawn through the streets on wheels of wood.</p>
+                    <p>If the Dashavatara shows how Vishnu comes in many forms across ages, Jagannath shows how the Lord of the Universe keeps one coastal home where living story, temple origin, history, and morning ritual still share the same lamp.</p>
+                </div>
+            </div>
+
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Closing Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Know the origin story, then watch how it still walks in the street.</li>
+                    <li>• Daily seva is theology performed with hands.</li>
+                    <li>• Many true beliefs can stand before one set of eyes.</li>
+                    <li>• The unfinished Lord still finishes the hearts of those who come.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-nabakalebara">← Nabakalebara</a>
+                <a href="dashavatara.html">Sister journey: Dashavatara →</a>
+            </div>
+        </section>
+
+        <!-- REFERENCES -->
+        <section id="references" class="avatar-story" style="border-top: 1px solid rgba(251,191,36,0.15);">
+            <h2 class="text-xl font-semibold tracking-tight mb-3 text-amber-200/90">References</h2>
+            <p class="text-xs text-white/45 mb-4 leading-relaxed">Sources used for fact-checking. Traditional stories are told as tradition; historical and ritual claims lean on official temple materials and standard secondary cross-checks.</p>
+            <div class="text-xs text-white/55 leading-relaxed space-y-3">
+                <div>
+                    <div class="text-amber-300/80 font-medium mb-1">Official temple sources</div>
+                    <ol class="list-decimal pl-5 space-y-1">
+                        <li><a class="text-amber-200/80 hover:underline" href="https://www.shreejagannatha.in/" target="_blank" rel="noopener noreferrer">Shree Jagannatha Temple Administration — Home</a></li>
+                        <li><a class="text-amber-200/80 hover:underline" href="https://www.shreejagannatha.in/ancient-period/" target="_blank" rel="noopener noreferrer">SJTA — Ancient / Legendary origin</a></li>
+                        <li><a class="text-amber-200/80 hover:underline" href="https://www.shreejagannatha.in/medieval-period/" target="_blank" rel="noopener noreferrer">SJTA — Medieval history</a></li>
+                        <li><a class="text-amber-200/80 hover:underline" href="https://www.shreejagannatha.in/architecture/" target="_blank" rel="noopener noreferrer">SJTA — Architecture</a></li>
+                        <li><a class="text-amber-200/80 hover:underline" href="https://www.shreejagannatha.in/daily-rituals/" target="_blank" rel="noopener noreferrer">SJTA — Daily Rituals</a></li>
+                        <li><a class="text-amber-200/80 hover:underline" href="https://www.shreejagannatha.in/periodical-rituals/" target="_blank" rel="noopener noreferrer">SJTA — Periodical Rituals</a></li>
+                        <li><a class="text-amber-200/80 hover:underline" href="https://www.shreejagannatha.in/ratha-yatra/" target="_blank" rel="noopener noreferrer">SJTA — Ratha Yatra</a></li>
+                        <li><a class="text-amber-200/80 hover:underline" href="https://www.shreejagannatha.in/nabakalebara/" target="_blank" rel="noopener noreferrer">SJTA — Nabakalebara</a></li>
+                    </ol>
+                </div>
+                <div>
+                    <div class="text-amber-300/80 font-medium mb-1">Scriptural and traditional orientation</div>
+                    <ol class="list-decimal pl-5 space-y-1" start="9">
+                        <li>Skanda Purana — Purushottama Kshetra / Utkala Mahatmya (Indradyumna cycle). See also <a class="text-amber-200/80 hover:underline" href="https://www.wisdomlib.org/hinduism/book/the-skanda-purana" target="_blank" rel="noopener noreferrer">Wisdom Library — Skanda Purana</a></li>
+                        <li>Mahabharata — Mausala Parva (Krishna’s departure; Arjuna’s cremation rites for Rama and Vasudeva; Dwaraka’s flooding). e.g. <a class="text-amber-200/80 hover:underline" href="https://sacred-texts.com/hin/m16/m16007.htm" target="_blank" rel="noopener noreferrer">Mausala Parva §7</a></li>
+                        <li>Bhagavata Purana — Canto 11 (Krishna’s divine departure; different emphasis from cremation narrative)</li>
+                        <li><strong>Living Puri / Odia story of Krishna’s heart</strong> — Arjuna, unburnt heart, ocean voyage to the eastern shore, Viswabasu and Nilamadhava; especially the world of <strong>Sarala Dasa’s Odia Mahabharata</strong> and ongoing local devotion (not identical to Sanskrit MB/Bhagavatam plotlines)</li>
+                        <li><strong>Living story of the big eyes (Chakadola / mahabhava form)</strong> — Rohini’s Vrindavana katha; Krishna, Balarama, and Subhadra (middle) transformed with dilated eyes and withdrawn limbs; Narada and the Kali-yuga form at Puri (Gaudiya and related Vaishnava retellings)</li>
+                        <li><strong>Living niti of Snana → Anavasara fever → recovery → Rath Yatra</strong> — divine jwar after bath; Daita care; ceremonial doctor health-check in living Jagannath culture; Nabajaubana before chariots</li>
+                        <li>Brahma Purana and Narada Purana material on Purushottama (as oriented in SJTA Ancient)</li>
+                        <li>Jayadeva — <em>Gita Govinda</em> (ritual song culture of Puri)</li>
+                        <li>Madala Panji — temple chronicle tradition (use carefully as devoted historical memory)</li>
+                    </ol>
+                </div>
+                <div>
+                    <div class="text-amber-300/80 font-medium mb-1">Historical / cultural cross-checks</div>
+                    <ol class="list-decimal pl-5 space-y-1" start="16">
+                        <li><a class="text-amber-200/80 hover:underline" href="https://en.wikipedia.org/wiki/Jagannath_Temple,_Puri" target="_blank" rel="noopener noreferrer">Wikipedia — Jagannath Temple, Puri</a></li>
+                        <li><a class="text-amber-200/80 hover:underline" href="https://en.wikipedia.org/wiki/Jagannath" target="_blank" rel="noopener noreferrer">Wikipedia — Jagannath</a></li>
+                        <li><a class="text-amber-200/80 hover:underline" href="https://en.wikipedia.org/wiki/Nabakalebara" target="_blank" rel="noopener noreferrer">Wikipedia — Nabakalebara</a></li>
+                        <li><a class="text-amber-200/80 hover:underline" href="https://www.livemint.com/Sundayapp/xJTi6ZJaM3Y5ouGO7WNvxJ/Puri-part-3-The-contrasting-tales-of-Jagannaths-origin.html" target="_blank" rel="noopener noreferrer">LiveMint — Contrasting tales of Jagannath’s origin (Sarala strand summary)</a></li>
+                        <li>O. M. Starza, <em>The Jagannatha Temple at Puri</em>; Eschmann–Kulke–Tripathi studies; Odisha <em>Orissa Review</em> special issues</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <div class="mt-16 pt-8 border-t border-white/10 text-sm text-white/50 leading-relaxed">
+            A storybook journey: who Jagannath is; the living Puri story of Krishna’s heart; how the public form appeared; how the temple and devotion endured; and how he is worshipped today. English body with Telugu part labels. Reading mode, bookmarks, and back-to-top match the Dashavatara storybook tools.
+        </div>
+    </div>
+
+    <script>
+        const parts = [
+            { id: "who", num: 1, name: "Who Is Jagannath? (జగన్నాథుడు)" },
+            { id: "heart", num: 2, name: "Krishna’s Heart (కృష్ణ హృదయం)" },
+            { id: "origin", num: 3, name: "Public Form (మూల కథ)" },
+            { id: "temple", num: 4, name: "The Temple (శ్రీమందిరం)" },
+            { id: "ages", num: 5, name: "Songs & Storms (యుగాలు)" },
+            { id: "year", num: 6, name: "Sacred Year (సంవత్సరం)" },
+            { id: "nabakalebara", num: 7, name: "Nabakalebara (నవకళేబర)" },
+            { id: "today", num: 8, name: "Belief Today (నేటి నమ్మకం)" }
+        ];
+
+
+
+        function renderQuickNav() {
+            const container = document.getElementById('quick-nav');
+            if (!container) return;
+            container.innerHTML = parts.map(a =>
+                `<button onclick="document.getElementById('part-${a.id}').scrollIntoView({behavior:'smooth', block:'start'})" class="avatar-chip text-left">${a.num}. ${a.name}</button>`
+            ).join('');
+        }
+
+        const READING_MODE_KEY = 'cosmic_jagannath_reading_mode';
+        const BOOKMARK_KEY = 'cosmic_jagannath_bookmarks';
+        let readingMode = false;
+        let progressFrame = null;
+
+        function escapeHtml(value) {
+            return String(value || '').replace(/[&<>"']/g, ch => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            }[ch]));
+        }
+
+        function compactText(value, limit = 180) {
+            const text = String(value || '').replace(/\s+/g, ' ').trim();
+            return text.length > limit ? `${text.slice(0, limit - 1).trim()}...` : text;
+        }
+
+        function bookmarkKey(type, targetId) {
+            return `${type}:${targetId}`;
+        }
+
+        function normalizeBookmark(bookmark) {
+            if (!bookmark) return null;
+            const targetId = bookmark.targetId || bookmark.id;
+            if (!targetId) return null;
+            const type = bookmark.type || (targetId.startsWith('para-') ? 'paragraph' : targetId.startsWith('chapter-') ? 'chapter' : 'section');
+            return {
+                key: bookmark.key || bookmarkKey(type, targetId),
+                type,
+                targetId,
+                title: bookmark.title || 'Saved place',
+                avatar: bookmark.avatar || '',
+                chapter: bookmark.chapter || '',
+                excerpt: bookmark.excerpt || '',
+                ts: bookmark.ts || Date.now()
+            };
+        }
+
+        function getBookmarks() {
+            try {
+                const parsed = JSON.parse(localStorage.getItem(BOOKMARK_KEY) || '[]');
+                return Array.isArray(parsed) ? parsed.map(normalizeBookmark).filter(Boolean) : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveBookmarks(list) {
+            const seen = new Set();
+            const normalized = [];
+            list.map(normalizeBookmark).filter(Boolean).forEach(bookmark => {
+                if (seen.has(bookmark.key)) return;
+                seen.add(bookmark.key);
+                normalized.push(bookmark);
+            });
+            localStorage.setItem(BOOKMARK_KEY, JSON.stringify(normalized.slice(0, 200)));
+            updateBookmarkCount(normalized);
+            syncBookmarkButtons(normalized);
+        }
+
+        function updateBookmarkCount(list = getBookmarks()) {
+            const el = document.getElementById('bookmark-count');
+            if (el) el.textContent = list.length;
+        }
+
+        function showBookmarkToast(message) {
+            const existing = document.querySelector('[data-bookmark-toast]');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.dataset.bookmarkToast = 'true';
+            toast.className = 'fixed left-1/2 bottom-5 z-[180] -translate-x-1/2 rounded-full border border-amber-300/35 bg-[#111827]/95 px-4 py-2 text-sm text-amber-100 shadow-2xl shadow-black/40';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 1600);
+        }
+
+        function createBookmarkButton(type, targetId) {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = `bookmark-toggle ${type === 'chapter' ? 'chapter-bookmark' : 'para-bookmark'}`;
+            button.dataset.bookmarkType = type;
+            button.dataset.bookmarkTarget = targetId;
+            button.setAttribute('aria-label', `Bookmark ${type}`);
+            button.setAttribute('title', `Bookmark ${type}`);
+            button.setAttribute('aria-pressed', 'false');
+            button.innerHTML = '<i class="fa-regular fa-bookmark"></i>';
+            return button;
+        }
+
+        function sectionTitle(section) {
+            const title = section ? section.querySelector('h2') : null;
+            return title ? compactText(title.textContent, 90) : 'Jagannath of Puri';
+        }
+
+        function prepareBookmarkTargets() {
+            document.querySelectorAll('.avatar-story').forEach(section => {
+                const sectionSlug = (section.id || 'part-story').replace(/^part-/, '');
+                const avatar = sectionTitle(section);
+
+                section.querySelectorAll('.chapter').forEach((chapter, chapterIndex) => {
+                    if (!chapter.id) chapter.id = `chapter-${sectionSlug}-${chapterIndex + 1}`;
+
+                    const heading = chapter.querySelector('h3');
+                    const rawChapterTitle = heading ? compactText(heading.textContent, 120) : `Chapter ${chapterIndex + 1}`;
+                    chapter.dataset.bookmarkAvatar = avatar;
+                    chapter.dataset.bookmarkTitle = rawChapterTitle;
+
+                    if (heading && !heading.querySelector('.chapter-bookmark')) {
+                        heading.classList.add('chapter-heading');
+                        heading.textContent = '';
+                        const headingText = document.createElement('span');
+                        headingText.className = 'heading-text';
+                        headingText.textContent = rawChapterTitle;
+                        heading.appendChild(headingText);
+                        heading.appendChild(createBookmarkButton('chapter', chapter.id));
+                    }
+
+                    Array.from(chapter.children)
+                        .filter(child => child.tagName === 'P')
+                        .forEach((paragraph, paragraphIndex) => {
+                            if (!paragraph.id) paragraph.id = `para-${sectionSlug}-${chapterIndex + 1}-${paragraphIndex + 1}`;
+                            paragraph.classList.add('bookmarkable-paragraph');
+                            paragraph.dataset.bookmarkAvatar = avatar;
+                            paragraph.dataset.bookmarkChapter = rawChapterTitle;
+                            paragraph.dataset.bookmarkExcerpt = compactText(paragraph.textContent, 220);
+                            if (!paragraph.querySelector('.para-bookmark')) {
+                                paragraph.prepend(createBookmarkButton('paragraph', paragraph.id));
+                            }
+                        });
+                });
+            });
+            syncBookmarkButtons();
+        }
+
+        function buildBookmark(targetId, type) {
+            const target = document.getElementById(targetId);
+            if (!target) return null;
+            const chapter = type === 'chapter' ? target : target.closest('.chapter');
+            const section = target.closest('.avatar-story');
+            const avatar = target.dataset.bookmarkAvatar || (chapter && chapter.dataset.bookmarkAvatar) || sectionTitle(section);
+            const chapterTitle = type === 'chapter'
+                ? (target.dataset.bookmarkTitle || compactText(target.querySelector('h3')?.textContent, 120))
+                : (target.dataset.bookmarkChapter || chapter?.dataset.bookmarkTitle || 'Chapter');
+            const excerpt = type === 'paragraph' ? compactText(target.dataset.bookmarkExcerpt || target.textContent, 220) : '';
+            return {
+                key: bookmarkKey(type, targetId),
+                type,
+                targetId,
+                title: type === 'chapter' ? chapterTitle : 'Paragraph note',
+                avatar,
+                chapter: chapterTitle,
+                excerpt,
+                ts: Date.now()
+            };
+        }
+
+        function toggleBookmark(targetId, type) {
+            const key = bookmarkKey(type, targetId);
+            const bookmarks = getBookmarks();
+            const existingIndex = bookmarks.findIndex(bookmark => bookmark.key === key);
+            if (existingIndex >= 0) {
+                bookmarks.splice(existingIndex, 1);
+                saveBookmarks(bookmarks);
+                showBookmarkToast('Bookmark removed');
+                return;
+            }
+            const bookmark = buildBookmark(targetId, type);
+            if (!bookmark) return;
+            saveBookmarks([bookmark, ...bookmarks]);
+            showBookmarkToast(type === 'chapter' ? 'Chapter bookmarked' : 'Paragraph bookmarked');
+        }
+
+        function syncBookmarkButtons(list = getBookmarks()) {
+            const saved = new Set(list.map(bookmark => bookmark.key));
+            document.querySelectorAll('[data-bookmark-target]').forEach(button => {
+                const key = bookmarkKey(button.dataset.bookmarkType, button.dataset.bookmarkTarget);
+                const isSaved = saved.has(key);
+                button.classList.toggle('is-saved', isSaved);
+                button.setAttribute('aria-pressed', isSaved ? 'true' : 'false');
+                button.setAttribute('title', isSaved ? `Remove ${button.dataset.bookmarkType} bookmark` : `Bookmark ${button.dataset.bookmarkType}`);
+                const icon = button.querySelector('i');
+                if (icon) icon.className = isSaved ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark';
+            });
+            document.querySelectorAll('.bookmarkable-paragraph').forEach(paragraph => {
+                paragraph.classList.toggle('is-bookmarked', saved.has(bookmarkKey('paragraph', paragraph.id)));
+            });
+        }
+
+        function showBookmarks() {
+            const bookmarks = getBookmarks();
+            const panel = document.createElement('div');
+            panel.className = 'fixed inset-0 bg-black/70 z-[160] flex items-end md:items-center justify-center p-0 md:p-4';
+            panel.innerHTML = `
+                <div class="absolute inset-0" data-close-bookmarks></div>
+                <div class="bookmark-panel-card relative bg-[#111827] border border-white/10 rounded-t-2xl md:rounded-2xl p-5 text-sm overflow-hidden shadow-2xl shadow-black/50">
+                    <div class="flex items-start justify-between gap-4 border-b border-white/10 pb-4">
+                        <div>
+                            <div class="font-semibold text-white">My places</div>
+                            <div class="text-xs text-white/50">${bookmarks.length} saved</div>
+                        </div>
+                        <button class="bookmark-toggle" data-close-bookmarks aria-label="Close bookmarks" title="Close">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="mt-4 max-h-[60vh] space-y-2 overflow-auto pr-1">
+                    ${bookmarks.length === 0 ? '<div class="text-white/60 py-8 text-center">No saved chapters or paragraphs yet.</div>' :
+                    bookmarks.map((b, i) => `
+                        <div class="bookmark-item rounded-xl p-3">
+                            <div class="flex items-start justify-between gap-3">
+                                <div class="min-w-0">
+                                    <div class="mb-1 flex items-center gap-2">
+                                        <span class="rounded-full border border-amber-300/25 bg-amber-300/10 px-2 py-0.5 text-[10px] uppercase tracking-wide text-amber-200">${b.type === 'paragraph' ? 'Paragraph' : b.type === 'chapter' ? 'Chapter' : 'Place'}</span>
+                                        <span class="text-[11px] text-white/45">${new Date(b.ts).toLocaleDateString()}</span>
+                                    </div>
+                                    <div class="truncate text-white/90">${escapeHtml(b.avatar)}</div>
+                                    <div class="text-xs text-amber-200/80">${escapeHtml(b.chapter || b.title)}</div>
+                                    ${b.excerpt ? `<div class="mt-1 line-clamp-2 text-xs leading-relaxed text-white/55">${escapeHtml(b.excerpt)}</div>` : ''}
+                                </div>
+                                <div class="flex shrink-0 gap-1">
+                                    <button class="bookmark-toggle" data-jump="${i}" aria-label="Go to bookmark" title="Go to bookmark"><i class="fa-solid fa-arrow-right"></i></button>
+                                    <button class="bookmark-toggle" data-remove="${i}" aria-label="Remove bookmark" title="Remove bookmark"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                    </div>
+                    ${bookmarks.length ? '<button class="mt-4 w-full rounded-xl border border-white/10 px-3 py-2 text-xs text-white/60 hover:bg-white/5 hover:text-white" data-clear-bookmarks>Clear all</button>' : ''}
+                </div>
+            `;
+            document.body.appendChild(panel);
+            panel.addEventListener('click', event => {
+                const close = event.target.closest('[data-close-bookmarks]');
+                const jump = event.target.closest('[data-jump]');
+                const remove = event.target.closest('[data-remove]');
+                const clear = event.target.closest('[data-clear-bookmarks]');
+                if (close) { panel.remove(); return; }
+                if (jump) {
+                    const bookmark = bookmarks[parseInt(jump.dataset.jump, 10)];
+                    panel.remove();
+                    scrollToBookmark(bookmark);
+                    return;
+                }
+                if (remove) {
+                    const idx = parseInt(remove.dataset.remove, 10);
+                    bookmarks.splice(idx, 1);
+                    saveBookmarks(bookmarks);
+                    panel.remove();
+                    showBookmarks();
+                    return;
+                }
+                if (clear) {
+                    saveBookmarks([]);
+                    panel.remove();
+                }
+            });
+        }
+
+        function scrollToBookmark(bookmark) {
+            const targetId = bookmark && (bookmark.targetId || bookmark.id);
+            const target = targetId ? document.getElementById(targetId) : null;
+            if (!target) {
+                showBookmarkToast('Saved place not found');
+                return;
+            }
+            const top = target.getBoundingClientRect().top + window.scrollY - 88;
+            window.scrollTo({ top, behavior: 'smooth' });
+            history.replaceState(null, '', `#${target.id}`);
+            setTimeout(() => {
+                target.classList.add('temp-highlight');
+                setTimeout(() => target.classList.remove('temp-highlight'), 2400);
+            }, 500);
+        }
+
+        function applyReadingMode(enabled, persist = true) {
+            readingMode = enabled;
+            document.body.classList.toggle('reading-mode', enabled);
+            const button = document.getElementById('reading-mode-btn');
+            if (button) {
+                button.setAttribute('aria-pressed', enabled ? 'true' : 'false');
+                button.innerHTML = enabled
+                    ? '<i class="fa-solid fa-times"></i> <span class="hidden sm:inline">Exit reading mode</span>'
+                    : '<i class="fa-solid fa-book"></i> <span class="hidden sm:inline">Reading mode</span>';
+            }
+            if (persist) localStorage.setItem(READING_MODE_KEY, enabled ? 'true' : 'false');
+            queueReadingProgress();
+        }
+
+        function toggleReadingMode() {
+            applyReadingMode(!readingMode);
+        }
+
+        function updateReadingProgress() {
+            const bar = document.getElementById('reading-progress-bar');
+            if (!bar) return;
+            const doc = document.documentElement;
+            const maxScroll = Math.max(1, doc.scrollHeight - doc.clientHeight);
+            const progress = Math.min(100, Math.max(0, (window.scrollY / maxScroll) * 100));
+            bar.style.width = `${progress}%`;
+        }
+
+        function queueReadingProgress() {
+            if (progressFrame) return;
+            progressFrame = requestAnimationFrame(() => {
+                updateReadingProgress();
+                progressFrame = null;
+            });
+        }
+
+        function updateBackToTopButton() {
+            const button = document.getElementById('dash-top-button');
+            if (!button) return;
+            button.classList.toggle('is-visible', window.scrollY > 520);
+        }
+
+        function scrollPageToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+
+        function handleBookmarkClick(event) {
+            const button = event.target.closest('[data-bookmark-target]');
+            if (!button) return;
+            event.preventDefault();
+            event.stopPropagation();
+            toggleBookmark(button.dataset.bookmarkTarget, button.dataset.bookmarkType);
+        }
+
+        function initPage() {
+            renderQuickNav();
+            prepareBookmarkTargets();
+
+            const rmBtn = document.getElementById('reading-mode-btn');
+            if (rmBtn) rmBtn.addEventListener('click', toggleReadingMode);
+
+            const bmBtn = document.getElementById('bookmarks-btn');
+            if (bmBtn) bmBtn.addEventListener('click', showBookmarks);
+
+            const topBtn = document.getElementById('dash-top-button');
+            if (topBtn) topBtn.addEventListener('click', scrollPageToTop);
+
+            document.addEventListener('click', handleBookmarkClick);
+            window.addEventListener('scroll', queueReadingProgress, { passive: true });
+            window.addEventListener('scroll', updateBackToTopButton, { passive: true });
+            window.addEventListener('resize', queueReadingProgress);
+
+            updateBookmarkCount();
+            applyReadingMode(localStorage.getItem(READING_MODE_KEY) === 'true', false);
+            updateBackToTopButton();
+
+            document.addEventListener('keydown', (e) => {
+                const activeTag = document.activeElement ? document.activeElement.tagName : '';
+                if (e.key.toLowerCase() === 'r' && activeTag === 'BODY') {
+                    e.preventDefault();
+                    toggleReadingMode();
+                }
+            });
+
+            if (window.location.hash) {
+                setTimeout(() => {
+                    const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+                    if (target) {
+                        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 88, behavior: 'smooth' });
+                        target.classList.add('temp-highlight');
+                        setTimeout(() => target.classList.remove('temp-highlight'), 2400);
+                    }
+                }, 800);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+    <script src="story-community.js?v=20260617-community-4"></script>
+    <script src="ask-krishna-widget.js"></script>
+</body>
+</html>
