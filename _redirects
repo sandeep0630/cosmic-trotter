@@ -7,6 +7,7 @@
 /wisdom                              /wisdom.html                              200
 /space                               /space.html                               200
 /philosophy                          /philosophy.html                          200
+/bhagavad-gita                       /bhagavad-gita.html                       200
 /quantum                             /quantum.html                             200
 /ev-guide                            /ev-guide.html                            200
 /pm_e-drive_ev_charging_guide        /PM_E-DRIVE_EV_Charging_Guide.html        200
@@ -20,6 +21,15 @@
 /quantum-realms/entangled-unity          /quantum-realms/entangled-unity.html    200
 /quantum-realms/born-of-void             /quantum-realms/born-of-void.html       200
 /quantum-realms/cosmic-hum               /quantum-realms/cosmic-hum.html         200
+
+# Philosophy storybook journeys
+/philosophy/consciousness                /philosophy/consciousness.html          200
+/philosophy/simulation                   /philosophy/simulation.html             200
+/philosophy/free-will                    /philosophy/free-will.html              200
+/philosophy/the-self                     /philosophy/the-self.html               200
+/philosophy/meaning                      /philosophy/meaning.html                200
+/philosophy/ai-ethics                    /philosophy/ai-ethics.html              200
+/philosophy/time                         /philosophy/time.html                   200
 
 # Legacy deep article redirects to merged short storybook pages
 /space-cosmos/breathing-cosmos-deep      /space-cosmos/breathing-cosmos        301

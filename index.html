@@ -16,7 +16,9 @@
     <meta property="og:url" content="https://cosmictrotter.com/">
     <meta property="og:title" content="CosmicTrotter • Travel Through Knowledge">
     <meta property="og:description" content="A cosmic platform for curious minds. Explore science, philosophy, space, ancient wisdom, and India's EV charging business opportunities.">
-    <meta property="og:image" content="https://cosmictrotter.com/logo.png">
+    <meta property="og:image" content="https://cosmictrotter.com/og-logo.png">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
@@ -544,7 +546,7 @@
 
     </style>
     <script src="theme-toggle.js?v=20260616-light-5"></script>
-    <script src="site-nav.js?v=20260617-explore-1"></script>
+    <script src="site-nav.js?v=20260722-nav-base-3"></script>
     <script src="daily-wisdom.js?v=20260616-wisdom-1"></script>
 </head>
 <body class="cosmic-bg">
@@ -793,6 +795,7 @@
     </div>
 
     <!-- Explore the Universe -->
+    <div class="max-w-5xl mx-auto px-6 pb-6" data-continue-reading hidden></div>
     <div id="explore" class="max-w-5xl mx-auto px-6 pb-24">
         <div class="text-center mb-12">
             <span class="text-xs uppercase tracking-[3px] text-[#00f3ff]">DISCOVER</span>
@@ -839,11 +842,11 @@
             
             <!-- Card 4: Philosophy -->
             <div class="cosmic-card rounded-3xl p-8 group cursor-pointer" onclick="window.location.href='philosophy.html'">
-                <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-violet-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-brain text-white text-3xl"></i>
+                <div class="w-14 h-14 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-brain text-black text-3xl"></i>
                 </div>
                 <h4 class="text-2xl font-semibold mb-3">Philosophy</h4>
-                <p class="text-white/60 leading-relaxed">Deep dives into consciousness, existence, and the big questions of life.</p>
+                <p class="text-white/60 leading-relaxed">Storybook journeys into consciousness, free will, self, simulation, and meaning.</p>
                 <div class="mt-6 flex items-center text-sm text-[#00f3ff]">
                     <span>Explore</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
                 </div>
@@ -1629,37 +1632,57 @@
             }
         });
 
-        // Search Functionality
+        // Search: prefer site catalog destinations, then in-page highlight
+        const HOME_KNOWLEDGE = [
+            { title: 'philosophy', keywords: 'consciousness free will meaning simulation self', url: 'philosophy.html' },
+            { title: 'what is consciousness', keywords: 'hard problem awareness mind', url: 'philosophy/consciousness.html' },
+            { title: 'simulation', keywords: 'bostrom maya matrix', url: 'philosophy/simulation.html' },
+            { title: 'free will', keywords: 'determinism agency karma', url: 'philosophy/free-will.html' },
+            { title: 'who am i self', keywords: 'identity atman anatta', url: 'philosophy/the-self.html' },
+            { title: 'meaning purpose', keywords: 'absurd camus purusartha', url: 'philosophy/meaning.html' },
+            { title: 'quantum', keywords: 'entanglement observation physics', url: 'quantum.html' },
+            { title: 'space cosmos', keywords: 'black hole astronomy universe', url: 'space.html' },
+            { title: 'ancient wisdom', keywords: 'veda upanishad dashavatara puri', url: 'ancient.html' },
+            { title: 'dashavatara', keywords: 'vishnu avatar krishna rama', url: 'dashavatara.html' },
+            { title: 'wisdom', keywords: 'daily quote', url: 'wisdom.html' }
+        ];
+
         function handleSearch(e) {
-            if (e.key === 'Enter') {
-                const query = e.target.value.toLowerCase().trim();
-                if (!query) return;
+            if (e.key !== 'Enter') return;
+            const query = e.target.value.toLowerCase().trim();
+            if (!query) return;
 
-                // Search in section headings and cards
-                const sections = document.querySelectorAll('h2, h3, h4, .cosmic-card p');
-                let found = false;
-
-                sections.forEach(el => {
-                    if (el.textContent.toLowerCase().includes(query)) {
-                        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                        el.style.transition = 'all 0.3s ease';
-                        el.style.backgroundColor = 'rgba(0, 243, 255, 0.1)';
-                        setTimeout(() => {
-                            el.style.backgroundColor = 'transparent';
-                        }, 1500);
-                        found = true;
-                        return;
-                    }
-                });
-
-                if (!found) {
-                    alert('No results found for: ' + query);
-                }
-                
+            const hit = HOME_KNOWLEDGE.find((item) =>
+                `${item.title} ${item.keywords}`.includes(query) ||
+                query.split(/\s+/).every((w) => `${item.title} ${item.keywords}`.includes(w))
+            );
+            if (hit) {
                 e.target.value = '';
                 setMobileMenu(false);
                 setLibraryMenu(false);
+                window.location.href = hit.url;
+                return;
             }
+
+            const sections = document.querySelectorAll('h2, h3, h4, .cosmic-card p');
+            let found = false;
+            sections.forEach(el => {
+                if (!found && el.textContent.toLowerCase().includes(query)) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    el.style.transition = 'all 0.3s ease';
+                    el.style.backgroundColor = 'rgba(0, 243, 255, 0.1)';
+                    setTimeout(() => { el.style.backgroundColor = 'transparent'; }, 1500);
+                    found = true;
+                }
+            });
+
+            if (!found) {
+                alert('No results found for: ' + query);
+            }
+
+            e.target.value = '';
+            setMobileMenu(false);
+            setLibraryMenu(false);
         }
 
         function showBrevoWelcomeGiftMessage() {
@@ -1835,7 +1858,7 @@
             });
         });
     </script>
-    <script src="story-community.js?v=20260617-community-4"></script>
+    <script src="story-community.js?v=20260722-community-5"></script>
     <script src="ask-krishna-widget.js"></script>
     <!-- Brevo Scripts -->
     <script>

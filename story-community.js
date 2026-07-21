@@ -137,12 +137,15 @@
 
   function isArticlePage() {
     var path = pageSlug();
+    // Explicit hub mounts (data-story-community) use topic-request UI, not article likes
     if (document.querySelector('[data-story-community]')) return false;
-    if (/\/(ask-krishna|ask-krishna-bot|matsya)\.html$/i.test(path)) return false;
-    if (/\/ancient-wisdom\/.+\.html$/i.test(path)) return true;
-    if (/\/space-cosmos\/.+\.html$/i.test(path)) return true;
-    if (/\/quantum-realms\/.+\.html$/i.test(path)) return true;
-    return /\/(dashavatara|ev-guide|PM_E-DRIVE_EV_Charging_Guide|zermatt-family-travel-guide)\.html$/i.test(path);
+    if (/\/(ask-krishna|ask-krishna-bot|matsya)(\.html)?\/?$/i.test(path)) return false;
+    // Journey articles (with or without .html clean URLs)
+    if (/\/ancient-wisdom\/[^/]+/i.test(path)) return true;
+    if (/\/space-cosmos\/[^/]+/i.test(path)) return true;
+    if (/\/quantum-realms\/[^/]+/i.test(path)) return true;
+    if (/\/philosophy\/[^/]+/i.test(path)) return true;
+    return /\/(dashavatara|puri-jaganath|bhagavad-gita|ev-guide|PM_E-DRIVE_EV_Charging_Guide|zermatt-family-travel-guide)(\.html)?\/?$/i.test(path);
   }
 
   function prefersLightCommunitySurface() {
@@ -248,7 +251,7 @@
     target.id = 'story-community-section';
     target.className = 'story-community story-community--article' + (prefersLightCommunitySurface() ? ' story-community--light-surface' : '');
     target.innerHTML = '<div class="story-community__surface">' +
-      '<div class="story-community__header"><div><div class="story-community__eyebrow">Reader Circle</div><h3>Like, Comment, or Request the Next Story</h3><p>Your reactions help shape what CosmicTrotter creates next.</p></div></div>' +
+      '<div class="story-community__header"><div><div class="story-community__eyebrow">Join the discussion</div><h3>Like, Comment, or Request the Next Story</h3><p>Your reactions help shape what CosmicTrotter creates next.</p></div></div>' +
       '<div class="story-community__grid"><div class="story-community__article-card" data-article-card><div class="story-community__empty">Loading article discussion...</div></div><div>' + topicFormHtml(true) + '</div></div>' +
       '</div>';
     installTitleBadge(null);

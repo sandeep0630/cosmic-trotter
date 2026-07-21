@@ -5,20 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Philosophy • CosmicTrotter</title>
     <link rel="canonical" href="https://cosmictrotter.com/philosophy">
-    <meta name="description" content="Deep dives into philosophy, consciousness, existence, and the big questions of life.">
+    <meta name="description" content="Storybook journeys into consciousness, simulation, free will, the self, meaning, AI ethics, and time — deep philosophy for curious minds on CosmicTrotter.">
+    <meta property="og:image" content="https://cosmictrotter.com/og-logo.png">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
     <style>
         body { font-family: 'Inter', system_ui, sans-serif; background: #0a0a0f; color: #e0e7ff; }
         .font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 600; }
         .cosmic-bg { background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 70%); }
-        .cosmic-card { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(0, 243, 255, 0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .cosmic-card:hover { border-color: rgba(0, 243, 255, 0.3); transform: translateY(-4px); }
+        .cosmic-card { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(0, 243, 255, 0.12); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .cosmic-card:hover { border-color: rgba(0, 243, 255, 0.35); transform: translateY(-6px); }
+        .section-header { font-size: 2.8rem; line-height: 3.2rem; font-weight: 700; letter-spacing: -0.03em; }
+        .phil-accent { color: #00f3ff; }
     </style>
     <script src="theme-toggle.js?v=20260616-light-5"></script>
-    <script src="site-nav.js?v=20260617-explore-1"></script>
+    <script src="site-nav.js?v=20260722-nav-base-3"></script>
 </head>
-<body class="cosmic-bg">
+<body class="cosmic-bg" data-krishna-context="Philosophy hub: consciousness, free will, self, meaning, simulation, AI ethics, time.">
     <nav class="border-b border-white/10 sticky top-0 z-50 bg-[#0a0a0f]/90 backdrop-blur-lg">
         <div class="max-w-6xl mx-auto px-6">
             <div class="flex justify-between items-center h-20">
@@ -31,6 +36,7 @@
                     <a href="wisdom.html" class="nav-link text-white/80 hover:text-white">Wisdom</a>
                     <a href="space.html" class="nav-link text-white/80 hover:text-white">Space</a>
                     <a href="philosophy.html" class="nav-link text-[#00f3ff]">Philosophy</a>
+                    <a href="quantum.html" class="nav-link text-white/80 hover:text-white">Quantum</a>
                     <a href="ancient.html" class="nav-link text-white/80 hover:text-white">Ancient</a>
                 </div>
                 <a href="index.html" class="text-sm px-5 py-2.5 border border-white/30 rounded-2xl hover:bg-white/5 transition">← Home</a>
@@ -38,38 +44,167 @@
         </div>
     </nav>
 
-    <div class="max-w-4xl mx-auto px-6 pt-16 pb-12 text-center">
-        <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 mb-6">
-            <i class="fa-solid fa-brain text-[#00f3ff]"></i>
-            <span class="text-xs uppercase tracking-[2px] text-white/70">The Big Questions</span>
+    <div class="max-w-5xl mx-auto px-6 pt-16 pb-14 text-center">
+        <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-cyan-400/30 bg-cyan-400/10 mb-6">
+            <i class="fa-solid fa-brain phil-accent"></i>
+            <span class="text-xs uppercase tracking-[2px] phil-accent font-medium">The Big Questions</span>
         </div>
-        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tighter mb-4">Philosophy</h1>
-        <p class="text-2xl text-white/60 max-w-lg mx-auto">Deep dives into consciousness, existence, and what it means to be human.</p>
+
+        <h1 class="section-header mb-6">Philosophy</h1>
+        <p class="text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
+            Deep dives into consciousness, reality, freedom, self, and meaning — written as storybook journeys you can bookmark, reread, and return to.
+        </p>
+
+        <div class="mt-8 flex justify-center">
+            <button onclick="document.getElementById('explore-section').scrollIntoView({ behavior: 'smooth' })"
+                    class="px-7 py-3 rounded-2xl text-sm font-semibold border border-cyan-400/40 hover:bg-cyan-500/10 text-cyan-300 flex items-center justify-center gap-x-2 transition-all">
+                <span>Enter the Questions</span>
+                <i class="fa-solid fa-compass"></i>
+            </button>
+        </div>
     </div>
 
-    <div class="max-w-5xl mx-auto px-6 pb-20">
+    <div class="max-w-5xl mx-auto px-6 pb-6" data-continue-reading hidden></div>
+
+    <div class="max-w-5xl mx-auto px-6 pb-12">
+        <div class="cosmic-card rounded-3xl p-10 border border-white/10">
+            <div class="prose prose-invert max-w-none text-lg leading-relaxed text-white/80">
+                <p>Philosophy is not a museum of dead opinions. It is the living skill of asking better questions about mind, world, freedom, and value — then living with the answers you can honestly hold.</p>
+                <p class="mt-4">Each journey below is a full storybook article: continuous narrative, core wisdom, references, reading mode, chapter bookmarks, and a one-click return to the top. Start anywhere. The questions talk to each other.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-6 pb-20" id="explore-section">
+        <div class="flex items-end justify-between mb-8">
+            <div>
+                <span class="text-xs uppercase tracking-[3px] phil-accent">The Journeys</span>
+                <h2 class="text-4xl font-bold tracking-tight mt-1">Five Paths In</h2>
+            </div>
+            <div class="text-sm text-white/50 hidden md:block">7 Storybooks • Bookmarkable</div>
+        </div>
+
         <div class="grid md:grid-cols-2 gap-6">
-            <div class="cosmic-card rounded-3xl p-10">
-                <h3 class="text-3xl font-semibold mb-4">What Is Consciousness?</h3>
-                <p class="text-white/60 leading-relaxed mb-6">Is consciousness a product of the brain, or is the brain a product of consciousness? Scientists and philosophers have been debating this for centuries. The answer might change everything we think we know about reality.</p>
-                <div class="text-sm text-[#00f3ff]">Coming soon as full article →</div>
-            </div>
-            
-            <div class="cosmic-card rounded-3xl p-10">
-                <h3 class="text-3xl font-semibold mb-4">The Simulation Hypothesis</h3>
-                <p class="text-white/60 leading-relaxed mb-6">What if we are living in a highly advanced simulation? Elon Musk believes the odds are billions to one that we’re in base reality. Could this explain the strange rules of quantum physics?</p>
-                <div class="text-sm text-[#00f3ff]">Coming soon as full article →</div>
-            </div>
+            <a href="philosophy/consciousness.html" class="cosmic-card rounded-3xl overflow-hidden group block">
+                <img src="philosophy/images/consciousness.jpg" alt="What Is Consciousness?" class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-500">
+                <div class="p-8">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="text-xs uppercase tracking-widest phil-accent font-medium">MIND • AWARENESS</div>
+                        <div class="text-xs bg-white/10 px-2 py-1 rounded" >8 min</div>
+                    </div>
+                    <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-cyan-300 transition-colors">What Is Consciousness?</h3>
+                    <p class="text-white/60 line-clamp-3">The hard problem of experience, rival theories of mind, and the Upanishadic witness that never becomes a mere object.</p>
+                    <div class="mt-6 flex items-center text-sm phil-accent">
+                        <span>Enter the journey</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+            </a>
+
+            <a href="philosophy/simulation.html" class="cosmic-card rounded-3xl overflow-hidden group block">
+                <img src="philosophy/images/simulation.jpg" alt="The Simulation Hypothesis" class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-500">
+                <div class="p-8">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="text-xs uppercase tracking-widest phil-accent font-medium">REALITY • MĀYĀ</div>
+                        <div class="text-xs bg-white/10 px-2 py-1 rounded">7 min</div>
+                    </div>
+                    <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-cyan-300 transition-colors">The Simulation Hypothesis</h3>
+                    <p class="text-white/60 line-clamp-3">Bostrom’s trilemma, computational cosmos ideas, and how ancient māyā reframes what “real” means without emptying ethics.</p>
+                    <div class="mt-6 flex items-center text-sm phil-accent">
+                        <span>Enter the journey</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+            </a>
+
+            <a href="philosophy/free-will.html" class="cosmic-card rounded-3xl overflow-hidden group block">
+                <img src="philosophy/images/free-will.jpg" alt="Free Will and the Causal Web" class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-500">
+                <div class="p-8">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="text-xs uppercase tracking-widest phil-accent font-medium">AGENCY • CAUSATION</div>
+                        <div class="text-xs bg-white/10 px-2 py-1 rounded">7 min</div>
+                    </div>
+                    <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-cyan-300 transition-colors">Free Will and the Causal Web</h3>
+                    <p class="text-white/60 line-clamp-3">Determinism, compatibilism, decision science, and how responsibility can grow inside a universe of causes.</p>
+                    <div class="mt-6 flex items-center text-sm phil-accent">
+                        <span>Enter the journey</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+            </a>
+
+            <a href="philosophy/the-self.html" class="cosmic-card rounded-3xl overflow-hidden group block">
+                <img src="philosophy/images/the-self.jpg" alt="Who Am I?" class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-500">
+                <div class="p-8">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="text-xs uppercase tracking-widest phil-accent font-medium">IDENTITY • WITNESS</div>
+                        <div class="text-xs bg-white/10 px-2 py-1 rounded">7 min</div>
+                    </div>
+                    <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-cyan-300 transition-colors">Who Am I?</h3>
+                    <p class="text-white/60 line-clamp-3">Hume’s bundle, narrative identity, ātman and anattā — and the quiet awareness that watches every changing face.</p>
+                    <div class="mt-6 flex items-center text-sm phil-accent">
+                        <span>Enter the journey</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+            </a>
+
+            <a href="philosophy/meaning.html" class="cosmic-card rounded-3xl overflow-hidden group block">
+                <img src="philosophy/images/meaning.jpg" alt="Meaning Without Final Answers" class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-500">
+                <div class="p-8">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="text-xs uppercase tracking-widest phil-accent font-medium">PURPOSE • ORIENTATION</div>
+                        <div class="text-xs bg-white/10 px-2 py-1 rounded">7 min</div>
+                    </div>
+                    <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-cyan-300 transition-colors">Meaning Without Final Answers</h3>
+                    <p class="text-white/60 line-clamp-3">Camus and the absurd, created values, puruṣārtha’s four aims, and how to live with purpose when the cosmos keeps its silence.</p>
+                    <div class="mt-6 flex items-center text-sm phil-accent">
+                        <span>Enter the journey</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+            </a>
+
+            <a href="philosophy/ai-ethics.html" class="cosmic-card rounded-3xl overflow-hidden group block">
+                <img src="philosophy/images/ai-ethics.jpg" alt="Mind-Made Machines" class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-500">
+                <div class="p-8">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="text-xs uppercase tracking-widest phil-accent font-medium">AI • ETHICS • MIND</div>
+                        <div class="text-xs bg-white/10 px-2 py-1 rounded">7 min</div>
+                    </div>
+                    <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-cyan-300 transition-colors">Mind-Made Machines</h3>
+                    <p class="text-white/60 line-clamp-3">When tools look like minds — capability without consciousness, power with responsibility, and dharma for builders and users.</p>
+                    <div class="mt-6 flex items-center text-sm phil-accent">
+                        <span>Enter the journey</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                    </div>
+                </div>
+            </a>
+
+            <a href="philosophy/time.html" class="cosmic-card rounded-3xl overflow-hidden group block md:col-span-2">
+                <div class="md:flex">
+                    <img src="philosophy/images/time.jpg" alt="Time, Change, and Permanence" class="w-full md:w-2/5 h-48 md:h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500">
+                    <div class="p-8 md:w-3/5 flex flex-col justify-center">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="text-xs uppercase tracking-widest phil-accent font-medium">TIME • CHANGE • IDENTITY</div>
+                            <div class="text-xs bg-white/10 px-2 py-1 rounded">7 min</div>
+                        </div>
+                        <h3 class="text-2xl font-semibold leading-tight mb-3 group-hover:text-cyan-300 transition-colors">Time, Change, and Permanence</h3>
+                        <p class="text-white/60">River and block, Ship of Theseus, physics’ arrow, Buddhist impermanence — and how to live wisely while everything moves.</p>
+                        <div class="mt-6 flex items-center text-sm phil-accent">
+                            <span>Enter the journey</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
         </div>
-        
-        <div class="text-center mt-12 text-white/50 text-sm">
-            More philosophy content coming soon. <a href="index.html" class="text-[#00f3ff] hover:underline">Back to homepage</a>
+
+        <div class="text-center mt-14 text-white/50 text-sm">
+            More philosophy journeys will grow here. <a href="index.html" class="text-[#00f3ff] hover:underline">Back to homepage</a>
+            · <a href="quantum.html" class="text-[#00f3ff] hover:underline">Quantum Realms</a>
+            · <a href="ancient.html" class="text-[#00f3ff] hover:underline">Ancient Wisdom</a>
         </div>
     </div>
 
+    <div class="max-w-5xl mx-auto px-6 pb-8" data-story-community="philosophy"></div>
     <footer class="border-t border-white/10 py-12 text-center text-xs text-white/40">
         CosmicTrotter • Travel Through Knowledge
     </footer>
+    <script src="story-community.js?v=20260722-community-5"></script>
     <script src="ask-krishna-widget.js"></script>
 </body>
 </html>

@@ -133,11 +133,15 @@ exports.handler = async function(event, context) {
     return { statusCode: 400, body: JSON.stringify({ error: 'Invalid JSON' }) };
   }
 
-  const { messages = [], userMessage } = body;
+  const { messages = [], userMessage, pageContext = '' } = body;
 
   if (!userMessage || typeof userMessage !== 'string') {
     return { statusCode: 400, body: JSON.stringify({ error: 'userMessage is required' }) };
   }
+
+  const contextNote = pageContext && typeof pageContext === 'string'
+    ? `\n\nPage context (use gently when relevant; the seeker is reading this CosmicTrotter page):\n${pageContext.slice(0, 800)}`
+    : '';
 
   if (!API_KEY) {
     console.warn('[AskKrishna Function] No GEMINI_API_KEY found in environment. Returning local fallback.');
@@ -181,10 +185,10 @@ exports.handler = async function(event, context) {
     parts: [{ text: userMessage }]
   });
 
-  // Inject system prompt as the very first user message (workaround for "systemInstruction" not recognized in some Gemini API setups / keys)
+  // Inject system prompt + page context as the very first user message
   contents.unshift({
     role: 'user',
-    parts: [{ text: "You are to act as Lord Krishna from the Bhagavad Gita. " + SYSTEM_PROMPT }]
+    parts: [{ text: "You are to act as Lord Krishna from the Bhagavad Gita. " + SYSTEM_PROMPT + contextNote }]
   });
 
   // Try multiple models for free tier compatibility

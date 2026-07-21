@@ -8,8 +8,95 @@
     }
 
     function getBasePath() {
-        const path = getPath();
-        return path.includes("/ancient-wisdom/") || path.includes("/archetype/") || path.includes("/space-cosmos/") || path.includes("/quantum-realms/") ? "../" : "";
+        // Root-relative depth: /philosophy/consciousness(.html) needs "../"
+        // so logo/scripts resolve to site root, not /philosophy/logo.png (404).
+        let path = getPath().replace(/\/+$/, "");
+        if (!path || path === "/") return "";
+
+        const parts = path.split("/").filter(Boolean);
+        // Single segment at root: index.html, philosophy.html, ancient.html, etc.
+        if (parts.length <= 1) return "";
+
+        // Nested journey pages: philosophy/foo, ancient-wisdom/foo, quantum-realms/foo, ...
+        // Clean URLs without .html still have 2+ segments.
+        const depth = parts.length - 1;
+        return "../".repeat(depth);
+    }
+
+    /** Site-wide knowledge catalog for nav search (titles + keywords → URL). */
+    const KNOWLEDGE_CATALOG = [
+        { title: "Philosophy", keywords: "consciousness free will meaning simulation self mind", url: "philosophy.html" },
+        { title: "What Is Consciousness?", keywords: "hard problem awareness mind witness sakshin", url: "philosophy/consciousness.html" },
+        { title: "The Simulation Hypothesis", keywords: "simulation bostrom maya matrix reality", url: "philosophy/simulation.html" },
+        { title: "Free Will and the Causal Web", keywords: "free will determinism agency karma choice", url: "philosophy/free-will.html" },
+        { title: "Who Am I?", keywords: "self identity atman anatta narrative witness", url: "philosophy/the-self.html" },
+        { title: "Meaning Without Final Answers", keywords: "meaning purpose absurd camus purusartha", url: "philosophy/meaning.html" },
+        { title: "Mind-Made Machines", keywords: "ai ethics artificial intelligence responsibility alignment", url: "philosophy/ai-ethics.html" },
+        { title: "Time Change and Permanence", keywords: "time impermanence ship of theseus entropy change", url: "philosophy/time.html" },
+        { title: "Quantum Realms", keywords: "quantum physics entanglement observation", url: "quantum.html" },
+        { title: "The Witness and the Wave", keywords: "double slit observation witness wave", url: "quantum-realms/witness-wave.html" },
+        { title: "Entangled Across the Void", keywords: "entanglement nonlocality oneness", url: "quantum-realms/entangled-unity.html" },
+        { title: "Born of the Void", keywords: "vacuum nothing creation casimir", url: "quantum-realms/born-of-void.html" },
+        { title: "The Cosmic Hum", keywords: "vibration fields om sound", url: "quantum-realms/cosmic-hum.html" },
+        { title: "Space & Cosmos", keywords: "space cosmos astronomy universe", url: "space.html" },
+        { title: "The Breathing Cosmos", keywords: "cyclic cosmology bounce breath creation", url: "space-cosmos/breathing-cosmos.html" },
+        { title: "Event Horizon", keywords: "black hole horizon gravity time", url: "space-cosmos/event-horizon.html" },
+        { title: "Worlds Without Number", keywords: "exoplanets worlds planets life", url: "space-cosmos/worlds-without-number.html" },
+        { title: "Rishis Among the Stars", keywords: "aryabhata surya siddhanta astronomy vedic", url: "space-cosmos/rishis-stars.html" },
+        { title: "Ancient Wisdom", keywords: "veda upanishad purana temple", url: "ancient.html" },
+        { title: "Dashavatara", keywords: "vishnu avatar matsya kurma rama krishna", url: "dashavatara.html" },
+        { title: "Bhagavad Gita", keywords: "gita kurukshetra arjuna krishna dharma karma yoga", url: "bhagavad-gita.html" },
+        { title: "Puri Jagannath", keywords: "jagannath puri rath yatra odisha", url: "puri-jaganath.html" },
+        { title: "Daily Wisdom", keywords: "quote wisdom daily", url: "wisdom.html" },
+        { title: "Ask Krishna", keywords: "krishna chat guidance dharma", url: "ancient-wisdom/ask-krishna.html" }
+    ];
+
+    function resolveCatalogUrl(relativeUrl, base) {
+        if (!relativeUrl) return base || "";
+        // From nested folders, strip one level when target is top-level
+        if (base === "../") {
+            if (relativeUrl.startsWith("philosophy/") || relativeUrl.startsWith("quantum-realms/") ||
+                relativeUrl.startsWith("space-cosmos/") || relativeUrl.startsWith("ancient-wisdom/")) {
+                return "../" + relativeUrl;
+            }
+            return "../" + relativeUrl;
+        }
+        return relativeUrl;
+    }
+
+    function searchKnowledgeCatalog(query) {
+        const q = query.toLowerCase().trim();
+        if (!q) return null;
+        let best = null;
+        let bestScore = 0;
+        for (const item of KNOWLEDGE_CATALOG) {
+            const hay = `${item.title} ${item.keywords}`.toLowerCase();
+            if (hay.includes(q) || q.split(/\s+/).every((w) => hay.includes(w))) {
+                const score = hay.includes(q) ? 10 + (item.title.toLowerCase().includes(q) ? 5 : 0) : 3;
+                if (score > bestScore) {
+                    bestScore = score;
+                    best = item;
+                }
+            }
+        }
+        return best;
+    }
+
+    function ensureBrandIcons() {
+        const head = document.head;
+        if (!head || head.querySelector('link[data-cosmic-favicon]')) return;
+        const base = getBasePath();
+        const fav = document.createElement("link");
+        fav.rel = "icon";
+        fav.type = "image/png";
+        fav.href = `${base}favicon.png`;
+        fav.setAttribute("data-cosmic-favicon", "1");
+        head.appendChild(fav);
+        const apple = document.createElement("link");
+        apple.rel = "apple-touch-icon";
+        apple.href = `${base}apple-touch-icon.png`;
+        apple.setAttribute("data-cosmic-favicon", "1");
+        head.appendChild(apple);
     }
 
     function isHomePage() {
@@ -238,12 +325,14 @@
             }
 
             .cosmic-site-nav__logo {
+                width: 100%;
+                height: 100%;
                 max-width: 100%;
                 max-height: 100%;
-                width: auto;
-                height: auto;
-                object-fit: contain;
+                object-fit: cover;
+                object-position: center;
                 border-radius: 50%;
+                display: block;
             }
 
             .cosmic-site-nav__brand-copy {
@@ -1297,6 +1386,14 @@
             const query = input.value.toLowerCase().trim();
             if (!query) return;
 
+            const catalogHit = searchKnowledgeCatalog(query);
+            if (catalogHit) {
+                input.value = "";
+                closeNavigation();
+                window.location.href = resolveCatalogUrl(catalogHit.url, base);
+                return;
+            }
+
             const found = findInPage(query);
             if (found) {
                 highlightElement(found);
@@ -2293,10 +2390,20 @@
             document.body.insertAdjacentElement("afterbegin", newNav);
         }
 
+        ensureBrandIcons();
+        ensureJourneyProgressScript(base);
         bindNav(base);
         initLanguage();
         restoreSectionHashScroll();
         window.setTimeout(restoreSectionHashScroll, 150);
+    }
+
+    function ensureJourneyProgressScript(base) {
+        if (document.querySelector('script[data-cosmic-journey-progress]')) return;
+        const s = document.createElement('script');
+        s.src = `${base}journey-progress.js`;
+        s.setAttribute('data-cosmic-journey-progress', '1');
+        document.body.appendChild(s);
     }
 
     if (document.readyState === "loading") {

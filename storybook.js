@@ -3,6 +3,22 @@ const storybookState = {
   bookmarks: []
 };
 
+function getStorybookSlug() {
+  const fromBody = document.body?.dataset?.storybookSlug;
+  if (fromBody && String(fromBody).trim()) return String(fromBody).trim();
+  const path = (window.location.pathname || '').replace(/\.html?$/i, '');
+  const leaf = path.split('/').filter(Boolean).pop();
+  return leaf || 'default';
+}
+
+function bookmarksStorageKey() {
+  return `cosmic_${getStorybookSlug()}_bookmarks`;
+}
+
+function readingModeStorageKey() {
+  return `cosmic_${getStorybookSlug()}_reading_mode`;
+}
+
 function initializeStorybook() {
   document.documentElement.classList.remove('no-js');
   buildStorybookControls();
@@ -77,7 +93,7 @@ function getBookmarks() {
 function saveBookmarks(bookmarks) {
   storybookState.bookmarks = bookmarks;
   try {
-    localStorage.setItem('storybook-bookmarks', JSON.stringify(bookmarks));
+    localStorage.setItem(bookmarksStorageKey(), JSON.stringify(bookmarks));
   } catch (error) {
     console.warn('Unable to save bookmarks', error);
   }
@@ -86,7 +102,12 @@ function saveBookmarks(bookmarks) {
 
 function restoreBookmarks() {
   try {
-    const saved = JSON.parse(localStorage.getItem('storybook-bookmarks') || '[]');
+    let raw = localStorage.getItem(bookmarksStorageKey());
+    // Legacy shared key (pre page-scoped storage)
+    if (!raw && getStorybookSlug() === 'default') {
+      raw = localStorage.getItem('storybook-bookmarks');
+    }
+    const saved = JSON.parse(raw || '[]');
     if (Array.isArray(saved)) {
       storybookState.bookmarks = saved;
     }
@@ -298,7 +319,10 @@ function compactText(text, maxLength) {
 
 function restoreReadingMode() {
   try {
-    const saved = localStorage.getItem('storybook-reading-mode');
+    let saved = localStorage.getItem(readingModeStorageKey());
+    if (saved == null && getStorybookSlug() === 'default') {
+      saved = localStorage.getItem('storybook-reading-mode');
+    }
     const enabled = saved === 'true';
     if (enabled) applyReadingMode(true, false);
   } catch (error) {
@@ -319,7 +343,7 @@ function applyReadingMode(enabled, persist = true) {
 
   if (persist) {
     try {
-      localStorage.setItem('storybook-reading-mode', enabled ? 'true' : 'false');
+      localStorage.setItem(readingModeStorageKey(), enabled ? 'true' : 'false');
     } catch (error) {
       console.warn('Unable to save reading mode', error);
     }

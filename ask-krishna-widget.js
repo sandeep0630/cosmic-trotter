@@ -808,15 +808,79 @@ You have the recent conversation history. Use it to make the conversation feel c
     //   - Put your Gemini key in LOCAL_GEMINI_API_KEY below
     //   - The widget will call Gemini API directly from the browser (no Netlify function needed)
     //   - Clear the key before any commit/push.
+    function getPageContext() {
+        const bodyCtx = document.body && document.body.dataset
+            ? (document.body.dataset.krishnaContext || document.body.dataset.storybookSlug || '')
+            : '';
+        const title = (document.querySelector('h1') && document.querySelector('h1').textContent.trim())
+            || document.title
+            || '';
+        const path = window.location.pathname || '';
+        if (!bodyCtx && !title) return '';
+        return `The seeker is currently reading: "${title}" (${path}). Page context: ${bodyCtx || 'general CosmicTrotter page'}. Weave this gently when relevant; do not force it.`;
+    }
+
+    function applyPageSuggestionHints() {
+        const ctx = (document.body && document.body.dataset.krishnaContext) || '';
+        const slug = (document.body && document.body.dataset.storybookSlug) || '';
+        const box = document.querySelector('.krishna-widget__suggestions');
+        if (!box) return;
+        const path = (window.location.pathname || '').toLowerCase();
+        let hints = null;
+        if (path.includes('bhagavad-gita') || slug === 'bhagavad-gita') {
+            hints = [
+                ['When duties conflict, what is dharma?', 'When duties conflict, what is dharma?'],
+                ['How do I act without clinging to results?', 'How do I act without clinging to results?'],
+                ['I feel Arjuna’s despair in my life', 'I feel Arjuna’s despair in my work and relationships']
+            ];
+        } else if (path.includes('philosophy') || path.includes('/philosophy/')) {
+            hints = [
+                ['What is consciousness?', 'What is consciousness according to the Gita and wise seeing?'],
+                ['How do I find meaning?', 'How do I find meaning when the universe is silent?'],
+                ['Free will and duty', 'If causes shape me, how do I still choose dharma?']
+            ];
+        } else if (path.includes('quantum') || path.includes('space')) {
+            hints = [
+                ['Awe and smallness', 'The cosmos makes me feel small. How should I live?'],
+                ['Uncertainty', 'How do I live wisely with uncertainty?'],
+                ['Oneness', 'Is the universe one? What does that mean for my life?']
+            ];
+        } else if (ctx) {
+            hints = [
+                ['Help with this teaching', 'Help me apply what I am reading on this page to my life'],
+                ['One verse for today', 'Give me one Gita verse for what I am facing today'],
+                ['I feel stuck', 'I feel stuck after reading. What is one small step?']
+            ];
+        }
+        if (!hints) return;
+        box.innerHTML = hints.map(([label, prompt]) =>
+            `<button type="button" data-krishna-suggestion="${prompt.replace(/"/g, '&quot;')}">${label}</button>`
+        ).join('');
+        // Re-bind if events already bound
+        box.querySelectorAll('[data-krishna-suggestion]').forEach((button) => {
+            button.addEventListener('click', () => {
+                const input = document.getElementById('krishna-chat-input');
+                if (!input || widgetState.isResponding) return;
+                input.value = button.getAttribute('data-krishna-suggestion') || '';
+                document.getElementById('krishna-chat-form')?.requestSubmit();
+            });
+        });
+    }
+
     async function tryRealKrishna(userMessage) {
         const isLocal = location.protocol === 'file:' || 
                         location.hostname === 'localhost' || 
                         location.hostname === '127.0.0.1';
 
+        const pageContext = getPageContext();
+        const contextualMessage = pageContext
+            ? `${userMessage}\n\n[Context for Krishna — not spoken by user: ${pageContext}]`
+            : userMessage;
+
         // Direct Gemini call for local file:// testing (uses your browser + Gemini key)
         if (LOCAL_GEMINI_API_KEY && isLocal) {
             try {
-                const reply = await callGeminiDirect(userMessage);
+                const reply = await callGeminiDirect(contextualMessage);
                 if (reply) {
                     console.info('[Ask Krishna] Using DIRECT Gemini API (local file:// mode - for testing only)');
                     return reply;
@@ -834,8 +898,9 @@ You have the recent conversation history. Use it to make the conversation feel c
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
-                    userMessage, 
-                    messages: widgetState.recentHistory 
+                    userMessage: contextualMessage, 
+                    messages: widgetState.recentHistory,
+                    pageContext
                 })
             });
             if (!res.ok) {
@@ -1002,6 +1067,7 @@ You have the recent conversation history. Use it to make the conversation feel c
             : '<span class="krishna-widget__button-text">Ask Krishna</span><i class="fa-solid fa-comments"></i>';
 
         if (isOpen) {
+            applyPageSuggestionHints();
             if (!widgetState.isReady) {
                 widgetState.isReady = true;
                 addMessage("Namaste. I am here with you. Share what is on your heart — whether a struggle, a question about life, or simply a hello — and I will answer from the wisdom of the Gita with clarity and one small step forward.", false);

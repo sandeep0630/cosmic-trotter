@@ -7,7 +7,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://cosmictrotter.com/</loc>
-    <lastmod>2026-06-03</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -15,21 +15,69 @@
   <!-- Core Sections (clean URLs where applicable) -->
   <url>
     <loc>https://cosmictrotter.com/wisdom</loc>
-    <lastmod>2026-06-03</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://cosmictrotter.com/space</loc>
-    <lastmod>2026-06-03</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://cosmictrotter.com/bhagavad-gita.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://cosmictrotter.com/philosophy</loc>
-    <lastmod>2026-06-03</lastmod>
+    <lastmod>2026-07-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cosmictrotter.com/philosophy/consciousness.html</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cosmictrotter.com/philosophy/simulation.html</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cosmictrotter.com/philosophy/free-will.html</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cosmictrotter.com/philosophy/the-self.html</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cosmictrotter.com/philosophy/meaning.html</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cosmictrotter.com/philosophy/ai-ethics.html</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cosmictrotter.com/philosophy/time.html</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://cosmictrotter.com/quantum</loc>
@@ -63,30 +111,6 @@
     <changefreq>monthly</changefreq>
     <priority>0.65</priority>
   </url>
-  <url>
-    <loc>https://cosmictrotter.com/space-cosmos/breathing-cosmos-deep.html</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.55</priority>
-  </url>
-  <url>
-    <loc>https://cosmictrotter.com/space-cosmos/event-horizon-deep.html</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.55</priority>
-  </url>
-  <url>
-    <loc>https://cosmictrotter.com/space-cosmos/worlds-without-number-deep.html</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.55</priority>
-  </url>
-  <url>
-    <loc>https://cosmictrotter.com/space-cosmos/rishis-stars-deep.html</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.55</priority>
-  </url>
 
   <!-- Quantum Realms - New Pillar -->
   <url>
@@ -112,30 +136,6 @@
     <lastmod>2026-06-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.65</priority>
-  </url>
-  <url>
-    <loc>https://cosmictrotter.com/quantum-realms/witness-wave-deep.html</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.55</priority>
-  </url>
-  <url>
-    <loc>https://cosmictrotter.com/quantum-realms/entangled-unity-deep.html</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.55</priority>
-  </url>
-  <url>
-    <loc>https://cosmictrotter.com/quantum-realms/born-of-void-deep.html</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.55</priority>
-  </url>
-  <url>
-    <loc>https://cosmictrotter.com/quantum-realms/cosmic-hum-deep.html</loc>
-    <lastmod>2026-06-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.55</priority>
   </url>
   <url>
     <loc>https://cosmictrotter.com/ancient.html</loc>

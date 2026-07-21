@@ -1,0 +1,721 @@
+# -*- coding: utf-8 -*-
+"""Generate full 18-chapter Bhagavad Gita storybook HTML."""
+from pathlib import Path
+
+# Verse counts: standard 700-verse recension (Shankara benchmark). Ch.13 is 34 in many editions (some 35).
+CHAPTERS = [
+    dict(n=1, v=47, sk="Arjuna Vishada Yoga", en="The Yoga of Arjuna's Despair", te="అర్జున విషాద యోగం",
+         body="""The Gita opens not with a lecture, but with a field. Sanjaya describes the armies at Kurukshetra to the blind king Dhritarashtra. Conches sound. Then Arjuna asks Krishna to drive the chariot between the two forces so he can see who stands eager for war.
+
+What he sees is not a map of victory. He sees grandfathers, teachers, uncles, brothers, sons, and friends — on both sides. His body rebels: limbs weaken, mouth dries, skin burns; the bow Gandiva slips. He says he sees no good in killing kin for a kingdom. Better to live on alms than sit on a throne bought with the blood of elders. He sits down, weapon laid aside, overwhelmed by sorrow (vishada).
+
+Traditional teaching treats this chapter as a yoga in its own right: the honest facing of moral collapse. Without Arjuna's despair, the teaching has no patient. The song begins where many lives begin — when duty and love collide and the old scripts no longer work.""",
+         points=[
+             "The scene is named both dharma-kshetra and kuru-kshetra — field of dharma and field of the Kurus (1.1).",
+             "Arjuna's crisis is ethical and relational, not only physical fear: he refuses to kill teachers and kin for gain (1.26–46).",
+             "He anticipates social ruin from destroying the family order and rejects victory through adharma (1.37–46).",
+         ],
+         keys=[
+             ("1.21–23", "Arjuna asks Krishna to halt the chariot between the armies so he may look upon those assembled for battle."),
+             ("1.28–30", "Seeing kin ready to fight, Arjuna is seized by pity; his body trembles and his bow falls."),
+             ("1.46", "He would rather be killed unresisting than slay the revered ones facing him."),
+         ],
+         close="Honest despair is not the enemy of wisdom; it is often the door. Name the conflict before you demand a solution."),
+    dict(n=2, v=72, sk="Sankhya Yoga", en="The Yoga of Knowledge", te="సాంఖ్య యోగం",
+         body="""Krishna answers with firmness and care. He names Arjuna's dejection as unworthy of his standing, then opens the first great teaching: the embodied Self is not destroyed when the body dies. Weapons do not cut it; fire does not burn it. As a person discards worn clothes for new ones, the Self moves through bodies.
+
+From this ground rise the Gita's most practical lines: evenness of mind (samatva) is yoga; you have a right to action, not to the fruits of action; do not let results be your motive, and do not cling to inaction. The chapter ends with the portrait of one of steady wisdom (sthita-prajna) — content in the Self, not dragged by desire and anger.""",
+         points=[
+             "The Self (atman) is spoken of as eternal; the body is perishable — grief that treats only the body as the whole person is incomplete (2.11–30).",
+             "For Arjuna's role, righteous battle can be dharma; dropping duty from confusion is not true renunciation (2.31–38).",
+             "Karma-yoga is seeded here: skill in action without slavery to results (2.47–53).",
+             "Steady wisdom withdraws the senses like a tortoise and rests in the Self (2.54–72).",
+         ],
+         keys=[
+             ("2.13", "As the embodied one passes from childhood to youth to age, so it passes to another body; the wise are not confused by this."),
+             ("2.20", "The Self is not born and does not die; it is unborn, eternal; it is not slain when the body is slain."),
+             ("2.47", "You have a right to action alone, never to its fruits. Do not let the fruits be your motive; do not be attached to inaction."),
+             ("2.48", "Perform action established in yoga, abandoning attachment, the same in success and failure. Evenness of mind is called yoga."),
+             ("2.50", "One established in yoga casts off both good and bad results here; yoga is skill in action."),
+         ],
+         close="Care deeply about right action. Hold outcomes more lightly. That is the seed of freedom inside work."),
+    dict(n=3, v=43, sk="Karma Yoga", en="The Yoga of Action", te="కర్మ యోగం",
+         body="""Arjuna asks: if knowledge is superior, why push me into terrible action? Krishna replies that no one remains without action even for a moment — nature (prakriti) drives all beings. The path is not lazy withdrawal from work, but renunciation of selfish clinging while still acting.
+
+He teaches sacrifice (yajna) as the spirit of offering: the world is bound by action except action done as sacrifice. The wise act for the holding-together of the world (loka-sangraha). Desire and anger born of rajas are the inner enemy. Master the self by the self.""",
+         points=[
+             "Two paths were taught of old: knowledge for contemplatives, karma-yoga for the active (3.3).",
+             "Action is inevitable; the question is attachment versus offering (3.4–9).",
+             "Leaders and householders act to sustain the world, not for private craving alone (3.20–26).",
+             "One's own dharma, even imperfect, is better than another's perfectly performed (3.35).",
+         ],
+         keys=[
+             ("3.8", "Perform your ordained action; action is better than inaction. Even the body cannot be maintained without action."),
+             ("3.9", "This world is bound by action other than action done as sacrifice; free from attachment, act as sacrifice."),
+             ("3.19", "Always perform necessary action without attachment; by such action a person reaches the highest."),
+             ("3.35", "Better one's own dharma done imperfectly than another's dharma done well; better death in one's own dharma."),
+         ],
+         close="Do the work that is yours. Offer it. Do not use spiritual talk as an excuse for irresponsibility."),
+    dict(n=4, v=42, sk="Jnana Karma Sanyasa Yoga", en="Knowledge and the Renunciation of Doership", te="జ్ఞాన కర్మ సన్యాసం",
+         body="""Krishna places this yoga in an ancient lineage and declares his divine births: whenever dharma declines and adharma rises, he manifests age after age to protect the good, restrain the wicked, and establish dharma. One who truly knows this divine birth and action is not reborn into bondage in the same way, but comes to him.
+
+The chapter unites knowledge and action: the wise see action in inaction and inaction in action. Many kinds of sacrifice exist — material, austerity, study, knowledge. Knowledge-sacrifice is supreme. The fire of knowledge burns the binding power of karma. Cut doubt with knowledge and stand in yoga.""",
+         points=[
+             "The classic avatar verses: divine manifestation when dharma falters (4.7–8).",
+             "True renunciation is dropping the ego of doership, not necessarily dropping work (4.18–23).",
+             "Knowledge joined to yoga purifies and frees (4.36–42).",
+         ],
+         keys=[
+             ("4.7–8", "Whenever dharma declines and adharma increases, I manifest Myself. For protection of the good, for the restraint of the wicked, and for the establishment of dharma, I come into being age after age."),
+             ("4.18", "One who sees inaction in action and action in inaction is wise among humans — a yogi engaged in all works."),
+             ("4.24", "Brahman is the offering and the oblation; offered by Brahman into the fire of Brahman; Brahman is reached by one intent on Brahman-action."),
+             ("4.38", "Nothing in this world purifies like knowledge; in time, one perfected in yoga finds it within the Self."),
+         ],
+         close="Knowledge without action dries up; action without knowledge becomes restless. Burn selfishness in clear seeing."),
+    dict(n=5, v=29, sk="Karma Sanyasa Yoga", en="The Yoga of Renunciation", te="కర్మ సన్యాస యోగం",
+         body="""Arjuna asks which is better: renouncing actions or the yoga of action. Krishna says both can lead to the highest, but karma-yoga is often better — pure renunciation without yoga is hard. The true renouncer neither hates nor desires; free from dualities, that one is easily released from bondage.
+
+The sage of equal vision sees the same reality in a learned brahmin, a cow, an elephant, a dog, and one outside conventional purity ranks. Happiness that depends only on sense contact is a womb of pain. Peace comes to the one who knows the Lord as enjoyer of sacrifices, master of worlds, and friend of all beings.""",
+         points=[
+             "Renunciation and karma-yoga both valid; karma-yoga is often the safer path (5.2–6).",
+             "Equal vision toward beings is a mark of wisdom (5.18).",
+             "Sense pleasure is temporary and seeds pain; seek joy rooted in the Self (5.21–24).",
+         ],
+         keys=[
+             ("5.2", "Both renunciation and the yoga of action lead to the highest good; of the two, the yoga of action is better than renunciation of action."),
+             ("5.10", "One who acts placing actions in Brahman, abandoning attachment, is not stained by sin, as a lotus leaf is not wetted by water."),
+             ("5.18", "The wise see with equal vision a learned humble brahmin, a cow, an elephant, a dog, and a dog-eater."),
+             ("5.29", "Knowing Me as the enjoyer of sacrifices and austerities, great Lord of all worlds, friend of all beings, one attains peace."),
+         ],
+         close="Outer renunciation without inner freedom is incomplete. Inner freedom can still wear ordinary work."),
+    dict(n=6, v=47, sk="Dhyana Yoga", en="The Yoga of Meditation", te="ధ్యాన యోగం",
+         body="""Krishna teaches the discipline of meditation: moderation in food, sleep, and recreation; a clean seat; the mind and senses restrained; attention gathered to one point. The yogi sees the Self in all beings and all beings in the Self, and sees Krishna everywhere.
+
+Arjuna objects that the mind is restless, strong, and hard to hold — like the wind. Krishna agrees, then gives the method: practice (abhyasa) and dispassion (vairagya). If a seeker falls from yoga, the effort is not lost; rebirth can favor continuing the path. Among yogis, the one who worships Krishna with faith, the inner Self abiding in him, is highest.""",
+         points=[
+             "Lift the self by the Self; the Self can be friend or enemy (6.5–6).",
+             "Moderation supports meditation; extremes hinder (6.16–17).",
+             "Mind control needs practice and dispassion (6.35).",
+             "Good effort is never wasted (6.40–45).",
+         ],
+         keys=[
+             ("6.5", "One should lift the self by the Self and not degrade the self; the Self alone is the friend of the self, and the Self alone the enemy of the self."),
+             ("6.6", "For one who has conquered the self, the Self is a friend; for one who has not, the Self remains hostile like an enemy."),
+             ("6.35", "The mind is restless and hard to restrain; yet by practice and dispassion it is held."),
+             ("6.40", "Neither here nor hereafter is there destruction for one who does good; never does a doer of good come to a bad end."),
+             ("6.47", "Of all yogis, the one whose inner Self has entered into Me, who worships Me with faith, is considered by Me the most devoted."),
+         ],
+         close="Train the mind in honest daily practice. Falling is not failure if you rise and continue."),
+    dict(n=7, v=30, sk="Jnana Vijnana Yoga", en="Knowledge and Realization", te="జ్ఞాన విజ్ఞాన యోగం",
+         body="""Krishna speaks of knowing him in full — not only as facts about the divine, but as lived realization. He describes a lower nature (material elements and mind) and a higher nature (the life-principle that upholds the world). He is the taste in water, the light in moon and sun, the sacred syllable Om, the seed of all beings.
+
+Among thousands, few strive for perfection; among those who strive, few know him in truth. Four kinds of people turn to him: the distressed, the seekers of knowledge, the seekers of wealth, and the wise. Of these the wise who are ever united are dearest. Deluded people do not take refuge in him; those who do take refuge cross beyond delusion.""",
+         points=[
+             "Two natures: material field and the conscious principle that sustains (7.4–7).",
+             "Divine immanence in the world's good qualities (7.8–12).",
+             "Few know the Divine in truth; devotion of the wise is highest (7.3, 7.16–19).",
+             "Maya is hard to cross; those who take refuge cross it (7.14).",
+         ],
+         keys=[
+             ("7.7", "There is nothing whatsoever higher than Me, O Arjuna. All this is strung on Me like pearls on a thread."),
+             ("7.14", "This divine maya of Mine, consisting of the gunas, is hard to cross; those who take refuge in Me alone cross this maya."),
+             ("7.16", "Four kinds of virtuous people worship Me: the distressed, the seeker of knowledge, the seeker of wealth, and the wise, O Arjuna."),
+             ("7.19", "At the end of many births the wise one takes refuge in Me, knowing Vasudeva is all; such a great soul is rare."),
+         ],
+         close="Information about God is not the same as refuge. Realization matures through both clarity and devotion."),
+    dict(n=8, v=28, sk="Akshara Brahma Yoga", en="The Imperishable Brahman", te="అక్షర బ్రహ్మ యోగం",
+         body="""Arjuna asks about Brahman, the adhyatma, karma, the adhibhuta, the adhidaiva, and how the Divine is known at the time of death. Krishna defines these terms and teaches that whoever remembers him at the end, leaving the body, goes to his being. Therefore remember him at all times and fight — mind and intellect fixed on him.
+
+He describes paths of return and non-return, the day and night of Brahma, and the imperishable goal. From the unmanifest all beings come forth at the coming of day; at night they dissolve. Beyond the unmanifest is the eternal unmanifest — the supreme goal. Those who reach him are not reborn into suffering in the same cycle of delusion.""",
+         points=[
+             "Remembrance at death is shaped by what the mind practiced in life (8.5–7).",
+             "Cosmic cycles: manifestation and dissolution across vast ages (8.17–19).",
+             "The supreme imperishable is the final refuge (8.20–22).",
+             "Yogic departure and the two paths (8.23–28) appear in traditional teaching of light and dark courses.",
+         ],
+         keys=[
+             ("8.5", "And whoever, at the time of death, leaving the body, remembers Me alone, goes to My being; of this there is no doubt."),
+             ("8.7", "Therefore at all times remember Me and fight. With mind and intellect fixed on Me, you will come to Me without doubt."),
+             ("8.16", "All worlds, up to the realm of Brahma, are subject to return, O Arjuna; but on reaching Me, O son of Kunti, there is no rebirth."),
+             ("8.22", "That supreme Person, O Partha, is attainable by undivided devotion; within him all beings stand, by him this universe is pervaded."),
+         ],
+         close="What you practice daily becomes what you can remember in extremity. Train the mind before the crisis."),
+    dict(n=9, v=34, sk="Raja Vidya Raja Guhya Yoga", en="The Royal Knowledge and Royal Secret", te="రాజవిద్యా రాజగుహ్యం",
+         body="""Krishna calls this the royal knowledge and royal secret — purifying, directly experienceable, easy to practice, imperishable. The whole universe is pervaded by him in his unmanifest form; beings rest in him, yet he is not exhausted by them. He is the father, mother, sustainer, and grandfather of the universe; the sacred syllable; the goal, supporter, lord, witness, abode, refuge, and friend.
+
+He accepts even a leaf, flower, fruit, or water offered with devotion. Whatever you do, eat, offer, give, or tapas you perform — do it as an offering to him. Those who take refuge in him, even if of births or lives considered low by society, go to the highest goal. Fix the mind on him, be devoted, worship, bow — thus united, you will come to him.""",
+         points=[
+             "Divine pervasion without being limited by the world (9.4–10).",
+             "Devotion democratizes access: sincere offering matters more than costly ritual (9.26).",
+             "Offer all acts to the Divine (9.27).",
+             "Refuge is open; do not despair about past status (9.30–34).",
+         ],
+         keys=[
+             ("9.22", "To those who worship Me thinking of nothing else, who are ever united, I carry what they lack and preserve what they have."),
+             ("9.26", "Whoever offers Me with devotion a leaf, a flower, a fruit, or water — that offering of devotion I accept from the pure-hearted."),
+             ("9.27", "Whatever you do, whatever you eat, whatever you offer, whatever you give, whatever austerity you perform, O son of Kunti, do that as an offering to Me."),
+             ("9.34", "Fix your mind on Me, be devoted to Me, worship Me, bow to Me; thus composing yourself and holding Me as supreme, you will come to Me."),
+         ],
+         close="Royalty here is not wealth; it is a secret available in a leaf offered with love."),
+    dict(n=10, v=42, sk="Vibhuti Yoga", en="The Yoga of Divine Glories", te="విభూతి యోగం",
+         body="""Krishna describes his glories so that Arjuna may know him more fully. He is the source of gods and great sages; from his mind the four kinds of beings come forth. Intelligence, knowledge, non-delusion, patience, truth, self-restraint, calmness, joy and sorrow, birth and death, fear and fearlessness — these states of being arise from him.
+
+Arjuna asks for detailed vibhutis. Krishna lists: among the Adityas he is Vishnu; among lights, the radiant sun; among words, the syllable Om; among immovable things, Himalaya; among warriors, Rama; among rivers, Ganga; among purifiers, the wind — and so on. Finally: what is the need of all this detail? With a single fragment of himself he supports this whole universe.""",
+         points=[
+             "Knowing divine glories strengthens devotion and right understanding (10.1–11).",
+             "All excellence in the world is a hint of the source (10.19–41).",
+             "The cosmos is sustained by a fraction of the Divine (10.42).",
+         ],
+         keys=[
+             ("10.8", "I am the origin of all; from Me all proceeds. Knowing this, the wise worship Me, filled with feeling."),
+             ("10.20", "I am the Self, O Gudakesha, seated in the hearts of all beings; I am the beginning, the middle, and the end of beings."),
+             ("10.41", "Whatever being is glorious, prosperous, or strong, know that to have sprung from a fraction of My splendor."),
+             ("10.42", "But what is the need of this detailed knowledge, O Arjuna? Supporting this whole universe with a single fragment of Myself, I remain."),
+         ],
+         close="When you meet excellence — courage, beauty, truth — let it point beyond itself to the source."),
+    dict(n=11, v=55, sk="Vishwarupa Darshana Yoga", en="The Vision of the Cosmic Form", te="విశ్వరూప సందర్శనం",
+         body="""Arjuna asks to see the Lord's divine form. Krishna grants a divine eye. Sanjaya describes what Arjuna sees: countless mouths and eyes, infinite ornaments, faces on all sides, blazing like a thousand suns risen at once. Gods enter the form; the armies of both sides rush into the terrible mouths like rivers into the sea or moths into flame.
+
+Arjuna trembles with awe and fear. He sees Time as the world-destroyer grown full, engaged in dissolving the worlds. Krishna tells him that the warriors are already slain in the cosmic vision; Arjuna is to be the instrument. Arjuna praises, then asks to see again the gentle two-armed form. Krishna returns to the familiar friend-form. He says this vision is hard to obtain; devotion is the way to know and enter into him in truth.""",
+         points=[
+             "The cosmic form shows the universe as the body of the Divine (11.9–31).",
+             "Time as destroyer appears within the vision (11.32–34).",
+             "Arjuna is called to act as instrument within a larger order (11.33).",
+             "Bhakti is affirmed as the path to this knowing (11.53–55).",
+         ],
+         keys=[
+             ("11.12", "If the light of a thousand suns were to blaze forth at once in the sky, that might resemble the splendor of that great Being."),
+             ("11.32", "I am Time, the mighty cause of world-destruction, engaged here in annihilating the worlds. Even without you, all the warriors arrayed in the opposing armies shall cease to be."),
+             ("11.33", "Therefore stand up, gain glory; conquering enemies, enjoy a prosperous kingdom. By Me they are already slain; be you only the instrument, O left-handed archer."),
+             ("11.55", "One who does work for Me, holds Me as supreme, is devoted to Me, free from attachment, without hatred for any being — that one comes to Me, O Pandava."),
+         ],
+         close="Awe without friendship can crush; friendship without awe can shrink the Divine. The Gita holds both forms."),
+    dict(n=12, v=20, sk="Bhakti Yoga", en="The Yoga of Devotion", te="భక్తి యోగం",
+         body="""Arjuna asks who is better: those who worship the imperishable unmanifest, or those who worship Krishna with devotion. Krishna says those who fix the mind on him, ever united, endowed with supreme faith, are the most skilled in yoga. The path of the unmanifest is harder for embodied beings. For those who cannot fix the mind fully, he gives a ladder: practice, then dedicate actions, then renounce the fruit of action — which brings peace.
+
+He lists the beloved devotee: no hatred for any being, friendly and compassionate, free from I-making and mine-making, equal in pain and pleasure, patient, content, self-controlled, firm in resolve, mind and intellect offered to him. The same list continues: one who neither disturbs the world nor is disturbed by it, free from joy, anger, fear, and anxiety — dear to him.""",
+         points=[
+             "Personal devotion is praised as more accessible for most embodied seekers (12.2–5).",
+             "A practical ladder if concentration fails: practice, offer acts, renounce fruits (12.8–12).",
+             "Character of the devotee is ethical and emotional maturity, not mere sentiment (12.13–20).",
+         ],
+         keys=[
+             ("12.2", "Those who, fixing their mind on Me, worship Me, ever united, endowed with supreme faith — them I consider the most perfected in yoga."),
+             ("12.5", "The difficulty of those whose minds are set on the unmanifest is greater; the goal of the unmanifest is hard for the embodied to reach."),
+             ("12.12", "Knowledge is better than practice; meditation is better than knowledge; renunciation of the fruit of action is better than meditation; from renunciation, peace immediately follows."),
+             ("12.13–14", "One who has no hatred for any being, who is friendly and compassionate, free from possessiveness and ego, equal in pain and pleasure, patient — that devotee is dear to Me."),
+         ],
+         close="Devotion is not soft escape; it is a trained heart — kind, steady, and offered."),
+    dict(n=13, v=34, sk="Kshetra Kshetrajna Vibhaga Yoga", en="The Field and the Knower of the Field", te="క్షేత్ర క్షేత్రజ్ఞ విభాగం",
+         body="""This chapter distinguishes the field (kshetra) from the knower of the field (kshetrajna). The field is the body and the psychophysical complex — elements, ego, intellect, senses, desire, aversion, pleasure, pain, the aggregate, consciousness, firmness. The knower in each body is the Lord as kshetrajna; he is also the knower of all fields.
+
+Knowledge is described as humility, non-harm, patience, uprightness, service of the teacher, purity, steadfastness, self-control, detachment from sense objects, absence of egoism, seeing the defects of birth, death, age, and disease, non-attachment to family possessiveness, steady devotion, resort to solitude, constancy in self-knowledge. The object of knowledge is the beginningless supreme Brahman. Spirit and matter, purusha and prakriti, and their interplay are explained. One who sees the same Lord standing equally in all beings does not harm the Self by the self and goes to the highest goal.""",
+         points=[
+             "Field vs knower: body-mind as field; consciousness/Lord as knower (13.1–6).",
+             "Virtues listed as knowledge itself (13.7–11 in common numbering).",
+             "Equal vision of the Lord in all beings ends self-destruction through hate (13.27–28).",
+             "Note: some editions count 35 verses in this chapter; 34 is common in the 700-verse standard.",
+         ],
+         keys=[
+             ("13.1–2", "This body is called the field, and one who knows it is called the knower of the field by those who know. Know Me as the knower of the field in all fields, O Bharata."),
+             ("13.12", "I shall describe that which is to be known, knowing which one attains immortality: the beginningless supreme Brahman, said neither to be sat nor asat in ordinary terms."),
+             ("13.27", "One who sees the supreme Lord standing equally in all beings, the undying in the dying — that one truly sees."),
+             ("13.28", "Seeing the Lord equally established everywhere, one does not harm the Self by the self and goes to the supreme goal."),
+         ],
+         close="You are not only the field of thoughts and cells; you are also the knowing light. Do not hate the Self in another."),
+    dict(n=14, v=27, sk="Gunatraya Vibhaga Yoga", en="The Three Gunas", te="గుణత్రయ విభాగం",
+         body="""Krishna analyzes the three gunas of prakriti: sattva (clarity, binding through attachment to knowledge and joy), rajas (passion, binding through attachment to action), and tamas (darkness, binding through negligence, laziness, and sleep). Sattva causes attachment to happiness; rajas to action; tamas, veiling knowledge, causes attachment to negligence.
+
+When a person dies in predominance of a guna, the destination and next life-tendency differ. The fruit of sattvic action is purity; of rajas, pain; of tamas, ignorance. One who sees no doer other than the gunas, and knows what is higher than the gunas, comes to the divine being. The chapter ends with the marks of one who has transcended the gunas — equal in pleasure and pain, the same toward a clod, a stone, and gold — and with the statement that Krishna is the foundation of Brahman, of immortal freedom, of everlasting dharma, and of absolute bliss.""",
+         points=[
+             "Sattva, rajas, tamas each bind in different ways (14.5–9).",
+             "Guna predominance shapes mind, action, and rebirth tendency (14.11–18).",
+             "Freedom is not only picking sattva forever, but going beyond the three (14.19–20).",
+             "The gunatita's marks are equanimity and non-identification with the play of qualities (14.22–25).",
+         ],
+         keys=[
+             ("14.5", "Sattva, rajas, and tamas — the gunas born of prakriti — bind the imperishable embodied one in the body, O mighty-armed."),
+             ("14.17", "From sattva arises knowledge, and from rajas greed; negligence and delusion arise from tamas, and also ignorance."),
+             ("14.20", "Having gone beyond these three gunas, which are the source of the body, the embodied one, released from birth, death, old age, and pain, attains immortality."),
+             ("14.26", "One who serves Me with unwavering yoga of devotion, going beyond these gunas, is fit to become Brahman."),
+         ],
+         close="Watch which quality is driving you today — clarity, restlessness, or fog — and choose practices that free rather than feed the binding."),
+    dict(n=15, v=20, sk="Purushottama Yoga", en="The Yoga of the Supreme Person", te="పురుషోత్తమ యోగం",
+         body="""Krishna uses the image of the ashvattha tree with roots above and branches below — a cosmic tree of samsara to be cut with the axe of non-attachment, so one may seek the goal from which one does not return. The eternal portion of the Lord becomes the living soul in the world of the living, drawing the senses and mind which rest in prakriti.
+
+He describes two persons in the world: the perishable and the imperishable. Beyond both is the supreme Person (Purushottama), who enters the three worlds and sustains them as the unchanging Lord. Whoever knows him as Purushottama knows all and worships him with the whole being. This most secret teaching is given; knowing it, one becomes wise and has done what has to be done.""",
+         points=[
+             "Samsara as inverted tree: cut attachment to be free (15.1–4).",
+             "The Lord as the living spark drawing mind and senses (15.7–9).",
+             "Perishable, imperishable, and the Supreme beyond both (15.16–18).",
+             "Knowing Purushottama is complete knowing for the Gita's theistic aim (15.19–20).",
+         ],
+         keys=[
+             ("15.1", "They speak of the eternal ashvattha tree with roots above and branches below, whose leaves are the Vedic hymns; one who knows it knows the Veda."),
+             ("15.7", "A fragment of My own self, having become the eternal living soul in the world of the living, draws the senses, with the mind as the sixth, which rest in prakriti."),
+             ("15.15", "I am seated in the hearts of all; from Me come memory, knowledge, and their loss. I alone am to be known by all the Vedas; I am the author of Vedanta and the knower of the Vedas."),
+             ("15.18", "Since I transcend the perishable and am higher even than the imperishable, I am celebrated in the world and in the Veda as the Supreme Person."),
+         ],
+         close="You are more than the restless tree of becoming. Seek the root that does not die with the leaves."),
+    dict(n=16, v=24, sk="Daivasura Sampad Vibhaga Yoga", en="Divine and Demonic Qualities", te="దైవాసుర సంపద్విభాగం",
+         body="""Krishna contrasts two estates of character. Divine qualities include fearlessness, purity of heart, steadfastness in knowledge-yoga, charity, self-control, sacrifice, study, austerity, non-harm, truth, absence of anger, renunciation, peace, non-slander, compassion for beings, non-covetousness, gentleness, modesty, absence of fickleness, vigor, forgiveness, fortitude, purity, freedom from hatred, and absence of pride.
+
+Demonic qualities include hypocrisy, arrogance, conceit, anger, harshness, and ignorance. Demonic people say the world is without truth, without basis, without God, born of desire alone. Clinging to insatiable desire, full of hypocrisy and pride, they grasp wrong means for wealth and declare themselves the enjoyers and lords. Krishna says threefold is the gate of hell destructive of the self: desire, anger, and greed. Therefore let these three be abandoned. Let scripture be your guide in determining what to do and what not to do.""",
+         points=[
+             "Ethics is framed as divine versus demonic endowments of character (16.1–5).",
+             "Worldview shapes conduct: denial of truth and God feeds predatory living (16.7–16).",
+             "Desire, anger, greed are the triple gate of self-ruin (16.21).",
+             "Scripture (shastra) is urged as guide for right and wrong action (16.24).",
+         ],
+         keys=[
+             ("16.1–3", "Fearlessness, purity of heart, steadfastness in the yoga of knowledge, charity, self-restraint, sacrifice, study, austerity, uprightness, non-violence, truth, absence of anger, renunciation, peace, non-slander, compassion for beings — these belong to one born for a divine lot."),
+             ("16.21", "Threefold is this gate of hell, destructive of the self: desire, anger, and greed. Therefore one should abandon these three."),
+             ("16.24", "Therefore let scripture be your authority in determining what ought to be done and what ought not to be done. Knowing the scriptural injunction, you should perform action here."),
+         ],
+         close="Watch the triple gate. Character is destiny rehearsed daily in small choices."),
+    dict(n=17, v=28, sk="Shraddhatraya Vibhaga Yoga", en="The Three Kinds of Faith", te="శ్రద్ధాత్రయ విభాగం",
+         body="""Arjuna asks about those who sacrifice with faith but outside scriptural rule. Krishna teaches that faith itself is threefold according to nature: sattvic, rajasic, tamasic. A person is what their shraddha is. Sattvic people worship gods; rajasic, yakshas and rakshasas; tamasic, the dead and hosts of spirits — according to traditional classification of faith-objects in this chapter.
+
+Food, sacrifice, austerity, and gift are each analyzed by the three gunas. Sattvic food is strengthening, purifying, agreeable; rajasic is too bitter, sour, salty, excessively hot; tamasic is stale, tasteless, putrid, leftover. Austerity of body, speech, and mind is described. Om Tat Sat is explained as the threefold designation of Brahman used in sacrifice, gift, and austerity. An offering or gift or austerity done without faith is asat — it is nothing here or hereafter.""",
+         points=[
+             "Faith is colored by the gunas; you become as your faith is (17.2–3).",
+             "Even ordinary life — food, gift, discipline — carries ethical quality (17.7–22).",
+             "Om Tat Sat links speech and ritual to Brahman (17.23–27).",
+             "Without faith, spiritual acts lose their living core (17.28).",
+         ],
+         keys=[
+             ("17.3", "The faith of every person is in accordance with their nature, O Bharata. A person is made of faith; whatever their faith is, that they are."),
+             ("17.15", "Austerity of speech is speech that does not cause agitation, that is true, pleasing, and beneficial, and also the practice of sacred study."),
+             ("17.20", "The gift given with the thought 'it ought to be given,' to one who cannot return it, at the right place and time, to a worthy person — that gift is remembered as sattvic."),
+             ("17.28", "Whatever is sacrificed, given, or performed as austerity without faith is called asat, O Partha; it is nothing here or hereafter."),
+         ],
+         close="Faith is not empty belief; it is the quality of heart you feed with every meal, gift, and word."),
+    dict(n=18, v=78, sk="Moksha Sanyasa Yoga", en="The Yoga of Liberation and Renunciation", te="మోక్ష సన్యాస యోగం",
+         body="""The longest chapter gathers the teaching. Arjuna asks the difference between sannyasa and tyaga. Krishna explains renunciation of desire-driven actions and abandonment of the fruit of all action. Not all action can be abandoned by the embodied; what is abandoned is clinging. Five factors of action are listed. Knowledge, the known, and the knower are threefold by gunas; so are intellect, firmness, and happiness.
+
+Duties of brahmins, kshatriyas, vaishyas, and shudras are described according to nature-born qualities — a classical social map of the text's time, which later readers interpret in diverse ethical ways; the Gita's own pressure is toward svadharma and liberation rather than cruelty. Better one's own dharma imperfectly than another's well done. One who is free from ego, whose intellect is untainted, even if killing these people, does not kill — in the text's battlefield logic of non-doership.
+
+Krishna gives a supreme word: fix mind on him, be his devotee, sacrifice to him, bow to him; you will come to him. Abandon all dharmas and take refuge in him alone; he will free you from all sins; do not grieve. Arjuna says his delusion is destroyed; memory is regained; he will do Krishna's word. Sanjaya closes: where Krishna, Lord of yoga, and Arjuna the archer are, there are fortune, victory, well-being, and sound policy.""",
+         points=[
+             "Tyaga of fruits is central; total inaction is not required of the embodied (18.1–12).",
+             "Analysis of action, knowledge, intellect, firmness, and joy by the three gunas (18.19–39).",
+             "Svadharma returns: better one's own duty than another's (18.47).",
+             "Culminating refuge: abandon all dharmas, go to Krishna alone (18.66).",
+             "Arjuna's consent closes the dialogue; Sanjaya's benediction closes the narration (18.73–78).",
+         ],
+         keys=[
+             ("18.47", "Better is one's own dharma, though imperfect, than the dharma of another well performed. Performing action ordained by one's own nature, one does not incur sin."),
+             ("18.63", "Thus has wisdom more secret than all secrets been declared to you by Me. Reflect on it fully, then do as you choose."),
+             ("18.65", "Fix your mind on Me, be devoted to Me, sacrifice to Me, bow to Me; you shall come to Me alone. I promise you truly, for you are dear to Me."),
+             ("18.66", "Abandoning all dharmas, take refuge in Me alone. I will liberate you from all sins; do not grieve."),
+             ("18.73", "Arjuna said: Destroyed is my delusion; I have gained memory through Your grace, O Achyuta. I stand firm, free from doubt. I shall do Your word."),
+             ("18.78", "Wherever there is Krishna, Lord of yoga, and Arjuna the archer, there in my opinion are fortune, victory, well-being, and sound statecraft."),
+         ],
+         close="The song ends not with theory alone, but with a free choice: 'I will do your word.' Refuge and responsibility meet."),
+]
+
+assert sum(c["v"] for c in CHAPTERS) == 700
+assert len(CHAPTERS) == 18
+
+CSS = r"""
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
+        body { font-family: 'Inter', system_ui, sans-serif; background: #0a0a0f; color: #e0e7ff; }
+        .font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 600; }
+        .cosmic-bg { background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 70%); }
+        .section-header { font-size: 2.6rem; line-height: 3rem; font-weight: 700; letter-spacing: -0.03em; }
+        .avatar-story { scroll-margin-top: 5rem; border-top: 1px solid rgba(251, 191, 36, 0.1); padding-top: 2.5rem; margin-top: 2.5rem; }
+        .avatar-story:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+        .chapter { margin-bottom: 2.5rem; }
+        .chapter h3 { color: #fcd34d; font-size: 1.25rem; font-weight: 600; margin-bottom: 0.6rem; }
+        .avatar-title-img { display: block; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 0.85rem; }
+        .chapter-img { border-radius: 0.85rem; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 12px 28px -10px rgba(0,0,0,0.45); margin: 0.8rem 0; }
+        .illustration-caption { font-size: 0.78rem; color: rgba(255,255,255,0.55); font-style: italic; text-align: center; margin-top: -0.2rem; margin-bottom: 1rem; }
+        .core-wisdom { background: linear-gradient(145deg, rgba(251, 191, 36, 0.09), rgba(245, 158, 11, 0.035)); border: 1px solid rgba(251, 191, 36, 0.22); }
+        .story-nav { display: flex; gap: 0.75rem; margin-top: 1.5rem; }
+        .story-nav a { flex: 1; text-align: center; padding: 0.6rem 1rem; border-radius: 0.75rem; border: 1px solid rgba(251, 191, 36, 0.25); font-size: 0.9rem; transition: all 0.2s ease; }
+        .story-nav a:hover { background: rgba(251, 191, 36, 0.08); border-color: rgba(251, 191, 36, 0.45); }
+        .source-note { font-size: 0.82rem; color: rgba(255,255,255,0.5); border-left: 2px solid rgba(251, 191, 36, 0.35); padding-left: 0.75rem; margin: 0.75rem 0 1rem; }
+        .verse-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(251, 191, 36, 0.15); border-radius: 1rem; padding: 1rem 1.15rem; margin: 0.75rem 0; }
+        .verse-box .ref { color: #fcd34d; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.35rem; }
+        .verse-box .sense { color: rgba(224,231,255,0.88); font-size: 0.98rem; line-height: 1.65; }
+        .avatar-selector { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.55rem; }
+        .avatar-chip { background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(251, 191, 36, 0.15); transition: all 0.25s ease; padding: 0.45rem 0.6rem; border-radius: 0.6rem; font-size: 0.8rem; text-align: left; color: rgba(253,230,138,0.95); cursor: pointer; }
+        .avatar-chip:hover { border-color: rgba(251, 191, 36, 0.4); background: rgba(251, 191, 36, 0.06); }
+        .reading-progress-shell { position: fixed; top: 0; left: 0; z-index: 150; width: 100%; height: 3px; background: rgba(255,255,255,0.08); opacity: 0; pointer-events: none; transition: opacity 0.2s ease; }
+        .reading-mode .reading-progress-shell { opacity: 1; }
+        #reading-progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #facc15, #22d3ee); box-shadow: 0 0 14px rgba(250, 204, 21, 0.45); }
+        .reading-mode { background: radial-gradient(circle at top, #15131f 0%, #07070b 58%); }
+        .reading-mode .avatar-story { max-width: 76ch; margin-left: auto; margin-right: auto; }
+        #reading-mode-btn[aria-pressed="true"] { border-color: rgba(251, 191, 36, 0.5); background: rgba(251, 191, 36, 0.1); color: #fde68a; }
+        .dash-top-button { position: fixed; right: 1.25rem; bottom: 5.35rem; z-index: 79; width: 3rem; height: 3rem; display: inline-flex; align-items: center; justify-content: center; border-radius: 9999px; border: 1px solid rgba(251, 191, 36, 0.28); background: rgba(15, 23, 42, 0.9); color: #fde68a; box-shadow: 0 14px 36px rgba(0,0,0,0.35); opacity: 0; pointer-events: none; transform: translateY(0.5rem); transition: opacity 0.2s ease, transform 0.2s ease; }
+        .dash-top-button.is-visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        .temp-highlight { animation: gentleHighlight 2.4s ease forwards; }
+        @keyframes gentleHighlight { 0% { background-color: rgba(251, 191, 36, 0.18); } 100% { background-color: transparent; } }
+"""
+
+def esc(s: str) -> str:
+    return (s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            .replace('"', "&quot;"))
+
+def chapter_html(ch, prev_id, next_id):
+    cid = f"ch{ch['n']:02d}"
+    img = ""
+    if ch["n"] == 1:
+        img = '''<img class="chapter-img w-full" src="ancient-wisdom/images/gita-title.jpg" alt="Arjuna's despair on the battlefield"/><p class="illustration-caption">Chapter 1 — the bow will not rise.</p>'''
+    elif ch["n"] == 2:
+        img = '''<img class="chapter-img w-full" src="ancient-wisdom/images/gita-teaching.jpg" alt="Krishna teaching Arjuna"/><p class="illustration-caption">Chapter 2 — teaching begins.</p>'''
+    elif ch["n"] == 11:
+        img = '''<img class="chapter-img w-full" src="ancient-wisdom/images/gita-vishwarupa.jpg" alt="Vishwarupa vision"/><p class="illustration-caption">Chapter 11 — the cosmic form.</p>'''
+
+    verses = "".join(
+        f'<div class="verse-box"><div class="ref">Gita {esc(ref)} — sense rendering</div><div class="sense">{esc(text)}</div></div>'
+        for ref, text in ch["keys"]
+    )
+    points = "".join(f"<li>{esc(p)}</li>" for p in ch["points"])
+    prev = f'<a href="#part-{prev_id}">&larr; Previous</a>' if prev_id else '<span></span>'
+    nxt = f'<a href="#part-{next_id}">Next &rarr;</a>' if next_id else '<a href="#part-live">Living the Gita &rarr;</a>'
+
+    body_paras = "".join(f"<p>{esc(p.strip())}</p>" for p in ch["body"].strip().split("\n\n"))
+
+    return f'''
+        <section id="part-{cid}" class="avatar-story">
+            <div class="text-xs uppercase tracking-[3px] text-amber-400/80 mb-2">Chapter {ch["n"]} · {ch["v"]} verses · {esc(ch["sk"])}</div>
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-1">{esc(ch["en"])}</h2>
+            <p class="text-white/50 text-sm mb-6">{esc(ch["te"])} · {esc(ch["sk"])}</p>
+            <div class="chapters">
+                <div class="chapter">
+                    <h3>What this chapter is about</h3>
+                    {img}
+                    {body_paras}
+                    <p class="source-note">Traditional layer: Mahabharata Bhishma Parva dialogue. Sense-renderings below paraphrase the traditional meaning shared across major commentarial streams (not a single modern copyrighted translation).</p>
+                </div>
+                <div class="chapter">
+                    <h3>What the verses establish</h3>
+                    <ul class="list-disc pl-5 space-y-2 text-white/80">{points}</ul>
+                </div>
+                <div class="chapter">
+                    <h3>Key verses (clear sense)</h3>
+                    {verses}
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2">Conclusion you can live</div>
+                <p class="text-white/85 mb-0">{esc(ch["close"])}</p>
+            </div>
+            <div class="story-nav">{prev}{nxt}</div>
+        </section>
+'''
+
+parts_js = [{"id": f"ch{c['n']:02d}", "num": c["n"], "name": f"Ch.{c['n']} {c['en'][:22]}"} for c in CHAPTERS]
+parts_js.insert(0, {"id": "intro", "num": 0, "name": "Who / What is the Gita"})
+parts_js.append({"id": "live", "num": 19, "name": "Living the Gita today"})
+parts_js.append({"id": "references", "num": 20, "name": "References"})
+
+sections = []
+sections.append('''
+        <section id="part-intro" class="avatar-story">
+            <div class="text-xs uppercase tracking-[3px] text-amber-400/80 mb-2">Orientation · 18 chapters · 700 verses</div>
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">Who and what is the Bhagavad Gita?</h2>
+            <p class="text-white/50 text-sm mb-6">భగవద్గీత — భగవంతుని పాట</p>
+            <div class="chapters">
+                <div class="chapter">
+                    <h3>The song inside the epic</h3>
+                    <img class="avatar-title-img w-full mb-3" src="ancient-wisdom/images/gita-title.jpg" alt="Krishna and Arjuna at Kurukshetra"/>
+                    <p class="illustration-caption">Kurukshetra: the dialogue before the arrows fly.</p>
+                    <p>The <strong>Bhagavad Gita</strong> (Sanskrit: <em>Bhagavad-gītā</em>, "Song of the Lord") is a Hindu scripture of <strong>18 chapters</strong> and, in the standard recension fixed in Adi Shankara's tradition, <strong>700 verses (shlokas)</strong>. It stands inside the Mahabharata's Bhishma Parva as a dialogue between the Pandava prince Arjuna and his charioteer Krishna on the field of Kurukshetra, just as war is about to begin.</p>
+                    <p>Each shloka is typically a couplet, so the poem is about 1,400 lines of Sanskrit verse, mostly in the anushthubh meter, with tristubh at dramatic peaks. The original chapters have no titles in the epic itself; later tradition names each chapter a yoga (discipline/path), such as Karma Yoga or Bhakti Yoga.</p>
+                    <p class="source-note">Historical layer: many scholars date composition broadly to the last centuries BCE (often ca. 2nd–1st century BCE is discussed), with the Mahabharata itself layered over time. Traditional layer: attributed to Vyasa. Both layers are real conversations about the text; they are not the same claim.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Why 700 verses matter for a storybook</h3>
+                    <p>Seven hundred verses are not a pamphlet. A full word-for-word translation of all 700 can run to a substantial book (often 200–400+ pages with commentary). This CosmicTrotter journey does not replace a complete translation. It does what a storybook can do honestly: walk <strong>chapter by chapter</strong>, give the clear meaning of the teaching arc, offer <strong>sense-renderings</strong> of landmark verses (shared traditional sense, not one sect's private reading), and close each chapter with a conclusion you can understand and use.</p>
+                    <p>We cross-check structure and teaching against the standard 700-verse count, the chapter yoga names used in living tradition, and scholarly overviews of the Gita as a synthesis of dharma, sankhya-yoga knowledge, and bhakti. Where editions differ (for example, chapter 13 sometimes listed as 34 or 35 verses), we note it.</p>
+                </div>
+                <div class="chapter">
+                    <h3>How to read this page</h3>
+                    <p>Jump with the chips above. Use <strong>Reading mode</strong> and <strong>My places</strong> bookmarks. Each chapter below has: the story of what happens or is taught; bullet points of what the verses establish; key verse sense-renderings; and a short living conclusion. Sanskrit terms are explained once, then used naturally.</p>
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2">Core fact box</div>
+                <ul class="list-disc pl-5 space-y-1 text-white/85">
+                    <li><strong>18 chapters</strong>, standard total <strong>700 verses</strong> (Shankara-era benchmark still used widely).</li>
+                    <li>Speakers in the frame: Dhritarashtra (1 verse), Sanjaya, Arjuna, and Krishna (majority).</li>
+                    <li>Part of the <em>Prasthanatrayi</em> for Vedanta, alongside Upanishads and Brahma Sutras.</li>
+                    <li>This page: chapter-wise sense + conclusions — not a substitute for reading a full translation.</li>
+                </ul>
+            </div>
+            <div class="story-nav"><span></span><a href="#part-ch01">Chapter 1 →</a></div>
+        </section>
+''')
+
+for i, ch in enumerate(CHAPTERS):
+    prev_id = f"ch{CHAPTERS[i-1]['n']:02d}" if i else "intro"
+    next_id = f"ch{CHAPTERS[i+1]['n']:02d}" if i < len(CHAPTERS) - 1 else "live"
+    if i == 0:
+        prev_id = "intro"
+    sections.append(chapter_html(ch, prev_id if i else "intro", next_id if i < 17 else None))
+
+sections.append('''
+        <section id="part-live" class="avatar-story">
+            <div class="text-xs uppercase tracking-[3px] text-amber-400/80 mb-2">After the eighteen</div>
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">Living the Gita today</h2>
+            <p class="text-white/50 text-sm mb-6">నేటి జీవితంలో గీత</p>
+            <div class="chapters">
+                <div class="chapter">
+                    <h3>Not one slogan — a whole conversation</h3>
+                    <p>People sometimes reduce the Gita to a single line about fruits of action, or to a call to war, or to pure devotion alone. The eighteen chapters refuse that thinning. Knowledge of the Self, skill in action, meditation, the gunas, the cosmic form, and refuge in the Person are woven together. Classical commentators (Shankara, Ramanuja, Madhva, and many others) disagree on metaphysics while sharing the text; that diversity is part of the Gita's real history.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Three practices that stay faithful to the grain</h3>
+                    <p><strong>Name the field.</strong> Where do duties collide for you — family and truth, work and rest, loyalty and justice? Write the collision without slogans, as Arjuna named his kin.</p>
+                    <p><strong>Separate action from fever.</strong> Choose one necessary task. Do it with full skill. Practice releasing the fantasy of total control over results (2.47–48).</p>
+                    <p><strong>Keep a friend on the chariot.</strong> The Gita is dialogue. Wisdom often arrives in conversation with a teacher, a trusted companion, or a living commentary tradition — not only in private thunder.</p>
+                </div>
+                <div class="chapter">
+                    <h3>How CosmicTrotter places this journey</h3>
+                    <p>Related CosmicTrotter paths: the short <a class="text-amber-300 hover:underline" href="ancient-wisdom/vishwaroopa.html">Vishwaroopa</a> card; philosophy journeys on <a class="text-amber-300 hover:underline" href="philosophy/free-will.html">free will</a>, <a class="text-amber-300 hover:underline" href="philosophy/meaning.html">meaning</a>, and <a class="text-amber-300 hover:underline" href="philosophy/the-self.html">self</a>. Use Ask Krishna for personal application — but let the chapters above remain your map.</p>
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2">Closing</div>
+                <p class="text-white/85 mb-0">The war in the epic continues after the song. What changes is the one who stands in it. Arjuna's last word in the dialogue is not a theory — it is consent: the delusion is gone; he will do the word. That is where a storybook must leave you: informed, steadier, and free to choose.</p>
+            </div>
+            <div class="story-nav"><a href="#part-ch18">← Chapter 18</a><a href="#part-references">References →</a></div>
+        </section>
+''')
+
+sections.append('''
+        <section id="part-references" class="avatar-story">
+            <h2 class="text-3xl font-bold tracking-tight mb-4">References &amp; honesty notes</h2>
+            <div class="text-sm text-white/60 space-y-4 leading-relaxed">
+                <div>
+                    <div class="text-amber-300/90 font-medium mb-1">Primary text</div>
+                    <ol class="list-decimal pl-5 space-y-1">
+                        <li>Bhagavad Gita within the Mahabharata, Bhishma Parva (critical and traditional recensions). Standard verse total: <strong>700</strong> (explicitly treated as such in Shankara's tradition; widely used benchmark).</li>
+                        <li>Chapter yoga titles are traditional labels used in study and recitation; they are not original epic headings.</li>
+                        <li>Sanskrit text open resources: e.g. Wikisource Sanskrit Gita; GRETIL / scholarly editions for research use.</li>
+                    </ol>
+                </div>
+                <div>
+                    <div class="text-amber-300/90 font-medium mb-1">Structure &amp; historical orientation (cross-check)</div>
+                    <ol class="list-decimal pl-5 space-y-1" start="4">
+                        <li>Encyclopedic overview of dating, authorship debates, 18-chapter layout, and synthesis of dharma / yoga / bhakti: Britannica and academic handbooks on the Gita; Wikipedia "Bhagavad Gita" (use as map, verify claims).</li>
+                        <li>Historical layer: composite epic processes and scholarly date ranges (often late 1st millennium BCE discussions) — labeled as history, not as "disproof" of living faith.</li>
+                        <li>Manuscript note: minor recension differences exist; a claimed 745-verse count appears in some Mahabharata passages but the common teaching standard remains 700.</li>
+                    </ol>
+                </div>
+                <div>
+                    <div class="text-amber-300/90 font-medium mb-1">Translation honesty</div>
+                    <ol class="list-decimal pl-5 space-y-1" start="7">
+                        <li><strong>Sense-renderings</strong> on this page paraphrase traditional meaning shared across major streams. They are <em>not</em> a verse-by-verse substitute for a full published translation (e.g. academic or sampradaya translations you may study next).</li>
+                        <li>Famous verses (2.47, 4.7–8, 9.26, 11.32, 18.66, etc.) are rendered for clarity and readability; compare with at least two full translations when studying in depth.</li>
+                        <li>Commentarial diversity is real: Advaita, Vishishtadvaita, Dvaita, and modern readers emphasize different centers (knowledge, devotion, duty). This storybook does not force one school as the only truth.</li>
+                    </ol>
+                </div>
+                <div>
+                    <div class="text-amber-300/90 font-medium mb-1">Related CosmicTrotter pages</div>
+                    <ol class="list-decimal pl-5 space-y-1" start="10">
+                        <li><a class="text-amber-200/90 hover:underline" href="ancient-wisdom/vishwaroopa.html">Vishwaroopa</a> · <a class="text-amber-200/90 hover:underline" href="philosophy/the-self.html">Who Am I?</a> · <a class="text-amber-200/90 hover:underline" href="philosophy/meaning.html">Meaning</a> · <a class="text-amber-200/90 hover:underline" href="ancient.html">Ancient Wisdom library</a></li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+''')
+
+parts_literal = ",\n            ".join(
+    "{ id: '%s', num: %s, name: %s }" % (p["id"], p["num"], repr(p["name"]))
+    for p in parts_js
+)
+
+html = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhagavad Gita · 18 Chapters · 700 Verses · CosmicTrotter</title>
+    <link rel="canonical" href="https://cosmictrotter.com/bhagavad-gita">
+    <meta name="description" content="Full chapter-wise Bhagavad Gita storybook: all 18 chapters, 700 verses overview, clear sense-renderings of key teachings, and living conclusions. Fact-checked structure with traditional and historical notes.">
+    <meta property="og:image" content="https://cosmictrotter.com/ancient-wisdom/images/gita-title.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
+    <style>{CSS}</style>
+    <script src="theme-toggle.js?v=20260616-light-5"></script>
+    <script src="site-nav.js?v=20260617-explore-1"></script>
+</head>
+<body class="cosmic-bg" data-storybook-slug="bhagavad-gita" data-krishna-context="Full Bhagavad Gita 18-chapter storybook. Prefer accurate chapter context, key verses, and practical dharma steps.">
+    <div class="reading-progress-shell" aria-hidden="true"><div id="reading-progress-bar"></div></div>
+    <button id="dash-top-button" class="dash-top-button" type="button" aria-label="Back to top" title="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
+
+    <div class="max-w-5xl mx-auto px-6 pt-14 pb-10 text-center">
+        <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-amber-400/30 bg-amber-400/10 mb-5">
+            <i class="fa-solid fa-om text-amber-400"></i>
+            <span class="text-xs uppercase tracking-[2px] text-amber-400 font-medium">18 Chapters · 700 Verses · Storybook</span>
+        </div>
+        <h1 class="section-header mb-4">Bhagavad Gita</h1>
+        <p class="text-xl text-white/75 max-w-3xl mx-auto">The complete chapter-wise song — clear teachings, sense-renderings of landmark verses, and conclusions you can understand.</p>
+        <p class="text-sm text-white/50 mt-2">భగవద్గీత — అధ్యాయాల వారీగా</p>
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-4">
+            <a href="ancient.html" class="inline-flex items-center gap-x-2 text-sm text-amber-300 hover:text-amber-200"><i class="fa-solid fa-arrow-left"></i><span>Back to Ancient Wisdom</span></a>
+        </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-6 pb-6">
+        <div class="text-xs uppercase tracking-widest text-amber-400 mb-2">Jump to any chapter</div>
+        <div class="avatar-selector" id="quick-nav"></div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-6">
+        <div class="flex items-center justify-between mb-5 border-b border-white/10 pb-3">
+            <div class="text-sm text-white/60">EN body · తెలుగు labels · Bookmarks · Reading mode</div>
+            <div class="flex gap-x-2">
+                <button id="reading-mode-btn" class="px-4 py-1.5 text-sm rounded-xl border border-white/20 hover:bg-white/5 flex items-center gap-x-2" aria-pressed="false"><i class="fa-solid fa-book"></i><span class="hidden sm:inline">Reading mode</span></button>
+                <button id="bookmarks-btn" class="px-4 py-1.5 text-sm rounded-xl border border-white/20 hover:bg-white/5 flex items-center gap-x-2" aria-label="Open saved places"><i class="fa-solid fa-bookmark"></i><span class="hidden sm:inline">My places</span><span id="bookmark-count" class="text-[10px] px-1.5 rounded bg-white/10">0</span></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-6 pb-16">
+        {''.join(sections)}
+        <div class="mt-16 pt-8 border-t border-white/10 text-sm text-white/50 leading-relaxed">
+            A chapter-wise CosmicTrotter storybook of the Bhagavad Gita (18 × yoga chapters, 700 verses standard). Sense-renderings and conclusions for study and living — not a full critical translation. Reading tools match the Ancient Wisdom epic pattern.
+        </div>
+    </div>
+
+    <footer class="border-t border-white/10 py-10 text-center text-xs text-white/40">CosmicTrotter · Travel Through Knowledge</footer>
+
+    <script>
+        const parts = [
+            {parts_literal}
+        ];
+        function renderQuickNav() {{
+            const container = document.getElementById('quick-nav');
+            if (!container) return;
+            container.innerHTML = parts.map(a =>
+                `<button type="button" onclick="document.getElementById('part-${{a.id}}').scrollIntoView({{behavior:'smooth', block:'start'}})" class="avatar-chip">${{a.num === 0 ? 'Intro' : a.num}}. ${{a.name}}</button>`
+            ).join('');
+        }}
+        const READING_MODE_KEY = 'cosmic_bhagavad_gita_reading_mode';
+        const BOOKMARK_KEY = 'cosmic_bhagavad_gita_bookmarks';
+        let readingMode = false;
+        function escapeHtml(value) {{
+            return String(value || '').replace(/[&<>"']/g, ch => ({{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}}[ch]));
+        }}
+        function getBookmarks() {{
+            try {{
+                const parsed = JSON.parse(localStorage.getItem(BOOKMARK_KEY) || '[]');
+                return Array.isArray(parsed) ? parsed : [];
+            }} catch (e) {{ return []; }}
+        }}
+        function saveBookmarks(list) {{
+            localStorage.setItem(BOOKMARK_KEY, JSON.stringify(list.slice(0, 200)));
+            const el = document.getElementById('bookmark-count');
+            if (el) el.textContent = list.length;
+            document.querySelectorAll('[data-bookmark-target]').forEach(btn => {{
+                const key = btn.dataset.bookmarkType + ':' + btn.dataset.bookmarkTarget;
+                const on = list.some(b => b.key === key);
+                btn.classList.toggle('is-saved', on);
+                btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+                const icon = btn.querySelector('i');
+                if (icon) icon.className = on ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark';
+            }});
+        }}
+        function prepareBookmarks() {{
+            document.querySelectorAll('.avatar-story .chapter h3').forEach((h3, i) => {{
+                if (h3.dataset.bmReady) return;
+                h3.dataset.bmReady = '1';
+                const id = h3.id || ('chapter-gita-' + (i + 1));
+                h3.id = id;
+                h3.classList.add('flex', 'items-start', 'gap-2');
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'bookmark-toggle chapter-bookmark ml-2 text-amber-200/70 hover:text-amber-200';
+                btn.dataset.bookmarkType = 'chapter';
+                btn.dataset.bookmarkTarget = id;
+                btn.innerHTML = '<i class="fa-regular fa-bookmark"></i>';
+                btn.addEventListener('click', (e) => {{
+                    e.preventDefault();
+                    const key = 'chapter:' + id;
+                    let list = getBookmarks();
+                    const idx = list.findIndex(b => b.key === key);
+                    if (idx >= 0) list.splice(idx, 1);
+                    else list.unshift({{ key, type: 'chapter', targetId: id, title: h3.textContent.trim(), ts: Date.now() }});
+                    saveBookmarks(list);
+                }});
+                h3.appendChild(btn);
+            }});
+            saveBookmarks(getBookmarks());
+        }}
+        function showBookmarks() {{
+            const existing = document.querySelector('[data-bm-overlay]');
+            if (existing) {{ existing.remove(); return; }}
+            const bookmarks = getBookmarks();
+            const overlay = document.createElement('div');
+            overlay.dataset.bmOverlay = '1';
+            overlay.className = 'fixed inset-0 z-[160] flex items-end md:items-center justify-center bg-black/70 p-4';
+            overlay.innerHTML = `<div class="w-full max-w-lg max-h-[78vh] overflow-auto rounded-2xl border border-white/10 bg-[#111827] p-5">
+                <div class="flex justify-between items-center mb-4"><div><div class="font-semibold text-white">My places</div><div class="text-xs text-white/50">${{bookmarks.length}} saved in this Gita journey</div></div>
+                <button type="button" data-close class="text-white/70 hover:text-white"><i class="fa-solid fa-xmark"></i></button></div>
+                ${{bookmarks.length ? bookmarks.map((b,i) => `<div class="border border-white/10 rounded-xl p-3 mb-2"><div class="text-xs text-amber-200/80 mb-1">Chapter note</div><div class="text-white/90">${{escapeHtml(b.title)}}</div>
+                <button type="button" data-jump="${{i}}" class="mt-2 text-xs text-cyan-300">Go</button>
+                <button type="button" data-rm="${{i}}" class="mt-2 ml-2 text-xs text-white/50">Remove</button></div>`).join('') : '<div class="text-white/50 py-8 text-center">No bookmarks yet. Tap the bookmark icon on a chapter heading.</div>'}}
+            </div>`;
+            overlay.addEventListener('click', (e) => {{
+                if (e.target === overlay || e.target.closest('[data-close]')) overlay.remove();
+                const j = e.target.closest('[data-jump]');
+                if (j) {{
+                    const b = bookmarks[+j.dataset.jump];
+                    overlay.remove();
+                    const t = document.getElementById(b.targetId);
+                    if (t) t.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
+                }}
+                const r = e.target.closest('[data-rm]');
+                if (r) {{
+                    bookmarks.splice(+r.dataset.rm, 1);
+                    saveBookmarks(bookmarks);
+                    overlay.remove();
+                    showBookmarks();
+                }}
+            }});
+            document.body.appendChild(overlay);
+        }}
+        function applyReadingMode(on, persist=true) {{
+            readingMode = on;
+            document.body.classList.toggle('reading-mode', on);
+            const btn = document.getElementById('reading-mode-btn');
+            if (btn) {{
+                btn.setAttribute('aria-pressed', String(on));
+                btn.innerHTML = on ? '<i class="fa-solid fa-times"></i><span class="hidden sm:inline"> Exit</span>' : '<i class="fa-solid fa-book"></i><span class="hidden sm:inline">Reading mode</span>';
+            }}
+            if (persist) localStorage.setItem(READING_MODE_KEY, on ? 'true' : 'false');
+        }}
+        function updateProgress() {{
+            const bar = document.getElementById('reading-progress-bar');
+            const top = window.scrollY || 0;
+            const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            if (bar) bar.style.width = (h > 0 ? (top / h) * 100 : 0) + '%';
+            const tbtn = document.getElementById('dash-top-button');
+            if (tbtn) tbtn.classList.toggle('is-visible', top > 520);
+        }}
+        document.addEventListener('DOMContentLoaded', () => {{
+            renderQuickNav();
+            prepareBookmarks();
+            applyReadingMode(localStorage.getItem(READING_MODE_KEY) === 'true', false);
+            document.getElementById('reading-mode-btn')?.addEventListener('click', () => applyReadingMode(!readingMode));
+            document.getElementById('bookmarks-btn')?.addEventListener('click', showBookmarks);
+            document.getElementById('dash-top-button')?.addEventListener('click', () => window.scrollTo({{ top: 0, behavior: 'smooth' }}));
+            window.addEventListener('scroll', updateProgress, {{ passive: true }});
+            updateProgress();
+        }});
+    </script>
+    <script src="story-community.js?v=20260617-community-4"></script>
+    <script src="ask-krishna-widget.js"></script>
+    <script src="journey-progress.js"></script>
+</body>
+</html>
+'''
+
+out = Path(__file__).resolve().parents[1] / "bhagavad-gita.html"
+out.write_text(html, encoding="utf-8")
+print("Wrote", out, "bytes", out.stat().st_size)
+print("Chapters", len(CHAPTERS), "verses", sum(c["v"] for c in CHAPTERS))
