@@ -216,9 +216,16 @@
   <!-- Dedicated Dashavatara experience (all avatars and chapters in one beautiful book-like page) -->
   <url>
     <loc>https://cosmictrotter.com/dashavatara.html</loc>
-    <lastmod>2026-06-05</lastmod>
+    <lastmod>2026-06-17</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.72</priority>
+    <priority>0.85</priority>
+  </url>
+  <!-- Sister journey: Lord Jagannath of Puri -->
+  <url>
+    <loc>https://cosmictrotter.com/puri-jaganath.html</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
 
   <!-- Legacy Matsya redirect note -->
