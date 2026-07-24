@@ -1,6 +1,6 @@
 # Storybook technical spec (CosmicTrotter)
 
-Copy patterns from `dashavatara.html` and `puri-jaganath.html`.
+Copy patterns from `dashavatara.html`, `kashi-vishwanath.html`, `tirupati-venkateswara.html`, `hanuman.html`, and `puri-jaganath.html`.
 
 ## DOM skeleton
 
@@ -28,17 +28,25 @@ Copy patterns from `dashavatara.html` and `puri-jaganath.html`.
       <div class="core-wisdom rounded-2xl p-5 my-5">…</div>
       <div class="story-nav">prev / next</div>
     </section>
-
-    <section id="references" class="avatar-story">…linked sources…</section>
   </div>
+
+  <footer class="border-t border-white/10 py-10 text-center text-xs text-white/40">CosmicTrotter · Travel Through Knowledge</footer>
 
   <script>/* parts[], reading mode, bookmarks, top */</script>
   <script src="theme-toggle.js?…"></script> <!-- in head ideally -->
   <script src="site-nav.js?…"></script>
-  <script src="story-community.js?…"></script>
+  <script src="story-community.js?…"></script> <!-- also register slug in isArticlePage() -->
   <script src="ask-krishna-widget.js"></script>
 </body>
 ```
+
+## Key Rules & Rules Checklist
+
+1. **No Standalone References Section**: Keep fact-checking internal and use short `.source-note` callouts.
+2. **No "Sister" UI Labels**: Use clean titles (`Venkateswara of Tirupati`, `Jagannath of Puri`, `Explore Illustrated Storybooks`).
+3. **100% Subject-Pure Images**: Only images directly belonging to the deity/temple.
+4. **Pre-Historical & Deep Purāṇic Stories**: Include pre-historical creation cycles and Chaganti Koteswara Rao & Nanduri Srinivas pravachana insights.
+5. **Community Module (`story-community.js`)**: Add page slug to `isArticlePage()` in `story-community.js` and include `<footer>` tag before `</body>`.
 
 ## JS essentials
 
@@ -86,8 +94,6 @@ Back-to-top: show after ~520px scroll; smooth `scrollTo(0)`.
 }
 ```
 
-Renderer uses `isDashavatara` for journey badge (“ILLUSTRATED JOURNEY” / “Start the Journey”).
-
 ## Image naming
 
 ```
@@ -96,22 +102,6 @@ ancient-wisdom/images/<slug>-chapter-01-<scene>.jpg
 …
 ```
 
-Style lock phrase (adapt subject):
+Style lock phrase:
 
 > Elegant traditional Indian mythological digital painting, warm golden amber light, deep cosmic navy background, text-free no letters no watermark, cinematic 16:9 sacred storybook art matching CosmicTrotter Dashavatara chapter style
-
-## Content density target
-
-- Major journey: multiple parts, **many full chapters**, comparable emotional weight to one Dashavatara avatar arc × several parts (not a 3-minute card).
-- References: always linked; official + scripture + historical cross-check.
-
-## Example narrative map (Puri Jagannath)
-
-1. Who is Jagannath?
-2. How he first appeared (Nilamadhava → Indradyumna → daru)
-3. The temple that rose by the sea
-4. Songs, saints, and storms
-5. How the year worships him
-6. Nabakalebara
-7. Worship and belief today
-8. References

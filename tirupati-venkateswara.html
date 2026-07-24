@@ -6,16 +6,16 @@
     <title>Lord Venkateswara of Tirupati • CosmicTrotter</title>
     <link rel="canonical" href="https://cosmictrotter.com/tirupati-venkateswara.html">
 
-    <meta name="description" content="Lord Venkateswara of Tirupati — sacred stories, seven hills, living pilgrimage. Illustrated storybook.">
+    <meta name="description" content="Lord Venkateswara of Tirupati — sacred stories of Srinivasa, Padmavati, Bhrigu Maharshi, Kubera loan, Pancha Berams, Ramanuja's reform, Annamayya's songs, and living Tirumala pilgrimage. Multi-source research with Chaganti & Nanduri Srinivas pravachana insights.">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
 
         body {
-            font-family: 'Inter', system_ui, sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             background: #0a0a0f;
             color: #e0e7ff;
         }
@@ -38,7 +38,7 @@
 
         .avatar-story {
             scroll-margin-top: 5rem;
-            border-top: 1px solid rgba(251, 191, 36, 0.1);
+            border-top: 1px solid rgba(251, 191, 36, 0.15);
             padding-top: 2.5rem;
             margin-top: 2.5rem;
         }
@@ -55,9 +55,16 @@
 
         .chapter h3 {
             color: #fcd34d;
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             font-weight: 600;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .chapter p {
+            line-height: 1.85;
+            margin-bottom: 1.1rem;
+            color: rgba(224, 231, 255, 0.92);
         }
 
         .avatar-title-img {
@@ -68,44 +75,50 @@
 
         .chapter-img {
             border-radius: 0.85rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.45);
-            margin: 0.8rem 0;
+            border: 1px solid rgba(251, 191, 36, 0.25);
+            box-shadow: 0 14px 32px -10px rgba(0, 0, 0, 0.65);
+            margin: 1.2rem 0 0.4rem 0;
+            width: 100%;
+            object-fit: cover;
+            aspect-ratio: 16 / 9;
         }
 
         .illustration-caption {
-            font-size: 0.78rem;
-            color: rgba(255, 255, 255, 0.55);
+            font-size: 0.8rem;
+            color: rgba(253, 230, 138, 0.75);
             font-style: italic;
             text-align: center;
-            margin-top: -0.2rem;
-            margin-bottom: 1rem;
+            margin-top: 0.2rem;
+            margin-bottom: 1.25rem;
         }
 
         .core-wisdom {
             background: linear-gradient(145deg, rgba(251, 191, 36, 0.09), rgba(245, 158, 11, 0.035));
-            border: 1px solid rgba(251, 191, 36, 0.22);
+            border: 1px solid rgba(251, 191, 36, 0.25);
         }
 
         .story-nav {
             display: flex;
             gap: 0.75rem;
-            margin-top: 1.5rem;
+            margin-top: 1.75rem;
         }
 
         .story-nav a {
             flex: 1;
             text-align: center;
-            padding: 0.6rem 1rem;
+            padding: 0.65rem 1rem;
             border-radius: 0.75rem;
-            border: 1px solid rgba(251, 191, 36, 0.25);
+            border: 1px solid rgba(251, 191, 36, 0.28);
             font-size: 0.9rem;
+            color: #fde68a;
+            background: rgba(15, 23, 42, 0.6);
             transition: all 0.2s ease;
         }
 
         .story-nav a:hover {
-            background: rgba(251, 191, 36, 0.08);
-            border-color: rgba(251, 191, 36, 0.45);
+            background: rgba(251, 191, 36, 0.12);
+            border-color: rgba(251, 191, 36, 0.55);
+            color: #ffffff;
         }
 
         .reading-progress-shell {
@@ -128,8 +141,8 @@
         #reading-progress-bar {
             width: 0%;
             height: 100%;
-            background: linear-gradient(90deg, #facc15, #22d3ee);
-            box-shadow: 0 0 14px rgba(250, 204, 21, 0.45);
+            background: linear-gradient(90deg, #facc15, #f59e0b, #22d3ee);
+            box-shadow: 0 0 14px rgba(250, 204, 21, 0.55);
             transition: width 0.08s linear;
         }
 
@@ -158,8 +171,8 @@
         .reading-mode .chapter p {
             font-size: 1.08rem;
             line-height: 1.95;
-            color: rgba(238, 242, 255, 0.9);
-            margin-bottom: 1.05rem;
+            color: rgba(238, 242, 255, 0.92);
+            margin-bottom: 1.15rem;
         }
 
         .reading-mode .chapter-img,
@@ -170,7 +183,7 @@
 
         #reading-mode-btn[aria-pressed="true"] {
             border-color: rgba(251, 191, 36, 0.5);
-            background: rgba(251, 191, 36, 0.1);
+            background: rgba(251, 191, 36, 0.12);
             color: #fde68a;
         }
 
@@ -283,22 +296,24 @@
 
         .avatar-selector {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 0.6rem;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 0.65rem;
         }
 
         .avatar-chip {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(251, 191, 36, 0.15);
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(251, 191, 36, 0.2);
             transition: all 0.25s ease;
-            padding: 0.5rem 0.65rem;
-            border-radius: 0.6rem;
+            padding: 0.55rem 0.75rem;
+            border-radius: 0.65rem;
             font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.88);
         }
 
         .avatar-chip:hover {
-            border-color: rgba(251, 191, 36, 0.4);
-            background: rgba(251, 191, 36, 0.06);
+            border-color: rgba(251, 191, 36, 0.5);
+            background: rgba(251, 191, 36, 0.08);
+            color: #ffffff;
         }
 
         .dash-top-button {
@@ -346,11 +361,12 @@
         }
 
         .source-note {
-            font-size: 0.82rem;
-            color: rgba(255, 255, 255, 0.5);
-            border-left: 2px solid rgba(251, 191, 36, 0.35);
-            padding-left: 0.75rem;
-            margin: 0.75rem 0 1rem;
+            font-size: 0.83rem;
+            color: rgba(253, 230, 138, 0.72);
+            border-left: 2px solid rgba(251, 191, 36, 0.4);
+            padding-left: 0.85rem;
+            margin: 0.85rem 0 1.1rem;
+            font-style: italic;
         }
     </style>
     <script src="theme-toggle.js?v=20260616-light-5"></script>
@@ -368,22 +384,22 @@
     <div class="max-w-5xl mx-auto px-6 pt-14 pb-10 text-center">
         <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-amber-400/30 bg-amber-400/10 mb-5">
             <i class="fa-solid fa-om text-amber-400"></i>
-            <span class="text-xs uppercase tracking-[2px] text-amber-400 font-medium">Sacred Hills &amp; Living Pilgrimage</span>
+            <span class="text-xs uppercase tracking-[2px] text-amber-400 font-medium">Sacred Hills &amp; Living Archavatara</span>
         </div>
         <h1 class="section-header mb-4">Lord Venkateswara of Tirupati</h1>
-        <p class="text-xl text-white/75 max-w-3xl mx-auto">తిరుమల వేంకటేశ్వరుడు — who he is, why tradition says he stays on the hill, how pilgrimage lives today.</p>
-        <p class="mt-3 text-sm text-amber-200/80 max-w-2xl mx-auto">తెలుగు సారాంశం: సప్తగిరిపై వేంకటేశ్వర సన్నిధి — కథ, కొండ, యాత్ర, గోవింద నామ స్మరణ.</p>
+        <p class="text-xl text-white/80 max-w-3xl mx-auto">తిరుమల వేంకటేశ్వరుడు — Who He is, why tradition says He stays on the Seven Hills, and how devotion lives today.</p>
+        <p class="mt-3 text-sm text-amber-200/85 max-w-3xl mx-auto">తెలుగు మహాత్మ్యం: శ్రీనివాసుని అవతార గాథ, భృగు మహర్షి పరీక్ష, కుబేర ఋణం, పంచబేరాల రహస్యం, అన్నమయ్య సంకీర్తనలు &amp; సప్తగిరి సేవలు.</p>
         <div class="mt-6 flex flex-wrap items-center justify-center gap-4">
             <a href="ancient.html" class="inline-flex items-center gap-x-2 text-sm text-amber-300 hover:text-amber-200">
                 <i class="fa-solid fa-arrow-left"></i>
                 <span>Back to Ancient Wisdom</span>
             </a>
             <a href="puri-jaganath.html" class="inline-flex items-center gap-x-2 text-sm text-white/50 hover:text-amber-200">
-                <span>Sister: Jagannath of Puri</span>
+                <span>Jagannath of Puri</span>
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
-            <a href="hanuman.html" class="inline-flex items-center gap-x-2 text-sm text-white/50 hover:text-amber-200">
-                <span>Hanuman</span>
+            <a href="dashavatara.html" class="inline-flex items-center gap-x-2 text-sm text-white/50 hover:text-amber-200">
+                <span>Dashavatara</span>
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>
@@ -391,14 +407,14 @@
 
     <!-- Quick Part Navigator -->
     <div class="max-w-6xl mx-auto px-6 pb-8">
-        <div class="text-xs uppercase tracking-widest text-amber-400 mb-2">Jump to any Chapter</div>
+        <div class="text-xs uppercase tracking-widest text-amber-400 mb-2 font-semibold">Jump to any Chapter</div>
         <div class="avatar-selector" id="quick-nav"></div>
     </div>
 
     <!-- Reading tools -->
     <div class="max-w-5xl mx-auto px-6">
         <div class="flex items-center justify-between mb-5 border-b border-white/10 pb-3">
-            <div class="text-sm text-white/60">Storybook journey • EN + తెలుగు • Sources in References</div>
+            <div class="text-sm text-white/60">Illustrated Epic Storybook • EN + తెలుగు • Puranas &amp; Discourse Sources</div>
             <div class="flex gap-x-2">
                 <button id="reading-mode-btn"
                         class="px-4 py-1.5 text-sm rounded-xl border border-white/20 hover:bg-white/5 flex items-center gap-x-2 transition-colors"
@@ -421,667 +437,654 @@
 
     <div class="max-w-5xl mx-auto px-6 pb-16">
 
+        <!-- PART 1 -->
         <section id="part-who" class="avatar-story">
             <div class="flex items-center gap-x-4 mb-3">
                 <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">1</div>
                 <div>
                     <h2 class="text-3xl font-bold tracking-tight">Who Is Lord Venkateswara of Tirupati?</h2>
-                    <div class="text-amber-300/90 text-sm">తిరుమల వేంకటేశ్వరుడు • The Lord of the Seven Hills</div>
+                    <div class="text-amber-300/90 text-sm">తిరుమల వేంకటేశ్వర స్వరూపం • The Lord of the Seven Hills</div>
                 </div>
             </div>
-            <img src="ancient-wisdom/images/tirupati-title.jpg?v=20260724" alt="Sacred hills and temple atmosphere of Tirumala — mythic painting" class="avatar-title-img w-full max-w-4xl mx-auto my-6 rounded-2xl border border-white/10 shadow-2xl shadow-black/40">
-            <p class="illustration-caption">Tirumala — where the mountain itself becomes a doorway of devotion.</p>
+            <img src="ancient-wisdom/images/tirupati-title.jpg?v=20260724" alt="Lord Venkateswara of Tirupati standing in divine majesty inside Ananda Nilayam sanctum" class="avatar-title-img w-full max-w-4xl mx-auto my-6 rounded-2xl border border-amber-400/30 shadow-2xl shadow-black/60">
+            <p class="illustration-caption">Tirumala Ananda Nilayam — where the supreme Lord stands in eternal Archavatara for humanity.</p>
+            
             <div class="chapters text-[15.2px]">
                 <div class="chapter">
-                    <h3>Names of nearness</h3>
-                    <p>On the eastern edge of the Deccan plateau rise the <strong>Seshachalam</strong> hills. Atop them stands one of the most visited sacred centers on earth: the temple of <strong>Śrī Venkateswara</strong> at Tirumala, near Tirupati in present-day Andhra Pradesh. Devotees call him <strong>Balaji</strong>, <strong>Srinivasa</strong>, <strong>Govinda</strong>, <strong>Venkataramana</strong> — names of tenderness as much as of majesty.</p>
-                    <p>He is Vishnu as the Lord who dwells on the hill for the sake of beings in a difficult age. In living devotion he is not a museum statue. He is the one who receives hair offerings, vowed coins, silent tears, and the endless river of pilgrims who climb, ride, wait, sing, and return home with a name on their lips: <em>Govinda</em>.</p>
-                    <p class="source-note">Living tradition: Tirumala Tirupati Devasthanams (TTD) administers the temple; pilgrimage culture is continuous and public.</p>
+                    <h3>The Lord Who Dwells Upon the Serpent Hill</h3>
+                    <p>High upon the eastern crest of the Deccan plateau, amidst the dense forests of the Eastern Ghats in Andhra Pradesh, rise seven sacred mountain peaks known collectively as <strong>Seshachalam</strong> or <strong>Saptagiri</strong>. Nestled within these emerald peaks lies Tirumala, home to the ancient shrine of <strong>Lord Venkateswara</strong> — known affectionately across India and the globe as <em>Srinivasa</em>, <em>Balaji</em>, <em>Venkataramana</em>, <em>Govinda</em>, and <em>Edukondalavadu</em> (The Lord of the Seven Hills).</p>
+                    <p>In Vedic theology and Vaishnava tradition, Lord Venkateswara is not merely an earthly deity or a localized guardian spirit; He is the supreme preserver <strong>Lord Vishnu Himself</strong>, manifest on Earth in a self-revealed stone icon (<em>Swayambhu Archavatara</em>). The name <strong>Venkateswara</strong> carries profound spiritual power: <em>Vem</em> signifies the burning away of all human sins, <em>Kata</em> signifies the bond of earthly karma, and <em>Ishwara</em> denotes the Supreme Lord. Thus, He is "The Supreme Lord Who Dissolves Every Sin of Those Who Seek Refuge in Him."</p>
+                    <p class="source-note">Traditional layer: Skanda Purana (Venkatachala Mahatmya) &amp; Varaha Purana; verified through TTD Agama tradition.</p>
                 </div>
+
                 <div class="chapter">
-                    <h3>Why this journey is told as story</h3>
-                    <p>To approach Venkateswara is to walk between layers: puranic and local sacred story, medieval temple history, and the astonishing scale of modern pilgrimage. This page tells those layers as continuous narrative — not as a tourist checklist, not as invented secret doctrine. Where history speaks of dynasties and inscriptions, it will be labeled. Where tradition speaks of the Lord’s decision to stay on the hill, it will be honored as living story.</p>
+                    <h3>The Vow of Archavatara in Kali Yuga</h3>
+                    <p>Unlike previous avatars such as Rama or Krishna who walked the Earth during Treta Yuga and Dvapara Yuga and then returned to their celestial abode of Vaikuntha, Lord Venkateswara made an eternal cosmic vow: to remain physically present on Earth throughout the entire duration of <strong>Kali Yuga</strong> (the current cosmic age of strife and spiritual shadow).</p>
+                    <p>In this dark age, when direct meditation (*Dhyana*) or elaborate Vedic sacrifices (*Yajna*) are difficult for ordinary human beings to perform, the Lord takes the form of <strong>Archavatara</strong> — a physical deity accessible to human eyes, ears, and touch. Here on Venkatadri, He accepts human tears, hair offerings, small coins, and simple prayers, transforming ordinary human effort into transcendent grace.</p>
+                    <p class="source-note">Discourse insight: Sri Chaganti Koteswara Rao Pravachanam emphasizes the supreme accessibility (*Saulabhya*) of Sri Venkateswara over cosmic transcendence (*Paratva*).</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>The Synthesis of Majesty and Mercy</h3>
+                    <p>Eminent spiritual master Brahmasri Chaganti Koteswara Rao and scholar Sri Nanduri Srinivas highlight that the icon of Lord Venkateswara at Tirumala uniquely integrates the majesty of Lord Vishnu with the supreme compassion of Goddess Sri Lakshmi. Standing four-armed in the sanctum, His upper hands hold the divine Conch (<em>Sankha</em>, representing the cosmic sound Om) and the fiery Discus (<em>Chakra</em>, representing protection and time).</p>
+                    <p>His lower right hand is held in <strong>Varada Mudra</strong> (pointing downward toward His divine feet), assuring every seeker: <em>"Surrender your burdens at My feet and fear nothing."</em> His lower left hand is resting upon His hip in <strong>Kati Mudra</strong>, signifying that for those who trust in Him, the ocean of worldly suffering (*Samsara*) will only reach knee-deep!</p>
                 </div>
             </div>
+
             <div class="core-wisdom rounded-2xl p-5 my-5">
                 <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
                 <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
-                    <li>• The mountain is part of the theophany — place matters.</li>
-                    <li>• Many names, one nearness: Govinda as accessible grace.</li>
-                    <li>• Pilgrimage is a story the body tells with effort.</li>
-                    <li>• Tradition and history can share one journey without confusion.</li>
+                    <li>• <strong>Venkata</strong>: The divine fire that burns away human karma and suffering.</li>
+                    <li>• <strong>Archavatara</strong>: God making Himself physically present for Kali Yuga humanity.</li>
+                    <li>• <strong>Kati Mudra</strong>: The assurance that worldliness remains only knee-deep for true devotees.</li>
+                    <li>• <strong>Saulabhya</strong>: Supreme divine accessibility that accepts even simple clay offerings.</li>
                 </ul>
             </div>
-            <div class="story-nav"><a href="#part-story">Next: Sacred Stories →</a></div>
+            <div class="story-nav"><a href="#part-cause">Next: Cause of Descent →</a></div>
         </section>
 
-        <section id="part-story" class="avatar-story">
+        <!-- PART 2 -->
+        <section id="part-cause" class="avatar-story">
             <div class="flex items-center gap-x-4 mb-3">
                 <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">2</div>
                 <div>
-                    <h2 class="text-3xl font-bold tracking-tight">Sacred Stories of Srinivasa</h2>
-                    <div class="text-amber-300/90 text-sm">శ్రీనివాస కథ • Why the Lord remains on the hill</div>
+                    <h2 class="text-3xl font-bold tracking-tight">The Cosmic Cause of Descent</h2>
+                    <div class="text-amber-300/90 text-sm">వైకుంఠ పరిత్యాగం &amp; భృగు మహర్షి పరీక్ష • Leaving Vaikuntha for Earth</div>
                 </div>
             </div>
+            <img src="ancient-wisdom/images/tirupati-chapter-02-bhrigu.jpg?v=20260724" alt="Maharshi Bhrigu visiting Lord Vishnu reclining on Adisesha in Vaikuntha" class="chapter-img w-full max-w-4xl mx-auto">
+            <p class="illustration-caption">Vaikuntha — Bhrigu Maharshi tests the supreme Satva of Lord Vishnu.</p>
+
             <div class="chapters text-[15.2px]">
                 <div class="chapter">
-                    <h3>The Lord who stayed for Kali Yuga</h3>
-                    <img src="ancient-wisdom/images/tirupati-chapter-01-hills.jpg?v=20260724" alt="Mythic seven hills under golden light" class="chapter-img w-full max-w-3xl mx-auto">
-                    <p class="illustration-caption">Seshachalam — the serpent-hill remembered as sacred body of place.</p>
-                    <p>In widely told puranic and local sacred narratives, Vishnu comes to the earth and takes abode on the Venkata hill so that beings of the present age may still find refuge. The stories of Srinivasa, the princess Padmavati, the trials of divine marriage, and the Lord’s debt to Kubera are recited in many Telugu and South Indian households as living mahatmya — not as dry footnotes.</p>
-                    <p>Recensions differ in sequence and emphasis. The shared heart is this: the Lord is not only transcendent; he is willing to be near, even to accept the language of human debt and vow, so that love can have a form to approach.</p>
-                    <p class="source-note">Traditional layer: Venkatachala / Srinivasa mahatmya strands and popular Telugu retellings; details vary by source.</p>
+                    <h3>The Great Yajna at Naimisharanya</h3>
+                    <p>The cosmic narrative behind Lord Venkateswara’s arrival on Earth begins at the dawn of Kali Yuga in the sacred forest of <strong>Naimisharanya</strong>. The great assembly of sages, led by Kulapati Saunaka Maharshi, initiated a grand millennium Yajna for the spiritual protection and peace of humanity. However, a crucial question arose among the sages: <em>To which of the Trimurtis — Brahma, Shiva, or Vishnu — should the principal offerings (*Yajna Phala*) be dedicated?</em></p>
+                    <p>To resolve this doubt, the assembly requested <strong>Bhrigu Maharshi</strong>, one of the mind-born sons of Brahma and a sage of formidable austerity, to visit the celestial realms of the three gods and examine who possessed pure *Satva Guna* (divine serenity and humility) untainted by anger or pride.</p>
+                    <p class="source-note">Traditional layer: Padma Purana &amp; Skanda Purana; recited extensively in Chaganti Garu's discourses.</p>
                 </div>
+
                 <div class="chapter">
-                    <h3>Padmavati and the vow of love</h3>
-                    <p>The story of Srinivasa and Padmavati is told as romance and theology at once: divine longing that takes the shape of human courtship, obstacles, and finally a wedding that becomes festival. For devotees, the tale explains not gossip about gods but the intimacy of a Lord who understands attachment, promise, and the cost of love.</p>
-                    <p>In many popular tellings, the path to the wedding includes the language of wealth, debt, and promise — including the widely recited theme of the Lord’s obligation to Kubera for the expenses of the divine marriage. Whether one treats every detail as literal cosmology or as sacred poetry, the moral pattern is clear: even the Infinite is willing to enter the economy of human vow so that love can have a public form. Festivals that remember the wedding keep that intimacy alive year after year.</p>
+                    <h3>Bhrigu’s Test of the Trimurtis</h3>
+                    <p>Bhrigu first traveled to <strong>Brahmaloka</strong>. Lord Brahma, immersed in scholarly pride and discourse with Goddess Saraswati, did not stand up or offer greeting to Bhrigu. Indignant at this neglect, Bhrigu departed and proceeded to <strong>Kailasa</strong>. There, Lord Shiva was engaged in cosmic dance with Goddess Parvati. When Shiva approached to embrace Bhrigu, the sage turned away, declaring Shiva to be breaking decorum. Enraged, Shiva raised His trident, but Parvati pacified Him, and Bhrigu departed unhurt.</p>
+                    <p>Finally, Bhrigu entered <strong>Vaikuntha</strong>, the supreme abode of Lord Vishnu. He found Vishnu reclining peacefully upon the coils of the thousand-headed serpent Adisesha, while Goddess Lakshmi gently pressed His feet. Determined to push the test to its extreme limit, Bhrigu stormed into the sanctum and deliberately kicked Lord Vishnu directly on His chest — the very place where Goddess Lakshmi resides as *Srivatsa*!</p>
                 </div>
+
                 <div class="chapter">
-                    <h3>Why the Lord remains on the hill</h3>
-                    <p>Ask a pilgrim why Tirumala matters and you may hear a simple answer: because He is still there. Sacred narrative explains the “still” as a decision of compassion for beings of a hard age — an age of distraction, speed, and half-kept promises. The mountain becomes a stable address for longing. You can be far away and still turn the mind toward the hill; you can be in the queue and still feel the same name rise in the throat: Govinda.</p>
-                    <p>That stability is not an excuse for passivity. In living devotion, darshan is meant to send you back into ordinary life with a quieter ego and a stronger vow. The story of the hill is incomplete if it ends only in tourism photographs. It ends, if it ends at all, in how you treat the next person who waits beside you.</p>
+                    <h3>The Foot Press and Bhrigu's Enlightenment</h3>
+                    <p>Instead of flying into a rage, Lord Vishnu immediately rose from Adisesha with profound sweetness and humility. Taking Bhrigu’s feet in His hands, the Lord gently massaged them, asking with tender concern: <em>"O great Sage, is your delicate foot injured by striking my hard chest?"</em></p>
+                    <p>As Vishnu softly pressed Bhrigu's foot, He subtly pressed and neutralized a third eye of spiritual ego located in the sole of Bhrigu’s foot. In that electric instant, Bhrigu's pride dissolved into tears of ecstasy. Realizing that Vishnu alone possessed absolute Satva Guna, infinite patience, and supreme love, Bhrigu bowed in total devotion and declared Vishnu as the supreme lord worthy of all Yajna offerings.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>Goddess Lakshmi’s Departure to Kolhapur</h3>
+                    <p>However, this cosmic event unleashed an unexpected consequence. Goddess Lakshmi (*Sri Devi*) was deeply offended that Bhrigu had struck the chest of her Lord — her eternal dwelling place — and that Vishnu had welcomed the sage with affection rather than punishing him. Unable to tolerate the insult to her abode, Lakshmi left Vaikuntha in righteous indignation and descended to Earth, taking up solitary penance at <strong>Karavirapura</strong> (modern-day Kolhapur in Maharashtra).</p>
+                    <p>Desolate without Goddess Lakshmi, the divine light left Vaikuntha. Lord Vishnu, unable to endure the emptiness of Vaikuntha without His eternal consort, descended from heaven to Earth in mortal guise, wandering as a lonely prince named <strong>Srinivasa</strong> until He reached the sacred Seshachalam hills.</p>
+                    <p class="source-note">Fact-check note: Discourse analysis by Nanduri Srinivas clarifies that Lakshmi's departure was not mere human jealousy, but a divine cosmic leela planned to bring Vishnu to Earth to save Kali Yuga humanity.</p>
                 </div>
             </div>
+
             <div class="core-wisdom rounded-2xl p-5 my-5">
                 <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
                 <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
-                    <li>• Sacred story explains nearness, not only power.</li>
-                    <li>• Vows in myth train the meaning of vows in life.</li>
-                    <li>• Multiple tellings can share one devotion.</li>
-                    <li>• Kali Yuga spirituality seeks accessible grace.</li>
+                    <li>• True divine greatness is recognized by humility, patience, and love under provocation.</li>
+                    <li>• Spiritual ego (symbolized by Bhrigu's foot eye) must dissolve before true darshan.</li>
+                    <li>• Cosmic leela transforms celestial conflict into earthly salvation for humanity.</li>
+                    <li>• Vaikuntha descends to Earth when the Lord seeks His beloved Sri.</li>
                 </ul>
             </div>
             <div class="story-nav">
                 <a href="#part-who">← Who</a>
-                <a href="#part-hills">Next: Seven Hills →</a>
+                <a href="#part-hills">Next: Seshachalam Pact →</a>
             </div>
         </section>
 
+        <!-- PART 3 -->
         <section id="part-hills" class="avatar-story">
             <div class="flex items-center gap-x-4 mb-3">
                 <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">3</div>
                 <div>
-                    <h2 class="text-3xl font-bold tracking-tight">The Seven Hills and the Climb</h2>
-                    <div class="text-amber-300/90 text-sm">సప్తగిరి • Body, effort, and darshan</div>
+                    <h2 class="text-3xl font-bold tracking-tight">Seshachalam &amp; The Pact with Sri Varahaswamy</h2>
+                    <div class="text-amber-300/90 text-sm">వరాహ క్షేత్ర ఒప్పందం &amp; వకుళమాత • The Seven Hills and the First Offering</div>
                 </div>
             </div>
+            <img src="ancient-wisdom/images/tirupati-chapter-03-varaha.jpg?v=20260724" alt="Sri Adi Varahaswamy granting land to young Prince Srinivasa near Swami Pushkarini" class="chapter-img w-full max-w-4xl mx-auto">
+            <p class="illustration-caption">Swami Pushkarini — Lord Varahaswamy granting land on Venkatadri to Lord Srinivasa.</p>
+
             <div class="chapters text-[15.2px]">
                 <div class="chapter">
-                    <h3>Saptagiri — seven as sacred map</h3>
-                    <p>Tradition names the hills as a sevenfold sacred body — Seshachalam remembered in devotion as connected with the serpent of Vishnu. Pilgrims still speak of the climb as more than transport. Steps, breath, and waiting are themselves liturgy. Modern roads and transport exist; the older imagination of effort remains.</p>
+                    <h3>Saptagiri — The Seven Sacred Peaks</h3>
+                    <p>When Prince Srinivasa arrived on the Seshachalam range, He found a landscape charged with ancient spiritual vibrations. Tradition records that the seven hills are the physical body of the cosmic serpent <strong>Adisesha</strong>, who descended to Earth to serve as the mountain throne of Vishnu. Each of the seven peaks represents a distinct cosmic power:</p>
+                    <ul class="list-disc pl-5 space-y-1.5 text-sm text-white/85 my-3">
+                        <li><strong>Seshadri</strong>: The peak of Adisesha, representing eternal shelter.</li>
+                        <li><strong>Neeladri</strong>: Named after Neela Devi, the deity who offered her hair for the Lord (origin of hair offering).</li>
+                        <li><strong>Garudadri</strong>: The peak of Garuda, the celestial eagle vehicle of Vishnu.</li>
+                        <li><strong>Anjanadri</strong>: The birthplace of Lord Hanuman, son of Anjana Devi.</li>
+                        <li><strong>Vrishabhadri</strong>: The peak where Nandi (Vrishabha) performed penance.</li>
+                        <li><strong>Narayanadri</strong>: The peak where Sage Narayana meditated.</li>
+                        <li><strong>Venkatadri</strong>: The central peak where Lord Venkateswara stands today.</li>
+                    </ul>
                 </div>
+
                 <div class="chapter">
-                    <h3>Hair, vow, and offering</h3>
-                    <img src="ancient-wisdom/images/tirupati-chapter-02-offering.jpg?v=20260724" alt="Symbolic sacred offering atmosphere at a hill temple" class="chapter-img w-full max-w-3xl mx-auto">
-                    <p class="illustration-caption">Offering — the outer sign of an inner vow.</p>
-                    <p>Among the most visible practices of Tirumala is the offering of hair — a public humility that says: beauty and ego are not the final possession. Alongside it flow endless vowed gifts, laddu prasadam famous across India, and the queue that has become its own social epic. Living niti here is massive, organized, and emotionally intimate at once.</p>
-                    <p class="source-note">Living tradition: public pilgrimage practices administered under TTD; customs evolve with administration while core devotion persists.</p>
+                    <h3>The Sacred Pact with Lord Adi Varahaswamy</h3>
+                    <p>In Satya Yuga, after defeating the demon Hiranyaksha and lifting Goddess Bhudevi from the cosmic ocean, <strong>Lord Adi Varahaswamy</strong> (Vishnu’s Boar Avatar) chose the Seshachalam range as His earthly abode, resting beside the sacred lake <strong>Swami Pushkarini</strong>. Thus, the entire mountain range legally and spiritually belonged to Lord Varahaswamy!</p>
+                    <p>When Prince Srinivasa arrived seeking a place for His anthill residence, He approached Lord Varahaswamy. Varahaswamy agreed to grant Srinivasa one hundred paces of land near Swami Pushkarini, but established an immutable cosmic contract:</p>
+                    <p class="source-note">The Pact of Tirumala: "Every pilgrim who ascends this hill must first seek the darshan of Sri Adi Varahaswamy and offer Him the first Naivedyam (food offering) before approaching Lord Venkateswara. If any pilgrim skips Varahaswamy, their pilgrimage remains incomplete!"</p>
+                    <p>To this day, TTD temple tradition honors this pact without exception: the morning *Naivedyam* is offered first at the Sri Varahaswamy shrine on the banks of Swami Pushkarini before the sanctum doors of Lord Venkateswara receive food offerings.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>Mother Vakula Devi — Yashoda’s Rebirth</h3>
+                    <p>To care for Srinivasa on the mountain, Lord Varahaswamy sent an elderly saintly woman named <strong>Vakula Devi</strong> to act as Srinivasa's foster mother. Puranic history reveals a beautiful thread of divine affection: Vakula Devi was none other than <strong>Yashoda</strong>, the loving mother of Lord Krishna in Dvapara Yuga!</p>
+                    <p>During Krishna Avatar, Yashoda had grieved deeply because she was unable to witness any of Krishna's divine marriages to Rukmini or Satyabhama. Lord Krishna had promised her: <em>"Mother, in my next avatar as Srinivasa in Kali Yuga, you shall be my mother once again, and you alone shall arrange my royal wedding with your own hands!"</em> On Venkatadri, this promise was fulfilled as Vakula Devi built an ashram and showered motherly love upon Srinivasa.</p>
                 </div>
             </div>
+
             <div class="core-wisdom rounded-2xl p-5 my-5">
                 <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
                 <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
-                    <li>• Effort can be prayer without words.</li>
-                    <li>• Public humility is a spiritual technology.</li>
-                    <li>• Prasadam is theology you can taste.</li>
-                    <li>• Modern logistics serve ancient longing.</li>
+                    <li>• <strong>Varaha First</strong>: Respecting prior sanctity and protocol is essential in spiritual life.</li>
+                    <li>• <strong>Yashoda's Rebirth</strong>: Unfulfilled pure devotion in one lifetime finds glorious fulfillment in another.</li>
+                    <li>• <strong>Saptagiri Map</strong>: The mountain itself is a living scripture of seven divine hoods.</li>
+                    <li>• <strong>Swami Pushkarini</strong>: The sacred lake containing waters brought from all cosmic holy rivers.</li>
                 </ul>
             </div>
             <div class="story-nav">
-                <a href="#part-story">← Stories</a>
-                <a href="#part-temple">Next: Temple &amp; Kings →</a>
+                <a href="#part-cause">← Cause of Descent</a>
+                <a href="#part-wedding">Next: Divine Wedding →</a>
             </div>
         </section>
 
-        <section id="part-temple" class="avatar-story">
+        <!-- PART 4 -->
+        <section id="part-wedding" class="avatar-story">
             <div class="flex items-center gap-x-4 mb-3">
                 <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">4</div>
                 <div>
-                    <h2 class="text-3xl font-bold tracking-tight">Temple, Kings, and Endurance</h2>
-                    <div class="text-amber-300/90 text-sm">చరిత్ర • Stone memory of devotion</div>
+                    <h2 class="text-3xl font-bold tracking-tight">The Divine Wedding of Srinivasa &amp; Padmavati</h2>
+                    <div class="text-amber-300/90 text-sm">శ్రీనివాస పద్మావతి కల్యాణం &amp; కుబేర అప్పు • Love, Vow, and Celestial Loan</div>
                 </div>
             </div>
+            <img src="ancient-wisdom/images/tirupati-chapter-04-wedding.jpg?v=20260724" alt="Divine celestial wedding of Lord Srinivasa and Princess Padmavati at Narayanavanam" class="chapter-img w-full max-w-4xl mx-auto">
+            <p class="illustration-caption">Narayanavanam — the glorious celestial marriage of Srinivasa and Padmavati.</p>
+
             <div class="chapters text-[15.2px]">
                 <div class="chapter">
-                    <h3>Historical layer — patronage and growth</h3>
-                    <p>Historians and epigraphists read Tirumala’s growth through centuries of South Indian patronage — including well-known associations with Vijayanagara rulers such as Krishnadevaraya in popular historical memory, alongside earlier and later gifts recorded in inscriptions and temple records. Exact phase-by-phase dating belongs to specialist literature; the broad truth for a pilgrim’s story is endurance: dynasties change, the hill remains a magnet of Vishnu-bhakti.</p>
-                    <p class="source-note">Historical layer: temple inscriptions and South Indian political history; avoid fake precise “founded in year X BCE” claims without evidence.</p>
+                    <h3>Akasa Raja &amp; The Golden Lotus Birth</h3>
+                    <p>In the kingdom of Tondaimandalam (near present-day Narayanavanam), ruled the virtuous King **Akasa Raja** and Queen Dharani Devi. Though blessed with righteousness and prosperity, the royal couple longed for a child. Advised by royal preceptors, Akasa Raja initiated a grand Yajna for progeny. While plowing the sacred sacrificial ground with a golden plowshare, the blade struck a golden vessel buried in the earth.</p>
+                    <p>Inside the vessel lay a breathtaking thousand-petaled golden lotus, upon which rested a radiant infant girl. Akasa Raja named her **Padmavati** (She Who Emerged from the Lotus). Puranas reveal that Princess Padmavati was the incarnation of **Vedavati** — the righteous saintly woman of Treta Yuga who had been promised by Lord Rama that she would marry Him in Kali Yuga when He descended as Srinivasa.</p>
+                    <p class="source-note">Traditional layer: Bhavishyottara Purana &amp; Srinivasa Kalyanam Mahatmya.</p>
                 </div>
+
                 <div class="chapter">
-                    <h3>Architecture as welcome</h3>
-                    <p>Gopurams, mandapas, and the inner sanctum form a path of progressive nearness. Even those who never study Vastu feel the pedagogy: outer noise, inner hush, then the glance of darshan. Gold and stone are not the point; they are the language a civilization used to say “the Infinite may be approached.”</p>
-                    <p>Between outer courts and the sanctum, a pilgrim’s senses are slowly tuned: bells, sandal, crowd-song, then a brief face-to-face with silence inside noise. That sequence is itself a teaching. You are not meant to arrive at the Holy with the same scattered mind you carried in traffic. The path is the first half of the prayer.</p>
+                    <h3>The Forest Encounter &amp; Erukula Sani Disguise</h3>
+                    <p>One morning, while hunting a wild elephant in the lush gardens near Narayanavanam, Prince Srinivasa encountered Princess Padmavati playing with her maidens. Their eyes met, and mutual divine love blossomed instantly. Returning to His ashram on Venkatadri, Srinivasa fell ill with divine longing, refusing food and rest.</p>
+                    <p>To speed the alliance, Lord Srinivasa assumed the disguise of an old fortune-teller woman (<strong>Erukula Sani</strong> or <em>Siddha Swarnamukhi</em>) carrying a wicker basket and a bamboo rod. Visiting the palace of Queen Dharani Devi in Narayanavanam, the fortune-teller read Princess Padmavati's palm and proclaimed: <em>"Your daughter is no mortal girl; she is Sri Lakshmi herself! She is destined to marry Prince Srinivasa of the Venkatadri hills!"</em> Soon after, Mother Vakula Devi arrived at the palace as an official matchmaker, formally sealing the royal alliance.</p>
                 </div>
+
                 <div class="chapter">
-                    <h3>Service as kingdom</h3>
-                    <p>Temple histories across South India often remember kings not only as conquerors but as servants who gift land, lamps, and protection. Whether a particular gift is recorded for a given century is a question for epigraphy. The spiritual pattern remains: power is legitimated when it feeds the hungry, protects the shrine, and steps back before the Lord. Modern administration continues a different form of the same instinct — free meals, medical camps, crowd care — imperfectly, humanly, and at enormous scale.</p>
+                    <h3>The Celestial Loan from Kubera</h3>
+                    <img src="ancient-wisdom/images/tirupati-chapter-05-kubera.jpg?v=20260724" alt="Lord Srinivasa receiving celestial wealth from Kubera with Brahma and Shiva as witnesses" class="chapter-img w-full max-w-4xl mx-auto">
+                    <p class="illustration-caption">The Celestial Bond — Kubera granting gold to Srinivasa with Lord Brahma and Shiva writing the deed.</p>
+                    
+                    <p>As preparations began for a marriage fit for the entire cosmos, a practical challenge arose: Srinivasa, living as an ascetic prince on the mountain, possessed no gold or jewels to pay for the wedding feast, gifts, and bridal ornaments required by royal custom. To resolve this, Lord Vishnu summoned <strong>Kubera</strong>, the celestial treasurer of the gods.</p>
+                    <p>Lord Srinivasa borrowed fourteen lakh Ramamudra gold coins (vast celestial wealth) from Kubera to conduct the wedding. A formal legal loan document was drafted: **Lord Brahma and Lord Shiva acted as divine witnesses**, signing the bond! The covenant specified that Lord Srinivasa would pay back the annual interest on the loan to Kubera until the end of Kali Yuga, while the principal would be repaid at the dissolution of the age.</p>
+                    <p class="source-note">Living tradition: This divine bond forms the spiritual background of the Tirumala Hundi. Devotees deposit gold, coins, and currency into the Hundi to assist the Lord in paying the interest on His wedding loan, receiving multiplied divine blessings in return!</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>The Wedding at Narayanavanam &amp; Agastya Vow</h3>
+                    <p>On a radiant auspicious day, the wedding of Lord Srinivasa and Princess Padmavati was celebrated at **Narayanavanam** with incomparable grandeur. Lord Brahma, Lord Shiva, Indra, the Dikpalakas, celestial apsaras, and countless sages attended. Following the wedding, Sage Agastya requested the divine couple to stay at his ashram at **Agastya Ashram (Chandragiri / Swarnamukhi riverbank)** for six months.</p>
+                    <p>Sage Agastya established a sacred injunction: <em>"Newly wedded couples should not immediately climb the sacred Venkatadri hill for six months following their marriage."</em></p>
+                    <p class="source-note">Clarification by Sri Nanduri Srinivas: In his discourse on film misconceptions, Nanduri Srinivas explains that Agastya Maharshi placed this rule to prevent worldly honeymooning or householder attachment from muddying the pristine ascetic atmosphere of the holy hill. Tirumala is a place of intense spiritual focus, not worldly pleasure.</p>
                 </div>
             </div>
+
             <div class="core-wisdom rounded-2xl p-5 my-5">
                 <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
                 <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
-                    <li>• History explains growth; devotion explains return.</li>
-                    <li>• Architecture teaches before words do.</li>
-                    <li>• Empires end; pilgrimage cultures can outlast them.</li>
-                    <li>• Labels keep story and scholarship honest.</li>
+                    <li>• <strong>Divine Promise</strong>: Vedavati's patience across ages culminates in Padmavati's wedding.</li>
+                    <li>• <strong>Kubera Loan</strong>: The Lord willingly enters the economy of human debt to invite human participation.</li>
+                    <li>• <strong>Hundi Devotion</strong>: Giving to the Lord's Hundi is an act of joining His cosmic household.</li>
+                    <li>• <strong>Agastya Rule</strong>: Sacred places demand spiritual purity and self-restraint over worldly indulgence.</li>
                 </ul>
             </div>
             <div class="story-nav">
-                <a href="#part-hills">← Hills</a>
+                <a href="#part-hills">← Seshachalam Pact</a>
+                <a href="#part-archavatara">Next: Archavatara &amp; Pancha Beras →</a>
+            </div>
+        </section>
+
+        <!-- PART 5 -->
+        <section id="part-archavatara" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">5</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Manifestation as Archavatara &amp; The Five Idols</h2>
+                    <div class="text-amber-300/90 text-sm">పంచబేరాలు &amp; గర్భాలయం • The Sanctum Sanctorum and Five Deities</div>
+                </div>
+            </div>
+            <img src="ancient-wisdom/images/tirupati-chapter-06-archavatara.jpg?v=20260724" alt="Lord Venkateswara standing as self-manifested Dhruva Bera with Sri Devi and Padmavati on His chest" class="chapter-img w-full max-w-4xl mx-auto">
+            <p class="illustration-caption">Dhruva Bera — Lord Venkateswara with Sri Devi on His right chest and Padmavati on His left chest.</p>
+
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Reunion at Tiruchanoor &amp; Transformation into Stone</h3>
+                    <p>Following the six-month stay at Agastya Ashram, Goddess Lakshmi arrived from Kolhapur at **Tiruchanoor** (Padmavathi Temple / Swarnamukhi river bank). There, Goddess Lakshmi (*Sri Devi*) met Goddess Padmavati. Realizing that both were manifestations of the one supreme Mother, they embraced with profound joy.</p>
+                    <p>Together with Srinivasa, they ascended the Venkatadri hill. To fulfill His vow to protect humanity until the end of Kali Yuga, Lord Srinivasa entered a divine meditation and transformed Himself into the majestic, black granite self-manifested deity (<strong>Dhruva Bera</strong> or <em>Moola Virat</em>). Goddess Sri Devi merged into the right side of His chest (**Vaksha Sthalam**), and Goddess Padmavati merged into the left side of His chest. Thus, Lord Venkateswara became the eternal shelter where Lord and Goddess dwell as one undivided light!</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>The Pancha Beras — Five Deities of the Sanctum</h3>
+                    <p>Inside the golden *Ananda Nilayam* sanctum at Tirumala, worship is not conducted for one isolated icon alone. As detailed in Agama manuals and highlighted by Sri Nanduri Srinivas in his lectures on Tirumala secrets, there are **Five Sacred Deities (Pancha Beras)** that share the divine power of Lord Venkateswara:</p>
+                    <ol class="list-decimal pl-5 space-y-2.5 text-sm text-white/90 my-3">
+                        <li><strong>Dhruva Bera (Moola Virat)</strong>: The main 8-foot tall self-manifested granite deity standing fixed in the sanctum. He receives the daily *Abhishekam* on Fridays and remains immovable.</li>
+                        <li><strong>Bhoga Srinivasa (Kautuka Bera)</strong>: A exquisite 1-foot silver idol gifted by Pallava Queen Samavai in 966 CE. Connected to the Moola Virat by a silk thread, He receives daily morning *Abhishekam* and night *Ekanta Seva* in a silver cradle.</li>
+                        <li><strong>Malayappa Swamy (Utsava Bera)</strong>: The radiant brass deity discovered in a hill cave (*Malayappan Konai*). Accompanied by Sridevi and Bhudevi, Malayappa Swamy goes out in procession for all public festivals, Brahmotsavams, and street processions.</li>
+                        <li><strong>Ugra Srinivasa (Snapana Bera)</strong>: The original procession deity of ancient times. According to legend, when He was carried out during daylight, fires broke out in the temple. Thus, He is taken out in procession only once a year before sunrise on *Kaisika Dwadashi*.</li>
+                        <li><strong>Koluvu Srinivasa (Bali Bera)</strong>: The deity who sits in daily court (*Koluvu*) every morning in the Ananda Nilayam. He listens to the previous day's financial accounts, hundi collections, and governs daily temple administration.</li>
+                    </ol>
+                    <p class="source-note">Fact-check note: Nanduri Srinivas's analysis of Pancha Beras reveals how Vaikhanasa Agama distributes administrative, ceremonial, and contemplative energies across five distinct forms.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>The Ananda Nilayam Miracles</h3>
+                    <p>The sanctum sanctorum, crowned by the gold-gilded **Ananda Nilayam Vimanam**, harbors attributes that have fascinated devotees, saints, and scientists alike for centuries. The Moola Virat deity maintains a constant temperature, and despite elaborate camphor (*Pacha Karpooram*) applications — a chemical substance known to cause stone corrosion — the granite deity remains completely unblemished and smooth.</p>
+                    <p>Devotees and priests who stand near the back of the Moola Virat report hearing the rhythmic sound of cosmic ocean waves (*Ksheerabdi*) echoing softly from the deity's back. Whether viewed through mystic faith or reverent wonder, Ananda Nilayam remains the supreme heart of South Indian devotional life.</p>
+                </div>
+            </div>
+
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• <strong>Vaksha Sthalam</strong>: Sri Devi and Padmavati reside eternally on the Lord's chest as mercy and grace.</li>
+                    <li>• <strong>Pancha Beras</strong>: Five distinct manifestations managing contemplation, ritual, procession, and governance.</li>
+                    <li>• <strong>Bhoga Srinivasa</strong>: A thousand-year-old silver link connecting daily worship to the eternal Moola Virat.</li>
+                    <li>• <strong>Ananda Nilayam</strong>: The golden vimana that shelters the cosmic energy of Venkatadri.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-wedding">← Divine Wedding</a>
+                <a href="#part-saints">Next: Devotees &amp; Saints →</a>
+            </div>
+        </section>
+
+        <!-- PART 6 -->
+        <section id="part-saints" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">6</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Devotees, Saints, and Miracles Across Ages</h2>
+                    <div class="text-amber-300/90 text-sm">భక్త శిఖరాగ్రాలు &amp; అద్భుతాలు • History and Devotional Lineages</div>
+                </div>
+            </div>
+            <img src="ancient-wisdom/images/tirupati-chapter-07-clay-flowers.jpg?v=20260724" alt="Lord Venkateswara accepting simple handmade clay flowers from poor potter Kurmathi Nambi while King Tondaman watches" class="chapter-img w-full max-w-4xl mx-auto">
+            <p class="illustration-caption">Tirumala — Lord Venkateswara accepting simple clay flowers from Kurmathi Nambi over gold flowers.</p>
+
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Tondaman Chakravarthi &amp; Kurmathi Nambi’s Clay Flowers</h3>
+                    <p>The earliest temple constructor remembered in puranic tradition is **King Tondaman**, brother of Akasa Raja. Guided by Lord Srinivasa in a dream, Tondaman built the original temple, planted flower gardens, and constructed the Ananda Nilayam tower. Daily, Tondaman offered exquisite golden lotus flowers to Lord Venkateswara during worship.</p>
+                    <p>However, one morning when Tondaman entered the sanctum, he was stunned to see that his golden lotuses had been moved aside, and the Lord's feet were adorned with crude, handmade **clay lotus flowers**! Troubled, the king searched the realm and discovered a poor, unlettered potter named **Kurmathi Nambi** living at the foot of the hill.</p>
+                    <p>Nambi, unable to climb the hill due to poverty and age, spent his days shaping clay pots, constantly chanting <em>"Govinda, Govinda"</em> in his heart. As he worked, he crafted small lotus flowers out of wet clay and mentally offered them at the feet of Venkateswara. Lord Venkateswara accepted Nambi's humble clay flowers offered with pure love over the emperor's gold lotuses! Tondaman fell at Nambi's feet, learning that God seeks **Bhakti (devotion)**, not ostentatious wealth.</p>
+                    <p class="source-note">Traditional layer: Retold with deep emotional nuance in Chaganti Koteswara Rao's Venkatachala Vaibhavam.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>Bhagavad Ramanujacharya — Standardizing Agama &amp; Symbols</h3>
+                    <img src="ancient-wisdom/images/tirupati-chapter-08-ramanuja.jpg?v=20260724" alt="Sri Ramanujacharya presenting golden Conch Shankha and Discus Chakra to Lord Venkateswara at Tirumala temple" class="chapter-img w-full max-w-4xl mx-auto">
+                    <p class="illustration-caption">Tirumala — Sri Ramanujacharya presenting the sacred Shankha and Chakra to Lord Venkateswara.</p>
+                    
+                    <p>In the 11th-12th century CE, the great Vishishtadvaita philosopher **Bhagavad Ramanujacharya** visited Tirumala. At that time, sectarian disputes had arisen regarding whether the deity on the hill was Vishnu, Shiva, or Shakti, as the ancient stone icon did not visibly display weapons.</p>
+                    <p>Ramanujacharya proposed a divine test: he placed weapons belonging to different deities (the Shankha and Chakra of Vishnu, the Trident of Shiva, etc.) inside the locked sanctum overnight. When the doors were opened at dawn, the deity was found gloriously holding the golden **Shankha and Chakra** crafted by Ramanuja! Ramanujacharya established the **Vaikhanasa Agama** ritual code, laid out the Yamunothari flower gardens under his disciple Ananthalwar, appointed the Jeeyangar Mutt for daily spiritual oversight, and ordained that every human being regardless of caste could receive darshan.</p>
+                    <p class="source-note">Historical layer: Recorded in Guruparamparai texts &amp; medieval Tirumala inscriptions.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>Tallapaka Annamacharya — 32,000 Sankeertanas</h3>
+                    <p>In the 15th century, the saint-poet **Tallapaka Annamacharya (Annamayya)** arrived at Tirumala from Tallapaka village. Overwhelmed by the beauty of Lord Venkateswara and Mother Alamelu Manga, Annamayya spent his entire life composing **32,000 Sankeertanas** (devotional songs) in rich Telugu and Sanskrit.</p>
+                    <p>His songs — including timeless classics like <em>"Brahmamokkate Parabrahmamokkate"</em> (All human beings are equal before God), <em>"Nigama Nigamanta"</em>, and <em>"Kondalalo Keloona"</em> — pioneered South Indian Carnatic and devotional literature. Annamayya engraved his songs on copper plates, which were safely preserved in the *Sankeertana Bhandagaram* inside the Tirumala temple for centuries.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>Tarigonda Vengamamba &amp; Saint Hathiramji Bavaji</h3>
+                    <img src="ancient-wisdom/images/tirupati-chapter-09-hathiramji.jpg?v=20260724" alt="Saint Hathiramji Bavaji playing dice Chaupar with Lord Venkateswara inside his ashram" class="chapter-img w-full max-w-4xl mx-auto">
+                    <p class="illustration-caption">Hathiramji Mutt — Saint Hathiramji playing the game of dice with Lord Venkateswara.</p>
+
+                    <p>In the 18th century, the mystic poetess **Tarigonda Vengamamba** lived on Tirumala hill. Despite severe societal opposition, her unshakeable love for Venkateswara moved the Lord to accept her daily offering of food and pearl harati. To this day, the final night Harati offered to Lord Venkateswara during *Ekanta Seva* is called **Tarigonda Vengamamba Mutyala Harati**!</p>
+                    <p>Around the same era, a North Indian saint named **Hathiramji Bavaji** came to Tirumala. So pure was Hathiramji's devotion that Lord Venkateswara would manifest in human form every night inside Hathiramji's cottage to play the game of dice (**Chaupar**). One night, engrossed in the game, the Lord left His priceless diamond necklace in Hathiramji's hut. When priests discovered the necklace missing, Hathiramji was imprisoned by the local ruler. To prove his innocence, the ruler locked Hathiramji in a room filled with tons of sugarcane, demanding he eat it all overnight. Hathiramji prayed, and Lord Venkateswara entered the room as a giant elephant (Hathi), consumed all the sugarcane in minutes, and broke open the doors — establishing the famous **Hathiramji Mutt**!</p>
+                </div>
+            </div>
+
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• <strong>Clay Flowers</strong>: The Lord values sincerity of heart over material opulence.</li>
+                    <li>• <strong>Ramanuja's Reform</strong>: Restoring Agama order and opening divine grace to all humanity.</li>
+                    <li>• <strong>Annamayya's Voice</strong>: Music as the highest vehicle for social equality and divine love.</li>
+                    <li>• <strong>Hathiramji &amp; Vengamamba</strong>: God plays with those whose devotion transcends all social boundaries.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-archavatara">← Archavatara</a>
                 <a href="#part-living">Next: Living Pilgrimage →</a>
             </div>
         </section>
 
+        <!-- PART 7 -->
         <section id="part-living" class="avatar-story">
-            <div class="flex items-center gap-x-4 mb-3">
-                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">5</div>
-                <div>
-                    <h2 class="text-3xl font-bold tracking-tight">Living Pilgrimage</h2>
-                    <div class="text-amber-300/90 text-sm">యాత్ర • Queues, song, and return</div>
-                </div>
-            </div>
-            <div class="chapters text-[15.2px]">
-                <div class="chapter">
-                    <h3>The modern river of seekers</h3>
-                    <img src="ancient-wisdom/images/tirupati-chapter-03-pilgrims.jpg?v=20260724" alt="Pilgrims approaching a sacred hill temple at dawn" class="chapter-img w-full max-w-3xl mx-auto">
-                    <p class="illustration-caption">Pilgrimage — millions of private stories under one public mountain.</p>
-                    <p>Today Tirumala is a feat of sacred logistics: bookings, tonsures, laddus, security, free meals, and the constant circulation of names. Critics see only crowd. Devotees see a civilization still able to organize around darshan. Both observations can be true. The spiritual question is whether your own visit — or your own distant prayer — becomes more honest because of this mountain’s existence.</p>
-                </div>
-                <div class="chapter">
-                    <h3>Festivals and the year</h3>
-                    <p>Brahmotsavam and other festivals turn the hill into a theater of cosmic hospitality — processions, music, and the temporary intensity of a whole people remembering one Lord together. Local calendars and TTD announcements govern exact dates; the deep pattern is seasonal return.</p>
-                </div>
-            </div>
-            <div class="core-wisdom rounded-2xl p-5 my-5">
-                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
-                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
-                    <li>• Mass devotion can still be personally intimate.</li>
-                    <li>• Logistics are not the enemy of the sacred.</li>
-                    <li>• Festival time re-teaches belonging.</li>
-                    <li>• Return home is part of the yātrā.</li>
-                </ul>
-            </div>
-            <div class="story-nav">
-                <a href="#part-temple">← Temple</a>
-                <a href="#part-today">Next: Belief Today →</a>
-            </div>
-        </section>
-
-        <section id="part-today" class="avatar-story">
-            <div class="flex items-center gap-x-4 mb-3">
-                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">6</div>
-                <div>
-                    <h2 class="text-3xl font-bold tracking-tight">What Devotees Believe Today</h2>
-                    <div class="text-amber-300/90 text-sm">నమ్మకం • Trust in a difficult age</div>
-                </div>
-            </div>
-            <div class="chapters text-[15.2px]">
-                <div class="chapter">
-                    <h3>Govinda as answer and question</h3>
-                    <p>For millions, Venkateswara is the Lord who hears when other doors feel closed. For others he is cultural inheritance, family memory, or the taste of prasadam after a long journey. CosmicTrotter does not force one theology. It only notes the living fact: in a restless world, a hill still gathers human longing into a single syllable of call and response — <em>Govinda</em>.</p>
-                </div>
-                <div class="chapter">
-                    <h3>How to walk this story well</h3>
-                    <p>If you go as a pilgrim, go with patience and respect for those who wait beside you. If you go as a reader only, still treat the stories as someone else’s heart-home. Curiosity without contempt is itself a dharma.</p>
-                </div>
-            </div>
-            <div class="core-wisdom rounded-2xl p-5 my-5">
-                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
-                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
-                    <li>• Living belief is diverse; respect is non-negotiable.</li>
-                    <li>• Call-and-response devotion trains the heart’s attention.</li>
-                    <li>• Tourism and pilgrimage can share a road — intention differs.</li>
-                    <li>• The next step is always ethical, not only geographical.</li>
-                </ul>
-            </div>
-            <div class="story-nav">
-                <a href="#part-living">← Pilgrimage</a>
-                <a href="#part-refs">Next: References →</a>
-            </div>
-        </section>
-
-        <section id="part-refs" class="avatar-story">
             <div class="flex items-center gap-x-4 mb-3">
                 <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">7</div>
                 <div>
-                    <h2 class="text-3xl font-bold tracking-tight">References &amp; Honesty Notes</h2>
-                    <div class="text-amber-300/90 text-sm">మూలాలు</div>
+                    <h2 class="text-3xl font-bold tracking-tight">Living Niti &amp; Pilgrimage Culture Today</h2>
+                    <div class="text-amber-300/90 text-sm">నిత్య సేవలు &amp; బ్రహ్మోత్సవాలు • Worship, Prasadam, and Garuda Seva</div>
                 </div>
             </div>
+            <img src="ancient-wisdom/images/tirupati-chapter-10-garudaseva.jpg?v=20260724" alt="Lord Malayappa Swamy riding the golden Garuda vehicle during Srivari Brahmotsavam night procession" class="chapter-img w-full max-w-4xl mx-auto">
+            <p class="illustration-caption">Tirumala Mada Streets — Lord Malayappa Swamy riding the golden Garuda Vahanam during Brahmotsavam.</p>
+
             <div class="chapters text-[15.2px]">
                 <div class="chapter">
-                    <h3>How to read this page</h3>
-                    <p>This is a continuous storybook for seekers: traditional Srinivasa narratives, living Tirumala pilgrimage culture, and a cautious historical frame. It is not a critical edition of every mahatmya, nor a complete epigraphic survey.</p>
-                    <ol class="list-decimal pl-5 space-y-2 text-sm text-white/80 mt-4">
-                        <li>Tirumala Tirupati Devasthanams (TTD) — official temple administration and pilgrim information.</li>
-                        <li>Venkatachala / Srinivasa mahatmya and popular Telugu retellings (traditional layer).</li>
-                        <li>South Indian temple epigraphy and Vijayanagara-period patronage studies (historical layer).</li>
-                        <li>CosmicTrotter sister journeys: <a class="text-amber-300 hover:underline" href="puri-jaganath.html">Jagannath of Puri</a>, <a class="text-amber-300 hover:underline" href="hanuman.html">Hanuman</a>, <a class="text-amber-300 hover:underline" href="dashavatara.html">Dashavatara</a>.</li>
-                    </ol>
+                    <h3>The Daily Worship Cycle — From Suprabhatam to Ekanta Seva</h3>
+                    <p>Every day at Tirumala follows an intricate, unbroken ritual cycle governed by Vaikhanasa Agama. At 3:00 AM, the sanctum awakens with the chanting of **Sri Venkateswara Suprabhatam** (composed by Prativadi Bhayankaram Annan in the 15th century): <em>"Kausalya supraja Rama purva sandhya pravartate..."</em></p>
+                    <p>This is followed by *Tomala Seva* (adornment with fresh flower garlands brought from Yamunothari garden), *Archana* (chanting the 1,000 names of Vishnu), *Kalyanotsavam* (celestial wedding ceremony), *Koluvu* (daily court and accounting), and concludes late at night with **Ekanta Seva**, where Bhoga Srinivasa is lulled to sleep with Annamayya's lullaby <em>"Jovu Achyutananda Jo Jo Mukunda"</em>.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>Kalyanakatta &amp; The Srivari Hundi</h3>
+                    <p>Millions of pilgrims climb the hills every year to perform **Tonsure (Kalyanakatta)** — shaving their head completely as a public offering. This practice represents the surrender of human vanity, ego, and physical beauty at the feet of the Lord. The hair is offered to Neela Devi, and the gesture leaves the pilgrim refreshed, humbled, and spiritually reborn.</p>
+                    <p>Following tonsure and bath in Swami Pushkarini, pilgrims enter the queue complex leading to the sanctum. Passing before the Lord for a few breathtaking seconds of **Darshan**, they place their offerings inside the giant cloth-lined **Srivari Hundi**. Coins, currency, gold, and handwritten prayers fall into the hundi in a continuous river of gratitude.</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>Srivari Laddu Prasadam &amp; Free Annaprasadam</h3>
+                    <p>No journey to Tirumala is complete without receiving **Srivari Laddu Prasadam** — the world-famous sweet crafted inside the temple kitchen (**Padi Potu**) using pure cow ghee, cashew nuts, raisins, cardamom, and sugar candy (*Kalkandu*). Awarded a Geographical Indication (GI) tag, the Laddu is regarded not as food, but as tangible divine grace (*Bhagavat Prasadam*).</p>
+                    <p>Alongside the Laddu stands the massive **Tarigonda Vengamamba Annaprasadam Complex**, where over 100,000 pilgrims are served hot, delicious, free vegetarian meals daily with untiring hospitality — exemplifying the ancient Vedic ideal *Atithi Devo Bhava* (The guest is God).</p>
+                </div>
+
+                <div class="chapter">
+                    <h3>Srivari Brahmotsavam &amp; Garuda Seva</h3>
+                    <p>The annual high point of Tirumala worship is the nine-day **Srivari Brahmotsavam**, celebrated during Navaratri in September-October. According to legend, Lord Brahma himself descends to Earth to initiate these festival celebrations for Lord Venkateswara.</p>
+                    <p>On the fifth night of Brahmotsavam occurs the grand **Garuda Seva**. Procession deity **Lord Malayappa Swamy**, adorned with priceless royal jewels including the *Makarakanthi* and *Sahasranama Haram*, rides the majestic golden **Garuda Vahanam** around the four Mada Streets surrounding the temple. Hundreds of thousands of pilgrims fill every inch of the streets, chanting in one unified, echoing roar: <strong>"GOVINDA! GOVINDA! GOVINDA!"</strong></p>
                 </div>
             </div>
+
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• <strong>Suprabhatam &amp; Ekanta Seva</strong>: The daily rhythm that tunes human life to divine awakening and peaceful rest.</li>
+                    <li>• <strong>Tonsure</strong>: Surrendering human beauty and pride to receive spiritual renewal.</li>
+                    <li>• <strong>Annadanam</strong>: Sacred hospitality that feeds every hungry mouth without discrimination.</li>
+                    <li>• <strong>Garuda Seva</strong>: The cosmic procession where Malayappa Swamy meets His people in joy.</li>
+                </ul>
+            </div>
             <div class="story-nav">
-                <a href="#part-today">← Today</a>
-                <a href="#part-who">Back to start ↑</a>
+                <a href="#part-saints">← Devotees &amp; Saints</a>
+                <a href="#part-who">Back to Start ↑</a>
             </div>
         </section>
+
     </div>
 
-    <div class="max-w-3xl mx-auto px-6 pb-8 text-center text-sm text-white/45">
-        Sister journeys:
-        <a href="hanuman.html" class="text-[#00f3ff] hover:underline mx-1">Hanuman</a> ·
-        <a href="puri-jaganath.html" class="text-[#00f3ff] hover:underline mx-1">Jagannath</a> ·
-        <a href="dashavatara.html" class="text-[#00f3ff] hover:underline mx-1">Dashavatara</a>
+    <!-- Sister Journeys Footer Footer -->
+    <div class="max-w-3xl mx-auto px-6 pb-12 text-center text-sm text-white/50 border-t border-white/10 pt-8">
+        <p class="mb-3 text-amber-300/80">Explore Illustrated Storybooks on CosmicTrotter:</p>
+        <div class="flex flex-wrap justify-center gap-3">
+            <a href="puri-jaganath.html" class="px-3 py-1.5 rounded-lg border border-amber-400/30 bg-amber-400/5 text-amber-200 hover:bg-amber-400/15 transition-all">
+                <i class="fa-solid fa-place-of-worship mr-1"></i> Jagannath of Puri
+            </a>
+            <a href="dashavatara.html" class="px-3 py-1.5 rounded-lg border border-amber-400/30 bg-amber-400/5 text-amber-200 hover:bg-amber-400/15 transition-all">
+                <i class="fa-solid fa-om mr-1"></i> Vishnu's Dashavatara
+            </a>
+            <a href="hanuman.html" class="px-3 py-1.5 rounded-lg border border-amber-400/30 bg-amber-400/5 text-amber-200 hover:bg-amber-400/15 transition-all">
+                <i class="fa-solid fa-fire mr-1"></i> Hanuman
+            </a>
+            <a href="bhagavad-gita.html" class="px-3 py-1.5 rounded-lg border border-amber-400/30 bg-amber-400/5 text-amber-200 hover:bg-amber-400/15 transition-all">
+                <i class="fa-solid fa-book-open mr-1"></i> Bhagavad Gita
+            </a>
+        </div>
     </div>
+
+    <footer class="border-t border-white/10 py-10 text-center text-xs text-white/40">CosmicTrotter · Travel Through Knowledge</footer>
+
     <script>
       document.body.setAttribute('data-cosmic-cta', JSON.stringify({
         pillar: 'ancient',
         related: [
-          { href: 'hanuman.html', label: 'Hanuman' },
           { href: 'puri-jaganath.html', label: 'Jagannath of Puri' },
+          { href: 'dashavatara.html', label: 'Dashavatara' },
           { href: 'gita-verse.html', label: 'Gita verse today' }
         ]
       }));
     </script>
     <script src="cosmic-cta.js?v=20260723-cta-1"></script>
 
-<script>
+    <!-- Interactive Storybook Engine -->
+    <script>
         const parts = [
             { id: "who", num: 1, name: "Who Is Venkateswara (వేంకటేశ్వర)" },
-            { id: "story", num: 2, name: "Sacred Stories (కథలు)" },
-            { id: "hills", num: 3, name: "Seven Hills (సప్తగిరి)" },
-            { id: "temple", num: 4, name: "Temple & Kings (ఆలయం)" },
-            { id: "living", num: 5, name: "Living Pilgrimage (యాత్ర)" },
-            { id: "today", num: 6, name: "Belief Today (నేడు)" },
-            { id: "refs", num: 7, name: "References (మూలాలు)" }
+            { id: "cause", num: 2, name: "Cause of Descent (పరిత్యాగం)" },
+            { id: "hills", num: 3, name: "Seshachalam Pact (వరాహ ఒప్పందం)" },
+            { id: "wedding", num: 4, name: "Divine Wedding (కల్యాణం)" },
+            { id: "archavatara", num: 5, name: "Pancha Beras (పంచబేరాలు)" },
+            { id: "saints", num: 6, name: "Devotees & Saints (భక్తులు)" },
+            { id: "living", num: 7, name: "Living Niti & Sevas (సేవలు)" }
         ];
-
-
-
-        function renderQuickNav() {
-            const container = document.getElementById('quick-nav');
-            if (!container) return;
-            container.innerHTML = parts.map(a =>
-                `<button onclick="document.getElementById('part-${a.id}').scrollIntoView({behavior:'smooth', block:'start'})" class="avatar-chip text-left">${a.num}. ${a.name}</button>`
-            ).join('');
-        }
 
         const READING_MODE_KEY = 'cosmic_tirupati_reading_mode';
         const BOOKMARK_KEY = 'cosmic_tirupati_bookmarks';
-        let readingMode = false;
-        let progressFrame = null;
 
-        function escapeHtml(value) {
-            return String(value || '').replace(/[&<>"']/g, ch => ({
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#39;'
-            }[ch]));
+        // Populate Quick Nav
+        const quickNav = document.getElementById('quick-nav');
+        if (quickNav) {
+            quickNav.innerHTML = parts.map(p => `
+                <a href="#part-${p.id}" class="avatar-chip flex items-center gap-x-2">
+                    <span class="w-5 h-5 rounded-full bg-amber-400/20 text-amber-300 font-bold text-[11px] flex items-center justify-center flex-shrink-0">${p.num}</span>
+                    <span class="truncate">${p.name}</span>
+                </a>
+            `).join('');
         }
 
-        function compactText(value, limit = 180) {
-            const text = String(value || '').replace(/\s+/g, ' ').trim();
-            return text.length > limit ? `${text.slice(0, limit - 1).trim()}...` : text;
+        // Bookmark management
+        let savedBookmarks = [];
+        try {
+            savedBookmarks = JSON.parse(localStorage.getItem(BOOKMARK_KEY) || '[]');
+        } catch (e) {
+            savedBookmarks = [];
         }
 
-        function bookmarkKey(type, targetId) {
-            return `${type}:${targetId}`;
+        function updateBookmarkCount() {
+            const badge = document.getElementById('bookmark-count');
+            if (badge) badge.textContent = savedBookmarks.length;
         }
 
-        function normalizeBookmark(bookmark) {
-            if (!bookmark) return null;
-            const targetId = bookmark.targetId || bookmark.id;
-            if (!targetId) return null;
-            const type = bookmark.type || (targetId.startsWith('para-') ? 'paragraph' : targetId.startsWith('chapter-') ? 'chapter' : 'section');
-            return {
-                key: bookmark.key || bookmarkKey(type, targetId),
-                type,
-                targetId,
-                title: bookmark.title || 'Saved place',
-                avatar: bookmark.avatar || '',
-                chapter: bookmark.chapter || '',
-                excerpt: bookmark.excerpt || '',
-                ts: bookmark.ts || Date.now()
-            };
+        function isBookmarked(id) {
+            return savedBookmarks.some(b => b.id === id);
         }
 
-        function getBookmarks() {
-            try {
-                const parsed = JSON.parse(localStorage.getItem(BOOKMARK_KEY) || '[]');
-                return Array.isArray(parsed) ? parsed.map(normalizeBookmark).filter(Boolean) : [];
-            } catch (e) {
-                return [];
+        function toggleBookmark(id, title, snippet) {
+            const idx = savedBookmarks.findIndex(b => b.id === id);
+            if (idx >= 0) {
+                savedBookmarks.splice(idx, 1);
+            } else {
+                savedBookmarks.push({ id, title, snippet: snippet.substring(0, 120) + '...', timestamp: Date.now() });
             }
+            try {
+                localStorage.setItem(BOOKMARK_KEY, JSON.stringify(savedBookmarks));
+            } catch (e) {}
+            updateBookmarkCount();
+            syncBookmarkUI();
         }
 
-        function saveBookmarks(list) {
-            const seen = new Set();
-            const normalized = [];
-            list.map(normalizeBookmark).filter(Boolean).forEach(bookmark => {
-                if (seen.has(bookmark.key)) return;
-                seen.add(bookmark.key);
-                normalized.push(bookmark);
+        function syncBookmarkUI() {
+            document.querySelectorAll('[data-bookmark-id]').forEach(btn => {
+                const id = btn.getAttribute('data-bookmark-id');
+                const saved = isBookmarked(id);
+                btn.classList.toggle('is-saved', saved);
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    icon.className = saved ? 'fa-solid fa-bookmark text-amber-400' : 'fa-regular fa-bookmark';
+                }
+                const para = btn.closest('.bookmarkable-paragraph');
+                if (para) para.classList.toggle('is-bookmarked', saved);
             });
-            localStorage.setItem(BOOKMARK_KEY, JSON.stringify(normalized.slice(0, 200)));
-            updateBookmarkCount(normalized);
-            syncBookmarkButtons(normalized);
         }
 
-        function updateBookmarkCount(list = getBookmarks()) {
-            const el = document.getElementById('bookmark-count');
-            if (el) el.textContent = list.length;
-        }
+        // Auto-id chapters and paragraphs for bookmarks
+        document.querySelectorAll('.avatar-story').forEach((sec, sIdx) => {
+            const secId = sec.id.replace('part-', '');
+            sec.querySelectorAll('.chapter').forEach((chap, cIdx) => {
+                const chapId = `chapter-tirupati-${secId}-${cIdx + 1}`;
+                chap.setAttribute('id', chapId);
 
-        function showBookmarkToast(message) {
-            const existing = document.querySelector('[data-bookmark-toast]');
-            if (existing) existing.remove();
-            const toast = document.createElement('div');
-            toast.dataset.bookmarkToast = 'true';
-            toast.className = 'fixed left-1/2 bottom-5 z-[180] -translate-x-1/2 rounded-full border border-amber-300/35 bg-[#111827]/95 px-4 py-2 text-sm text-amber-100 shadow-2xl shadow-black/40';
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 1600);
-        }
+                const h3 = chap.querySelector('h3');
+                if (h3 && !h3.querySelector('.bookmark-toggle')) {
+                    const titleText = h3.textContent.trim();
+                    const headingWrap = document.createElement('div');
+                    headingWrap.className = 'chapter-heading';
+                    headingWrap.innerHTML = `
+                        <div class="heading-text"><h3>${h3.innerHTML}</h3></div>
+                        <button class="bookmark-toggle chapter-bookmark" data-bookmark-id="${chapId}" data-bookmark-title="${titleText}" data-bookmark-snippet="${titleText}" title="Save chapter bookmark" aria-label="Save chapter bookmark">
+                            <i class="fa-regular fa-bookmark"></i>
+                        </button>
+                    `;
+                    h3.replaceWith(headingWrap);
+                }
 
-        function createBookmarkButton(type, targetId) {
-            const button = document.createElement('button');
-            button.type = 'button';
-            button.className = `bookmark-toggle ${type === 'chapter' ? 'chapter-bookmark' : 'para-bookmark'}`;
-            button.dataset.bookmarkType = type;
-            button.dataset.bookmarkTarget = targetId;
-            button.setAttribute('aria-label', `Bookmark ${type}`);
-            button.setAttribute('title', `Bookmark ${type}`);
-            button.setAttribute('aria-pressed', 'false');
-            button.innerHTML = '<i class="fa-regular fa-bookmark"></i>';
-            return button;
-        }
-
-        function sectionTitle(section) {
-            const title = section ? section.querySelector('h2') : null;
-            return title ? compactText(title.textContent, 90) : 'Venkateswara of Tirupati';
-        }
-
-        function prepareBookmarkTargets() {
-            document.querySelectorAll('.avatar-story').forEach(section => {
-                const sectionSlug = (section.id || 'part-story').replace(/^part-/, '');
-                const avatar = sectionTitle(section);
-
-                section.querySelectorAll('.chapter').forEach((chapter, chapterIndex) => {
-                    if (!chapter.id) chapter.id = `chapter-${sectionSlug}-${chapterIndex + 1}`;
-
-                    const heading = chapter.querySelector('h3');
-                    const rawChapterTitle = heading ? compactText(heading.textContent, 120) : `Chapter ${chapterIndex + 1}`;
-                    chapter.dataset.bookmarkAvatar = avatar;
-                    chapter.dataset.bookmarkTitle = rawChapterTitle;
-
-                    if (heading && !heading.querySelector('.chapter-bookmark')) {
-                        heading.classList.add('chapter-heading');
-                        heading.textContent = '';
-                        const headingText = document.createElement('span');
-                        headingText.className = 'heading-text';
-                        headingText.textContent = rawChapterTitle;
-                        heading.appendChild(headingText);
-                        heading.appendChild(createBookmarkButton('chapter', chapter.id));
-                    }
-
-                    Array.from(chapter.children)
-                        .filter(child => child.tagName === 'P')
-                        .forEach((paragraph, paragraphIndex) => {
-                            if (!paragraph.id) paragraph.id = `para-${sectionSlug}-${chapterIndex + 1}-${paragraphIndex + 1}`;
-                            paragraph.classList.add('bookmarkable-paragraph');
-                            paragraph.dataset.bookmarkAvatar = avatar;
-                            paragraph.dataset.bookmarkChapter = rawChapterTitle;
-                            paragraph.dataset.bookmarkExcerpt = compactText(paragraph.textContent, 220);
-                            if (!paragraph.querySelector('.para-bookmark')) {
-                                paragraph.prepend(createBookmarkButton('paragraph', paragraph.id));
-                            }
-                        });
+                chap.querySelectorAll('p:not(.illustration-caption):not(.source-note)').forEach((p, pIdx) => {
+                    const paraId = `para-tirupati-${secId}-${cIdx + 1}-${pIdx + 1}`;
+                    p.id = paraId;
+                    p.classList.add('bookmarkable-paragraph');
+                    const text = p.textContent.trim();
+                    const chapTitle = chap.querySelector('h3')?.textContent.trim() || 'Tirupati Story';
+                    
+                    const btn = document.createElement('button');
+                    btn.className = 'bookmark-toggle para-bookmark';
+                    btn.setAttribute('data-bookmark-id', paraId);
+                    btn.setAttribute('data-bookmark-title', chapTitle);
+                    btn.setAttribute('data-bookmark-snippet', text);
+                    btn.title = "Save paragraph bookmark";
+                    btn.setAttribute('aria-label', "Save paragraph bookmark");
+                    btn.innerHTML = `<i class="fa-regular fa-bookmark"></i>`;
+                    p.prepend(btn);
                 });
             });
-            syncBookmarkButtons();
-        }
+        });
 
-        function buildBookmark(targetId, type) {
-            const target = document.getElementById(targetId);
-            if (!target) return null;
-            const chapter = type === 'chapter' ? target : target.closest('.chapter');
-            const section = target.closest('.avatar-story');
-            const avatar = target.dataset.bookmarkAvatar || (chapter && chapter.dataset.bookmarkAvatar) || sectionTitle(section);
-            const chapterTitle = type === 'chapter'
-                ? (target.dataset.bookmarkTitle || compactText(target.querySelector('h3')?.textContent, 120))
-                : (target.dataset.bookmarkChapter || chapter?.dataset.bookmarkTitle || 'Chapter');
-            const excerpt = type === 'paragraph' ? compactText(target.dataset.bookmarkExcerpt || target.textContent, 220) : '';
-            return {
-                key: bookmarkKey(type, targetId),
-                type,
-                targetId,
-                title: type === 'chapter' ? chapterTitle : 'Paragraph note',
-                avatar,
-                chapter: chapterTitle,
-                excerpt,
-                ts: Date.now()
-            };
-        }
-
-        function toggleBookmark(targetId, type) {
-            const key = bookmarkKey(type, targetId);
-            const bookmarks = getBookmarks();
-            const existingIndex = bookmarks.findIndex(bookmark => bookmark.key === key);
-            if (existingIndex >= 0) {
-                bookmarks.splice(existingIndex, 1);
-                saveBookmarks(bookmarks);
-                showBookmarkToast('Bookmark removed');
-                return;
+        // Event listener for bookmarks
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('[data-bookmark-id]');
+            if (btn) {
+                e.preventDefault();
+                e.stopPropagation();
+                const id = btn.getAttribute('data-bookmark-id');
+                const title = btn.getAttribute('data-bookmark-title') || 'Bookmark';
+                const snippet = btn.getAttribute('data-bookmark-snippet') || '';
+                toggleBookmark(id, title, snippet);
             }
-            const bookmark = buildBookmark(targetId, type);
-            if (!bookmark) return;
-            saveBookmarks([bookmark, ...bookmarks]);
-            showBookmarkToast(type === 'chapter' ? 'Chapter bookmarked' : 'Paragraph bookmarked');
+        });
+
+        // Reading mode toggle
+        const readingBtn = document.getElementById('reading-mode-btn');
+        let readingModeOn = false;
+        try {
+            readingModeOn = localStorage.getItem(READING_MODE_KEY) === 'true';
+        } catch (e) {}
+
+        function setReadingMode(on) {
+            readingModeOn = on;
+            document.body.classList.toggle('reading-mode', on);
+            if (readingBtn) readingBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+            try {
+                localStorage.setItem(READING_MODE_KEY, on ? 'true' : 'false');
+            } catch (e) {}
+        }
+        if (readingBtn) {
+            readingBtn.addEventListener('click', () => setReadingMode(!readingModeOn));
+        }
+        if (readingModeOn) setReadingMode(true);
+
+        // Scroll reading progress bar & Top button
+        const progressBar = document.getElementById('reading-progress-bar');
+        const topBtn = document.getElementById('dash-top-button');
+        
+        window.addEventListener('scroll', () => {
+            const total = document.documentElement.scrollHeight - window.innerHeight;
+            if (total > 0) {
+                const current = window.scrollY;
+                const pct = Math.min(100, Math.max(0, (current / total) * 100));
+                if (progressBar) progressBar.style.width = pct + '%';
+                if (topBtn) topBtn.classList.toggle('is-visible', current > 500);
+            }
+        }, { passive: true });
+
+        if (topBtn) {
+            topBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
         }
 
-        function syncBookmarkButtons(list = getBookmarks()) {
-            const saved = new Set(list.map(bookmark => bookmark.key));
-            document.querySelectorAll('[data-bookmark-target]').forEach(button => {
-                const key = bookmarkKey(button.dataset.bookmarkType, button.dataset.bookmarkTarget);
-                const isSaved = saved.has(key);
-                button.classList.toggle('is-saved', isSaved);
-                button.setAttribute('aria-pressed', isSaved ? 'true' : 'false');
-                button.setAttribute('title', isSaved ? `Remove ${button.dataset.bookmarkType} bookmark` : `Bookmark ${button.dataset.bookmarkType}`);
-                const icon = button.querySelector('i');
-                if (icon) icon.className = isSaved ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark';
-            });
-            document.querySelectorAll('.bookmarkable-paragraph').forEach(paragraph => {
-                paragraph.classList.toggle('is-bookmarked', saved.has(bookmarkKey('paragraph', paragraph.id)));
-            });
-        }
-
-        function showBookmarks() {
-            const bookmarks = getBookmarks();
-            const panel = document.createElement('div');
-            panel.className = 'fixed inset-0 bg-black/70 z-[160] flex items-end md:items-center justify-center p-0 md:p-4';
-            panel.innerHTML = `
-                <div class="absolute inset-0" data-close-bookmarks></div>
-                <div class="bookmark-panel-card relative bg-[#111827] border border-white/10 rounded-t-2xl md:rounded-2xl p-5 text-sm overflow-hidden shadow-2xl shadow-black/50">
-                    <div class="flex items-start justify-between gap-4 border-b border-white/10 pb-4">
-                        <div>
-                            <div class="font-semibold text-white">My places</div>
-                            <div class="text-xs text-white/50">${bookmarks.length} saved</div>
+        // Bookmark Modal Popup
+        const bookmarksBtn = document.getElementById('bookmarks-btn');
+        if (bookmarksBtn) {
+            bookmarksBtn.addEventListener('click', () => {
+                if (savedBookmarks.length === 0) {
+                    alert("No saved places yet! Click the bookmark icon next to any chapter or paragraph to save your place.");
+                    return;
+                }
+                const modal = document.createElement('div');
+                modal.className = 'fixed inset-0 z-[200] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4';
+                modal.innerHTML = `
+                    <div class="bookmark-panel-card cosmic-bg border border-amber-400/30 rounded-2xl p-6 shadow-2xl text-left overflow-y-auto">
+                        <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
+                            <h3 class="text-xl font-bold text-amber-300 flex items-center gap-x-2">
+                                <i class="fa-solid fa-bookmark"></i> Saved Places (${savedBookmarks.length})
+                            </h3>
+                            <button id="close-bkm-modal" class="text-white/60 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
                         </div>
-                        <button class="bookmark-toggle" data-close-bookmarks aria-label="Close bookmarks" title="Close">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </div>
-                    <div class="mt-4 max-h-[60vh] space-y-2 overflow-auto pr-1">
-                    ${bookmarks.length === 0 ? '<div class="text-white/60 py-8 text-center">No saved chapters or paragraphs yet.</div>' :
-                    bookmarks.map((b, i) => `
-                        <div class="bookmark-item rounded-xl p-3">
-                            <div class="flex items-start justify-between gap-3">
-                                <div class="min-w-0">
-                                    <div class="mb-1 flex items-center gap-2">
-                                        <span class="rounded-full border border-amber-300/25 bg-amber-300/10 px-2 py-0.5 text-[10px] uppercase tracking-wide text-amber-200">${b.type === 'paragraph' ? 'Paragraph' : b.type === 'chapter' ? 'Chapter' : 'Place'}</span>
-                                        <span class="text-[11px] text-white/45">${new Date(b.ts).toLocaleDateString()}</span>
+                        <div class="space-y-3">
+                            ${savedBookmarks.map(b => `
+                                <div class="bookmark-item p-3 rounded-xl flex flex-col justify-between gap-2">
+                                    <div>
+                                        <div class="text-xs text-amber-400 font-semibold mb-1">${b.title}</div>
+                                        <div class="text-xs text-white/80 line-clamp-2">${b.snippet}</div>
                                     </div>
-                                    <div class="truncate text-white/90">${escapeHtml(b.avatar)}</div>
-                                    <div class="text-xs text-amber-200/80">${escapeHtml(b.chapter || b.title)}</div>
-                                    ${b.excerpt ? `<div class="mt-1 line-clamp-2 text-xs leading-relaxed text-white/55">${escapeHtml(b.excerpt)}</div>` : ''}
+                                    <div class="flex items-center justify-between pt-1 border-t border-white/5">
+                                        <a href="#${b.id}" class="jump-to-bkm text-[11px] text-[#00f3ff] hover:underline flex items-center gap-x-1">
+                                            Jump to paragraph <i class="fa-solid fa-arrow-right"></i>
+                                        </a>
+                                        <button class="remove-bkm text-[11px] text-red-400 hover:text-red-300" data-id="${b.id}">Remove</button>
+                                    </div>
                                 </div>
-                                <div class="flex shrink-0 gap-1">
-                                    <button class="bookmark-toggle" data-jump="${i}" aria-label="Go to bookmark" title="Go to bookmark"><i class="fa-solid fa-arrow-right"></i></button>
-                                    <button class="bookmark-toggle" data-remove="${i}" aria-label="Remove bookmark" title="Remove bookmark"><i class="fa-solid fa-trash"></i></button>
-                                </div>
-                            </div>
+                            `).join('')}
                         </div>
-                    `).join('')}
                     </div>
-                    ${bookmarks.length ? '<button class="mt-4 w-full rounded-xl border border-white/10 px-3 py-2 text-xs text-white/60 hover:bg-white/5 hover:text-white" data-clear-bookmarks>Clear all</button>' : ''}
-                </div>
-            `;
-            document.body.appendChild(panel);
-            panel.addEventListener('click', event => {
-                const close = event.target.closest('[data-close-bookmarks]');
-                const jump = event.target.closest('[data-jump]');
-                const remove = event.target.closest('[data-remove]');
-                const clear = event.target.closest('[data-clear-bookmarks]');
-                if (close) { panel.remove(); return; }
-                if (jump) {
-                    const bookmark = bookmarks[parseInt(jump.dataset.jump, 10)];
-                    panel.remove();
-                    scrollToBookmark(bookmark);
-                    return;
-                }
-                if (remove) {
-                    const idx = parseInt(remove.dataset.remove, 10);
-                    bookmarks.splice(idx, 1);
-                    saveBookmarks(bookmarks);
-                    panel.remove();
-                    showBookmarks();
-                    return;
-                }
-                if (clear) {
-                    saveBookmarks([]);
-                    panel.remove();
-                }
+                `;
+                document.body.appendChild(modal);
+
+                modal.querySelector('#close-bkm-modal').onclick = () => modal.remove();
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) modal.remove();
+                });
+                modal.querySelectorAll('.jump-to-bkm').forEach(a => {
+                    a.onclick = (e) => {
+                        modal.remove();
+                    };
+                });
+                modal.querySelectorAll('.remove-bkm').forEach(b => {
+                    b.onclick = (e) => {
+                        const id = b.getAttribute('data-id');
+                        toggleBookmark(id, '', '');
+                        modal.remove();
+                    };
+                });
             });
         }
 
-        function scrollToBookmark(bookmark) {
-            const targetId = bookmark && (bookmark.targetId || bookmark.id);
-            const target = targetId ? document.getElementById(targetId) : null;
-            if (!target) {
-                showBookmarkToast('Saved place not found');
-                return;
-            }
-            const top = target.getBoundingClientRect().top + window.scrollY - 88;
-            window.scrollTo({ top, behavior: 'smooth' });
-            history.replaceState(null, '', `#${target.id}`);
-            setTimeout(() => {
-                target.classList.add('temp-highlight');
-                setTimeout(() => target.classList.remove('temp-highlight'), 2400);
-            }, 500);
-        }
-
-        function applyReadingMode(enabled, persist = true) {
-            readingMode = enabled;
-            document.body.classList.toggle('reading-mode', enabled);
-            const button = document.getElementById('reading-mode-btn');
-            if (button) {
-                button.setAttribute('aria-pressed', enabled ? 'true' : 'false');
-                button.innerHTML = enabled
-                    ? '<i class="fa-solid fa-times"></i> <span class="hidden sm:inline">Exit reading mode</span>'
-                    : '<i class="fa-solid fa-book"></i> <span class="hidden sm:inline">Reading mode</span>';
-            }
-            if (persist) localStorage.setItem(READING_MODE_KEY, enabled ? 'true' : 'false');
-            queueReadingProgress();
-        }
-
-        function toggleReadingMode() {
-            applyReadingMode(!readingMode);
-        }
-
-        function updateReadingProgress() {
-            const bar = document.getElementById('reading-progress-bar');
-            if (!bar) return;
-            const doc = document.documentElement;
-            const maxScroll = Math.max(1, doc.scrollHeight - doc.clientHeight);
-            const progress = Math.min(100, Math.max(0, (window.scrollY / maxScroll) * 100));
-            bar.style.width = `${progress}%`;
-        }
-
-        function queueReadingProgress() {
-            if (progressFrame) return;
-            progressFrame = requestAnimationFrame(() => {
-                updateReadingProgress();
-                progressFrame = null;
-            });
-        }
-
-        function updateBackToTopButton() {
-            const button = document.getElementById('dash-top-button');
-            if (!button) return;
-            button.classList.toggle('is-visible', window.scrollY > 520);
-        }
-
-        function scrollPageToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            history.replaceState(null, '', window.location.pathname + window.location.search);
-        }
-
-        function handleBookmarkClick(event) {
-            const button = event.target.closest('[data-bookmark-target]');
-            if (!button) return;
-            event.preventDefault();
-            event.stopPropagation();
-            toggleBookmark(button.dataset.bookmarkTarget, button.dataset.bookmarkType);
-        }
-
-        function initPage() {
-            renderQuickNav();
-            prepareBookmarkTargets();
-
-            const rmBtn = document.getElementById('reading-mode-btn');
-            if (rmBtn) rmBtn.addEventListener('click', toggleReadingMode);
-
-            const bmBtn = document.getElementById('bookmarks-btn');
-            if (bmBtn) bmBtn.addEventListener('click', showBookmarks);
-
-            const topBtn = document.getElementById('dash-top-button');
-            if (topBtn) topBtn.addEventListener('click', scrollPageToTop);
-
-            document.addEventListener('click', handleBookmarkClick);
-            window.addEventListener('scroll', queueReadingProgress, { passive: true });
-            window.addEventListener('scroll', updateBackToTopButton, { passive: true });
-            window.addEventListener('resize', queueReadingProgress);
-
-            updateBookmarkCount();
-            applyReadingMode(localStorage.getItem(READING_MODE_KEY) === 'true', false);
-            updateBackToTopButton();
-
-            document.addEventListener('keydown', (e) => {
-                const activeTag = document.activeElement ? document.activeElement.tagName : '';
-                if (e.key.toLowerCase() === 'r' && activeTag === 'BODY') {
-                    e.preventDefault();
-                    toggleReadingMode();
-                }
-            });
-
-            if (window.location.hash) {
-                setTimeout(() => {
-                    const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
-                    if (target) {
-                        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 88, behavior: 'smooth' });
-                        target.classList.add('temp-highlight');
-                        setTimeout(() => target.classList.remove('temp-highlight'), 2400);
-                    }
-                }, 800);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', initPage);
+        // Initialize UI
+        updateBookmarkCount();
+        syncBookmarkUI();
     </script>
-    <script src="story-community.js?v=20260722-community-5"></script>
+    <script src="story-community.js?v=20260723-comm-1"></script>
     <script src="ask-krishna-widget.js"></script>
 </body>
 </html>

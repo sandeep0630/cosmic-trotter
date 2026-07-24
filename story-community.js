@@ -145,7 +145,7 @@
     if (/\/space-cosmos\/[^/]+/i.test(path)) return true;
     if (/\/quantum-realms\/[^/]+/i.test(path)) return true;
     if (/\/philosophy\/[^/]+/i.test(path)) return true;
-    return /\/(dashavatara|puri-jaganath|bhagavad-gita|ev-guide|PM_E-DRIVE_EV_Charging_Guide|zermatt-family-travel-guide)(\.html)?\/?$/i.test(path);
+    return /\/(dashavatara|puri-jaganath|bhagavad-gita|tirupati-venkateswara|kashi-vishwanath|hanuman|ev-guide|PM_E-DRIVE_EV_Charging_Guide|zermatt-family-travel-guide)(\.html)?\/?$/i.test(path);
   }
 
   function prefersLightCommunitySurface() {
