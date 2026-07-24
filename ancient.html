@@ -6,7 +6,7 @@
     <title>Ancient Wisdom • CosmicTrotter</title>
     <link rel="canonical" href="https://cosmictrotter.com/ancient.html">
     
-    <meta name="description" content="Timeless teachings from the Vedas and Puranas. Explore Dashavatara, Lord Jagannath of Puri, and other core wisdom from ancient India.">
+    <meta name="description" content="Timeless teachings from the Vedas and Puranas. Explore Dashavatara, Hanuman, Lord Jagannath of Puri, Bhagavad Gita, and other core wisdom from ancient India.">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
@@ -73,7 +73,7 @@
         }
     </style>
     <script src="theme-toggle.js?v=20260616-light-5"></script>
-    <script src="site-nav.js?v=20260722-nav-base-3"></script>
+    <script src="site-nav.js?v=20260724-lang-hi"></script>
 </head>
 <body class="cosmic-bg" data-krishna-context="CosmicTrotter knowledge hub. Offer Gita-rooted guidance for questions that arise while exploring.">
 
@@ -229,6 +229,42 @@
                 isDashavatara: true
             },
             {
+                href: "hanuman.html",
+                category: "puranas",
+                level: "Ramayana → Living Temples",
+                read: "Journey",
+                title: "Hanuman — The Devoted Strength",
+                desc: "Birth, ocean leap, Sanjeevani, and living temples: the Ramayana's servant-hero as continuous storybook with sources.",
+                icon: "fa-fire",
+                iconColor: "from-amber-400 to-orange-500",
+                iconBg: "text-black",
+                isDashavatara: true
+            },
+            {
+                href: "tirupati-venkateswara.html",
+                category: "puranas",
+                level: "Hills → Pilgrimage",
+                read: "Journey",
+                title: "Lord Venkateswara of Tirupati",
+                desc: "Srinivasa on the seven hills — sacred stories, living pilgrimage, and the call of Govinda, told as continuous storybook with sources.",
+                icon: "fa-mountain",
+                iconColor: "from-amber-400 to-yellow-500",
+                iconBg: "text-black",
+                isDashavatara: true
+            },
+            {
+                href: "kashi-vishwanath.html",
+                category: "puranas",
+                level: "Divine Time → Living Rituals",
+                read: "Journey",
+                title: "Kashi Vishwanath",
+                desc: "Epic layered storybook: gods' time, Divodasa, Vishwanath, Ganga, Bhairava, Goddess city, sages, empire, Aghora, living aarti.",
+                icon: "fa-water",
+                iconColor: "from-amber-400 to-orange-500",
+                iconBg: "text-black",
+                isDashavatara: true
+            },
+            {
                 href: "ancient-wisdom/upanishads.html",
                 category: "upanishads",
                 level: "Intermediate",
@@ -266,8 +302,8 @@
                 category: "gita",
                 level: "Advanced",
                 read: "2 min",
-                title: "Vishwaroopa: Krishna’s Cosmic Form",
-                desc: "When Arjuna saw the entire universe inside the body of Krishna — the most magnificent vision in the Bhagavad Gita.",
+                title: "Vishwaroopa: Krishna's Cosmic Form",
+                desc: "When Arjuna saw the entire universe inside the body of Krishna - the most magnificent vision in the Bhagavad Gita.",
                 icon: "fa-infinity",
                 iconColor: "from-purple-500 to-indigo-500",
                 iconBg: "text-white"
@@ -407,7 +443,15 @@
 
         function initAncientPage() {
             // Render the library grid (Dashavatara is now the first compact card)
-            renderCoreArticles();
+            try {
+                renderCoreArticles();
+            } catch (err) {
+                console.error('[Ancient Wisdom] library render failed', err);
+                const container = document.getElementById('articles-grid');
+                if (container && !container.children.length) {
+                    container.innerHTML = '<div class="col-span-2 text-center py-6 text-white/60 text-sm">Library failed to load. Please refresh the page.</div>';
+                }
+            }
 
             // Make first filter button active
             const firstBtn = document.querySelector('.category-btn');
@@ -425,7 +469,12 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', initAncientPage);
+        // Render even if this script runs after DOMContentLoaded (e.g. deferred/late inject)
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initAncientPage);
+        } else {
+            initAncientPage();
+        }
     </script>
     <script src="ask-krishna-widget.js"></script>
 </body>

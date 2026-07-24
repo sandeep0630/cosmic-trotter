@@ -1,0 +1,21 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Local:
+#   - Put key in project-root .env or .env.txt as either:
+#       GEMINI_API_KEY=...
+#       API=...          (also accepted)
+#   - Run API:  node scripts/local-ask-krishna-server.js
+#     or:       npx netlify dev
+# Production: set GEMINI_API_KEY (or API) in Netlify env vars — never commit secrets.
+
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Headers = "Content-Type"
+    Access-Control-Allow-Methods = "POST, OPTIONS"

@@ -8,37 +8,13 @@
         eventsBound: false,
         lastTopic: null,
         turnCount: 0,
-        recentHistory: []   // small rolling history for better real-AI context
+        recentHistory: [],   // small rolling history for better real-AI context
+        lastEngine: null     // 'llm' | 'library'
     };
 
-    // === LOCAL DIRECT GEMINI SUPPORT (for file:// or localhost testing ONLY) ===
-    // Put your Gemini API key here temporarily to test the widget by opening index.html directly.
-    // This bypasses the Netlify function and calls Gemini API directly from browser.
-    // DO NOT commit a real key. Clear this before any push.
-    const LOCAL_GEMINI_API_KEY = "";   // local file:// testing only - clear before commit/push
-
-    // Duplicate of the Krishna system prompt for direct browser calls
-    const LOCAL_KRISHNA_SYSTEM_PROMPT = `You are Lord Krishna from the Bhagavad Gita, speaking directly and personally to the user as if they are Arjuna coming to you for guidance in the middle of their life struggles.
-
-Core identity and voice:
-- You are Krishna: calm, compassionate, wise, loving, and slightly playful at times. You speak in the first person when appropriate ("I say to you...").
-- You are deeply rooted in the Bhagavad Gita. For any problem the user describes, you MUST identify and include a specific, accurate verse or teaching from the Bhagavad Gita (with exact chapter and verse number and the quote). Use it as the foundation for your advice.
-- You help humans solve real problems — stress, fear, relationships, purpose, anger, loss, work, money, habits, self-doubt, AI/job fears, etc. — by offering Gita wisdom + one small, practical, doable next step they can take today.
-- You also happily answer questions about life, dharma, the Gita, philosophy, or the universe in a clear, insightful way.
-- Greet warmly and naturally when the user says "hi", "hello", "hey", "namaste", "hare krishna", "radhe radhe", or similar. Respond in character.
-
-Conversation style (GPT-like naturalness):
-- Speak in clear, modern, warm English with a timeless, gentle, slightly poetic quality.
-- Be conversational and flowing — listen to what they actually said, refer back to previous parts of the conversation naturally.
-- Keep most replies helpful and not too long (usually 4–8 sentences), but vary length based on the depth of the question.
-- Always offer one concrete, small practical action or reflection at the end, phrased gently as an invitation.
-- Stay completely in character at all times. Never mention AI, models, prompts, or that you are "based on the Gita". You simply are Krishna offering guidance.
-- Vary your language. Do not start every response with repetitive phrases like "Oh my friend", "My dear friend", "Oh dear", "Arjuna", "Dear one", or similar. Use such terms sparingly and only when they feel natural in context. Speak directly and wisely to the user's current message.
-
-Safety:
-- If the user expresses serious distress, suicidal thoughts, or self-harm, respond with compassion but immediately and clearly direct them to seek real human help (crisis lines, friends, professionals). Do not try to philosophize it away.
-
-You have the recent conversation history. Use it to make the conversation feel continuous and personal.`;
+    // Local AI: put key in project-root .env (API=... or GEMINI_API_KEY=...)
+    // then run: node scripts/local-ask-krishna-server.js
+    // and serve the site on localhost. Never put API keys in this browser file.
 
     const wisdomByTopic = {
         stress: {
@@ -533,6 +509,27 @@ You have the recent conversation history. Use it to make the conversation feel c
                 40% { transform: scale(1); opacity: 1; }
             }
 
+            .krishna-widget__privacy {
+                margin: 0;
+                padding: 0.35rem 0.85rem 0.65rem;
+                font-size: 0.62rem;
+                line-height: 1.35;
+                color: rgba(255, 255, 255, 0.38);
+                text-align: center;
+            }
+
+            .krishna-widget__status-dot.is-library {
+                background: #fbbf24;
+            }
+
+            a.krishna-widget__icon-button {
+                text-decoration: none;
+                color: inherit;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
             @media (max-width: 640px) {
                 .krishna-widget {
                     left: 0.75rem;
@@ -577,10 +574,13 @@ You have the recent conversation history. Use it to make the conversation feel c
                         </div>
                         <div>
                             <span class="krishna-widget__title">Ask Krishna</span>
-                            <span class="krishna-widget__subtitle"><span class="krishna-widget__status-dot"></span>Gita-inspired guidance</span>
+                            <span class="krishna-widget__subtitle" id="krishna-status-line"><span class="krishna-widget__status-dot"></span><span id="krishna-status-text">Gita-rooted guidance · free</span></span>
                         </div>
                     </div>
                     <div class="flex items-center gap-2">
+                        <a href="ancient-wisdom/ask-krishna-bot.html" class="krishna-widget__icon-button" aria-label="Open full Ask Krishna page" title="Full page">
+                            <i class="fa-solid fa-up-right-from-square"></i>
+                        </a>
                         <button type="button" id="krishna-voice-button" class="krishna-widget__icon-button" aria-label="Use voice input">
                             <i class="fa-solid fa-microphone"></i>
                         </button>
@@ -603,6 +603,7 @@ You have the recent conversation history. Use it to make the conversation feel c
                         <i class="fa-solid fa-paper-plane"></i>
                     </button>
                 </form>
+                <p class="krishna-widget__privacy" id="krishna-privacy-note">Not a substitute for professional care. Free Gita counsel. Conversations may be logged to improve the service when the site is online.</p>
             </section>
             <button type="button" id="krishna-launcher" class="krishna-widget__button" aria-label="Open Ask Krishna chat" aria-controls="krishna-chat-panel" aria-expanded="false">
                 <span class="krishna-widget__button-text">Ask Krishna</span>
@@ -796,18 +797,36 @@ You have the recent conversation history. Use it to make the conversation feel c
         });
     }
 
-    // Real generative AI backend (completely free via Google Gemini). 
-    // This makes the *floating widget* the primary fully generative "chat with Krishna like GPT" experience.
-    // - Natural flowing conversation
-    // - Strong Krishna voice (first person, compassionate, Gita-rooted)
-    // - Solves human problems + answers life/Gita questions
-    // - Excellent greetings ("Hi", "Namaste", etc.)
-    // Falls back to the curated local Gita wisdom engine when needed.
-    //
-    // For local file:// testing (opening index.html directly on your PC):
-    //   - Put your Gemini key in LOCAL_GEMINI_API_KEY below
-    //   - The widget will call Gemini API directly from the browser (no Netlify function needed)
-    //   - Clear the key before any commit/push.
+    function ensureCoreLoaded() {
+        return new Promise((resolve) => {
+            if (window.CosmicAskKrishna) {
+                resolve(window.CosmicAskKrishna);
+                return;
+            }
+            const existing = document.querySelector('script[data-cosmic-ask-krishna-core]');
+            if (existing) {
+                existing.addEventListener('load', () => resolve(window.CosmicAskKrishna));
+                existing.addEventListener('error', () => resolve(null));
+                return;
+            }
+            // Resolve path relative to site root depth
+            let base = '';
+            try {
+                const parts = location.pathname.replace(/\\/g, '/').split('/').filter(Boolean);
+                const last = parts[parts.length - 1] || '';
+                const isFile = /\.[a-z0-9]+$/i.test(last);
+                const nest = isFile ? Math.max(0, parts.length - 1) : parts.length;
+                base = nest > 0 ? '../'.repeat(nest) : '';
+            } catch (e) {}
+            const s = document.createElement('script');
+            s.src = base + 'js/ask-krishna-core.js';
+            s.setAttribute('data-cosmic-ask-krishna-core', '1');
+            s.onload = () => resolve(window.CosmicAskKrishna);
+            s.onerror = () => resolve(null);
+            document.head.appendChild(s);
+        });
+    }
+
     function getPageContext() {
         const bodyCtx = document.body && document.body.dataset
             ? (document.body.dataset.krishnaContext || document.body.dataset.storybookSlug || '')
@@ -867,132 +886,52 @@ You have the recent conversation history. Use it to make the conversation feel c
         });
     }
 
-    async function tryRealKrishna(userMessage) {
-        const isLocal = location.protocol === 'file:' || 
-                        location.hostname === 'localhost' || 
-                        location.hostname === '127.0.0.1';
-
+    async function tryRealKrishna(userMessage, topicHint) {
         const pageContext = getPageContext();
-        const contextualMessage = pageContext
-            ? `${userMessage}\n\n[Context for Krishna — not spoken by user: ${pageContext}]`
-            : userMessage;
-
-        // Direct Gemini call for local file:// testing (uses your browser + Gemini key)
-        if (LOCAL_GEMINI_API_KEY && isLocal) {
+        const core = await ensureCoreLoaded();
+        if (core && core.callAskKrishnaApi) {
             try {
-                const reply = await callGeminiDirect(contextualMessage);
-                if (reply) {
-                    console.info('[Ask Krishna] Using DIRECT Gemini API (local file:// mode - for testing only)');
-                    return reply;
+                const data = await core.callAskKrishnaApi({
+                    userMessage,
+                    messages: widgetState.recentHistory,
+                    pageContext,
+                    topicHint: topicHint || ''
+                });
+                console.info('[Ask Krishna] API response:', {
+                    engine: data.engine || (data.useLocal ? 'library' : 'llm'),
+                    hasReply: !!data.reply,
+                    rateLimited: !!data.rateLimited
+                });
+                if (data.reply && !data.useLocal) {
+                    return { reply: data.reply, verse: data.verse || null, engine: 'llm', rateLimited: !!data.rateLimited };
                 }
+                return { reply: null, verse: null, engine: 'library', rateLimited: !!data.rateLimited, message: data.message };
             } catch (e) {
-                console.error('[Ask Krishna] Direct Gemini call failed:', e);
+                console.error('[Ask Krishna] API error', e);
                 return null;
             }
         }
-
-        // Normal production path via Netlify function
         try {
-            // Pass rolling history so responses feel truly conversational and contextual (like GPT)
             const res = await fetch('/.netlify/functions/ask-krishna', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    userMessage: contextualMessage, 
+                body: JSON.stringify({
+                    userMessage,
                     messages: widgetState.recentHistory,
-                    pageContext
+                    pageContext,
+                    preferredLang: (localStorage.getItem('preferredLang') || 'en'),
+                    topicHint: topicHint || ''
                 })
             });
-            if (!res.ok) {
-                console.error('[Ask Krishna] Function call failed with status', res.status);
-                return null;
-            }
+            if (!res.ok) return null;
             const data = await res.json();
-            console.info('[Ask Krishna] Function response:', data);
-            if (data.useLocal) {
-                console.info('[Ask Krishna] Function returned useLocal=true. Full response from function (check debug for real error):', data);
+            if (data.reply && !data.useLocal) {
+                return { reply: data.reply, verse: data.verse || null, engine: 'llm' };
             }
-            return (data.reply && !data.useLocal) ? data.reply : null;
+            return null;
         } catch (e) {
             return null;
         }
-    }
-
-    // Direct browser call to Gemini (replicates the Netlify function logic)
-    async function callGeminiDirect(userMessage) {
-        if (!LOCAL_GEMINI_API_KEY) return null;
-
-        const recentHistory = widgetState.recentHistory.slice(-8);
-
-        const contents = [];
-
-        // Inject system prompt as the very first user message (workaround for "systemInstruction" not recognized in some Gemini API setups / keys)
-        contents.push({
-            role: 'user',
-            parts: [{ text: "You are to act as Lord Krishna from the Bhagavad Gita. " + LOCAL_KRISHNA_SYSTEM_PROMPT }]
-        });
-
-        recentHistory.forEach(m => {
-            contents.push({
-                role: m.role === 'user' ? 'user' : 'model',
-                parts: [{ text: m.content }]
-            });
-        });
-        contents.push({
-            role: 'user',
-            parts: [{ text: userMessage }]
-        });
-
-        // Try multiple model names for compatibility with free tier / v1 API
-        // Use current available models from Google (as of 2026). 
-        // To see exact models available for YOUR key, run in browser console:
-        // fetch(`https://generativelanguage.googleapis.com/v1/models?key=YOUR_KEY_HERE`).then(r=>r.json()).then(c=>console.log(c.models.filter(m=>m.supportedGenerationMethods.includes('generateContent')).map(m=>m.name)))
-        // Then use the base name like 'gemini-2.5-flash'
-        const modelCandidates = [
-            'gemini-2.5-flash',
-            'gemini-2.5-flash-lite',
-            'gemini-2.0-flash-exp'
-        ];
-
-        for (const model of modelCandidates) {
-            console.log(`[Ask Krishna] Trying direct model: ${model}`);
-            const url = `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${LOCAL_GEMINI_API_KEY}`;
-
-            const bodyPayload = {
-                contents: contents,
-                generationConfig: {
-                    temperature: 0.85,
-                    maxOutputTokens: 800,
-                    topP: 0.95
-                }
-            };
-
-            try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(bodyPayload)
-                });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
-                    if (reply) {
-                        console.info(`[Ask Krishna] Direct Gemini succeeded with model: ${model}`);
-                        return reply;
-                    }
-                } else {
-                    const errText = await response.text();
-                    console.warn(`[Ask Krishna] Model ${model} failed:`, response.status, errText);
-                }
-            } catch (e) {
-                console.warn(`[Ask Krishna] Model ${model} error:`, e);
-            }
-        }
-
-        throw new Error('All Gemini models failed for direct call');
     }
 
     async function respondToMessage(message) {
@@ -1008,31 +947,48 @@ You have the recent conversation history. Use it to make the conversation feel c
         addMessage("", false, { typing: true });
 
         // Try real conversational AI first (same backend as the full bot page)
-        let realReply = null;
+        let ai = null;
         try {
-            realReply = await tryRealKrishna(text);
+            const topicGuess = detectTopic(text);
+            ai = await tryRealKrishna(text, topicGuess);
         } catch (e) {}
 
         removeTyping();
 
-        if (realReply) {
-            // Real LLM response (feels like chatting with Krishna)
-            addMessage(realReply, false);
-            widgetState.recentHistory.push({ role: 'krishna', content: realReply });
+        const core = window.CosmicAskKrishna;
+        if (core && core.bumpDaily) core.bumpDaily();
+        if (core && core.track) core.track('krishna_send', { engine: (ai && ai.engine) || 'library' });
+
+        if (ai && ai.reply) {
+            widgetState.lastEngine = 'llm';
+            setEngineStatus('llm');
+            addMessage(String(ai.reply).replace(/\n/g, '<br>'), false);
+            widgetState.recentHistory.push({ role: 'model', content: ai.reply });
             if (widgetState.recentHistory.length > 8) {
                 widgetState.recentHistory = widgetState.recentHistory.slice(-8);
             }
+            if (core && core.saveSession) core.saveSession(widgetState.recentHistory, 'llm');
+            if (core && core.track) core.track('krishna_llm', {});
         } else {
-            // Local high-quality Gita wisdom (always works)
-            console.warn('[Ask Krishna Widget] Using LOCAL fallback. The function returned useLocal=true. Check Netlify function logs for the detailed Gemini error (look for "Gemini API error:").');
+            console.warn('[Ask Krishna Widget] Using LOCAL Gita library fallback.');
+            widgetState.lastEngine = 'library';
+            setEngineStatus('library');
             const wisdom = getWisdom(text);
-
             widgetState.turnCount += 1;
             if (!["greeting", "gratitude"].includes(wisdom.topic)) {
                 widgetState.lastTopic = wisdom.topic;
             }
-
-            addMessage(formatWisdom(wisdom), false);
+            const libraryReply = formatWisdom(wisdom);
+            addMessage(libraryReply, false);
+            widgetState.recentHistory.push({
+                role: 'model',
+                content: String(wisdom.opening || '') + ' ' + String(wisdom.verse || '')
+            });
+            if (widgetState.recentHistory.length > 8) {
+                widgetState.recentHistory = widgetState.recentHistory.slice(-8);
+            }
+            if (core && core.saveSession) core.saveSession(widgetState.recentHistory, 'library');
+            if (core && core.track) core.track('krishna_fallback', {});
         }
 
         setResponding(false);
@@ -1053,6 +1009,22 @@ You have the recent conversation history. Use it to make the conversation feel c
         await respondToMessage(message);
     }
 
+    function setEngineStatus(mode) {
+        const textEl = document.getElementById("krishna-status-text");
+        const dot = document.querySelector("#krishna-status-line .krishna-widget__status-dot");
+        if (!textEl) return;
+        if (mode === "llm") {
+            textEl.textContent = "Live counsel · Gita-rooted · free";
+            if (dot) dot.classList.remove("is-library");
+        } else if (mode === "library") {
+            textEl.textContent = "Gita library mode · free (offline teachings)";
+            if (dot) dot.classList.add("is-library");
+        } else {
+            textEl.textContent = "Gita-rooted guidance · free";
+            if (dot) dot.classList.remove("is-library");
+        }
+    }
+
     function setOpen(isOpen) {
         const panel = document.getElementById("krishna-chat-panel");
         const launcher = document.getElementById("krishna-launcher");
@@ -1067,10 +1039,27 @@ You have the recent conversation history. Use it to make the conversation feel c
             : '<span class="krishna-widget__button-text">Ask Krishna</span><i class="fa-solid fa-comments"></i>';
 
         if (isOpen) {
+            if (window.CosmicAskKrishna && window.CosmicAskKrishna.track) window.CosmicAskKrishna.track('krishna_open', {});
             applyPageSuggestionHints();
+            // Fix full-page link depth when widget loads from nested folders
+            const fullLink = panel.querySelector('a[aria-label="Open full Ask Krishna page"]');
+            if (fullLink) {
+                const depth = (location.pathname.replace(/\\/g, "/").split("/").filter(Boolean).length > 1)
+                    ? "../".repeat(Math.max(0, location.pathname.replace(/\\/g, "/").split("/").filter(Boolean).length - (/\.html?$/i.test(location.pathname.split("/").pop() || "") ? 1 : 0)))
+                    : "";
+                // Simpler: use site-nav style base if available via relative from root paths
+                try {
+                    const parts = location.pathname.replace(/\\/g, "/").split("/").filter(Boolean);
+                    const last = parts[parts.length - 1] || "";
+                    const isFile = /\.[a-z0-9]+$/i.test(last);
+                    const nest = isFile ? parts.length - 1 : parts.length;
+                    const base = nest > 0 ? "../".repeat(nest) : "";
+                    fullLink.setAttribute("href", base + "ancient-wisdom/ask-krishna-bot.html");
+                } catch (e) {}
+            }
             if (!widgetState.isReady) {
                 widgetState.isReady = true;
-                addMessage("Namaste. I am here with you. Share what is on your heart — whether a struggle, a question about life, or simply a hello — and I will answer from the wisdom of the Gita with clarity and one small step forward.", false);
+                addMessage("Namaste. I am here with you. Share what is on your heart — a struggle, a question about life, or a hello — and I will answer from the Gita with one small step you can take. This is free spiritual counsel, not medical or legal advice.", false);
             }
 
             window.setTimeout(() => input && input.focus(), 80);
@@ -1092,7 +1081,9 @@ You have the recent conversation history. Use it to make the conversation feel c
         const recognition = new SpeechRecognition();
         recognition.continuous = false;
         recognition.interimResults = false;
-        recognition.lang = "en-US";
+        recognition.lang = (window.CosmicAskKrishna && window.CosmicAskKrishna.speechLang)
+            ? window.CosmicAskKrishna.speechLang(window.CosmicAskKrishna.preferredLang())
+            : "en-US";
 
         widgetState.isListening = true;
         if (voiceButton) {
@@ -1161,6 +1152,14 @@ You have the recent conversation history. Use it to make the conversation feel c
         injectStyles();
         injectMarkup();
         bindEvents();
+        ensureCoreLoaded().then((core) => {
+            if (!core) return;
+            const sess = core.loadSession();
+            if (sess.history && sess.history.length) {
+                widgetState.recentHistory = sess.history.slice(-8);
+            }
+            if (sess.lastEngine) setEngineStatus(sess.lastEngine);
+        });
     }
 
     window.openKrishnaChat = function () {

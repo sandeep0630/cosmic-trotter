@@ -7,24 +7,27 @@
     <link rel="canonical" href="https://cosmictrotter.com/">
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="A cosmic platform for curious minds. Explore science, philosophy, space, ancient wisdom, and India's EV charging business opportunities under PM E-DRIVE scheme.">
-    <meta name="keywords" content="CosmicTrotter, knowledge, wisdom, EV charging business, PM E-DRIVE, science, philosophy, space, ancient wisdom, India EV guide">
+    <meta name="description" content="Travel through knowledge — ancient wisdom, philosophy, quantum realms, and space. Storybooks, daily wisdom, cinematic reels, and Ask Krishna. Start free.">
+    <meta name="keywords" content="CosmicTrotter, knowledge, wisdom, science, philosophy, space, ancient wisdom, Bhagavad Gita, quantum, Hanuman">
     <meta name="author" content="CosmicTrotter">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://cosmictrotter.com/">
     <meta property="og:title" content="CosmicTrotter • Travel Through Knowledge">
-    <meta property="og:description" content="A cosmic platform for curious minds. Explore science, philosophy, space, ancient wisdom, and India's EV charging business opportunities.">
+    <meta property="og:description" content="Ancient wisdom, philosophy, quantum, and space — story-first journeys for curious minds. Start free.">
     <meta property="og:image" content="https://cosmictrotter.com/og-logo.png">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#0a0a0f">
+    <script src="pwa-register.js" defer></script>
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:url" content="https://cosmictrotter.com/">
     <meta name="twitter:title" content="CosmicTrotter • Travel Through Knowledge">
-    <meta name="twitter:description" content="A cosmic platform for curious minds. Explore science, philosophy, space, ancient wisdom, and India's EV charging business opportunities.">
+    <meta name="twitter:description" content="Ancient wisdom, philosophy, quantum, and space — story-first journeys for curious minds.">
     <meta name="twitter:image" content="https://cosmictrotter.com/logo.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
@@ -318,6 +321,204 @@
             box-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
         }
 
+        
+        /* ===== Homepage redesign 2026-07 ===== */
+        .home-nebula {
+            background:
+                radial-gradient(ellipse 80% 50% at 20% 20%, rgba(0, 243, 255, 0.12), transparent 55%),
+                radial-gradient(ellipse 70% 45% at 80% 10%, rgba(124, 58, 237, 0.16), transparent 50%),
+                radial-gradient(ellipse 60% 40% at 50% 80%, rgba(251, 191, 36, 0.06), transparent 55%);
+            animation: nebulaDrift 18s ease-in-out infinite alternate;
+        }
+        @keyframes nebulaDrift {
+            from { filter: hue-rotate(0deg); opacity: 1; }
+            to { filter: hue-rotate(12deg); opacity: 0.92; }
+        }
+        .home-reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .home-reveal.is-visible {
+            opacity: 1;
+            transform: none;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .home-nebula { animation: none; }
+            .home-reveal { opacity: 1; transform: none; transition: none; }
+            .star { animation: none !important; }
+        }
+        .home-glass {
+            background: rgba(15, 23, 42, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+        .home-path-card, .home-flagship, .home-pillar {
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+        }
+        .home-path-card:hover, .home-flagship:hover, .home-pillar:hover {
+            transform: translateY(-6px);
+            border-color: rgba(0, 243, 255, 0.35);
+            box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.55);
+        }
+        .home-flagship img {
+            transition: transform 0.5s ease;
+        }
+        .home-flagship:hover img {
+            transform: scale(1.05);
+        }
+        .ad-slot {
+            display: none;
+        }
+        /* When ads go live: set data-ad-enabled="true" and style the unit */
+        .ad-slot[data-ad-enabled="true"] {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 1.25rem;
+            min-height: 90px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .home-pulse-cell {
+            flex: 1;
+            min-width: 0;
+        }
+        .nav-skeleton {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(10, 10, 15, 0.9);
+        }
+
+        /* Homepage Instagram reels carousel — in-page iframe player */
+        .home-reel-carousel {
+            position: relative;
+            max-width: 24rem;
+            margin: 0 auto;
+        }
+        .home-reel-viewport {
+            overflow: hidden;
+            border-radius: 1.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #000;
+            box-shadow: 0 24px 50px -28px rgba(0, 0, 0, 0.75);
+        }
+        .home-reel-track {
+            display: flex;
+            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: transform;
+            touch-action: pan-y;
+        }
+        .home-reel-slide {
+            flex: 0 0 100%;
+            min-width: 100%;
+            display: flex;
+            flex-direction: column;
+            background: #0a0a0f;
+        }
+        /* Crop Instagram embed chrome → show mostly the reel video only.
+           IG does not offer an official “video-only” embed; we scale+clip the iframe. */
+        .home-reel-embed {
+            width: 100%;
+            position: relative;
+            background: #000;
+            overflow: hidden;
+            /* 9:16 video window */
+            aspect-ratio: 9 / 16;
+            max-height: min(72vh, 640px);
+            min-height: 420px;
+        }
+        .home-reel-embed iframe {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            /* Oversize iframe so header/footer of IG embed fall outside the crop */
+            width: 120%;
+            height: 145%;
+            max-width: none;
+            border: 0;
+            background: #000;
+            transform: translate(-50%, -48%);
+            pointer-events: auto;
+        }
+        @media (max-width: 420px) {
+            .home-reel-embed iframe {
+                width: 130%;
+                height: 150%;
+                transform: translate(-50%, -47%);
+            }
+        }
+        .home-reel-meta {
+            padding: 0.9rem 1rem 1.1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            background: rgba(15, 23, 42, 0.95);
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .home-reel-nav {
+            position: absolute;
+            top: 38%;
+            transform: translateY(-50%);
+            z-index: 5;
+            width: 2.6rem;
+            height: 2.6rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(10, 10, 15, 0.82);
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+        .home-reel-nav:hover,
+        .home-reel-nav:focus-visible {
+            background: rgba(0, 243, 255, 0.16);
+            border-color: rgba(0, 243, 255, 0.55);
+            outline: none;
+        }
+        .home-reel-nav--prev { left: 0.35rem; }
+        .home-reel-nav--next { right: 0.35rem; }
+        @media (min-width: 640px) {
+            .home-reel-nav--prev { left: -0.85rem; }
+            .home-reel-nav--next { right: -0.85rem; }
+        }
+        .home-reel-dots {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.4rem;
+            margin-top: 1rem;
+            max-width: 22rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .home-reel-dot {
+            width: 0.45rem;
+            height: 0.45rem;
+            border-radius: 9999px;
+            border: 0;
+            padding: 0;
+            background: rgba(255, 255, 255, 0.28);
+            cursor: pointer;
+            transition: width 0.2s ease, background 0.2s ease;
+        }
+        .home-reel-dot.is-active {
+            width: 1.15rem;
+            background: #00f3ff;
+        }
+        .home-reel-counter {
+            text-align: center;
+            margin-top: 0.75rem;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.45);
+        }
+        .home-reel-follow {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
         @keyframes intro-aura-pulse {
             0%, 100% {
                 opacity: 0.82;
@@ -546,7 +747,7 @@
 
     </style>
     <script src="theme-toggle.js?v=20260616-light-5"></script>
-    <script src="site-nav.js?v=20260722-nav-base-3"></script>
+    <script src="site-nav.js?v=20260724-lang-hi"></script>
     <script src="daily-wisdom.js?v=20260616-wisdom-1"></script>
 </head>
 <body class="cosmic-bg">
@@ -569,162 +770,24 @@
             <!-- Subtle Loading -->
             <div class="w-44 mx-auto">
                 <div class="h-px bg-white/10 rounded-full overflow-hidden">
-                    <div class="h-px bg-gradient-to-r from-[#00f3ff] via-[#7c3aed] to-[#00f3ff] animate-[loading_2.5s_ease-out_forwards]"></div>
+                    <div class="h-px bg-gradient-to-r from-[#00f3ff] via-[#7c3aed] to-[#00f3ff] animate-[loading_1.2s_ease-out_forwards]"></div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Navbar -->
-    <nav class="border-b border-white/10 sticky top-0 z-50 bg-[#0a0a0f]/95 backdrop-blur-xl">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6">
-            <div class="flex items-center justify-between gap-4 min-h-[84px] py-3">
-                <!-- Logo -->
-                <a href="#" class="flex items-center gap-x-3 flex-shrink-0" aria-label="CosmicTrotter home">
-                    <div class="logo-orb h-12 w-12 sm:h-14 sm:w-14 flex-shrink-0">
-                        <div class="logo-disk">
-                            <img src="logo.png" alt="CosmicTrotter Logo" width="56" height="56" class="max-w-[100%] max-h-[100%] object-contain" style="border-radius: 9999px;">
-                        </div>
-                    </div>
-                    <div class="min-w-0">
-                        <span class="font-display text-2xl sm:text-3xl font-semibold tracking-tighter text-white leading-none">CosmicTrotter</span>
-                        <span class="hidden sm:block text-[10px] text-white/50 -mt-0.5 tracking-[3px]">TRAVEL THROUGH KNOWLEDGE</span>
-                    </div>
-                </a>
-
-                <!-- Desktop Journey Dock -->
-                <div class="hidden xl:flex flex-1 items-center justify-center min-w-0 px-4">
-                    <div class="nav-dock flex items-center gap-1 rounded-full p-1 text-sm font-medium">
-                        <a href="#explore" class="nav-link nav-chip">
-                            <i class="fa-solid fa-compass text-[#00f3ff]"></i>
-                            <span>Explore</span>
-                        </a>
-                        <a href="#wisdom" class="nav-link nav-chip">
-                            <i class="fa-solid fa-infinity text-[#00f3ff]"></i>
-                            <span>Today</span>
-                        </a>
-                        <div class="relative" data-nav-menu="library">
-                            <button id="library-toggle" type="button" onclick="toggleLibraryMenu(event)"
-                                    class="nav-link nav-chip"
-                                    aria-haspopup="true" aria-expanded="false" aria-controls="library-menu">
-                                <i class="fa-solid fa-layer-group text-[#00f3ff]"></i>
-                                <span>Library</span>
-                                <i class="fa-solid fa-chevron-down text-[0.65rem] text-white/45"></i>
-                            </button>
-                            <div id="library-menu" class="nav-menu-panel hidden absolute left-1/2 top-[calc(100%+0.75rem)] w-[22rem] -translate-x-1/2 rounded-lg p-2">
-                                <button type="button" onclick="openKrishnaChat(); setLibraryMenu(false);" class="nav-menu-item">
-                                    <i class="fa-solid fa-comments"></i>
-                                    <span><span class="block font-semibold">Ask Krishna Chat</span><span class="block text-xs text-white/45">Open guidance without leaving this page</span></span>
-                                </button>
-                                <a href="wisdom.html" class="nav-menu-item">
-                                    <i class="fa-solid fa-book-open"></i>
-                                    <span><span class="block font-semibold">Wisdom Library</span><span class="block text-xs text-white/45">Quotes, reflections, and daily ideas</span></span>
-                                </a>
-                                <a href="space.html" class="nav-menu-item">
-                                    <i class="fa-solid fa-rocket"></i>
-                                    <span><span class="block font-semibold">Space &amp; Cosmos</span><span class="block text-xs text-white/45">Cyclic creation, black holes &amp; the Vedic imagination</span></span>
-                                </a>
-                                <a href="philosophy.html" class="nav-menu-item">
-                                    <i class="fa-solid fa-brain"></i>
-                                    <span><span class="block font-semibold">Philosophy</span><span class="block text-xs text-white/45">Consciousness, meaning, and big questions</span></span>
-                                </a>
-                                <a href="quantum.html" class="nav-menu-item">
-                                    <i class="fa-solid fa-atom"></i>
-                                    <span><span class="block font-semibold">Quantum</span><span class="block text-xs text-white/45">Where physics meets consciousness &amp; oneness</span></span>
-                                </a>
-                                <a href="ancient.html" class="nav-menu-item">
-                                    <i class="fa-solid fa-landmark"></i>
-                                    <span><span class="block font-semibold">Ancient Wisdom</span><span class="block text-xs text-white/45">Vedic and timeless knowledge journeys</span></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Desktop Utilities -->
-                <div class="hidden xl:flex items-center gap-3 flex-shrink-0">
-                    <div class="relative">
-                        <input type="text" id="search-input" placeholder="Search knowledge"
-                               class="nav-search-input w-52 2xl:w-60 bg-white/5 border border-white/15 text-sm pl-4 pr-10 py-2.5 rounded-lg focus:outline-none placeholder-white/40"
-                               onkeyup="handleSearch(event)">
-                        <i class="fa-solid fa-search absolute right-3.5 top-3 text-white/40 pointer-events-none"></i>
-                    </div>
-                    <button onclick="document.getElementById('community').scrollIntoView({ behavior: 'smooth' })"
-                            class="cosmic-btn px-5 py-2.5 rounded-lg text-sm font-semibold text-black inline-flex items-center gap-x-2">
-                        <span>Join</span>
-                        <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <div class="flex xl:hidden items-center gap-2">
-                    <button type="button" onclick="toggleMobileMenu(event)" id="mobile-menu-toggle"
-                            class="w-11 h-11 rounded-lg border border-white/15 bg-white/5 text-white hover:bg-white/10 transition"
-                            aria-label="Open navigation menu" aria-controls="mobile-menu" aria-expanded="false">
-                        <i class="fa-solid fa-bars"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Mobile Journey Menu -->
-            <div id="mobile-menu" class="xl:hidden hidden pb-5">
-                <div class="mobile-menu-panel rounded-lg p-3">
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                        <a href="#explore" class="nav-menu-item" onclick="setMobileMenu(false)">
-                            <i class="fa-solid fa-compass"></i>
-                            <span class="font-semibold">Explore</span>
-                        </a>
-                        <a href="#wisdom" class="nav-menu-item" onclick="setMobileMenu(false)">
-                            <i class="fa-solid fa-infinity"></i>
-                            <span class="font-semibold">Today</span>
-                        </a>
-                        <button type="button" onclick="openKrishnaChat(); setMobileMenu(false);" class="nav-menu-item">
-                            <i class="fa-solid fa-comments"></i>
-                            <span class="font-semibold">Ask Krishna</span>
-                        </button>
-                        <a href="wisdom.html" class="nav-menu-item">
-                            <i class="fa-solid fa-book-open"></i>
-                            <span class="font-semibold">Wisdom</span>
-                        </a>
-                        <a href="space.html" class="nav-menu-item">
-                            <i class="fa-solid fa-rocket"></i>
-                            <span class="font-semibold">Space</span>
-                        </a>
-                        <a href="ancient.html" class="nav-menu-item">
-                            <i class="fa-solid fa-landmark"></i>
-                            <span class="font-semibold">Ancient</span>
-                        </a>
-                        <a href="philosophy.html" class="nav-menu-item">
-                            <i class="fa-solid fa-brain"></i>
-                            <span class="font-semibold">Philosophy</span>
-                        </a>
-                        <a href="quantum.html" class="nav-menu-item">
-                            <i class="fa-solid fa-atom"></i>
-                            <span class="font-semibold">Quantum</span>
-                        </a>
-                    </div>
-
-                    <div class="mt-3 flex flex-col sm:flex-row gap-3">
-                        <div class="relative flex-1">
-                            <input type="text" id="mobile-search-input" placeholder="Search knowledge"
-                                   class="nav-search-input w-full bg-white/5 border border-white/15 text-sm pl-4 pr-10 py-3 rounded-lg focus:outline-none placeholder-white/40"
-                                   onkeyup="handleSearch(event)">
-                            <i class="fa-solid fa-search absolute right-3.5 top-3.5 text-white/40 pointer-events-none"></i>
-                        </div>
-                        <button onclick="document.getElementById('community').scrollIntoView({ behavior: 'smooth' }); setMobileMenu(false);"
-                                class="cosmic-btn px-5 py-3 rounded-lg text-sm font-semibold text-black inline-flex items-center justify-center gap-x-2">
-                            <span>Join the Journey</span>
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+    <!-- Navbar skeleton (replaced by site-nav.js?v=20260724-lang-hi) -->
+    <nav class="nav-skeleton sticky top-0 z-40" aria-label="Primary navigation loading">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-x-3 min-h-[72px]">
+            <img src="logo.png" alt="CosmicTrotter" width="44" height="44" class="rounded-full w-11 h-11 object-cover" style="border-radius:9999px">
+            <span class="font-display text-2xl font-semibold tracking-tighter">CosmicTrotter</span>
         </div>
     </nav>
 
+    <main id="main">
     <!-- Hero Section -->
-    <div class="max-w-5xl mx-auto px-6 pt-20 pb-24 text-center relative">
-        <!-- Background Stars -->
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <section class="relative overflow-hidden pt-16 pb-20 sm:pt-20 sm:pb-24" aria-label="Hero">
+        <div class="absolute inset-0 home-nebula pointer-events-none" aria-hidden="true"></div>
+        <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
             <div class="star" style="width: 2px; height: 2px; top: 15%; left: 10%; animation-delay: 0s;"></div>
             <div class="star" style="width: 3px; height: 3px; top: 25%; left: 25%; animation-delay: 1.2s;"></div>
             <div class="star" style="width: 2px; height: 2px; top: 40%; left: 80%; animation-delay: 0.7s;"></div>
@@ -732,185 +795,338 @@
             <div class="star" style="width: 2.5px; height: 2.5px; top: 70%; left: 70%; animation-delay: 1.5s;"></div>
             <div class="star" style="width: 2px; height: 2px; top: 85%; left: 40%; animation-delay: 0.3s;"></div>
         </div>
-
-        <div class="max-w-3xl mx-auto">
-            <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 mb-8">
-                <div class="w-2 h-2 bg-[#00f3ff] rounded-full animate-pulse"></div>
-                <span class="text-xs uppercase tracking-[2px] text-white/70">A Universe of Knowledge</span>
-            </div>
-            
-            <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tighter leading-none mb-6">
-                Travel Through<br>
-                <span class="gradient-text">Knowledge</span>
-            </h1>
-            
-            <p class="text-2xl text-white/70 max-w-2xl mx-auto mb-10 leading-tight">
-                Science • Philosophy • Space • Ancient Wisdom • Future<br>
-                One universe. Endless questions.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button onclick="document.getElementById('explore').scrollIntoView({ behavior: 'smooth' })" 
-                        class="cosmic-btn px-10 py-4 rounded-3xl text-lg font-semibold text-black flex items-center justify-center gap-x-3">
-                    <span>Begin Your Journey</span>
-                    <i class="fa-solid fa-arrow-right"></i>
-                </button>
-            </div>
-            
-            <div class="mt-12 text-xs text-white/40 flex items-center justify-center gap-x-6">
-                <div>✦ 100% Free</div>
-                <div>✦ Built for the Curious</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Wisdom Section (Moved Up) -->
-    <div id="wisdom" class="max-w-5xl mx-auto px-6 pb-20">
-        <div class="cosmic-card rounded-3xl p-14 text-center border border-white/10">
-            <div class="max-w-xl mx-auto">
-                <i class="fa-solid fa-infinity text-6xl text-white/30 mb-6"></i>
-                <h2 class="text-4xl font-bold tracking-tight mb-4">Daily Cosmic Wisdom</h2>
-                <p class="text-xl text-white/60 mb-2">A new insight awaits you every day.</p>
-                <p class="text-sm text-white/40">Pick today, yesterday, or any past date you missed.</p>
-                
-                <div class="mt-8 flex justify-center">
-                    <button onclick="showDailyWisdom()" 
-                            class="cosmic-btn px-8 py-3.5 rounded-2xl text-sm font-semibold text-black flex items-center gap-x-3 hover:scale-105 transition-transform">
-                        <span>Read Today’s Wisdom</span>
-                        <i class="fa-solid fa-book-open"></i>
-                    </button>
+        <div class="max-w-6xl mx-auto px-6 relative">
+            <div class="grid lg:grid-cols-12 gap-10 items-center">
+                <div class="lg:col-span-7 text-center lg:text-left home-reveal">
+                    <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 mb-6">
+                        <div class="w-2 h-2 bg-[#00f3ff] rounded-full animate-pulse"></div>
+                        <span class="text-xs uppercase tracking-[2px] text-white/70">Free cosmic library</span>
+                    </div>
+                    <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tighter leading-[0.95] mb-6">
+                        Travel Through<br>
+                        <span class="gradient-text">Knowledge</span>
+                    </h1>
+                    <p class="text-xl sm:text-2xl text-white/70 max-w-xl mx-auto lg:mx-0 mb-8 leading-snug">
+                        Ancient wisdom, philosophy, quantum, and space — story-first journeys for curious minds. Always free to explore.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="start.html" data-cta="hero-start" class="cosmic-btn px-10 py-4 rounded-3xl text-lg font-semibold text-black flex items-center justify-center gap-x-3">
+                            <span>Start Here</span>
+                            <i class="fa-solid fa-compass"></i>
+                        </a>
+                        <a href="#flagships" data-cta="hero-journeys" class="px-10 py-4 rounded-3xl text-lg font-semibold border border-white/25 hover:bg-white/5 flex items-center justify-center gap-x-3 transition">
+                            <span>Explore journeys</span>
+                            <i class="fa-solid fa-arrow-down"></i>
+                        </a>
+                    </div>
+                    <div class="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 text-xs text-white/45">
+                        <span>✦ Free forever</span>
+                        <span>✦ Storybooks &amp; reels</span>
+                        <span>✦ Daily practice</span>
+                        <span>✦ EN · हिंदी · తెలుగు · ಕನ್ನಡ</span>
+                    </div>
                 </div>
-                <div class="mt-5 flex flex-col sm:flex-row items-center justify-center gap-3">
-                    <button onclick="showDailyWisdom(window.CosmicDailyWisdom.yesterdayKey())"
-                            class="px-4 py-2 rounded-2xl border border-white/20 hover:bg-white/5 text-sm font-medium inline-flex items-center gap-x-2">
-                        <i class="fa-solid fa-clock-rotate-left"></i>
-                        <span>Yesterday</span>
-                    </button>
-                    <input id="home-wisdom-date-input" type="date"
-                           class="bg-white/5 border border-white/20 rounded-2xl px-4 py-2 text-sm text-white focus:outline-none focus:border-[#00f3ff]"
-                           onchange="showDailyWisdom(this.value)">
+                <div class="lg:col-span-5 hidden lg:grid grid-cols-2 gap-3 home-reveal" style="transition-delay:0.12s">
+                    <a href="dashavatara.html" class="home-flagship rounded-2xl overflow-hidden border border-white/10 aspect-[4/5] relative group">
+                        <img src="ancient-wisdom/images/dashavatara-rama-title.png" alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" width="400" height="500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                        <span class="absolute bottom-3 left-3 text-sm font-semibold">Dashavatara</span>
+                    </a>
+                    <div class="grid gap-3">
+                        <a href="hanuman.html" class="home-flagship rounded-2xl overflow-hidden border border-white/10 aspect-[16/10] relative">
+                            <img src="ancient-wisdom/images/hanuman-title.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" width="400" height="250">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                            <span class="absolute bottom-2 left-3 text-sm font-semibold">Hanuman</span>
+                        </a>
+                        <a href="tirupati-venkateswara.html" class="home-flagship rounded-2xl overflow-hidden border border-white/10 aspect-[16/10] relative">
+                            <img src="ancient-wisdom/images/tirupati-title.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" width="400" height="250">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                            <span class="absolute bottom-2 left-3 text-sm font-semibold">Tirupati</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- Live pulse -->
+    <section id="pulse" class="max-w-6xl mx-auto px-6 pb-14 scroll-mt-24 home-reveal">
+        <div class="home-glass rounded-3xl p-4 sm:p-5 flex flex-col md:flex-row gap-3 md:gap-0 md:divide-x md:divide-white/10">
+            <button type="button" onclick="showDailyWisdom()" data-cta="pulse-wisdom" class="home-pulse-cell text-left px-3 py-2 rounded-2xl hover:bg-white/5 transition">
+                <div class="text-[10px] uppercase tracking-[2px] text-[#00f3ff] mb-1">Daily wisdom</div>
+                <div class="font-semibold text-white/90">Read today's insight</div>
+                <div class="text-xs text-white/45 mt-0.5">A new cosmic idea every day</div>
+            </button>
+            <a href="gita-verse.html" data-cta="pulse-gita" class="home-pulse-cell px-3 py-2 rounded-2xl hover:bg-white/5 transition">
+                <div class="text-[10px] uppercase tracking-[2px] text-amber-300 mb-1">Gita verse</div>
+                <div class="font-semibold text-white/90">Verse of the day</div>
+                <div class="text-xs text-white/45 mt-0.5">Practice · full storybook linked</div>
+            </a>
+            <div class="home-pulse-cell px-3 py-2" data-continue-reading hidden></div>
+            <a href="crossroads/" data-cta="pulse-crossroads" class="home-pulse-cell px-3 py-2 rounded-2xl hover:bg-white/5 transition md:hidden lg:block">
+                <div class="text-[10px] uppercase tracking-[2px] text-emerald-300 mb-1">Series</div>
+                <div class="font-semibold text-white/90">Cosmic Crossroads</div>
+                <div class="text-xs text-white/45 mt-0.5">Science + wisdom on one question</div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Paths -->
+    <section id="paths" class="max-w-6xl mx-auto px-6 pb-16 scroll-mt-24 home-reveal">
+        <div class="text-center mb-8">
+            <span class="text-xs uppercase tracking-[3px] text-[#00f3ff]">NEW HERE?</span>
+            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mt-2">Choose your door</h2>
+            <p class="mt-2 text-white/55">Three ways in — or open the full <a href="start.html" class="text-[#00f3ff] hover:underline">Start Here</a> guide.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-5">
+            <a href="start.html#wisdom" data-cta="path-wisdom" class="home-path-card home-glass rounded-3xl p-7 block group">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-om text-black text-xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">I seek wisdom</h3>
+                <p class="text-sm text-white/55">Gita, Hanuman, temples — stories with roots.</p>
+            </a>
+            <a href="crossroads/" data-cta="path-crossroads" class="home-path-card home-glass rounded-3xl p-7 block group">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-emerald-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-code-branch text-white text-xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Cosmic Crossroads</h3>
+                <p class="text-sm text-white/55">One question. Science + ancient wisdom. No forced winner.</p>
+            </a>
+            <a href="#reels" data-cta="path-reels" class="home-path-card home-glass rounded-3xl p-7 block group">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-clapperboard text-black text-xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">Watch reels → read</h3>
+                <p class="text-sm text-white/55">60 seconds of wonder, then full storybooks.</p>
+            </a>
+        </div>
+        <div class="text-center mt-5">
+            <a href="map.html" class="text-sm text-white/50 hover:text-[#00f3ff] transition inline-flex items-center gap-2"><i class="fa-solid fa-map"></i> Open the cosmic map</a>
+        </div>
+    </section>
+
+    <!-- Flagships -->
+    <section id="flagships" class="max-w-6xl mx-auto px-6 pb-16 scroll-mt-24 home-reveal">
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
+            <div>
+                <span class="text-xs uppercase tracking-[3px] text-amber-300">FLAGSHIP JOURNEYS</span>
+                <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mt-2">Stories worth staying for</h2>
+            </div>
+            <a href="ancient.html" class="text-sm text-[#00f3ff] hover:underline">See all Ancient Wisdom →</a>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <a href="dashavatara.html" data-cta="flagship-dashavatara.html" class="home-flagship home-glass rounded-3xl overflow-hidden block group">
+                <div class="aspect-[16/10] relative overflow-hidden">
+                    <img src="ancient-wisdom/images/dashavatara-rama-title.png" alt="Dashavatara" class="absolute inset-0 w-full h-full object-cover" loading="lazy" width="640" height="400">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent"></div>
+                </div>
+                <div class="p-5">
+                    <h3 class="text-lg font-semibold mb-1 group-hover:text-amber-200 transition">Dashavatara</h3>
+                    <p class="text-sm text-white/55">Ten divine avatars — illustrated epic</p>
+                    <div class="mt-3 text-xs text-amber-300 flex items-center">Start journey <i class="fa-solid fa-arrow-right ml-1.5 group-hover:translate-x-0.5 transition"></i></div>
+                </div>
+            </a>
+            <a href="bhagavad-gita.html" data-cta="flagship-bhagavad-gita.html" class="home-flagship home-glass rounded-3xl overflow-hidden block group">
+                <div class="aspect-[16/10] relative overflow-hidden">
+                    <img src="ancient-wisdom/images/gita-title.jpg" alt="Bhagavad Gita" class="absolute inset-0 w-full h-full object-cover" loading="lazy" width="640" height="400">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent"></div>
+                </div>
+                <div class="p-5">
+                    <h3 class="text-lg font-semibold mb-1 group-hover:text-amber-200 transition">Bhagavad Gita</h3>
+                    <p class="text-sm text-white/55">Chapter-wise storybook of the song before war</p>
+                    <div class="mt-3 text-xs text-amber-300 flex items-center">Start journey <i class="fa-solid fa-arrow-right ml-1.5 group-hover:translate-x-0.5 transition"></i></div>
+                </div>
+            </a>
+            <a href="hanuman.html" data-cta="flagship-hanuman.html" class="home-flagship home-glass rounded-3xl overflow-hidden block group">
+                <div class="aspect-[16/10] relative overflow-hidden">
+                    <img src="ancient-wisdom/images/hanuman-title.jpg" alt="Hanuman" class="absolute inset-0 w-full h-full object-cover" loading="lazy" width="640" height="400">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent"></div>
+                </div>
+                <div class="p-5">
+                    <h3 class="text-lg font-semibold mb-1 group-hover:text-amber-200 transition">Hanuman</h3>
+                    <p class="text-sm text-white/55">Devotion that leaps oceans</p>
+                    <div class="mt-3 text-xs text-amber-300 flex items-center">Start journey <i class="fa-solid fa-arrow-right ml-1.5 group-hover:translate-x-0.5 transition"></i></div>
+                </div>
+            </a>
+            <a href="puri-jaganath.html" data-cta="flagship-puri-jaganath.html" class="home-flagship home-glass rounded-3xl overflow-hidden block group">
+                <div class="aspect-[16/10] relative overflow-hidden">
+                    <img src="ancient-wisdom/images/jagannath-title.jpg" alt="Jagannath of Puri" class="absolute inset-0 w-full h-full object-cover" loading="lazy" width="640" height="400">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent"></div>
+                </div>
+                <div class="p-5">
+                    <h3 class="text-lg font-semibold mb-1 group-hover:text-amber-200 transition">Jagannath of Puri</h3>
+                    <p class="text-sm text-white/55">Origin, temple, living worship</p>
+                    <div class="mt-3 text-xs text-amber-300 flex items-center">Start journey <i class="fa-solid fa-arrow-right ml-1.5 group-hover:translate-x-0.5 transition"></i></div>
+                </div>
+            </a>
+            <a href="tirupati-venkateswara.html" data-cta="flagship-tirupati-venkateswara.html" class="home-flagship home-glass rounded-3xl overflow-hidden block group">
+                <div class="aspect-[16/10] relative overflow-hidden">
+                    <img src="ancient-wisdom/images/tirupati-title.jpg" alt="Tirupati Venkateswara" class="absolute inset-0 w-full h-full object-cover" loading="lazy" width="640" height="400">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent"></div>
+                </div>
+                <div class="p-5">
+                    <h3 class="text-lg font-semibold mb-1 group-hover:text-amber-200 transition">Tirupati Venkateswara</h3>
+                    <p class="text-sm text-white/55">Seven hills · living pilgrimage</p>
+                    <div class="mt-3 text-xs text-amber-300 flex items-center">Start journey <i class="fa-solid fa-arrow-right ml-1.5 group-hover:translate-x-0.5 transition"></i></div>
+                </div>
+            </a>
+            <a href="kashi-vishwanath.html" data-cta="flagship-kashi-vishwanath.html" class="home-flagship home-glass rounded-3xl overflow-hidden block group">
+                <div class="aspect-[16/10] relative overflow-hidden">
+                    <img src="ancient-wisdom/images/kashi-title.jpg" alt="Kashi Vishwanath" class="absolute inset-0 w-full h-full object-cover" loading="lazy" width="640" height="400">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent"></div>
+                </div>
+                <div class="p-5">
+                    <h3 class="text-lg font-semibold mb-1 group-hover:text-amber-200 transition">Kashi Vishwanath</h3>
+                    <p class="text-sm text-white/55">Ganga · light · death without despair</p>
+                    <div class="mt-3 text-xs text-amber-300 flex items-center">Start journey <i class="fa-solid fa-arrow-right ml-1.5 group-hover:translate-x-0.5 transition"></i></div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Ad slot A (empty placeholder for future ads) -->
+    <div class="max-w-6xl mx-auto px-6 pb-12" aria-hidden="true">
+        <div class="ad-slot ad-slot--mid" data-ad-enabled="false" data-ad-slot="home-mid">Ad space reserved - not live</div>
     </div>
 
-    <!-- Explore the Universe -->
-    <div class="max-w-5xl mx-auto px-6 pb-6" data-continue-reading hidden></div>
-    <div id="explore" class="max-w-5xl mx-auto px-6 pb-24">
-        <div class="text-center mb-12">
+    <!-- Pillars / Explore -->
+    <section id="explore" class="max-w-6xl mx-auto px-6 pb-16 scroll-mt-24 home-reveal">
+        <div class="text-center mb-10">
             <span class="text-xs uppercase tracking-[3px] text-[#00f3ff]">DISCOVER</span>
-            <h2 class="section-header mt-2">Explore the Universe of Knowledge</h2>
-            <p class="mt-4 text-xl text-white/60 max-w-md mx-auto">Curated journeys across science, philosophy, space, and ancient wisdom.</p>
+            <h2 class="section-header mt-2">Four pillars of the cosmos</h2>
+            <p class="mt-3 text-lg text-white/60 max-w-xl mx-auto">Pick a world. Each one is a full library of journeys.</p>
         </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Card 1: Ancient Wisdom -->
-            <div class="cosmic-card rounded-3xl p-8 group cursor-pointer" onclick="window.location.href='ancient.html'">
-                <div class="w-14 h-14 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-globe text-black text-3xl"></i>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <a href="ancient.html" data-cta="pillar-Ancient Wisdom" class="home-pillar home-glass rounded-3xl p-7 block group">
+                <div class="w-14 h-14 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-landmark text-black text-2xl"></i>
                 </div>
-                <h4 class="text-2xl font-semibold mb-3">Ancient Wisdom</h4>
-                <p class="text-white/60 leading-relaxed">Timeless teachings from Vedas, Upanishads, and global spiritual traditions.</p>
-                <div class="mt-6 flex items-center text-sm text-[#00f3ff]">
-                    <span>Explore</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                <h3 class="text-xl font-semibold mb-2">Ancient Wisdom</h3>
+                <p class="text-white/55 text-sm leading-relaxed">Storybooks from Vedas, temples, and living devotion.</p>
+                <div class="mt-5 text-sm text-amber-300 flex items-center">Explore <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i></div>
+            </a>
+            <a href="quantum.html" data-cta="pillar-Quantum Realms" class="home-pillar home-glass rounded-3xl p-7 block group">
+                <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-violet-500 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-atom text-white text-2xl"></i>
                 </div>
-            </div>
-            
-            <!-- Card 2: Quantum Realms -->
-            <div class="cosmic-card rounded-3xl p-8 group cursor-pointer" onclick="window.location.href='quantum.html'">
-                <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-violet-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-atom text-white text-3xl"></i>
+                <h3 class="text-xl font-semibold mb-2">Quantum Realms</h3>
+                <p class="text-white/55 text-sm leading-relaxed">Observation, entanglement, and the void.</p>
+                <div class="mt-5 text-sm text-purple-300 flex items-center">Explore <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i></div>
+            </a>
+            <a href="space.html" data-cta="pillar-Space & Cosmos" class="home-pillar home-glass rounded-3xl p-7 block group">
+                <div class="w-14 h-14 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-rocket text-black text-2xl"></i>
                 </div>
-                <h4 class="text-2xl font-semibold mb-3">Quantum Realms</h4>
-                <p class="text-white/60 leading-relaxed">Where observation, entanglement, and the quantum void meet ancient insight into consciousness, oneness, and the vibration behind all form.</p>
-                <div class="mt-6 flex items-center text-sm text-[#00f3ff]">
-                    <span>Explore</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
+                <h3 class="text-xl font-semibold mb-2">Space & Cosmos</h3>
+                <p class="text-white/55 text-sm leading-relaxed">Black holes, cycles, and cosmic scale.</p>
+                <div class="mt-5 text-sm text-emerald-300 flex items-center">Explore <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i></div>
+            </a>
+            <a href="philosophy.html" data-cta="pillar-Philosophy" class="home-pillar home-glass rounded-3xl p-7 block group">
+                <div class="w-14 h-14 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-brain text-black text-2xl"></i>
                 </div>
-            </div>
-            
-            <!-- Card 3: Space & Cosmos -->
-            <div class="cosmic-card rounded-3xl p-8 group cursor-pointer" onclick="window.location.href='space.html'">
-                <div class="w-14 h-14 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-rocket text-black text-3xl"></i>
-                </div>
-                <h4 class="text-2xl font-semibold mb-3">Space & Cosmos</h4>
-                <p class="text-white/60 leading-relaxed">Black holes, exoplanets, cyclic creation, and the scale of the universe — illuminated by both modern discovery and the cosmic imagination of the Vedas and Puranas.</p>
-                <div class="mt-6 flex items-center text-sm text-[#00f3ff]">
-                    <span>Explore</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
-                </div>
-            </div>
-            
-            <!-- Card 4: Philosophy -->
-            <div class="cosmic-card rounded-3xl p-8 group cursor-pointer" onclick="window.location.href='philosophy.html'">
-                <div class="w-14 h-14 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-brain text-black text-3xl"></i>
-                </div>
-                <h4 class="text-2xl font-semibold mb-3">Philosophy</h4>
-                <p class="text-white/60 leading-relaxed">Storybook journeys into consciousness, free will, self, simulation, and meaning.</p>
-                <div class="mt-6 flex items-center text-sm text-[#00f3ff]">
-                    <span>Explore</span> <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i>
-                </div>
-            </div>
+                <h3 class="text-xl font-semibold mb-2">Philosophy</h3>
+                <p class="text-white/55 text-sm leading-relaxed">Consciousness, free will, self, meaning.</p>
+                <div class="mt-5 text-sm text-cyan-300 flex items-center">Explore <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i></div>
+            </a>
         </div>
-    </div>
+    </section>
 
-    <!-- What's Next - removed as its not needed now -->
-    
+    <!-- Crossroads spotlight -->
+    <section id="crossroads-home" class="max-w-6xl mx-auto px-6 pb-16 home-reveal">
+        <a href="crossroads/" data-cta="crossroads-band" class="block home-glass rounded-3xl p-8 sm:p-10 border border-emerald-400/20 hover:border-emerald-400/40 transition group">
+            <div class="flex flex-col md:flex-row md:items-center gap-6">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition">
+                    <i class="fa-solid fa-code-branch text-black text-2xl"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="text-xs uppercase tracking-[3px] text-emerald-300 mb-2">SERIES</div>
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-2">Cosmic Crossroads</h2>
+                    <p class="text-white/60 max-w-2xl">One question. Two honest lenses — modern science and ancient wisdom. Time, free will, self, nothing.</p>
+                </div>
+                <span class="text-[#00f3ff] font-semibold inline-flex items-center gap-2">Enter the series <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i></span>
+            </div>
+        </a>
+    </section>
 
-    <!-- Community -->
-    <div id="community" class="max-w-5xl mx-auto px-6 pb-24">
-        <div class="text-center mb-12">
-            <span class="text-xs uppercase tracking-[3px] text-[#00f3ff]">JOIN THE MISSION</span>
-            <h2 class="section-header mt-2">Be Part of Something Bigger</h2>
+    <!-- Reels -->
+    <section id="reels" class="max-w-6xl mx-auto px-6 pb-20 scroll-mt-24 home-reveal">
+        <div class="text-center mb-8">
+            <span class="text-xs uppercase tracking-[3px] text-[#00f3ff]">WATCH</span>
+            <h2 class="section-header mt-2">60 seconds of wonder</h2>
+            <p class="mt-3 text-white/60 max-w-xl mx-auto">Play reels with sound here — then open the full storybook behind each clip.</p>
         </div>
-        
-        <div class="grid md:grid-cols-3 gap-6">
-            <!-- Social Proof -->
-            <div class="cosmic-card rounded-3xl p-8 text-center col-span-1 md:col-span-3 mb-6">
-                <div class="flex flex-col md:flex-row items-center justify-center gap-8">
-                    <div>
-                        <div class="flex -space-x-3 justify-center mb-3">
-                            <div class="w-9 h-9 bg-white/10 rounded-full border-2 border-[#0a0a0f]"></div>
-                            <div class="w-9 h-9 bg-white/10 rounded-full border-2 border-[#0a0a0f]"></div>
-                            <div class="w-9 h-9 bg-white/10 rounded-full border-2 border-[#0a0a0f]"></div>
-                        </div>
-                        <div class="text-sm text-white/60">Loved by <span class="text-[#00f3ff]">1,247+</span> curious minds</div>
+        <div class="home-reel-carousel" id="home-reel-carousel" aria-roledescription="carousel" aria-label="CosmicTrotter Instagram reels">
+            <button type="button" class="home-reel-nav home-reel-nav--prev" id="home-reel-prev" aria-label="Previous reel">
+                <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+            </button>
+            <div class="home-reel-viewport">
+                <div class="home-reel-track" id="home-reel-track"></div>
+            </div>
+            <button type="button" class="home-reel-nav home-reel-nav--next" id="home-reel-next" aria-label="Next reel">
+                <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+            </button>
+            <div class="home-reel-dots" id="home-reel-dots" role="tablist" aria-label="Choose reel"></div>
+            <div class="home-reel-counter" id="home-reel-counter" aria-live="polite"></div>
+            <div class="home-reel-follow">
+                <a href="https://www.instagram.com/cosmictrotter108/" target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center gap-2 text-sm px-5 py-2.5 rounded-full border border-white/20 hover:border-pink-400/50 hover:bg-white/5 transition">
+                    <i class="fa-brands fa-instagram text-pink-300"></i>
+                    Follow @cosmictrotter108
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ask Krishna -->
+    <section id="ask-krishna-home" class="max-w-6xl mx-auto px-6 pb-16 home-reveal">
+        <div class="home-glass rounded-3xl p-8 sm:p-10 border border-purple-400/25 bg-gradient-to-br from-purple-900/20 to-violet-900/10">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center flex-shrink-0 relative">
+                    <i class="fa-solid fa-infinity text-white text-3xl"></i>
+                    <div class="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center">
+                        <i class="fa-solid fa-microphone text-white text-[10px]"></i>
                     </div>
-                    
-                    <div class="text-left">
-                        <div class="text-sm italic text-white/70">"This is exactly the kind of thoughtful content I've been looking for."</div>
-                        <div class="text-xs text-white/50 mt-1">— Priya Sharma, Bangalore</div>
-                    </div>
+                </div>
+                <div class="flex-1 text-center md:text-left">
+                    <div class="text-xs uppercase tracking-[3px] text-purple-300 mb-2">FREE GUIDE</div>
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-2">Ask Krishna</h2>
+                    <p class="text-white/65 max-w-xl">When the mind is loud, bring your question. Gita-rooted guidance — free, on-brand, always here.</p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <button type="button" onclick="typeof openKrishnaChat==='function'&&openKrishnaChat()" data-cta="ask-krishna-home" class="cosmic-btn px-6 py-3 rounded-2xl text-sm font-semibold text-black">Open chat</button>
+                    <a href="ancient-wisdom/ask-krishna-bot.html" class="px-6 py-3 rounded-2xl text-sm font-semibold border border-white/20 hover:bg-white/5 text-center">Full page</a>
                 </div>
             </div>
-            
-            <div class="cosmic-card rounded-3xl p-8 text-center">
-                <i class="fa-brands fa-x-twitter text-4xl mb-6 text-white/70"></i>
-                <h4 class="font-semibold text-xl mb-2">Follow on X</h4>
-                <p class="text-white/60 text-sm mb-6">Daily cosmic insights &amp; knowledge drops</p>
-                <a href="https://x.com/CosmicTrotter/" target="_blank" rel="noopener noreferrer" 
-                   class="inline-block text-sm px-6 py-2 border border-white/30 rounded-2xl hover:bg-white/5">Follow @CosmicTrotter</a>
-            </div>
-            
-            <div class="cosmic-card rounded-3xl p-8 text-center">
-                <i class="fa-brands fa-youtube text-4xl mb-6 text-white/70"></i>
-                <h4 class="font-semibold text-xl mb-2">Watch &amp; Learn</h4>
-                <p class="text-white/60 text-sm mb-6">Deep-dive video essays on science &amp; philosophy</p>
-                <a href="https://www.youtube.com/@CosmicTrotter108" target="_blank" rel="noopener noreferrer" 
-                   class="inline-block text-sm px-6 py-2 border border-white/30 rounded-2xl hover:bg-white/5">Subscribe on YouTube</a>
-            </div>
-            
-            <div class="cosmic-card rounded-3xl p-8 text-center">
-                <i class="fa-brands fa-instagram text-4xl mb-6 text-white/70"></i>
-                <h4 class="font-semibold text-xl mb-2">Follow on Instagram</h4>
-                <p class="text-white/60 text-sm mb-6">Daily cosmic visuals &amp; behind-the-scenes</p>
-                <a href="https://www.instagram.com/cosmictrotter108/" target="_blank" rel="noopener noreferrer" 
-                   class="inline-block text-sm px-6 py-2 border border-white/30 rounded-2xl hover:bg-white/5">Follow @CosmicTrotter108</a>
-            </div>
         </div>
-    </div>
+    </section>
 
-    <div data-story-community="home"></div>
+    <!-- Join the orbit (community + social; email form follows below) -->
+    <section id="community" class="max-w-6xl mx-auto px-6 pb-10 scroll-mt-24 home-reveal">
+        <div class="text-center mb-8">
+            <span class="text-xs uppercase tracking-[3px] text-[#00f3ff]">JOIN THE ORBIT</span>
+            <h2 class="section-header mt-2">Stay in the cosmos</h2>
+            <p class="mt-3 text-white/60 max-w-lg mx-auto">Free email insights and social drops. No spam. No paywall.</p>
+        </div>
+        <div class="grid sm:grid-cols-3 gap-4 mb-4">
+            <a href="https://x.com/CosmicTrotter/" target="_blank" rel="noopener noreferrer" class="home-glass rounded-2xl p-5 text-center hover:border-[#00f3ff]/30 transition">
+                <i class="fa-brands fa-x-twitter text-2xl mb-2 text-white/70"></i>
+                <div class="font-semibold">X</div>
+                <div class="text-xs text-white/45">@CosmicTrotter</div>
+            </a>
+            <a href="https://www.youtube.com/@CosmicTrotter108" target="_blank" rel="noopener noreferrer" class="home-glass rounded-2xl p-5 text-center hover:border-[#00f3ff]/30 transition">
+                <i class="fa-brands fa-youtube text-2xl mb-2 text-white/70"></i>
+                <div class="font-semibold">YouTube</div>
+                <div class="text-xs text-white/45">@CosmicTrotter108</div>
+            </a>
+            <a href="https://www.instagram.com/cosmictrotter108/" target="_blank" rel="noopener noreferrer" class="home-glass rounded-2xl p-5 text-center hover:border-[#00f3ff]/30 transition">
+                <i class="fa-brands fa-instagram text-2xl mb-2 text-white/70"></i>
+                <div class="font-semibold">Instagram</div>
+                <div class="text-xs text-white/45">@cosmictrotter108</div>
+            </a>
+        </div>
+    </section>
 
     <!-- Email Capture with Brevo Form -->
     <div class="max-w-3xl mx-auto px-6 pb-16">
@@ -919,8 +1135,8 @@
                 <i class="fa-solid fa-envelope text-black text-3xl"></i>
             </div>
             
-            <h3 class="text-3xl font-semibold mb-3">Stay in the Cosmos</h3>
-            <p class="text-white/60 max-w-md mx-auto mb-8">Get weekly cosmic insights, wisdom drops, and early access to new guides. No spam. Ever.</p>
+            <h3 class="text-3xl font-semibold mb-3">Get free weekly drops</h3>
+            <p class="text-white/60 max-w-md mx-auto mb-8">Weekly cosmic insights and new journeys in your inbox. Free forever. No spam.</p>
             
             <div class="newsletter-brevo">
                 <div class="sib-form">
@@ -980,6 +1196,13 @@
         </div>
     </div>
 
+    </main>
+
+    <!-- Ad slot B (empty) -->
+    <div class="max-w-6xl mx-auto px-6 pb-8" aria-hidden="true">
+        <div class="ad-slot ad-slot--footer" data-ad-enabled="false" data-ad-slot="home-footer">Ad space reserved - not live</div>
+    </div>
+
     <!-- Footer -->
     <footer class="border-t border-white/10 py-16">
         <div class="max-w-5xl mx-auto px-6">
@@ -996,17 +1219,22 @@
                     </div>
                 </div>
                 
-                <div class="flex items-center gap-x-8 text-sm text-white/50">
+                <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-white/50">
+                    <a href="start.html" class="hover:text-white transition">Start Here</a>
+                    <a href="map.html" class="hover:text-white transition">Map</a>
+                    <a href="#reels" class="hover:text-white transition">Reels</a>
                     <a href="https://www.instagram.com/cosmictrotter108/" target="_blank" rel="noopener noreferrer" class="hover:text-white transition">Instagram</a>
                     <a href="/" class="hover:text-white transition">Home</a>
                     <a href="mailto:hello@cosmictrotter.com" class="hover:text-white transition">Contact</a>
-                    <span class="text-white/30">•</span>
-                    <span class="text-white/40 cursor-default">Legal</span>
                 </div>
             </div>
             
-            <div class="mt-12 pt-8 border-t border-white/10 text-center text-xs text-white/40">
-                Built with curiosity • Designed for the infinite mind
+            <div class="mt-12 pt-8 border-t border-white/10 text-center text-xs text-white/40 space-y-2">
+                <div>Built with curiosity · Designed for the infinite mind</div>
+                <div class="text-white/30">
+                    Side project:
+                    <a href="ev-guide.html" class="hover:text-white/55 transition underline-offset-2 hover:underline">India EV charging guide</a>
+                </div>
             </div>
         </div>
     </footer>
@@ -1071,7 +1299,7 @@
                             if (intro.parentNode) {
                                 intro.parentNode.removeChild(intro);
                             }
-                        }, 500);
+                        }, 1200);
                     };
 
                     // Make logo fly to the top-left navbar logo position.
@@ -1837,9 +2065,153 @@
             form.onsubmit = window.handleBrevoSubscribe;
         }
 
+        function renderHomeReels() {
+            const track = document.getElementById('home-reel-track');
+            const dotsEl = document.getElementById('home-reel-dots');
+            const counterEl = document.getElementById('home-reel-counter');
+            const prevBtn = document.getElementById('home-reel-prev');
+            const nextBtn = document.getElementById('home-reel-next');
+            const viewport = track ? track.parentElement : null;
+            if (!track || !dotsEl || !prevBtn || !nextBtn || !viewport) return;
+
+            // Instagram reels from @cosmictrotter108 — play in-page via /embed iframe (not a link-out).
+            // Add new posts: shortcode from https://www.instagram.com/reel/SHORTCODE/
+            const REELS = [
+                { shortcode: "DbGq1mhSfhn", title: "Bhagavad Gita — The song before the war", pillar: "Ancient", accent: "text-amber-300", article: "bhagavad-gita.html" },
+                { shortcode: "DbD9d_PJxFV", title: "Lord Jagannath of Puri", pillar: "Ancient", accent: "text-amber-300", article: "puri-jaganath.html" },
+                { shortcode: "DZbI2-uIjh6", title: "Dashavatara — Ten forms of Vishnu", pillar: "Ancient", accent: "text-amber-300", article: "dashavatara.html" },
+                { shortcode: "DYS_iqQoV1v", title: "Ask Krishna — Gita guidance", pillar: "Ancient", accent: "text-amber-300", article: "ancient-wisdom/ask-krishna-bot.html" },
+                { shortcode: "DaoZHfLohFW", title: "Har har Mahadev", pillar: "Ancient", accent: "text-amber-300", article: "ancient.html" },
+                { shortcode: "DZoAe1Vom8y", title: "Languages of the cosmos — Telugu & Kannada", pillar: "CosmicTrotter", accent: "text-cyan-300", article: "start.html" },
+                { shortcode: "DZTTvxrIoOY", title: "Shiva wisdom", pillar: "Ancient", accent: "text-amber-300", article: "ancient.html" },
+                { shortcode: "DZNcytqogb8", title: "Travel through knowledge", pillar: "CosmicTrotter", accent: "text-cyan-300", article: "start.html" }
+            ];
+
+            let index = 0;
+            let touchStartX = 0;
+            let touchDeltaX = 0;
+
+            function reelPageUrl(shortcode) {
+                return `https://www.instagram.com/reel/${shortcode}/`;
+            }
+            // Official in-page player. /embed/ is still a full IG widget; we CSS-crop chrome
+            // so the carousel shows mainly the video. There is no official video-only API.
+            function reelEmbedUrl(shortcode) {
+                return `https://www.instagram.com/reel/${shortcode}/embed/`;
+            }
+
+            track.innerHTML = REELS.map((r, i) => `
+                <article class="home-reel-slide" data-slide-index="${i}" aria-hidden="${i === 0 ? 'false' : 'true'}">
+                    <div class="home-reel-embed" data-embed-host="${i}">
+                        <!-- iframe src set lazily in goTo() -->
+                    </div>
+                    <div class="home-reel-meta">
+                        <div class="text-[10px] uppercase tracking-[0.14em] ${r.accent}">${r.pillar} · @cosmictrotter108</div>
+                        <h3 class="text-base sm:text-lg font-semibold leading-snug text-white">${r.title}</h3>
+                        <a href="${r.article}" class="inline-flex items-center gap-1.5 text-sm text-[#00f3ff] hover:underline w-fit">
+                            Read full free story <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+            `).join('');
+
+            dotsEl.innerHTML = REELS.map((r, i) =>
+                `<button type="button" class="home-reel-dot${i === 0 ? ' is-active' : ''}" data-dot-index="${i}" aria-label="Show ${r.title}" aria-selected="${i === 0 ? 'true' : 'false'}" role="tab"></button>`
+            ).join('');
+
+            function setIframe(slideIndex, load) {
+                const host = track.querySelector(`[data-embed-host="${slideIndex}"]`);
+                const reel = REELS[slideIndex];
+                if (!host || !reel) return;
+                if (!load) {
+                    host.innerHTML = '';
+                    return;
+                }
+                if (host.querySelector('iframe')) return;
+                const src = reelEmbedUrl(reel.shortcode);
+                host.innerHTML = `
+                    <iframe
+                        src="${src}"
+                        title="${reel.title.replace(/"/g, '&quot;')} — Instagram reel"
+                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                        allowfullscreen
+                        loading="lazy"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                    ></iframe>
+                `;
+            }
+
+            function goTo(nextIndex) {
+                const total = REELS.length;
+                if (!total) return;
+                const prev = index;
+                index = ((nextIndex % total) + total) % total;
+                track.style.transform = `translate3d(${-index * 100}%, 0, 0)`;
+
+                track.querySelectorAll('.home-reel-slide').forEach((slide, i) => {
+                    slide.setAttribute('aria-hidden', i === index ? 'false' : 'true');
+                });
+                dotsEl.querySelectorAll('.home-reel-dot').forEach((dot, i) => {
+                    const active = i === index;
+                    dot.classList.toggle('is-active', active);
+                    dot.setAttribute('aria-selected', active ? 'true' : 'false');
+                });
+                if (counterEl) counterEl.textContent = `${index + 1} / ${total}`;
+
+                // Load only active + next; unload others so playback stops when you leave a slide
+                for (let i = 0; i < total; i++) {
+                    const keep = (i === index || i === (index + 1) % total);
+                    if (!keep) setIframe(i, false);
+                }
+                setIframe(index, true);
+                setIframe((index + 1) % total, true);
+                // If we left the previous slide and it's not next, it was already unloaded above
+                if (prev !== index && prev !== (index + 1) % total) setIframe(prev, false);
+            }
+
+            prevBtn.addEventListener('click', () => goTo(index - 1));
+            nextBtn.addEventListener('click', () => goTo(index + 1));
+            dotsEl.addEventListener('click', (event) => {
+                const dot = event.target.closest('[data-dot-index]');
+                if (!dot) return;
+                goTo(Number(dot.dataset.dotIndex));
+            });
+
+            viewport.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].clientX;
+                touchDeltaX = 0;
+            }, { passive: true });
+            viewport.addEventListener('touchmove', (e) => {
+                touchDeltaX = e.changedTouches[0].clientX - touchStartX;
+            }, { passive: true });
+            viewport.addEventListener('touchend', () => {
+                if (Math.abs(touchDeltaX) < 48) return;
+                if (touchDeltaX < 0) goTo(index + 1);
+                else goTo(index - 1);
+                touchDeltaX = 0;
+            }, { passive: true });
+
+            const carousel = document.getElementById('home-reel-carousel');
+            if (carousel) {
+                carousel.tabIndex = 0;
+                carousel.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        goTo(index - 1);
+                    } else if (e.key === 'ArrowRight') {
+                        e.preventDefault();
+                        goTo(index + 1);
+                    }
+                });
+            }
+
+            goTo(0);
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             initializeHomeWisdomControls();
             setupBrevoFormSubmitFallback();
+            renderHomeReels();
 
             const successPanel = document.getElementById('success-message');
             if (!successPanel || !window.MutationObserver) return;
@@ -1859,6 +2231,30 @@
         });
     </script>
     <script src="story-community.js?v=20260722-community-5"></script>
+    
+    <script data-home-motion>
+    (function () {
+        var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var nodes = document.querySelectorAll(".home-reveal");
+        if (reduce) {
+            nodes.forEach(function (n) { n.classList.add("is-visible"); });
+            return;
+        }
+        if (!("IntersectionObserver" in window)) {
+            nodes.forEach(function (n) { n.classList.add("is-visible"); });
+            return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+                if (e.isIntersecting) {
+                    e.target.classList.add("is-visible");
+                    io.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+        nodes.forEach(function (n) { io.observe(n); });
+    })();
+    </script>
     <script src="ask-krishna-widget.js"></script>
     <!-- Brevo Scripts -->
     <script>

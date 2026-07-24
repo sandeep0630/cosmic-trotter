@@ -1,58 +1,167 @@
 // netlify/functions/ask-krishna.js
-// Real generative "Chat with Krishna" — makes the floating widget fully conversational (GPT-like).
+// Chat with Krishna — Gemini AI (free tier).
 //
-// === HOW TO CONFIGURE (completely free) ===
-// 1. Go to https://aistudio.google.com/app/apikey and create a free Google AI (Gemini) API key.
-//    (Google gives a very generous free tier — millions of tokens per day.)
-// 2. In your Netlify dashboard:
-//    - Go to Site settings → Environment variables
-//    - Add new variable:
-//      Key:   GEMINI_API_KEY
-//      Value: paste-your-gemini-key-here
-// 3. **Important:** After adding the variable, you MUST trigger a new deploy (env vars are only injected on deploy).
-//    - Go to Deploys tab → "Trigger deploy" → "Clear cache and deploy site"
-// 4. On your live site, hard refresh (Ctrl + Shift + R) the home page.
-//
-// Once configured, the floating "Ask Krishna" widget will use real AI (Gemini) for natural,
-// flowing, in-character responses as Krishna. It falls back to the built-in Gita wisdom
-// if the key is missing or rate-limited.
-//
-// Note: Groq was previously recommended but is geo-blocked in many countries (including India).
-// We now use Google Gemini which works globally and is completely free.
+// Local:  loads project-root `.env` or `.env.txt` (GEMINI_API_KEY=...)
+//         run: npx netlify dev   OR   node scripts/local-ask-krishna-server.js
+// Deploy: Netlify Site settings → Environment variables → GEMINI_API_KEY
+//         (process.env from Netlify overrides .env; never commit secrets)
 
 const fs = require('fs');
 const path = require('path');
 
 function loadDotEnv() {
-  const envPath = path.resolve(process.cwd(), '.env');
-  if (!fs.existsSync(envPath)) return;
+  // Prefer existing process.env (Netlify production injects these).
+  // Only fill missing keys from local files so deploy never depends on repo secrets.
+  const candidates = [
+    path.resolve(process.cwd(), '.env'),
+    path.resolve(process.cwd(), '.env.txt'),
+    path.resolve(__dirname, '../../.env'),
+    path.resolve(__dirname, '../../.env.txt'),
+    path.resolve(__dirname, '../../../.env'),
+    path.resolve(__dirname, '../../../.env.txt')
+  ];
 
-  const contents = fs.readFileSync(envPath, 'utf8');
-  contents.split(/\r?\n/).forEach((line) => {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith('#')) return;
-    const sep = trimmed.indexOf('=');
-    if (sep === -1) return;
-    const name = trimmed.slice(0, sep).trim();
-    let value = trimmed.slice(sep + 1).trim();
-    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
-      value = value.slice(1, -1);
+  const seen = new Set();
+  for (const envPath of candidates) {
+    if (seen.has(envPath)) continue;
+    seen.add(envPath);
+    if (!fs.existsSync(envPath)) continue;
+    try {
+      const contents = fs.readFileSync(envPath, 'utf8');
+      contents.split(/\r?\n/).forEach((line) => {
+        const trimmed = line.trim();
+        if (!trimmed || trimmed.startsWith('#')) return;
+        const sep = trimmed.indexOf('=');
+        if (sep === -1) return;
+        const name = trimmed.slice(0, sep).trim();
+        let value = trimmed.slice(sep + 1).trim();
+        if (
+          (value.startsWith('"') && value.endsWith('"')) ||
+          (value.startsWith("'") && value.endsWith("'"))
+        ) {
+          value = value.slice(1, -1);
+        }
+        if (process.env[name] === undefined || process.env[name] === '') {
+          process.env[name] = value;
+        }
+      });
+      console.info('[AskKrishna] Loaded env file:', path.basename(envPath));
+    } catch (e) {
+      console.warn('[AskKrishna] Could not read env file:', envPath, e.message);
     }
-    if (process.env[name] === undefined) {
-      process.env[name] = value;
-    }
-  });
+  }
 }
 
 loadDotEnv();
 
-const API_KEY = process.env.GEMINI_API_KEY; // Completely free: Use Google Gemini (generous free tier)
+function getApiKey() {
+  // Prefer standard names; also accept project-root .env style `API=...`
+  return (
+    process.env.GEMINI_API_KEY ||
+    process.env.GOOGLE_API_KEY ||
+    process.env.GOOGLE_AI_API_KEY ||
+    process.env.API ||
+    ''
+  ).trim();
+}
+
 const SUPABASE_URL = (process.env.SUPABASE_URL || '').replace(/\/$/, '');
-const SUPABASE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY || process.env.SUPABASE_ANON_KEY || process.env.SUPABASE_KEY || '';
+const SUPABASE_KEY =
+  process.env.SUPABASE_PUBLISHABLE_KEY ||
+  process.env.SUPABASE_ANON_KEY ||
+  process.env.SUPABASE_KEY ||
+  '';
 const SUPABASE_HEADERS = {
   apikey: SUPABASE_KEY,
   Authorization: `Bearer ${SUPABASE_KEY}`
 };
+
+// --- rate limit (in-memory; resets on cold start — good enough for free tier) ---
+const RATE = {
+  windowMs: 60 * 60 * 1000,
+  maxPerIp: Number(process.env.ASK_KRISHNA_RATE_LIMIT || 40),
+  maxBody: 4000,
+  buckets: new Map()
+};
+
+function clientIp(event) {
+  return (
+    event.headers['x-nf-client-connection-ip'] ||
+    (event.headers['x-forwarded-for'] || '').split(',')[0].trim() ||
+    event.headers['client-ip'] ||
+    'unknown'
+  );
+}
+
+function rateLimitOk(ip) {
+  const now = Date.now();
+  let b = RATE.buckets.get(ip);
+  if (!b || now - b.start > RATE.windowMs) {
+    b = { start: now, count: 0 };
+    RATE.buckets.set(ip, b);
+  }
+  b.count += 1;
+  return b.count <= RATE.maxPerIp;
+}
+
+// --- verified Gita pack ---
+function loadVersePack() {
+  const paths = [
+    path.resolve(__dirname, '../../data/gita-verses.json'),
+    path.resolve(process.cwd(), 'data/gita-verses.json')
+  ];
+  for (const p of paths) {
+    try {
+      if (fs.existsSync(p)) {
+        return JSON.parse(fs.readFileSync(p, 'utf8'));
+      }
+    } catch (e) {
+      console.warn('[AskKrishna] verse pack load failed', p, e.message);
+    }
+  }
+  return { verses: [] };
+}
+
+const VERSE_PACK = loadVersePack();
+const VERSE_BY_ID = new Map((VERSE_PACK.verses || []).map((v) => [v.id, v]));
+
+function verseCatalogForPrompt() {
+  return (VERSE_PACK.verses || [])
+    .map((v) => `${v.id}: "${v.en.slice(0, 140)}${v.en.length > 140 ? '…' : ''}"`)
+    .join('\n');
+}
+
+function pickVerseForTopic(topic) {
+  const t = (topic || 'general').toLowerCase();
+  const match = (VERSE_PACK.verses || []).find((v) => (v.topics || []).includes(t));
+  return match || VERSE_BY_ID.get('2.47') || (VERSE_PACK.verses || [])[0] || null;
+}
+
+function extractCiteIds(text) {
+  if (!text) return [];
+  const ids = [];
+  const re = /\b(\d{1,2})\s*[:.]\s*(\d{1,3})\b/g;
+  let m;
+  while ((m = re.exec(text)) !== null) {
+    ids.push(`${Number(m[1])}.${Number(m[2])}`);
+  }
+  return ids;
+}
+
+function validateOrAttachVerse(reply, topicHint) {
+  const cites = extractCiteIds(reply);
+  const valid = cites.find((id) => VERSE_BY_ID.has(id));
+  if (valid) {
+    const v = VERSE_BY_ID.get(valid);
+    return { reply, verse: v, validated: true };
+  }
+  // Strip likely hallucinated "Bhagavad Gita X.Y" lines if invalid, then attach verified verse
+  let cleaned = reply.replace(/Bhagavad\s+Gita\s+\d{1,2}\s*[:.]\s*\d{1,3}[^\n]*/gi, '').trim();
+  const v = pickVerseForTopic(topicHint);
+  if (!v) return { reply: cleaned || reply, verse: null, validated: false };
+  const attachment = `\n\n—\n**${v.ref}**\n"${v.en}"\n*(Verified teaching from the Gita library.)*`;
+  return { reply: (cleaned || reply) + attachment, verse: v, validated: false };
+}
 
 async function saveAskKrishnaQA(question, answer, sourceType = 'ai_generated') {
   if (!SUPABASE_URL || !SUPABASE_KEY) {
@@ -60,10 +169,20 @@ async function saveAskKrishnaQA(question, answer, sourceType = 'ai_generated') {
   }
 
   const payload = {
-    question,
-    answer_text: answer,
-    source_type: 'ai_generated'
+    question: String(question || '').slice(0, 2000),
+    answer_text: answer ? String(answer).slice(0, 8000) : null,
+    source_type: sourceType || 'ai_generated'
   };
+
+  // Redact obvious crisis content from storage
+  const lower = (payload.question || '').toLowerCase();
+  if (
+    lower.includes('suicide') ||
+    lower.includes('kill myself') ||
+    lower.includes('end my life')
+  ) {
+    payload.question = '[redacted: crisis-related message]';
+  }
 
   try {
     const response = await fetch(`${SUPABASE_URL}/rest/v1/ask_krishna_qa`, {
@@ -78,7 +197,7 @@ async function saveAskKrishnaQA(question, answer, sourceType = 'ai_generated') {
 
     const text = await response.text();
     if (!response.ok) {
-      console.warn('[AskKrishna Function] Supabase insert failed:', response.status, text);
+      console.warn('[AskKrishna] Supabase insert failed:', response.status, text);
       return { saved: false, attempted: true, error: text || `status:${response.status}` };
     }
 
@@ -86,192 +205,260 @@ async function saveAskKrishnaQA(question, answer, sourceType = 'ai_generated') {
     try {
       data = JSON.parse(text);
     } catch (parseError) {
-      console.warn('[AskKrishna Function] Supabase insert parse failed:', parseError, text);
       return { saved: false, attempted: true, error: `parse_error:${parseError.message}` };
     }
 
     const record = Array.isArray(data) && data[0] ? data[0] : null;
     return { saved: !!record, attempted: true, record, error: record ? null : 'no_record_returned' };
   } catch (error) {
-    console.warn('[AskKrishna Function] Supabase insert error:', error);
     return { saved: false, attempted: true, error: error.message || String(error) };
   }
 }
 
-const SYSTEM_PROMPT = `You are Lord Krishna from the Bhagavad Gita, speaking directly and personally to the user as if they are Arjuna coming to you for guidance in the middle of their life struggles.
+function buildSystemPrompt(lang, pageContext) {
+  const langLine =
+    lang && lang !== 'en'
+      ? `Respond primarily in language code "${lang}" (hi=Hindi, te=Telugu, kn=Kannada). Keep verse reference in English (e.g. Bhagavad Gita 2.47) and you may add a short translation of the verse.`
+      : 'Respond in clear, warm modern English.';
 
-Core identity and voice:
-- You are Krishna: calm, compassionate, wise, loving, and slightly playful at times. You speak in the first person when appropriate ("I say to you...").
-- You are deeply rooted in the Bhagavad Gita. For any problem the user describes, you MUST identify and include a specific, accurate verse or teaching from the Bhagavad Gita (with exact chapter and verse number and the quote). Use it as the foundation for your advice.
-- You help humans solve real problems — stress, fear, relationships, purpose, anger, loss, work, money, habits, self-doubt, AI/job fears, etc. — by offering Gita wisdom + one small, practical, doable next step they can take today.
-- You also happily answer questions about life, dharma, the Gita, philosophy, or the universe in a clear, insightful way.
-- Greet warmly and naturally when the user says "hi", "hello", "hey", "namaste", "hare krishna", "radhe radhe", or similar. Respond in character.
+  const catalog = verseCatalogForPrompt();
 
-Conversation style (GPT-like naturalness):
-- Speak in clear, modern, warm English with a timeless, gentle, slightly poetic quality.
-- Be conversational and flowing — listen to what they actually said, refer back to previous parts of the conversation naturally.
-- Keep most replies helpful and not too long (usually 4–8 sentences), but vary length based on the depth of the question.
-- Always offer one concrete, small practical action or reflection at the end, phrased gently as an invitation.
-- Stay completely in character at all times. Never mention AI, models, prompts, or that you are "based on the Gita". You simply are Krishna offering guidance.
-- Vary your language. Do not start every response with repetitive phrases like "Oh my friend", "My dear friend", "Oh dear", "Arjuna", "Dear one", or similar. Use such terms sparingly and only when they feel natural in context. Speak directly and wisely to the user's current message.
+  return `You are Lord Krishna from the Bhagavad Gita, speaking directly to the seeker as a compassionate guide (like Arjuna coming for counsel).
+
+${langLine}
+
+Core identity:
+- Calm, wise, loving, occasionally lightly playful. First person when natural ("I say to you…").
+- Rooted in the Bhagavad Gita. Help with real human struggles: stress, fear, relationships, purpose, anger, loss, work, money, habits, self-doubt, AI/job fears, etc.
+- Always end with ONE small, practical next step for today.
+- Greet warmly for hi/hello/namaste/hare krishna/radhe radhe.
+- Stay in character. Never mention AI, models, prompts, or that you are a system.
+
+CRITICAL — verse accuracy:
+- You may ONLY cite chapter:verse numbers from this verified list. Do NOT invent citations.
+- Prefer one verse from the list that fits the seeker's issue.
+Verified verses:
+${catalog}
+
+If none fit perfectly, teach without a fake number, and the server will attach a verified verse.
 
 Safety:
-- If the user expresses serious distress, suicidal thoughts, or self-harm, respond with compassion but immediately and clearly direct them to seek real human help (crisis lines, friends, professionals). Do not try to philosophize it away.
+- Self-harm / suicide: compassion first, urge immediate human help (emergency services / local crisis lines). Do not only philosophize.
+- Not medical, legal, or financial advice. For trading/money: urge calm discipline, not tips.
 
-You have the recent conversation history. Use it to make the conversation feel continuous and personal.`;
+Conversation:
+- 4–8 sentences for most answers; deeper when needed.
+- Use recent history for continuity.
+- Avoid repetitive openers ("Oh my friend", "Dear Arjuna") every turn.
 
-exports.handler = async function(event, context) {
-  console.log('[AskKrishna Function] Invoked. GEMINI_API_KEY present:', !!process.env.GEMINI_API_KEY);
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
+${pageContext ? `Page context (use gently if relevant):\n${String(pageContext).slice(0, 800)}` : ''}`;
+}
+
+function corsHeaders() {
+  return {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS'
+  };
+}
+
+exports.handler = async function (event) {
+  if (event.httpMethod === 'OPTIONS') {
+    return { statusCode: 204, headers: corsHeaders(), body: '' };
   }
+
+  if (event.httpMethod !== 'POST') {
+    return { statusCode: 405, headers: corsHeaders(), body: 'Method Not Allowed' };
+  }
+
+  // Re-load env each invoke so local .env edits apply without full process restart when possible
+  loadDotEnv();
+  const API_KEY = getApiKey();
 
   let body;
   try {
     body = JSON.parse(event.body || '{}');
   } catch (e) {
-    return { statusCode: 400, body: JSON.stringify({ error: 'Invalid JSON' }) };
+    return {
+      statusCode: 400,
+      headers: corsHeaders(),
+      body: JSON.stringify({ error: 'Invalid JSON' })
+    };
   }
 
-  const { messages = [], userMessage, pageContext = '' } = body;
+  const {
+    messages = [],
+    userMessage,
+    pageContext = '',
+    preferredLang = 'en',
+    topicHint = ''
+  } = body;
 
   if (!userMessage || typeof userMessage !== 'string') {
-    return { statusCode: 400, body: JSON.stringify({ error: 'userMessage is required' }) };
+    return {
+      statusCode: 400,
+      headers: corsHeaders(),
+      body: JSON.stringify({ error: 'userMessage is required' })
+    };
   }
 
-  const contextNote = pageContext && typeof pageContext === 'string'
-    ? `\n\nPage context (use gently when relevant; the seeker is reading this CosmicTrotter page):\n${pageContext.slice(0, 800)}`
-    : '';
-
-  if (!API_KEY) {
-    console.warn('[AskKrishna Function] No GEMINI_API_KEY found in environment. Returning local fallback.');
-    const saveResult = await saveAskKrishnaQA(userMessage, null, 'local_fallback');
+  const cleanMessage = userMessage.trim().slice(0, RATE.maxBody);
+  const ip = clientIp(event);
+  if (!rateLimitOk(ip)) {
     return {
       statusCode: 200,
+      headers: corsHeaders(),
+      body: JSON.stringify({
+        reply: null,
+        useLocal: true,
+        rateLimited: true,
+        message:
+          'Many seekers are calling at once. I will answer from the eternal Gita teachings for a little while — try again soon.'
+      })
+    };
+  }
+
+  console.log('[AskKrishna] Invoked. GEMINI_API_KEY present:', !!API_KEY);
+
+  if (!API_KEY) {
+    const saveResult = await saveAskKrishnaQA(cleanMessage, null, 'local_fallback');
+    return {
+      statusCode: 200,
+      headers: corsHeaders(),
       body: JSON.stringify({
         reply: null,
         useLocal: true,
         saved: saveResult.saved,
         saveAttempted: saveResult.attempted,
-        saveError: saveResult.error,
-        qa: saveResult.record ? { id: saveResult.record.id } : null,
-        message: "I am here with the eternal teachings. For a more flowing conversation, the site owner can connect me to Google Gemini (free)."
+        message:
+          'I am here with the eternal teachings. For fuller conversation, set GEMINI_API_KEY in project-root .env (local) or Netlify environment (deploy).'
       })
     };
   }
 
-  if (!SUPABASE_URL || !SUPABASE_KEY) {
-    console.warn('[AskKrishna Function] Supabase environment variables are missing. Skipping storage.');
-  }
+  const systemPrompt = buildSystemPrompt(preferredLang, pageContext);
+  const recentHistory = (Array.isArray(messages) ? messages : []).slice(-10);
 
-  // Build messages for Gemini (last ~10 turns for context)
-  const recentHistory = messages.slice(-10);
-
-  // Convert to Gemini format
-  // We inject the system prompt as the first user message for maximum compatibility across API versions and keys.
   const contents = [];
-
-  // Add history
-  recentHistory.forEach(m => {
-    contents.push({
-      role: m.role === 'user' ? 'user' : 'model',
-      parts: [{ text: m.content }]
-    });
+  recentHistory.forEach((m) => {
+    const role = m.role === 'user' ? 'user' : 'model';
+    const text = (m.content || m.text || '').toString().slice(0, 3000);
+    if (!text) return;
+    contents.push({ role, parts: [{ text }] });
   });
+  contents.push({ role: 'user', parts: [{ text: cleanMessage }] });
 
-  // Add current message
-  contents.push({
-    role: 'user',
-    parts: [{ text: userMessage }]
-  });
-
-  // Inject system prompt + page context as the very first user message
-  contents.unshift({
-    role: 'user',
-    parts: [{ text: "You are to act as Lord Krishna from the Bhagavad Gita. " + SYSTEM_PROMPT + contextNote }]
-  });
-
-  // Try multiple models for free tier compatibility
-  // Use current available models from Google (as of 2026). 
-  // To see exact models available for YOUR key, run in browser console (with key):
-  // fetch(`https://generativelanguage.googleapis.com/v1/models?key=YOUR_KEY_HERE`).then(r=>r.json()).then(c=>console.log(c.models.filter(m=>m.supportedGenerationMethods.includes('generateContent')).map(m=>m.name)))
-  // Then use the base name like 'gemini-2.5-flash'
+  const preferredModel = (process.env.GEMINI_MODEL || '').trim();
+  // Prefer current free-tier names (listModels as of 2026). Override with GEMINI_MODEL in .env / Netlify.
   const modelCandidates = [
+    preferredModel,
+    'gemini-3.1-flash-lite',
+    'gemini-3.5-flash-lite',
+    'gemini-3.5-flash',
+    'gemini-2.0-flash-lite',
+    'gemini-2.0-flash',
     'gemini-2.5-flash',
-    'gemini-2.5-flash-lite',
-    'gemini-2.0-flash-exp'
-  ];
+    'gemini-2.5-flash-lite'
+  ].filter((m, i, arr) => m && arr.indexOf(m) === i);
 
   let lastError = null;
 
   for (const model of modelCandidates) {
-    const url = `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${API_KEY}`;
-
-    const bodyPayload = {
-      contents: contents,
-      generationConfig: {
-        temperature: 0.85,
-        maxOutputTokens: 800,
-        topP: 0.95
-      }
-    };
-
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(bodyPayload)
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
-        if (reply) {
-          console.info(`[AskKrishna Function] Gemini succeeded with model: ${model}`);
-          const saveResult = await saveAskKrishnaQA(userMessage, reply);
-          return {
-            statusCode: 200,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              reply,
-              source: 'llm',
-              saved: saveResult.saved,
-              saveAttempted: saveResult.attempted,
-              saveError: saveResult.error,
-              qa: saveResult.record ? { id: saveResult.record.id } : null
-            })
-          };
+    // Prefer v1beta for systemInstruction; fall back to v1 without it
+    const attempts = [
+      {
+        url: `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${API_KEY}`,
+        payload: {
+          systemInstruction: { parts: [{ text: systemPrompt }] },
+          contents,
+          generationConfig: { temperature: 0.75, maxOutputTokens: 900, topP: 0.95 }
         }
-      } else {
-        const errText = await response.text();
-        console.warn(`[AskKrishna Function] Model ${model} failed:`, response.status, errText);
-        lastError = new Error(`Model ${model} failed: ${response.status} ${errText}`);
+      },
+      {
+        url: `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${API_KEY}`,
+        payload: {
+          contents: [
+            {
+              role: 'user',
+              parts: [{ text: 'System instructions for you (follow fully):\n' + systemPrompt }]
+            },
+            {
+              role: 'model',
+              parts: [{ text: 'Understood. I will speak as Krishna with verified Gita teachings only.' }]
+            },
+            ...contents
+          ],
+          generationConfig: { temperature: 0.75, maxOutputTokens: 900, topP: 0.95 }
+        }
       }
-    } catch (e) {
-      console.warn(`[AskKrishna Function] Model ${model} error:`, e);
-      lastError = e;
+    ];
+
+    for (const attempt of attempts) {
+      try {
+        const response = await fetch(attempt.url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(attempt.payload)
+        });
+
+        if (!response.ok) {
+          const errText = await response.text();
+          console.warn(`[AskKrishna] ${model} failed:`, response.status, errText.slice(0, 300));
+          lastError = new Error(`${model}: ${response.status}`);
+          continue;
+        }
+
+        const data = await response.json();
+        const raw = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+        if (!raw) {
+          lastError = new Error(`${model}: empty reply`);
+          continue;
+        }
+
+        const { reply, verse, validated } = validateOrAttachVerse(raw, topicHint);
+        console.info(`[AskKrishna] OK model=${model} verseValidated=${validated}`);
+
+        const saveResult = await saveAskKrishnaQA(cleanMessage, reply, 'ai_generated');
+        return {
+          statusCode: 200,
+          headers: corsHeaders(),
+          body: JSON.stringify({
+            reply,
+            source: 'llm',
+            engine: 'llm',
+            verse: verse
+              ? { id: verse.id, ref: verse.ref, en: verse.en, validated }
+              : null,
+            saved: saveResult.saved,
+            saveAttempted: saveResult.attempted,
+            saveError: saveResult.error,
+            qa: saveResult.record ? { id: saveResult.record.id } : null
+          })
+        };
+      } catch (e) {
+        console.warn(`[AskKrishna] ${model} error:`, e.message);
+        lastError = e;
+      }
     }
   }
 
-  // All models failed - fall back to local Gita wisdom if possible, else generic
-  console.error('[AskKrishna Function] All Gemini models failed. Last error:', lastError);
-  const saveResult = await saveAskKrishnaQA(userMessage, null, 'llm_error');
+  console.error('[AskKrishna] All models failed:', lastError && lastError.message);
+  const saveResult = await saveAskKrishnaQA(cleanMessage, null, 'llm_error');
   return {
     statusCode: 200,
+    headers: corsHeaders(),
     body: JSON.stringify({
       reply: null,
       useLocal: true,
+      engine: 'library',
       saved: saveResult.saved,
       saveAttempted: saveResult.attempted,
-      saveError: saveResult.error,
-      message: 'The connection to the deeper wisdom is quiet for a moment. I will answer from the timeless teachings instead.',
-      debug: {
-        message: lastError ? lastError.message : 'All models failed',
-        status: lastError && lastError.status,
-        details: lastError && lastError.details
-      }
+      message:
+        'The deeper connection is quiet for a moment. I will answer from the timeless Gita library instead.',
+      debug: process.env.ASK_KRISHNA_DEBUG
+        ? { message: lastError ? lastError.message : 'all_failed' }
+        : undefined
     })
   };
-}
+};

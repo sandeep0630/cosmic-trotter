@@ -74,7 +74,15 @@
         }
     </style>
     <script src="../theme-toggle.js?v=20260616-light-5"></script>
-    <script src="../site-nav.js?v=20260722-nav-base-3"></script>
+    <script src="../site-nav.js?v=20260724-lang-hi"></script>
+    <script src="../js/ask-krishna-core.js"></script>
+    <style>
+        .krishna-verse-card { margin-top: 0.75rem; padding: 0.75rem; border-radius: 0.75rem; border: 1px solid rgba(167,139,250,0.35); background: rgba(124,58,237,0.12); }
+        .krishna-verse-ref { font-size: 0.75rem; color: #c4b5fd; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.35rem; }
+        .krishna-verse-text { font-size: 0.95rem; color: rgba(255,255,255,0.9); margin-bottom: 0.5rem; }
+        .krishna-verse-link { font-size: 0.8rem; color: #00f3ff; text-decoration: none; }
+        .krishna-verse-link:hover { text-decoration: underline; }
+    </style>
 </head>
 <body class="cosmic-bg">
 
@@ -107,7 +115,8 @@
         
         <h1 class="text-5xl md:text-6xl font-bold tracking-tighter mb-3">Ask Krishna</h1>
         <p class="text-2xl text-white/80 max-w-2xl mx-auto">Talk to Krishna. Get real wisdom from the Bhagavad Gita. Voice enabled.</p>
-        <p class="text-xs text-white/50 mt-2">Local Gita engine active • Real conversational AI available when configured on Netlify</p>
+        <p id="krishna-bot-status" class="text-xs text-white/50 mt-2">Free Gita-rooted counsel · Live AI when available · Library mode as backup</p>
+        <p class="text-[11px] text-white/40 mt-2 max-w-xl mx-auto">Not medical, legal, or financial advice. If you are in crisis, contact local emergency services or a trusted person. Conversations may be logged when the site is online to improve the service.</p>
     </div>
 
     <!-- Chat Container -->
@@ -183,26 +192,33 @@
         // Falls back gracefully to the rich local Gita wisdom engine below.
         async function getRealKrishnaReply(userMessage, history = []) {
             try {
+                if (window.CosmicAskKrishna && window.CosmicAskKrishna.callAskKrishnaApi) {
+                    const data = await window.CosmicAskKrishna.callAskKrishnaApi({
+                        userMessage,
+                        messages: history.map(m => ({
+                            role: m.role === 'user' ? 'user' : 'model',
+                            content: m.content
+                        })),
+                        pageContext: document.body.dataset.krishnaContext || ''
+                    });
+                    console.info('[Ask Krishna Bot] API response engine=', data.engine || (data.useLocal ? 'library' : 'llm'));
+                    if (data.useLocal || !data.reply) return null;
+                    return data.reply;
+                }
                 const res = await fetch('/.netlify/functions/ask-krishna', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        messages: history.map(m => ({ role: m.role, content: m.content })),
-                        userMessage: userMessage
+                        messages: history.map(m => ({ role: m.role === 'user' ? 'user' : 'model', content: m.content })),
+                        userMessage: userMessage,
+                        preferredLang: localStorage.getItem('preferredLang') || 'en'
                     })
                 });
-
                 if (!res.ok) throw new Error('Function call failed');
-
                 const data = await res.json();
-                console.info('[Ask Krishna Bot] Function response:', data);
-
-                if (data.useLocal || !data.reply) {
-                    return null; // signal to use local engine
-                }
+                if (data.useLocal || !data.reply) return null;
                 return data.reply;
             } catch (err) {
-                // Silent fallback — the local wisdom engine is still excellent
                 return null;
             }
         }
@@ -967,11 +983,14 @@
 
             removeTypingIndicator();
 
+            const statusEl = document.getElementById('krishna-bot-status');
             if (realReply) {
                 // GPT-like generative response from the model (in character as Krishna)
+                if (statusEl) statusEl.textContent = 'Live counsel · Gita-rooted · free';
                 addMessage(realReply, false);
             } else {
                 // High-quality local engine (always available, deeply rooted in the Gita)
+                if (statusEl) statusEl.textContent = 'Gita library mode · free (offline teachings)';
                 const wisdom = getGitaResponse(message);
                 addMessage(formatWisdomResponse(wisdom), false);
 
@@ -1017,7 +1036,9 @@
             
             recognition.continuous = false;
             recognition.interimResults = false;
-            recognition.lang = 'en-US';
+            recognition.lang = (window.CosmicAskKrishna && window.CosmicAskKrishna.speechLang)
+                ? window.CosmicAskKrishna.speechLang(window.CosmicAskKrishna.preferredLang())
+                : 'en-US';
             
             isListening = true;
             voiceBtn.innerHTML = '<i class="fa-solid fa-microphone-slash text-red-400 text-xl"></i>';

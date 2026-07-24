@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Map • CosmicTrotter</title>
+    <link rel="canonical" href="https://cosmictrotter.com/map.html">
+    <meta name="description" content="Interactive Cosmic Map of CosmicTrotter — every journey by pillar: ancient wisdom, philosophy, quantum, space, and crossroads.">
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#0a0a0f">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
+        body { font-family: 'Inter', system_ui, sans-serif; background: #0a0a0f; color: #e0e7ff; }
+        .font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 600; }
+        .cosmic-bg { background: radial-gradient(circle at 30% 20%, #1a1a2e 0%, #0a0a0f 55%); }
+        .pillar-block {
+            border-radius: 1.25rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(15, 23, 42, 0.55);
+            padding: 1.25rem;
+        }
+        .node {
+            display: block;
+            padding: 0.55rem 0.75rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(0,0,0,0.2);
+            font-size: 0.9rem;
+            transition: border-color 0.2s, transform 0.2s, background 0.2s;
+            text-decoration: none;
+            color: inherit;
+        }
+        .node:hover {
+            transform: translateY(-2px);
+            border-color: rgba(0, 243, 255, 0.4);
+            background: rgba(0, 243, 255, 0.06);
+        }
+        .node .sub { font-size: 0.7rem; color: rgba(255,255,255,0.4); margin-top: 0.15rem; }
+        .filter-chip {
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 999px;
+            padding: 0.35rem 0.85rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            background: transparent;
+            color: rgba(255,255,255,0.7);
+        }
+        .filter-chip.is-on {
+            border-color: rgba(0, 243, 255, 0.5);
+            color: #00f3ff;
+            background: rgba(0, 243, 255, 0.08);
+        }
+    </style>
+    <script src="theme-toggle.js?v=20260616-light-5"></script>
+    <script src="site-nav.js?v=20260724-lang-hi"></script>
+    <script src="pwa-register.js" defer></script>
+</head>
+<body class="cosmic-bg">
+    <div class="max-w-6xl mx-auto px-6 pt-14 pb-8 text-center">
+        <div class="text-xs uppercase tracking-[3px] text-[#00f3ff] mb-3">NAVIGATE</div>
+        <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-3">Cosmic Map</h1>
+        <p class="text-white/60 max-w-2xl mx-auto">Every major journey in one sky. Filter by pillar, click a star.</p>
+        <div class="flex flex-wrap justify-center gap-2 mt-6" id="filters"></div>
+        <input id="map-search" type="search" placeholder="Search the map…"
+               class="mt-5 w-full max-w-md mx-auto block bg-white/5 border border-white/15 rounded-2xl px-4 py-2.5 text-sm focus:outline-none focus:border-[#00f3ff]">
+    </div>
+    <div class="max-w-6xl mx-auto px-6 pb-24 grid md:grid-cols-2 xl:grid-cols-3 gap-5" id="map-root"></div>
+
+    <script>
+        const PILLARS = [
+            {
+                id: "ancient",
+                title: "Ancient Wisdom",
+                color: "text-amber-300",
+                border: "border-amber-400/25",
+                nodes: [
+                    { t: "Dashavatara", u: "dashavatara.html", s: "Journey" },
+                    { t: "Bhagavad Gita", u: "bhagavad-gita.html", s: "Journey" },
+                    { t: "Gita verse today", u: "gita-verse.html", s: "Daily" },
+                    { t: "Hanuman", u: "hanuman.html", s: "Journey" },
+                    { t: "Jagannath of Puri", u: "puri-jaganath.html", s: "Journey" },
+                    { t: "Tirupati Venkateswara", u: "tirupati-venkateswara.html", s: "Journey" },
+                    { t: "Kashi Vishwanath", u: "kashi-vishwanath.html", s: "Journey" },
+                    { t: "Upanishads", u: "ancient-wisdom/upanishads.html", s: "Article" },
+                    { t: "Nasadiya Sukta", u: "ancient-wisdom/nasadiya-sukta.html", s: "Article" },
+                    { t: "Kāla", u: "ancient-wisdom/kala.html", s: "Article" },
+                    { t: "Ask Krishna", u: "ancient-wisdom/ask-krishna-bot.html", s: "Tool" }
+                ]
+            },
+            {
+                id: "philosophy",
+                title: "Philosophy",
+                color: "text-cyan-300",
+                border: "border-cyan-400/25",
+                nodes: [
+                    { t: "Consciousness", u: "philosophy/consciousness.html", s: "Journey" },
+                    { t: "Simulation", u: "philosophy/simulation.html", s: "Journey" },
+                    { t: "Free Will", u: "philosophy/free-will.html", s: "Journey" },
+                    { t: "The Self", u: "philosophy/the-self.html", s: "Journey" },
+                    { t: "Meaning", u: "philosophy/meaning.html", s: "Journey" },
+                    { t: "AI Ethics", u: "philosophy/ai-ethics.html", s: "Journey" },
+                    { t: "Time", u: "philosophy/time.html", s: "Journey" }
+                ]
+            },
+            {
+                id: "crossroads",
+                title: "Cosmic Crossroads",
+                color: "text-emerald-300",
+                border: "border-emerald-400/25",
+                nodes: [
+                    { t: "Series hub", u: "crossroads/", s: "Hub" },
+                    { t: "What is time?", u: "crossroads/what-is-time.html", s: "Bridge" },
+                    { t: "What is free will?", u: "crossroads/what-is-free-will.html", s: "Bridge" },
+                    { t: "What is the self?", u: "crossroads/what-is-the-self.html", s: "Bridge" },
+                    { t: "What is nothing?", u: "crossroads/what-is-nothing.html", s: "Bridge" }
+                ]
+            },
+            {
+                id: "quantum",
+                title: "Quantum Realms",
+                color: "text-violet-300",
+                border: "border-violet-400/25",
+                nodes: [
+                    { t: "Witness & Wave", u: "quantum-realms/witness-wave.html", s: "Article" },
+                    { t: "Entangled Unity", u: "quantum-realms/entangled-unity.html", s: "Article" },
+                    { t: "Born of the Void", u: "quantum-realms/born-of-void.html", s: "Article" },
+                    { t: "Cosmic Hum", u: "quantum-realms/cosmic-hum.html", s: "Article" }
+                ]
+            },
+            {
+                id: "space",
+                title: "Space & Cosmos",
+                color: "text-teal-300",
+                border: "border-teal-400/25",
+                nodes: [
+                    { t: "Breathing Cosmos", u: "space-cosmos/breathing-cosmos.html", s: "Article" },
+                    { t: "Event Horizon", u: "space-cosmos/event-horizon.html", s: "Article" },
+                    { t: "Worlds Without Number", u: "space-cosmos/worlds-without-number.html", s: "Article" },
+                    { t: "Rishis & Stars", u: "space-cosmos/rishis-stars.html", s: "Article" }
+                ]
+            },
+            {
+                id: "habits",
+                title: "Start & Habits",
+                color: "text-pink-300",
+                border: "border-pink-400/25",
+                nodes: [
+                    { t: "Start Here", u: "start.html", s: "Guide" },
+                    { t: "Daily Wisdom", u: "wisdom.html", s: "Daily" },
+                    { t: "Gita verse today", u: "gita-verse.html", s: "Daily" },
+                    { t: "Watch reels", u: "index.html#reels", s: "Media" },
+                    { t: "Email season", u: "email-season.html", s: "Growth" },
+                    { t: "Home", u: "index.html", s: "Hub" }
+                ]
+            }
+        ];
+
+        let active = "all";
+        const root = document.getElementById("map-root");
+        const filters = document.getElementById("filters");
+        const search = document.getElementById("map-search");
+
+        filters.innerHTML = ["all", ...PILLARS.map(p => p.id)].map(id => {
+            const label = id === "all" ? "All" : PILLARS.find(p => p.id === id).title;
+            return `<button type="button" class="filter-chip${id === "all" ? " is-on" : ""}" data-filter="${id}">${label}</button>`;
+        }).join("");
+
+        filters.addEventListener("click", (e) => {
+            const btn = e.target.closest("[data-filter]");
+            if (!btn) return;
+            active = btn.dataset.filter;
+            filters.querySelectorAll(".filter-chip").forEach(c => c.classList.toggle("is-on", c.dataset.filter === active));
+            render();
+        });
+        search.addEventListener("input", render);
+
+        function render() {
+            const q = (search.value || "").toLowerCase().trim();
+            root.innerHTML = PILLARS.filter(p => active === "all" || p.id === active).map(p => {
+                const nodes = p.nodes.filter(n => !q || n.t.toLowerCase().includes(q) || (n.s || "").toLowerCase().includes(q));
+                if (!nodes.length) return "";
+                return `
+                  <section class="pillar-block ${p.border}" data-pillar="${p.id}">
+                    <h2 class="text-lg font-semibold ${p.color} mb-3">${p.title}</h2>
+                    <div class="grid gap-2">
+                      ${nodes.map(n => `
+                        <a class="node" href="${n.u}">
+                          <div>${n.t}</div>
+                          <div class="sub">${n.s || ""}</div>
+                        </a>`).join("")}
+                    </div>
+                  </section>`;
+            }).join("") || `<p class="text-white/50 col-span-full text-center">No matches.</p>`;
+        }
+        render();
+    </script>
+</body>
+</html>

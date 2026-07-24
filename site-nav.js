@@ -1,6 +1,6 @@
 (function () {
     const NAV_ID = "cosmic-site-nav";
-    const SECTION_HASHES = new Set(["#explore", "#wisdom", "#community"]);
+    const SECTION_HASHES = new Set(["#explore", "#wisdom", "#community", "#pulse", "#reels", "#flagships", "#paths"]);
     const PENDING_SECTION_KEY = "cosmicPendingSectionHash";
 
     function getPath() {
@@ -10,17 +10,26 @@
     function getBasePath() {
         // Root-relative depth: /philosophy/consciousness(.html) needs "../"
         // so logo/scripts resolve to site root, not /philosophy/logo.png (404).
+        // Also: directory hubs like /crossroads/ or /crossroads need "../"
+        // (single segment with no file extension = folder index, not a root page).
         let path = getPath().replace(/\/+$/, "");
         if (!path || path === "/") return "";
 
         const parts = path.split("/").filter(Boolean);
-        // Single segment at root: index.html, philosophy.html, ancient.html, etc.
-        if (parts.length <= 1) return "";
+        if (parts.length === 0) return "";
 
-        // Nested journey pages: philosophy/foo, ancient-wisdom/foo, quantum-realms/foo, ...
-        // Clean URLs without .html still have 2+ segments.
-        const depth = parts.length - 1;
-        return "../".repeat(depth);
+        const last = parts[parts.length - 1];
+        const lastLooksLikeFile = /\.[a-z0-9]+$/i.test(last);
+
+        // Root-level files: /index.html, /philosophy.html, /ancient.html
+        if (parts.length === 1 && lastLooksLikeFile) return "";
+
+        // Directory hub: /crossroads, /crossroads/ → one level below root
+        if (parts.length === 1 && !lastLooksLikeFile) return "../";
+
+        // Nested pages: /crossroads/what-is-time(.html), /philosophy/time(.html)
+        // Clean URLs without .html still have 2+ segments → depth = n - 1
+        return "../".repeat(parts.length - 1);
     }
 
     /** Site-wide knowledge catalog for nav search (titles + keywords → URL). */
@@ -47,8 +56,26 @@
         { title: "Dashavatara", keywords: "vishnu avatar matsya kurma rama krishna", url: "dashavatara.html" },
         { title: "Bhagavad Gita", keywords: "gita kurukshetra arjuna krishna dharma karma yoga", url: "bhagavad-gita.html" },
         { title: "Puri Jagannath", keywords: "jagannath puri rath yatra odisha", url: "puri-jaganath.html" },
+        { title: "Hanuman", keywords: "hanuman anjaneya ramayana bhakti devotion sanjeevani", url: "hanuman.html" },
+        { title: "Lord Venkateswara of Tirupati", keywords: "tirupati tirumala venkateswara balaji srinivasa govinda pilgrimage", url: "tirupati-venkateswara.html" },
+        { title: "Start Here", keywords: "begin path welcome new visitor guide", url: "start.html" },
+        { title: "Watch Reels", keywords: "instagram reels video watch cinematic", url: "index.html#reels" },
+        { title: "Cosmic Crossroads", keywords: "crossroads science wisdom series time free will self", url: "crossroads/" },
+        { title: "What Is Time? Crossroads", keywords: "time kala physics crossroads clocks relativity", url: "crossroads/what-is-time.html" },
+        { title: "What Is Free Will? Crossroads", keywords: "free will agency karma determinism neuroscience", url: "crossroads/what-is-free-will.html" },
+        { title: "What Is the Self? Crossroads", keywords: "self identity atman anatta narrative witness", url: "crossroads/what-is-the-self.html" },
+        { title: "Gita Verse of the Day", keywords: "bhagavad gita daily verse practice", url: "gita-verse.html" },
+        { title: "Kashi Vishwanath", keywords: "kashi varanasi banaras vishwanath ganga moksha shiva", url: "kashi-vishwanath.html" },
+        { title: "Cosmic Map", keywords: "map navigate all journeys constellation", url: "map.html" },
+        { title: "Email Season", keywords: "newsletter email 8 week season growth", url: "email-season.html" },
+        { title: "What Is Nothing? Crossroads", keywords: "nothing vacuum void nasadiya sunya", url: "crossroads/what-is-nothing.html" },
+        { title: "Akasha", keywords: "akasha space ether upanishad", url: "ancient-wisdom/akasha.html" },
+        { title: "Hiranyagarbha", keywords: "hiranyagarbha cosmic egg golden womb", url: "ancient-wisdom/hiranyagarbha.html" },
+        { title: "Panchakosha", keywords: "panchakosha five sheaths yoga", url: "ancient-wisdom/panchakosha.html" },
+        { title: "Vishwaroopa", keywords: "vishwaroopa cosmic form krishna gita", url: "ancient-wisdom/vishwaroopa.html" },
+        { title: "Kala", keywords: "kala time death yuga", url: "ancient-wisdom/kala.html" },
         { title: "Daily Wisdom", keywords: "quote wisdom daily", url: "wisdom.html" },
-        { title: "Ask Krishna", keywords: "krishna chat guidance dharma", url: "ancient-wisdom/ask-krishna.html" }
+        { title: "Ask Krishna", keywords: "krishna chat guidance dharma gita", url: "ancient-wisdom/ask-krishna-bot.html" }
     ];
 
     function resolveCatalogUrl(relativeUrl, base) {
@@ -177,11 +204,15 @@
         const path = getPath();
 
         if (path.includes("ask-krishna")) return "askKrishna";
+        if (path.includes("/crossroads")) return "crossroads";
         if (path.includes("/wisdom")) return "wisdom";
         if (path.includes("/space") || path.includes("/space-cosmos")) return "space";
         if (path.includes("/philosophy")) return "philosophy";
         if (path.includes("/quantum") || path.includes("/quantum-realms")) return "quantum";
-        if (path.includes("/ancient") || path.includes("/archetype/")) return "ancient";
+        if (path.includes("/ancient") || path.includes("/archetype/") ||
+            path.includes("dashavatara") || path.includes("hanuman") ||
+            path.includes("tirupati") || path.includes("kashi") || path.includes("jaganath") ||
+            path.includes("bhagavad-gita")) return "ancient";
         if (path.includes("/ev-guide") || path.includes("/pm_e-drive")) return "ev";
         return "home";
     }
@@ -190,19 +221,23 @@
         const links = {
             home: `${base}index.html`,
             explore: isHomePage() ? "#explore" : `${base}index.html#explore`,
-            today: isHomePage() ? "#wisdom" : `${base}index.html#wisdom`,
+            today: isHomePage() ? "#pulse" : `${base}index.html#pulse`,
             wisdom: `${base}wisdom.html`,
             space: `${base}space.html`,
             philosophy: `${base}philosophy.html`,
             quantum: `${base}quantum.html`,
             ancient: `${base}ancient.html`,
+            crossroads: `${base}crossroads/`,
+            map: `${base}map.html`,
+            start: `${base}start.html`,
+            gitaVerse: `${base}gita-verse.html`,
             ev: `${base}ev-guide.html`,
             askKrishna: `${base}ancient-wisdom/ask-krishna-bot.html`,
-            community: `${base}index.html#community`
+            community: isHomePage() ? "#community" : `${base}index.html#community`
         };
 
         // Always return the base English .html (or hash) version.
-        // If preferredLang is Telugu or Kannada, the language initializer translates the current page in-place.
+        // If preferredLang is Telugu, Kannada, or Hindi, the language initializer translates the current page in-place.
         return links[target] || links.home;
     }
 
@@ -231,7 +266,24 @@
                 font-family: 'Inter', system-ui, sans-serif;
                 backdrop-filter: blur(20px);
                 -webkit-backdrop-filter: blur(20px);
+                transition: background 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
             }
+
+            .cosmic-site-nav.is-scrolled {
+                background: rgba(10, 10, 15, 0.96);
+                border-bottom-color: rgba(0, 243, 255, 0.12);
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+            }
+
+            .cosmic-site-nav__progress {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                height: 2px;
+                width: 0%;
+                background: linear-gradient(90deg, #00f3ff, #7c3aed, #fbbf24);
+                pointer-events: none;
+                z-index: 2;}
 
             .cosmic-site-nav *,
             .cosmic-site-nav *::before,
@@ -257,12 +309,120 @@
             }
 
             .cosmic-site-nav__bar {
-                min-height: 84px;
+                min-height: 80px;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 gap: 1rem;
                 padding: 0.75rem 0;
+                transition: min-height 0.25s ease, padding 0.25s ease;
+            }
+
+            .cosmic-site-nav.is-compact .cosmic-site-nav__bar {
+                min-height: 64px;
+                padding: 0.45rem 0;
+            }
+
+            .cosmic-site-nav.is-compact .logo-orb {
+                width: 2.75rem;
+                height: 2.75rem;
+                flex-basis: 2.75rem;
+            }
+
+            .cosmic-site-nav.is-compact .cosmic-site-nav__tagline {
+                display: none;
+            }
+
+            .cosmic-site-nav.is-compact .cosmic-site-nav__name {
+                font-size: 1.5rem;
+            }
+
+            .cosmic-site-nav__mega {
+                position: absolute;
+                left: 50%;
+                top: calc(100% + 0.65rem);
+                transform: translateX(-50%);
+                width: min(52rem, calc(100vw - 2rem));
+                padding: 1rem;
+                border-radius: 1.25rem;
+                border: 1px solid rgba(255, 255, 255, 0.12);
+                background: rgba(10, 10, 15, 0.97);
+                box-shadow: 0 28px 70px rgba(0, 0, 0, 0.45);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                z-index: 80;
+            }
+
+            .cosmic-site-nav__mega[hidden] {
+                display: none !important;
+            }
+
+            .cosmic-site-nav__mega-grid {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 0.75rem;
+            }
+
+            .cosmic-site-nav__mega-col {
+                padding: 0.5rem;
+                border-radius: 0.85rem;
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid rgba(255, 255, 255, 0.06);
+            }
+
+            .cosmic-site-nav__mega-label {
+                display: block;
+                font-size: 0.65rem;
+                letter-spacing: 0.16em;
+                text-transform: uppercase;
+                color: rgba(0, 243, 255, 0.85);
+                margin: 0.25rem 0.5rem 0.6rem;
+                font-weight: 600;
+            }
+
+            .cosmic-site-nav__mega-footer {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.75rem;
+                margin-top: 0.85rem;
+                padding-top: 0.85rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.08);
+            }
+
+            .cosmic-site-nav__mega-tools {
+                font-size: 0.75rem;
+                color: rgba(255, 255, 255, 0.4);
+            }
+
+            .cosmic-site-nav__mega-tools a {
+                color: rgba(255, 255, 255, 0.55);
+                text-decoration: none;
+            }
+
+            .cosmic-site-nav__mega-tools a:hover {
+                color: #00f3ff;
+            }
+
+            .cosmic-site-nav__mega-map {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                color: #00f3ff;
+                font-size: 0.875rem;
+                font-weight: 600;
+                text-decoration: none;
+            }
+
+            .cosmic-site-nav__mega-map:hover {
+                text-shadow: 0 0 12px rgba(0, 243, 255, 0.45);
+            }
+
+            @media (max-width: 900px) {
+                .cosmic-site-nav__mega-grid {
+                    grid-template-columns: 1fr;
+                }
             }
 
             .cosmic-site-nav__brand {
@@ -1039,7 +1199,7 @@
             }
 
             .lang-btn {
-                padding: 5px 8px;
+                padding: 5px 7px;
                 background: transparent;
                 color: rgba(255, 255, 255, 0.65);
                 border: none;
@@ -1071,8 +1231,8 @@
 
             @media (max-width: 640px) {
                 .lang-btn {
-                    padding: 4px 6px;
-                    font-size: 0.62rem;
+                    padding: 4px 5px;
+                    font-size: 0.58rem;
                 }
             }
 
@@ -1182,6 +1342,7 @@
         const base = getBasePath();
         const current = getCurrentSection();
         const logo = `${base}logo.png`;
+        const journeysActive = ["ancient", "philosophy", "quantum", "space", "crossroads"].includes(current) ? " is-active" : "";
 
         return `
             <nav id="${NAV_ID}" class="cosmic-site-nav" aria-label="Primary navigation">
@@ -1202,23 +1363,47 @@
                         <div class="cosmic-site-nav__center">
                             <div class="cosmic-site-nav__dock">
                                 ${buildLink(base, "explore", "Explore", "fa-compass", current)}
-                                ${buildLink(base, "today", "Today", "fa-infinity", current)}
                                 <span class="cosmic-site-nav__menu-wrap" data-cosmic-menu-wrap>
-                                    <button class="cosmic-site-nav__menu-button" type="button" data-cosmic-nav-menu aria-expanded="false" aria-controls="cosmic-site-nav-library">
-                                        <i class="fa-solid fa-layer-group"></i>
-                                        <span>Library</span>
+                                    <button class="cosmic-site-nav__menu-button${journeysActive}" type="button" data-cosmic-nav-menu aria-expanded="false" aria-controls="cosmic-site-nav-journeys">
+                                        <i class="fa-solid fa-route"></i>
+                                        <span>Journeys</span>
                                         <i class="fa-solid fa-chevron-down cosmic-site-nav__chevron"></i>
                                     </button>
-                                    <span id="cosmic-site-nav-library" class="cosmic-site-nav__panel" hidden>
-                                        ${buildAskKrishnaButton("Ask Krishna Chat", "Start a guidance chat with Krishna")}
-                                        ${buildPanelLink(navHref(base, "wisdom"), "fa-book-open", "Wisdom Library", "Quotes, reflections, and daily ideas")}
-                                        ${buildPanelLink(navHref(base, "space"), "fa-rocket", "Space & Cosmos", "Black holes, planets, and star stories")}
-                                        ${buildPanelLink(navHref(base, "philosophy"), "fa-brain", "Philosophy", "Consciousness, meaning, and big questions")}
-                                        ${buildPanelLink(navHref(base, "quantum"), "fa-atom", "Quantum", "Tiny physics with giant implications")}
-                                        ${buildPanelLink(navHref(base, "ancient"), "fa-landmark", "Ancient Wisdom", "Vedic and timeless knowledge journeys")}
-                                        ${buildPanelLink(navHref(base, "ev"), "fa-charging-station", "EV Guide", "PM E-DRIVE costs, subsidies, and setup")}
-                                    </span>
+                                    <div id="cosmic-site-nav-journeys" class="cosmic-site-nav__mega" hidden>
+                                        <div class="cosmic-site-nav__mega-grid">
+                                            <div class="cosmic-site-nav__mega-col">
+                                                <span class="cosmic-site-nav__mega-label">Ancient Wisdom</span>
+                                                ${buildPanelLink(`${base}dashavatara.html`, "fa-om", "Dashavatara", "Ten avatars of Vishnu")}
+                                                ${buildPanelLink(`${base}bhagavad-gita.html`, "fa-book-open", "Bhagavad Gita", "Chapter storybook")}
+                                                ${buildPanelLink(`${base}hanuman.html`, "fa-fire", "Hanuman", "Devoted strength")}
+                                                ${buildPanelLink(`${base}puri-jaganath.html`, "fa-place-of-worship", "Jagannath of Puri", "Origin to living worship")}
+                                                ${buildPanelLink(`${base}tirupati-venkateswara.html`, "fa-mountain", "Tirupati Venkateswara", "Seven hills pilgrimage")}
+                                                ${buildPanelLink(`${base}kashi-vishwanath.html`, "fa-water", "Kashi Vishwanath", "Ganga · moksha")}
+                                                ${buildPanelLink(navHref(base, "ancient"), "fa-landmark", "All Ancient Wisdom", "Library hub")}
+                                            </div>
+                                            <div class="cosmic-site-nav__mega-col">
+                                                <span class="cosmic-site-nav__mega-label">Mind & Meaning</span>
+                                                ${buildPanelLink(navHref(base, "crossroads"), "fa-code-branch", "Cosmic Crossroads", "Science + wisdom essays")}
+                                                ${buildPanelLink(navHref(base, "philosophy"), "fa-brain", "Philosophy", "Consciousness, free will, self")}
+                                                ${buildPanelLink(navHref(base, "gitaVerse"), "fa-sun", "Gita verse of the day", "Daily practice")}
+                                                ${buildAskKrishnaButton("Ask Krishna Chat", "Gita-rooted guidance")}
+                                                ${buildPanelLink(navHref(base, "wisdom"), "fa-infinity", "Daily Wisdom", "A new insight every day")}
+                                            </div>
+                                            <div class="cosmic-site-nav__mega-col">
+                                                <span class="cosmic-site-nav__mega-label">Science & Cosmos</span>
+                                                ${buildPanelLink(navHref(base, "quantum"), "fa-atom", "Quantum Realms", "Observation & oneness")}
+                                                ${buildPanelLink(navHref(base, "space"), "fa-rocket", "Space & Cosmos", "Black holes to cyclic cosmos")}
+                                                ${buildPanelLink(navHref(base, "start"), "fa-compass", "Start Here", "Pick your first path")}
+                                            </div>
+                                        </div>
+                                        <div class="cosmic-site-nav__mega-footer">
+                                            <a class="cosmic-site-nav__mega-map" href="${navHref(base, "map")}"><i class="fa-solid fa-map"></i> Open full map</a>
+                                            <span class="cosmic-site-nav__mega-tools">Tools: <a href="${navHref(base, "ev")}">India EV guide</a></span>
+                                        </div>
+                                    </div>
                                 </span>
+                                ${buildLink(base, "today", "Daily", "fa-infinity", current)}
+                                ${buildLink(base, "crossroads", "Crossroads", "fa-code-branch", current)}
                             </div>
                         </div>
 
@@ -1228,14 +1413,14 @@
                             </div>
                             <span class="cosmic-site-nav__theme-slot" data-cosmic-theme-slot></span>
 
-                            <!-- Language Toggle (notranslate so Google doesn't mangle our switcher when page is translated) -->
                             <div class="lang-switch notranslate" translate="no" data-lang-switch>
                                 <button type="button" class="lang-btn" data-lang="en" onclick="switchToLang('en')">EN</button>
+                                <button type="button" class="lang-btn" data-lang="hi" onclick="switchToLang('hi')">हिंदी</button>
                                 <button type="button" class="lang-btn" data-lang="te" onclick="switchToLang('te')">తెలుగు</button>
                                 <button type="button" class="lang-btn" data-lang="kn" onclick="switchToLang('kn')">ಕನ್ನಡ</button>
                             </div>
 
-                            <a class="cosmic-site-nav__cta" href="${navHref(base, "community")}" data-cosmic-join>
+                            <a class="cosmic-site-nav__cta" href="${navHref(base, "community")}" data-cosmic-join data-cta="nav-join">
                                 <span>Join</span>
                                 <i class="fa-solid fa-arrow-right"></i>
                             </a>
@@ -1254,14 +1439,16 @@
                         <div class="cosmic-site-nav__mobile-card">
                             <div class="cosmic-site-nav__mobile-grid">
                                 ${buildLink(base, "explore", "Explore", "fa-compass", current)}
-                                ${buildLink(base, "today", "Today", "fa-infinity", current)}
+                                ${buildLink(base, "today", "Daily", "fa-infinity", current)}
+                                ${buildLink(base, "crossroads", "Crossroads", "fa-code-branch", current)}
                                 ${buildAskKrishnaButton("Ask Krishna", "")}
-                                ${buildLink(base, "wisdom", "Wisdom", "fa-book-open", current)}
-                                ${buildLink(base, "space", "Space", "fa-rocket", current)}
                                 ${buildLink(base, "ancient", "Ancient", "fa-landmark", current)}
                                 ${buildLink(base, "philosophy", "Philosophy", "fa-brain", current)}
                                 ${buildLink(base, "quantum", "Quantum", "fa-atom", current)}
-                                ${buildLink(base, "ev", "EV Guide", "fa-charging-station", current)}
+                                ${buildLink(base, "space", "Space", "fa-rocket", current)}
+                                ${buildLink(base, "wisdom", "Wisdom", "fa-book-open", current)}
+                                ${buildLink(base, "map", "Map", "fa-map", current)}
+                                ${buildLink(base, "start", "Start", "fa-door-open", current)}
                             </div>
 
                             <div class="cosmic-site-nav__mobile-tools">
@@ -1270,13 +1457,16 @@
 
                             <div class="cosmic-site-nav__mobile-theme" data-cosmic-theme-mobile-slot></div>
 
-                            <a class="cosmic-site-nav__cta" href="${navHref(base, "community")}" data-cosmic-join>
-                                <span>Join the Journey</span>
+                            <p class="cosmic-site-nav__mega-tools" style="margin:0.75rem 0 0;text-align:center">Tools: <a href="${navHref(base, "ev")}">India EV guide</a></p>
+
+                            <a class="cosmic-site-nav__cta" href="${navHref(base, "community")}" data-cosmic-join data-cta="nav-join-mobile" style="margin-top:0.75rem">
+                                <span>Join free</span>
                                 <i class="fa-solid fa-arrow-right"></i>
                             </a>
                         </div>
                     </div>
                 </div>
+                <div class="cosmic-site-nav__progress" data-cosmic-scroll-progress aria-hidden="true"></div>
             </nav>
         `;
     }
@@ -1316,7 +1506,7 @@
         if (!nav) return;
 
         const menuButton = nav.querySelector("[data-cosmic-nav-menu]");
-        const menuPanel = nav.querySelector("#cosmic-site-nav-library");
+        const menuPanel = nav.querySelector("#cosmic-site-nav-journeys") || nav.querySelector("#cosmic-site-nav-library");
         const mobileButton = nav.querySelector("[data-cosmic-mobile-toggle]");
         const mobilePanel = nav.querySelector("#cosmic-site-nav-mobile");
 
@@ -1481,6 +1671,20 @@
         window.setTimeout(() => ensureThemeToggleMoved(5), 0);
         window.addEventListener("resize", () => ensureThemeToggleMoved(3));
 
+        const progressEl = nav.querySelector("[data-cosmic-scroll-progress]");
+        function onScrollChrome() {
+            const y = window.scrollY || document.documentElement.scrollTop || 0;
+            nav.classList.toggle("is-scrolled", y > 8);
+            nav.classList.toggle("is-compact", y > 48);
+            if (progressEl) {
+                const doc = document.documentElement;
+                const max = Math.max(1, doc.scrollHeight - window.innerHeight);
+                progressEl.style.width = Math.min(100, (y / max) * 100) + "%";
+            }
+        }
+        onScrollChrome();
+        window.addEventListener("scroll", onScrollChrome, { passive: true });
+
         // Also watch for the toggle being added later (race with theme-toggle.js creation)
         try {
             const mo = new MutationObserver(() => {
@@ -1516,15 +1720,17 @@
     //
     // getTeluguEquivalentUrl kept for backward compatibility in a couple of places
     // but with dedicated -te.html pages removed, it is no longer used for navigation.
-    // Telugu and Kannada are applied in-place on the English pages through our text translation flow,
+    // Telugu, Kannada, and Hindi are applied in-place on the English pages through our text translation flow,
     // keeping Google's visible toolbar out of the page chrome.
     const LANGUAGE_CONFIG = {
         en: { label: 'English', script: null },
         te: { label: 'Telugu', script: /[\u0C00-\u0C7F]/ },
-        kn: { label: 'Kannada', script: /[\u0C80-\u0CFF]/ }
+        kn: { label: 'Kannada', script: /[\u0C80-\u0CFF]/ },
+        hi: { label: 'Hindi', script: /[\u0900-\u097F]/ }
     };
-    const TRANSLATION_LANGS = new Set(['te', 'kn']);
-    const INDIC_TRANSLATION_SCRIPT = /[\u0C00-\u0C7F\u0C80-\u0CFF]/;
+    const TRANSLATION_LANGS = new Set(['te', 'kn', 'hi']);
+    // Telugu + Kannada + Devanagari (Hindi)
+    const INDIC_TRANSLATION_SCRIPT = /[\u0C00-\u0C7F\u0C80-\u0CFF\u0900-\u097F]/;
 
     function normalizePreferredLang(lang) {
         return LANGUAGE_CONFIG[lang] ? lang : 'en';
@@ -1620,9 +1826,9 @@
             return;
         }
 
-        // Telugu/Kannada: translate this page in-place without loading Google's toolbar UI.
+        // Telugu/Kannada/Hindi: translate this page in-place without loading Google's toolbar UI.
         // initLanguage() uses the same preference to translate future pages after navigation.
-        // The EN/Telugu/Kannada buttons remain in the injected nav on every page.
+        // The language buttons remain in the injected nav on every page.
         localStorage.setItem('preferredLang', lang);
         removeGoogleTranslateChrome(true);
         setLanguageButtonState(lang);
@@ -1734,7 +1940,8 @@
 
     const FALLBACK_CACHE_KEYS = {
         te: 'cosmicTeTranslationCacheV1',
-        kn: 'cosmicKnTranslationCacheV1'
+        kn: 'cosmicKnTranslationCacheV1',
+        hi: 'cosmicHiTranslationCacheV1'
     };
     const FALLBACK_SPLIT = '\n[[[CT_SPLIT]]]\n';
     const fallbackCaches = {};
@@ -2357,10 +2564,10 @@
             deactivateGoogleWidget();
         }
 
-        // Set active button state for our custom EN / Telugu / Kannada toggle.
+        // Set active button state for our custom EN / Hindi / Telugu / Kannada toggle.
         setLanguageButtonState(saved);
 
-        // Auto-apply Telugu/Kannada on every page load when preferred.
+        // Auto-apply Telugu/Kannada/Hindi on every page load when preferred.
         // This avoids Google's visible toolbar and works across navigation via localStorage.
         if (isTranslationLang(saved)) {
             removeGoogleTranslateChrome(true);

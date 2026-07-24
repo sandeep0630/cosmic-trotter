@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lord Venkateswara of Tirupati • CosmicTrotter</title>
+    <link rel="canonical" href="https://cosmictrotter.com/tirupati-venkateswara.html">
+
+    <meta name="description" content="Lord Venkateswara of Tirupati — sacred stories, seven hills, living pilgrimage. Illustrated storybook.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
+
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+            background: #0a0a0f;
+            color: #e0e7ff;
+        }
+
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .cosmic-bg {
+            background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 70%);
+        }
+
+        .section-header {
+            font-size: 2.6rem;
+            line-height: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .avatar-story {
+            scroll-margin-top: 5rem;
+            border-top: 1px solid rgba(251, 191, 36, 0.1);
+            padding-top: 2.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .avatar-story:first-of-type {
+            border-top: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .chapter {
+            margin-bottom: 2.5rem;
+        }
+
+        .chapter h3 {
+            color: #fcd34d;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+        }
+
+        .avatar-title-img {
+            display: block;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+        }
+
+        .chapter-img {
+            border-radius: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.45);
+            margin: 0.8rem 0;
+        }
+
+        .illustration-caption {
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.55);
+            font-style: italic;
+            text-align: center;
+            margin-top: -0.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .core-wisdom {
+            background: linear-gradient(145deg, rgba(251, 191, 36, 0.09), rgba(245, 158, 11, 0.035));
+            border: 1px solid rgba(251, 191, 36, 0.22);
+        }
+
+        .story-nav {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .story-nav a {
+            flex: 1;
+            text-align: center;
+            padding: 0.6rem 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(251, 191, 36, 0.25);
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .story-nav a:hover {
+            background: rgba(251, 191, 36, 0.08);
+            border-color: rgba(251, 191, 36, 0.45);
+        }
+
+        .reading-progress-shell {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 150;
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.08);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .reading-mode .reading-progress-shell {
+            opacity: 1;
+        }
+
+        #reading-progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #facc15, #22d3ee);
+            box-shadow: 0 0 14px rgba(250, 204, 21, 0.45);
+            transition: width 0.08s linear;
+        }
+
+        .reading-mode {
+            background: radial-gradient(circle at top, #15131f 0%, #07070b 58%);
+        }
+
+        .reading-mode .avatar-story {
+            max-width: 76ch;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 3rem;
+        }
+
+        .reading-mode .chapter {
+            margin-bottom: 3.2rem;
+            scroll-margin-top: 6.5rem;
+        }
+
+        .reading-mode .chapter h3 {
+            font-size: 1.45rem;
+            line-height: 1.35;
+            margin-bottom: 1rem;
+        }
+
+        .reading-mode .chapter p {
+            font-size: 1.08rem;
+            line-height: 1.95;
+            color: rgba(238, 242, 255, 0.9);
+            margin-bottom: 1.05rem;
+        }
+
+        .reading-mode .chapter-img,
+        .reading-mode .avatar-title-img {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #reading-mode-btn[aria-pressed="true"] {
+            border-color: rgba(251, 191, 36, 0.5);
+            background: rgba(251, 191, 36, 0.1);
+            color: #fde68a;
+        }
+
+        .chapter-heading {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .chapter-heading .heading-text {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .bookmark-toggle {
+            width: 2rem;
+            height: 2rem;
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            border: 1px solid rgba(251, 191, 36, 0.24);
+            background: rgba(15, 23, 42, 0.82);
+            color: rgba(255, 255, 255, 0.68);
+            box-shadow: 0 10px 26px -18px rgba(0, 0, 0, 0.75);
+            transition: transform 0.18s ease, opacity 0.18s ease, background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+        }
+
+        .bookmark-toggle:hover,
+        .bookmark-toggle:focus-visible,
+        .bookmark-toggle.is-saved {
+            border-color: rgba(251, 191, 36, 0.7);
+            background: rgba(251, 191, 36, 0.16);
+            color: #fcd34d;
+            transform: translateY(-1px);
+        }
+
+        .bookmark-toggle i {
+            pointer-events: none;
+        }
+
+        .chapter-bookmark {
+            margin-top: -0.25rem;
+        }
+
+        .bookmarkable-paragraph {
+            position: relative;
+            scroll-margin-top: 6.25rem;
+        }
+
+        .bookmarkable-paragraph.is-bookmarked {
+            background: linear-gradient(90deg, rgba(251, 191, 36, 0.12), rgba(251, 191, 36, 0.025));
+            box-shadow: -3px 0 0 rgba(251, 191, 36, 0.65);
+        }
+
+        .para-bookmark {
+            position: absolute;
+            top: 0.12rem;
+            left: -2.75rem;
+            opacity: 0;
+            transform: translateX(0.35rem);
+        }
+
+        .bookmarkable-paragraph:hover .para-bookmark,
+        .bookmarkable-paragraph:focus-within .para-bookmark,
+        .reading-mode .para-bookmark,
+        .para-bookmark.is-saved {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .bookmark-panel-card {
+            width: min(46rem, calc(100vw - 1.5rem));
+            max-height: min(78vh, 44rem);
+        }
+
+        .bookmark-item {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        @media (max-width: 768px) {
+            .chapter-heading {
+                gap: 0.5rem;
+            }
+
+            .para-bookmark {
+                position: static;
+                float: right;
+                margin: 0.1rem 0 0.35rem 0.65rem;
+                opacity: 0.76;
+                transform: none;
+            }
+
+            .reading-mode .chapter p {
+                font-size: 1.02rem;
+                line-height: 1.85;
+            }
+        }
+
+        .temp-highlight {
+            animation: gentleHighlight 2.4s ease forwards;
+        }
+
+        @keyframes gentleHighlight {
+            0% { background-color: rgba(251, 191, 36, 0.18); }
+            100% { background-color: transparent; }
+        }
+
+        .avatar-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 0.6rem;
+        }
+
+        .avatar-chip {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(251, 191, 36, 0.15);
+            transition: all 0.25s ease;
+            padding: 0.5rem 0.65rem;
+            border-radius: 0.6rem;
+            font-size: 0.85rem;
+        }
+
+        .avatar-chip:hover {
+            border-color: rgba(251, 191, 36, 0.4);
+            background: rgba(251, 191, 36, 0.06);
+        }
+
+        .dash-top-button {
+            position: fixed;
+            right: 1.25rem;
+            bottom: 5.35rem;
+            z-index: 79;
+            width: 3rem;
+            height: 3rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            border: 1px solid rgba(251, 191, 36, 0.28);
+            background: rgba(15, 23, 42, 0.9);
+            color: #fde68a;
+            box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(0.5rem);
+            transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .dash-top-button.is-visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .dash-top-button:hover,
+        .dash-top-button:focus-visible {
+            background: rgba(251, 191, 36, 0.16);
+            border-color: rgba(251, 191, 36, 0.65);
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 640px) {
+            .dash-top-button {
+                right: 1rem;
+                bottom: 5rem;
+                width: 2.75rem;
+                height: 2.75rem;
+            }
+        }
+
+        .source-note {
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.5);
+            border-left: 2px solid rgba(251, 191, 36, 0.35);
+            padding-left: 0.75rem;
+            margin: 0.75rem 0 1rem;
+        }
+    </style>
+    <script src="theme-toggle.js?v=20260616-light-5"></script>
+    <script src="site-nav.js?v=20260724-lang-hi"></script>
+</head>
+<body class="cosmic-bg" data-krishna-context="Tirupati Venkateswara storybook. Offer dharma guidance for seekers and pilgrims when natural.">
+    <div class="reading-progress-shell" aria-hidden="true">
+        <div id="reading-progress-bar"></div>
+    </div>
+    <button id="dash-top-button" class="dash-top-button notranslate" type="button" aria-label="Back to top" title="Back to top" translate="no">
+        <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <!-- Hero -->
+    <div class="max-w-5xl mx-auto px-6 pt-14 pb-10 text-center">
+        <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-amber-400/30 bg-amber-400/10 mb-5">
+            <i class="fa-solid fa-om text-amber-400"></i>
+            <span class="text-xs uppercase tracking-[2px] text-amber-400 font-medium">Sacred Hills &amp; Living Pilgrimage</span>
+        </div>
+        <h1 class="section-header mb-4">Lord Venkateswara of Tirupati</h1>
+        <p class="text-xl text-white/75 max-w-3xl mx-auto">తిరుమల వేంకటేశ్వరుడు — who he is, why tradition says he stays on the hill, how pilgrimage lives today.</p>
+        <p class="mt-3 text-sm text-amber-200/80 max-w-2xl mx-auto">తెలుగు సారాంశం: సప్తగిరిపై వేంకటేశ్వర సన్నిధి — కథ, కొండ, యాత్ర, గోవింద నామ స్మరణ.</p>
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-4">
+            <a href="ancient.html" class="inline-flex items-center gap-x-2 text-sm text-amber-300 hover:text-amber-200">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Back to Ancient Wisdom</span>
+            </a>
+            <a href="puri-jaganath.html" class="inline-flex items-center gap-x-2 text-sm text-white/50 hover:text-amber-200">
+                <span>Sister: Jagannath of Puri</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="hanuman.html" class="inline-flex items-center gap-x-2 text-sm text-white/50 hover:text-amber-200">
+                <span>Hanuman</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Quick Part Navigator -->
+    <div class="max-w-6xl mx-auto px-6 pb-8">
+        <div class="text-xs uppercase tracking-widest text-amber-400 mb-2">Jump to any Chapter</div>
+        <div class="avatar-selector" id="quick-nav"></div>
+    </div>
+
+    <!-- Reading tools -->
+    <div class="max-w-5xl mx-auto px-6">
+        <div class="flex items-center justify-between mb-5 border-b border-white/10 pb-3">
+            <div class="text-sm text-white/60">Storybook journey • EN + తెలుగు • Sources in References</div>
+            <div class="flex gap-x-2">
+                <button id="reading-mode-btn"
+                        class="px-4 py-1.5 text-sm rounded-xl border border-white/20 hover:bg-white/5 flex items-center gap-x-2 transition-colors"
+                        aria-pressed="false"
+                        title="Toggle reading mode">
+                    <i class="fa-solid fa-book"></i>
+                    <span class="hidden sm:inline">Reading mode</span>
+                </button>
+                <button id="bookmarks-btn"
+                        class="px-4 py-1.5 text-sm rounded-xl border border-white/20 hover:bg-white/5 flex items-center gap-x-2 transition-colors"
+                        title="Open saved places"
+                        aria-label="Open saved places">
+                    <i class="fa-solid fa-bookmark"></i>
+                    <span class="hidden sm:inline">My places</span>
+                    <span id="bookmark-count" class="text-[10px] px-1.5 rounded bg-white/10">0</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-6 pb-16">
+
+        <section id="part-who" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">1</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Who Is Lord Venkateswara of Tirupati?</h2>
+                    <div class="text-amber-300/90 text-sm">తిరుమల వేంకటేశ్వరుడు • The Lord of the Seven Hills</div>
+                </div>
+            </div>
+            <img src="ancient-wisdom/images/tirupati-title.jpg?v=20260724" alt="Sacred hills and temple atmosphere of Tirumala — mythic painting" class="avatar-title-img w-full max-w-4xl mx-auto my-6 rounded-2xl border border-white/10 shadow-2xl shadow-black/40">
+            <p class="illustration-caption">Tirumala — where the mountain itself becomes a doorway of devotion.</p>
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Names of nearness</h3>
+                    <p>On the eastern edge of the Deccan plateau rise the <strong>Seshachalam</strong> hills. Atop them stands one of the most visited sacred centers on earth: the temple of <strong>Śrī Venkateswara</strong> at Tirumala, near Tirupati in present-day Andhra Pradesh. Devotees call him <strong>Balaji</strong>, <strong>Srinivasa</strong>, <strong>Govinda</strong>, <strong>Venkataramana</strong> — names of tenderness as much as of majesty.</p>
+                    <p>He is Vishnu as the Lord who dwells on the hill for the sake of beings in a difficult age. In living devotion he is not a museum statue. He is the one who receives hair offerings, vowed coins, silent tears, and the endless river of pilgrims who climb, ride, wait, sing, and return home with a name on their lips: <em>Govinda</em>.</p>
+                    <p class="source-note">Living tradition: Tirumala Tirupati Devasthanams (TTD) administers the temple; pilgrimage culture is continuous and public.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Why this journey is told as story</h3>
+                    <p>To approach Venkateswara is to walk between layers: puranic and local sacred story, medieval temple history, and the astonishing scale of modern pilgrimage. This page tells those layers as continuous narrative — not as a tourist checklist, not as invented secret doctrine. Where history speaks of dynasties and inscriptions, it will be labeled. Where tradition speaks of the Lord’s decision to stay on the hill, it will be honored as living story.</p>
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• The mountain is part of the theophany — place matters.</li>
+                    <li>• Many names, one nearness: Govinda as accessible grace.</li>
+                    <li>• Pilgrimage is a story the body tells with effort.</li>
+                    <li>• Tradition and history can share one journey without confusion.</li>
+                </ul>
+            </div>
+            <div class="story-nav"><a href="#part-story">Next: Sacred Stories →</a></div>
+        </section>
+
+        <section id="part-story" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">2</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Sacred Stories of Srinivasa</h2>
+                    <div class="text-amber-300/90 text-sm">శ్రీనివాస కథ • Why the Lord remains on the hill</div>
+                </div>
+            </div>
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>The Lord who stayed for Kali Yuga</h3>
+                    <img src="ancient-wisdom/images/tirupati-chapter-01-hills.jpg?v=20260724" alt="Mythic seven hills under golden light" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">Seshachalam — the serpent-hill remembered as sacred body of place.</p>
+                    <p>In widely told puranic and local sacred narratives, Vishnu comes to the earth and takes abode on the Venkata hill so that beings of the present age may still find refuge. The stories of Srinivasa, the princess Padmavati, the trials of divine marriage, and the Lord’s debt to Kubera are recited in many Telugu and South Indian households as living mahatmya — not as dry footnotes.</p>
+                    <p>Recensions differ in sequence and emphasis. The shared heart is this: the Lord is not only transcendent; he is willing to be near, even to accept the language of human debt and vow, so that love can have a form to approach.</p>
+                    <p class="source-note">Traditional layer: Venkatachala / Srinivasa mahatmya strands and popular Telugu retellings; details vary by source.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Padmavati and the vow of love</h3>
+                    <p>The story of Srinivasa and Padmavati is told as romance and theology at once: divine longing that takes the shape of human courtship, obstacles, and finally a wedding that becomes festival. For devotees, the tale explains not gossip about gods but the intimacy of a Lord who understands attachment, promise, and the cost of love.</p>
+                    <p>In many popular tellings, the path to the wedding includes the language of wealth, debt, and promise — including the widely recited theme of the Lord’s obligation to Kubera for the expenses of the divine marriage. Whether one treats every detail as literal cosmology or as sacred poetry, the moral pattern is clear: even the Infinite is willing to enter the economy of human vow so that love can have a public form. Festivals that remember the wedding keep that intimacy alive year after year.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Why the Lord remains on the hill</h3>
+                    <p>Ask a pilgrim why Tirumala matters and you may hear a simple answer: because He is still there. Sacred narrative explains the “still” as a decision of compassion for beings of a hard age — an age of distraction, speed, and half-kept promises. The mountain becomes a stable address for longing. You can be far away and still turn the mind toward the hill; you can be in the queue and still feel the same name rise in the throat: Govinda.</p>
+                    <p>That stability is not an excuse for passivity. In living devotion, darshan is meant to send you back into ordinary life with a quieter ego and a stronger vow. The story of the hill is incomplete if it ends only in tourism photographs. It ends, if it ends at all, in how you treat the next person who waits beside you.</p>
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Sacred story explains nearness, not only power.</li>
+                    <li>• Vows in myth train the meaning of vows in life.</li>
+                    <li>• Multiple tellings can share one devotion.</li>
+                    <li>• Kali Yuga spirituality seeks accessible grace.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-who">← Who</a>
+                <a href="#part-hills">Next: Seven Hills →</a>
+            </div>
+        </section>
+
+        <section id="part-hills" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">3</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">The Seven Hills and the Climb</h2>
+                    <div class="text-amber-300/90 text-sm">సప్తగిరి • Body, effort, and darshan</div>
+                </div>
+            </div>
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Saptagiri — seven as sacred map</h3>
+                    <p>Tradition names the hills as a sevenfold sacred body — Seshachalam remembered in devotion as connected with the serpent of Vishnu. Pilgrims still speak of the climb as more than transport. Steps, breath, and waiting are themselves liturgy. Modern roads and transport exist; the older imagination of effort remains.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Hair, vow, and offering</h3>
+                    <img src="ancient-wisdom/images/tirupati-chapter-02-offering.jpg?v=20260724" alt="Symbolic sacred offering atmosphere at a hill temple" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">Offering — the outer sign of an inner vow.</p>
+                    <p>Among the most visible practices of Tirumala is the offering of hair — a public humility that says: beauty and ego are not the final possession. Alongside it flow endless vowed gifts, laddu prasadam famous across India, and the queue that has become its own social epic. Living niti here is massive, organized, and emotionally intimate at once.</p>
+                    <p class="source-note">Living tradition: public pilgrimage practices administered under TTD; customs evolve with administration while core devotion persists.</p>
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Effort can be prayer without words.</li>
+                    <li>• Public humility is a spiritual technology.</li>
+                    <li>• Prasadam is theology you can taste.</li>
+                    <li>• Modern logistics serve ancient longing.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-story">← Stories</a>
+                <a href="#part-temple">Next: Temple &amp; Kings →</a>
+            </div>
+        </section>
+
+        <section id="part-temple" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">4</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Temple, Kings, and Endurance</h2>
+                    <div class="text-amber-300/90 text-sm">చరిత్ర • Stone memory of devotion</div>
+                </div>
+            </div>
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Historical layer — patronage and growth</h3>
+                    <p>Historians and epigraphists read Tirumala’s growth through centuries of South Indian patronage — including well-known associations with Vijayanagara rulers such as Krishnadevaraya in popular historical memory, alongside earlier and later gifts recorded in inscriptions and temple records. Exact phase-by-phase dating belongs to specialist literature; the broad truth for a pilgrim’s story is endurance: dynasties change, the hill remains a magnet of Vishnu-bhakti.</p>
+                    <p class="source-note">Historical layer: temple inscriptions and South Indian political history; avoid fake precise “founded in year X BCE” claims without evidence.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Architecture as welcome</h3>
+                    <p>Gopurams, mandapas, and the inner sanctum form a path of progressive nearness. Even those who never study Vastu feel the pedagogy: outer noise, inner hush, then the glance of darshan. Gold and stone are not the point; they are the language a civilization used to say “the Infinite may be approached.”</p>
+                    <p>Between outer courts and the sanctum, a pilgrim’s senses are slowly tuned: bells, sandal, crowd-song, then a brief face-to-face with silence inside noise. That sequence is itself a teaching. You are not meant to arrive at the Holy with the same scattered mind you carried in traffic. The path is the first half of the prayer.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Service as kingdom</h3>
+                    <p>Temple histories across South India often remember kings not only as conquerors but as servants who gift land, lamps, and protection. Whether a particular gift is recorded for a given century is a question for epigraphy. The spiritual pattern remains: power is legitimated when it feeds the hungry, protects the shrine, and steps back before the Lord. Modern administration continues a different form of the same instinct — free meals, medical camps, crowd care — imperfectly, humanly, and at enormous scale.</p>
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• History explains growth; devotion explains return.</li>
+                    <li>• Architecture teaches before words do.</li>
+                    <li>• Empires end; pilgrimage cultures can outlast them.</li>
+                    <li>• Labels keep story and scholarship honest.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-hills">← Hills</a>
+                <a href="#part-living">Next: Living Pilgrimage →</a>
+            </div>
+        </section>
+
+        <section id="part-living" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">5</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Living Pilgrimage</h2>
+                    <div class="text-amber-300/90 text-sm">యాత్ర • Queues, song, and return</div>
+                </div>
+            </div>
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>The modern river of seekers</h3>
+                    <img src="ancient-wisdom/images/tirupati-chapter-03-pilgrims.jpg?v=20260724" alt="Pilgrims approaching a sacred hill temple at dawn" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">Pilgrimage — millions of private stories under one public mountain.</p>
+                    <p>Today Tirumala is a feat of sacred logistics: bookings, tonsures, laddus, security, free meals, and the constant circulation of names. Critics see only crowd. Devotees see a civilization still able to organize around darshan. Both observations can be true. The spiritual question is whether your own visit — or your own distant prayer — becomes more honest because of this mountain’s existence.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Festivals and the year</h3>
+                    <p>Brahmotsavam and other festivals turn the hill into a theater of cosmic hospitality — processions, music, and the temporary intensity of a whole people remembering one Lord together. Local calendars and TTD announcements govern exact dates; the deep pattern is seasonal return.</p>
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Mass devotion can still be personally intimate.</li>
+                    <li>• Logistics are not the enemy of the sacred.</li>
+                    <li>• Festival time re-teaches belonging.</li>
+                    <li>• Return home is part of the yātrā.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-temple">← Temple</a>
+                <a href="#part-today">Next: Belief Today →</a>
+            </div>
+        </section>
+
+        <section id="part-today" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">6</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">What Devotees Believe Today</h2>
+                    <div class="text-amber-300/90 text-sm">నమ్మకం • Trust in a difficult age</div>
+                </div>
+            </div>
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Govinda as answer and question</h3>
+                    <p>For millions, Venkateswara is the Lord who hears when other doors feel closed. For others he is cultural inheritance, family memory, or the taste of prasadam after a long journey. CosmicTrotter does not force one theology. It only notes the living fact: in a restless world, a hill still gathers human longing into a single syllable of call and response — <em>Govinda</em>.</p>
+                </div>
+                <div class="chapter">
+                    <h3>How to walk this story well</h3>
+                    <p>If you go as a pilgrim, go with patience and respect for those who wait beside you. If you go as a reader only, still treat the stories as someone else’s heart-home. Curiosity without contempt is itself a dharma.</p>
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Living belief is diverse; respect is non-negotiable.</li>
+                    <li>• Call-and-response devotion trains the heart’s attention.</li>
+                    <li>• Tourism and pilgrimage can share a road — intention differs.</li>
+                    <li>• The next step is always ethical, not only geographical.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-living">← Pilgrimage</a>
+                <a href="#part-refs">Next: References →</a>
+            </div>
+        </section>
+
+        <section id="part-refs" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">7</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">References &amp; Honesty Notes</h2>
+                    <div class="text-amber-300/90 text-sm">మూలాలు</div>
+                </div>
+            </div>
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>How to read this page</h3>
+                    <p>This is a continuous storybook for seekers: traditional Srinivasa narratives, living Tirumala pilgrimage culture, and a cautious historical frame. It is not a critical edition of every mahatmya, nor a complete epigraphic survey.</p>
+                    <ol class="list-decimal pl-5 space-y-2 text-sm text-white/80 mt-4">
+                        <li>Tirumala Tirupati Devasthanams (TTD) — official temple administration and pilgrim information.</li>
+                        <li>Venkatachala / Srinivasa mahatmya and popular Telugu retellings (traditional layer).</li>
+                        <li>South Indian temple epigraphy and Vijayanagara-period patronage studies (historical layer).</li>
+                        <li>CosmicTrotter sister journeys: <a class="text-amber-300 hover:underline" href="puri-jaganath.html">Jagannath of Puri</a>, <a class="text-amber-300 hover:underline" href="hanuman.html">Hanuman</a>, <a class="text-amber-300 hover:underline" href="dashavatara.html">Dashavatara</a>.</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="story-nav">
+                <a href="#part-today">← Today</a>
+                <a href="#part-who">Back to start ↑</a>
+            </div>
+        </section>
+    </div>
+
+    <div class="max-w-3xl mx-auto px-6 pb-8 text-center text-sm text-white/45">
+        Sister journeys:
+        <a href="hanuman.html" class="text-[#00f3ff] hover:underline mx-1">Hanuman</a> ·
+        <a href="puri-jaganath.html" class="text-[#00f3ff] hover:underline mx-1">Jagannath</a> ·
+        <a href="dashavatara.html" class="text-[#00f3ff] hover:underline mx-1">Dashavatara</a>
+    </div>
+    <script>
+      document.body.setAttribute('data-cosmic-cta', JSON.stringify({
+        pillar: 'ancient',
+        related: [
+          { href: 'hanuman.html', label: 'Hanuman' },
+          { href: 'puri-jaganath.html', label: 'Jagannath of Puri' },
+          { href: 'gita-verse.html', label: 'Gita verse today' }
+        ]
+      }));
+    </script>
+    <script src="cosmic-cta.js?v=20260723-cta-1"></script>
+
+<script>
+        const parts = [
+            { id: "who", num: 1, name: "Who Is Venkateswara (వేంకటేశ్వర)" },
+            { id: "story", num: 2, name: "Sacred Stories (కథలు)" },
+            { id: "hills", num: 3, name: "Seven Hills (సప్తగిరి)" },
+            { id: "temple", num: 4, name: "Temple & Kings (ఆలయం)" },
+            { id: "living", num: 5, name: "Living Pilgrimage (యాత్ర)" },
+            { id: "today", num: 6, name: "Belief Today (నేడు)" },
+            { id: "refs", num: 7, name: "References (మూలాలు)" }
+        ];
+
+
+
+        function renderQuickNav() {
+            const container = document.getElementById('quick-nav');
+            if (!container) return;
+            container.innerHTML = parts.map(a =>
+                `<button onclick="document.getElementById('part-${a.id}').scrollIntoView({behavior:'smooth', block:'start'})" class="avatar-chip text-left">${a.num}. ${a.name}</button>`
+            ).join('');
+        }
+
+        const READING_MODE_KEY = 'cosmic_tirupati_reading_mode';
+        const BOOKMARK_KEY = 'cosmic_tirupati_bookmarks';
+        let readingMode = false;
+        let progressFrame = null;
+
+        function escapeHtml(value) {
+            return String(value || '').replace(/[&<>"']/g, ch => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            }[ch]));
+        }
+
+        function compactText(value, limit = 180) {
+            const text = String(value || '').replace(/\s+/g, ' ').trim();
+            return text.length > limit ? `${text.slice(0, limit - 1).trim()}...` : text;
+        }
+
+        function bookmarkKey(type, targetId) {
+            return `${type}:${targetId}`;
+        }
+
+        function normalizeBookmark(bookmark) {
+            if (!bookmark) return null;
+            const targetId = bookmark.targetId || bookmark.id;
+            if (!targetId) return null;
+            const type = bookmark.type || (targetId.startsWith('para-') ? 'paragraph' : targetId.startsWith('chapter-') ? 'chapter' : 'section');
+            return {
+                key: bookmark.key || bookmarkKey(type, targetId),
+                type,
+                targetId,
+                title: bookmark.title || 'Saved place',
+                avatar: bookmark.avatar || '',
+                chapter: bookmark.chapter || '',
+                excerpt: bookmark.excerpt || '',
+                ts: bookmark.ts || Date.now()
+            };
+        }
+
+        function getBookmarks() {
+            try {
+                const parsed = JSON.parse(localStorage.getItem(BOOKMARK_KEY) || '[]');
+                return Array.isArray(parsed) ? parsed.map(normalizeBookmark).filter(Boolean) : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveBookmarks(list) {
+            const seen = new Set();
+            const normalized = [];
+            list.map(normalizeBookmark).filter(Boolean).forEach(bookmark => {
+                if (seen.has(bookmark.key)) return;
+                seen.add(bookmark.key);
+                normalized.push(bookmark);
+            });
+            localStorage.setItem(BOOKMARK_KEY, JSON.stringify(normalized.slice(0, 200)));
+            updateBookmarkCount(normalized);
+            syncBookmarkButtons(normalized);
+        }
+
+        function updateBookmarkCount(list = getBookmarks()) {
+            const el = document.getElementById('bookmark-count');
+            if (el) el.textContent = list.length;
+        }
+
+        function showBookmarkToast(message) {
+            const existing = document.querySelector('[data-bookmark-toast]');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.dataset.bookmarkToast = 'true';
+            toast.className = 'fixed left-1/2 bottom-5 z-[180] -translate-x-1/2 rounded-full border border-amber-300/35 bg-[#111827]/95 px-4 py-2 text-sm text-amber-100 shadow-2xl shadow-black/40';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 1600);
+        }
+
+        function createBookmarkButton(type, targetId) {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = `bookmark-toggle ${type === 'chapter' ? 'chapter-bookmark' : 'para-bookmark'}`;
+            button.dataset.bookmarkType = type;
+            button.dataset.bookmarkTarget = targetId;
+            button.setAttribute('aria-label', `Bookmark ${type}`);
+            button.setAttribute('title', `Bookmark ${type}`);
+            button.setAttribute('aria-pressed', 'false');
+            button.innerHTML = '<i class="fa-regular fa-bookmark"></i>';
+            return button;
+        }
+
+        function sectionTitle(section) {
+            const title = section ? section.querySelector('h2') : null;
+            return title ? compactText(title.textContent, 90) : 'Venkateswara of Tirupati';
+        }
+
+        function prepareBookmarkTargets() {
+            document.querySelectorAll('.avatar-story').forEach(section => {
+                const sectionSlug = (section.id || 'part-story').replace(/^part-/, '');
+                const avatar = sectionTitle(section);
+
+                section.querySelectorAll('.chapter').forEach((chapter, chapterIndex) => {
+                    if (!chapter.id) chapter.id = `chapter-${sectionSlug}-${chapterIndex + 1}`;
+
+                    const heading = chapter.querySelector('h3');
+                    const rawChapterTitle = heading ? compactText(heading.textContent, 120) : `Chapter ${chapterIndex + 1}`;
+                    chapter.dataset.bookmarkAvatar = avatar;
+                    chapter.dataset.bookmarkTitle = rawChapterTitle;
+
+                    if (heading && !heading.querySelector('.chapter-bookmark')) {
+                        heading.classList.add('chapter-heading');
+                        heading.textContent = '';
+                        const headingText = document.createElement('span');
+                        headingText.className = 'heading-text';
+                        headingText.textContent = rawChapterTitle;
+                        heading.appendChild(headingText);
+                        heading.appendChild(createBookmarkButton('chapter', chapter.id));
+                    }
+
+                    Array.from(chapter.children)
+                        .filter(child => child.tagName === 'P')
+                        .forEach((paragraph, paragraphIndex) => {
+                            if (!paragraph.id) paragraph.id = `para-${sectionSlug}-${chapterIndex + 1}-${paragraphIndex + 1}`;
+                            paragraph.classList.add('bookmarkable-paragraph');
+                            paragraph.dataset.bookmarkAvatar = avatar;
+                            paragraph.dataset.bookmarkChapter = rawChapterTitle;
+                            paragraph.dataset.bookmarkExcerpt = compactText(paragraph.textContent, 220);
+                            if (!paragraph.querySelector('.para-bookmark')) {
+                                paragraph.prepend(createBookmarkButton('paragraph', paragraph.id));
+                            }
+                        });
+                });
+            });
+            syncBookmarkButtons();
+        }
+
+        function buildBookmark(targetId, type) {
+            const target = document.getElementById(targetId);
+            if (!target) return null;
+            const chapter = type === 'chapter' ? target : target.closest('.chapter');
+            const section = target.closest('.avatar-story');
+            const avatar = target.dataset.bookmarkAvatar || (chapter && chapter.dataset.bookmarkAvatar) || sectionTitle(section);
+            const chapterTitle = type === 'chapter'
+                ? (target.dataset.bookmarkTitle || compactText(target.querySelector('h3')?.textContent, 120))
+                : (target.dataset.bookmarkChapter || chapter?.dataset.bookmarkTitle || 'Chapter');
+            const excerpt = type === 'paragraph' ? compactText(target.dataset.bookmarkExcerpt || target.textContent, 220) : '';
+            return {
+                key: bookmarkKey(type, targetId),
+                type,
+                targetId,
+                title: type === 'chapter' ? chapterTitle : 'Paragraph note',
+                avatar,
+                chapter: chapterTitle,
+                excerpt,
+                ts: Date.now()
+            };
+        }
+
+        function toggleBookmark(targetId, type) {
+            const key = bookmarkKey(type, targetId);
+            const bookmarks = getBookmarks();
+            const existingIndex = bookmarks.findIndex(bookmark => bookmark.key === key);
+            if (existingIndex >= 0) {
+                bookmarks.splice(existingIndex, 1);
+                saveBookmarks(bookmarks);
+                showBookmarkToast('Bookmark removed');
+                return;
+            }
+            const bookmark = buildBookmark(targetId, type);
+            if (!bookmark) return;
+            saveBookmarks([bookmark, ...bookmarks]);
+            showBookmarkToast(type === 'chapter' ? 'Chapter bookmarked' : 'Paragraph bookmarked');
+        }
+
+        function syncBookmarkButtons(list = getBookmarks()) {
+            const saved = new Set(list.map(bookmark => bookmark.key));
+            document.querySelectorAll('[data-bookmark-target]').forEach(button => {
+                const key = bookmarkKey(button.dataset.bookmarkType, button.dataset.bookmarkTarget);
+                const isSaved = saved.has(key);
+                button.classList.toggle('is-saved', isSaved);
+                button.setAttribute('aria-pressed', isSaved ? 'true' : 'false');
+                button.setAttribute('title', isSaved ? `Remove ${button.dataset.bookmarkType} bookmark` : `Bookmark ${button.dataset.bookmarkType}`);
+                const icon = button.querySelector('i');
+                if (icon) icon.className = isSaved ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark';
+            });
+            document.querySelectorAll('.bookmarkable-paragraph').forEach(paragraph => {
+                paragraph.classList.toggle('is-bookmarked', saved.has(bookmarkKey('paragraph', paragraph.id)));
+            });
+        }
+
+        function showBookmarks() {
+            const bookmarks = getBookmarks();
+            const panel = document.createElement('div');
+            panel.className = 'fixed inset-0 bg-black/70 z-[160] flex items-end md:items-center justify-center p-0 md:p-4';
+            panel.innerHTML = `
+                <div class="absolute inset-0" data-close-bookmarks></div>
+                <div class="bookmark-panel-card relative bg-[#111827] border border-white/10 rounded-t-2xl md:rounded-2xl p-5 text-sm overflow-hidden shadow-2xl shadow-black/50">
+                    <div class="flex items-start justify-between gap-4 border-b border-white/10 pb-4">
+                        <div>
+                            <div class="font-semibold text-white">My places</div>
+                            <div class="text-xs text-white/50">${bookmarks.length} saved</div>
+                        </div>
+                        <button class="bookmark-toggle" data-close-bookmarks aria-label="Close bookmarks" title="Close">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="mt-4 max-h-[60vh] space-y-2 overflow-auto pr-1">
+                    ${bookmarks.length === 0 ? '<div class="text-white/60 py-8 text-center">No saved chapters or paragraphs yet.</div>' :
+                    bookmarks.map((b, i) => `
+                        <div class="bookmark-item rounded-xl p-3">
+                            <div class="flex items-start justify-between gap-3">
+                                <div class="min-w-0">
+                                    <div class="mb-1 flex items-center gap-2">
+                                        <span class="rounded-full border border-amber-300/25 bg-amber-300/10 px-2 py-0.5 text-[10px] uppercase tracking-wide text-amber-200">${b.type === 'paragraph' ? 'Paragraph' : b.type === 'chapter' ? 'Chapter' : 'Place'}</span>
+                                        <span class="text-[11px] text-white/45">${new Date(b.ts).toLocaleDateString()}</span>
+                                    </div>
+                                    <div class="truncate text-white/90">${escapeHtml(b.avatar)}</div>
+                                    <div class="text-xs text-amber-200/80">${escapeHtml(b.chapter || b.title)}</div>
+                                    ${b.excerpt ? `<div class="mt-1 line-clamp-2 text-xs leading-relaxed text-white/55">${escapeHtml(b.excerpt)}</div>` : ''}
+                                </div>
+                                <div class="flex shrink-0 gap-1">
+                                    <button class="bookmark-toggle" data-jump="${i}" aria-label="Go to bookmark" title="Go to bookmark"><i class="fa-solid fa-arrow-right"></i></button>
+                                    <button class="bookmark-toggle" data-remove="${i}" aria-label="Remove bookmark" title="Remove bookmark"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                    </div>
+                    ${bookmarks.length ? '<button class="mt-4 w-full rounded-xl border border-white/10 px-3 py-2 text-xs text-white/60 hover:bg-white/5 hover:text-white" data-clear-bookmarks>Clear all</button>' : ''}
+                </div>
+            `;
+            document.body.appendChild(panel);
+            panel.addEventListener('click', event => {
+                const close = event.target.closest('[data-close-bookmarks]');
+                const jump = event.target.closest('[data-jump]');
+                const remove = event.target.closest('[data-remove]');
+                const clear = event.target.closest('[data-clear-bookmarks]');
+                if (close) { panel.remove(); return; }
+                if (jump) {
+                    const bookmark = bookmarks[parseInt(jump.dataset.jump, 10)];
+                    panel.remove();
+                    scrollToBookmark(bookmark);
+                    return;
+                }
+                if (remove) {
+                    const idx = parseInt(remove.dataset.remove, 10);
+                    bookmarks.splice(idx, 1);
+                    saveBookmarks(bookmarks);
+                    panel.remove();
+                    showBookmarks();
+                    return;
+                }
+                if (clear) {
+                    saveBookmarks([]);
+                    panel.remove();
+                }
+            });
+        }
+
+        function scrollToBookmark(bookmark) {
+            const targetId = bookmark && (bookmark.targetId || bookmark.id);
+            const target = targetId ? document.getElementById(targetId) : null;
+            if (!target) {
+                showBookmarkToast('Saved place not found');
+                return;
+            }
+            const top = target.getBoundingClientRect().top + window.scrollY - 88;
+            window.scrollTo({ top, behavior: 'smooth' });
+            history.replaceState(null, '', `#${target.id}`);
+            setTimeout(() => {
+                target.classList.add('temp-highlight');
+                setTimeout(() => target.classList.remove('temp-highlight'), 2400);
+            }, 500);
+        }
+
+        function applyReadingMode(enabled, persist = true) {
+            readingMode = enabled;
+            document.body.classList.toggle('reading-mode', enabled);
+            const button = document.getElementById('reading-mode-btn');
+            if (button) {
+                button.setAttribute('aria-pressed', enabled ? 'true' : 'false');
+                button.innerHTML = enabled
+                    ? '<i class="fa-solid fa-times"></i> <span class="hidden sm:inline">Exit reading mode</span>'
+                    : '<i class="fa-solid fa-book"></i> <span class="hidden sm:inline">Reading mode</span>';
+            }
+            if (persist) localStorage.setItem(READING_MODE_KEY, enabled ? 'true' : 'false');
+            queueReadingProgress();
+        }
+
+        function toggleReadingMode() {
+            applyReadingMode(!readingMode);
+        }
+
+        function updateReadingProgress() {
+            const bar = document.getElementById('reading-progress-bar');
+            if (!bar) return;
+            const doc = document.documentElement;
+            const maxScroll = Math.max(1, doc.scrollHeight - doc.clientHeight);
+            const progress = Math.min(100, Math.max(0, (window.scrollY / maxScroll) * 100));
+            bar.style.width = `${progress}%`;
+        }
+
+        function queueReadingProgress() {
+            if (progressFrame) return;
+            progressFrame = requestAnimationFrame(() => {
+                updateReadingProgress();
+                progressFrame = null;
+            });
+        }
+
+        function updateBackToTopButton() {
+            const button = document.getElementById('dash-top-button');
+            if (!button) return;
+            button.classList.toggle('is-visible', window.scrollY > 520);
+        }
+
+        function scrollPageToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+
+        function handleBookmarkClick(event) {
+            const button = event.target.closest('[data-bookmark-target]');
+            if (!button) return;
+            event.preventDefault();
+            event.stopPropagation();
+            toggleBookmark(button.dataset.bookmarkTarget, button.dataset.bookmarkType);
+        }
+
+        function initPage() {
+            renderQuickNav();
+            prepareBookmarkTargets();
+
+            const rmBtn = document.getElementById('reading-mode-btn');
+            if (rmBtn) rmBtn.addEventListener('click', toggleReadingMode);
+
+            const bmBtn = document.getElementById('bookmarks-btn');
+            if (bmBtn) bmBtn.addEventListener('click', showBookmarks);
+
+            const topBtn = document.getElementById('dash-top-button');
+            if (topBtn) topBtn.addEventListener('click', scrollPageToTop);
+
+            document.addEventListener('click', handleBookmarkClick);
+            window.addEventListener('scroll', queueReadingProgress, { passive: true });
+            window.addEventListener('scroll', updateBackToTopButton, { passive: true });
+            window.addEventListener('resize', queueReadingProgress);
+
+            updateBookmarkCount();
+            applyReadingMode(localStorage.getItem(READING_MODE_KEY) === 'true', false);
+            updateBackToTopButton();
+
+            document.addEventListener('keydown', (e) => {
+                const activeTag = document.activeElement ? document.activeElement.tagName : '';
+                if (e.key.toLowerCase() === 'r' && activeTag === 'BODY') {
+                    e.preventDefault();
+                    toggleReadingMode();
+                }
+            });
+
+            if (window.location.hash) {
+                setTimeout(() => {
+                    const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+                    if (target) {
+                        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 88, behavior: 'smooth' });
+                        target.classList.add('temp-highlight');
+                        setTimeout(() => target.classList.remove('temp-highlight'), 2400);
+                    }
+                }, 800);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+    <script src="story-community.js?v=20260722-community-5"></script>
+    <script src="ask-krishna-widget.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gita Verse of the Day • CosmicTrotter</title>
+    <link rel="canonical" href="https://cosmictrotter.com/gita-verse.html">
+    <meta name="description" content="A Bhagavad Gita verse each day — clear sense-rendering, living reflection, and a link into the full CosmicTrotter Gita storybook.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
+        body { font-family: 'Inter', system_ui, sans-serif; background: #0a0a0f; color: #e0e7ff; }
+        .font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 600; }
+        .cosmic-bg { background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 70%); }
+        .verse-card {
+            background: linear-gradient(145deg, rgba(251, 191, 36, 0.1), rgba(15, 23, 42, 0.85));
+            border: 1px solid rgba(251, 191, 36, 0.28);
+        }
+    </style>
+    <script src="theme-toggle.js?v=20260616-light-5"></script>
+    <script src="site-nav.js?v=20260724-lang-hi"></script>
+</head>
+<body class="cosmic-bg" data-krishna-context="User is reading Gita verse of the day. Offer practical dharma steps grounded in the verse context.">
+    <div class="max-w-2xl mx-auto px-6 pt-16 pb-8 text-center">
+        <div class="text-xs uppercase tracking-[3px] text-amber-300 mb-3">DAILY PRACTICE</div>
+        <h1 class="text-4xl font-bold tracking-tight mb-3">Gita Verse of the Day</h1>
+        <p class="text-white/55">One teaching to carry. Full chapter journey always open.</p>
+        <a href="bhagavad-gita.html" class="inline-flex mt-4 text-sm text-amber-300/90 hover:text-amber-200">Open full Bhagavad Gita storybook →</a>
+    </div>
+
+    <div class="max-w-2xl mx-auto px-6 pb-20">
+        <div id="verse-root" class="verse-card rounded-3xl p-8 sm:p-10"></div>
+        <div class="mt-6 flex flex-wrap justify-center gap-3 text-sm">
+            <button type="button" id="verse-prev" class="px-4 py-2 rounded-full border border-white/15 hover:bg-white/5">← Previous day</button>
+            <button type="button" id="verse-today" class="px-4 py-2 rounded-full border border-amber-400/40 text-amber-200 hover:bg-amber-400/10">Today</button>
+            <button type="button" id="verse-next" class="px-4 py-2 rounded-full border border-white/15 hover:bg-white/5">Next day →</button>
+        </div>
+        <p class="text-center text-xs text-white/35 mt-6">Sense-renderings for reflection — not a substitute for a full translation. See References on the Gita storybook.</p>
+    </div>
+
+    <script>
+        // Landmark verses — clear English sense for daily practice (not word-for-word critical edition)
+        const VERSES = [
+            { ref: "BG 2.47", sense: "You have a right to action alone — never to its fruits alone. Do not make the fruit the motive of action; yet do not cling to inaction.", live: "Do the next honest task without bargaining with the universe for a guaranteed outcome.", chapter: "bhagavad-gita.html#part-ch02" },
+            { ref: "BG 2.48", sense: "Established in yoga, perform actions, abandoning attachment, even-minded in success and failure. Evenness of mind is called yoga.", live: "When results swing, return to the quality of attention you brought to the act.", chapter: "bhagavad-gita.html#part-ch02" },
+            { ref: "BG 2.62–63", sense: "From dwelling on objects, attachment is born; from attachment, desire; from desire, anger; from anger, delusion — and memory and judgment fail.", live: "Notice the first loop: attention → craving. Interrupt early with a pause or a walk.", chapter: "bhagavad-gita.html#part-ch02" },
+            { ref: "BG 3.8", sense: "Perform your ordained action; action is better than inaction. Even the body’s journey cannot be maintained by total inaction.", live: "When stuck in rumination, choose one small responsible action.", chapter: "bhagavad-gita.html#part-ch03" },
+            { ref: "BG 3.19", sense: "Therefore, always perform action without attachment. By doing work without clinging, a person attains the highest.", live: "Finish something useful today without needing an audience.", chapter: "bhagavad-gita.html#part-ch03" },
+            { ref: "BG 4.7–8", sense: "Whenever dharma declines and adharma rises, the Divine appears age after age — to protect the good, restrain harm, and re-establish order.", live: "Protect one small pocket of fairness in your sphere today.", chapter: "bhagavad-gita.html#part-ch04" },
+            { ref: "BG 4.18", sense: "One who sees inaction in action, and action in inaction, is wise among humans — that one is a yogi, fulfilling all duties.", live: "Busy motion is not always action; stillness is not always laziness. Check intention.", chapter: "bhagavad-gita.html#part-ch04" },
+            { ref: "BG 5.10", sense: "Offering actions to the Divine, abandoning clinging, one is not stained by sin — as a lotus leaf is not stained by water.", live: "Do good work as offering, not as ego construction.", chapter: "bhagavad-gita.html#part-ch05" },
+            { ref: "BG 6.5", sense: "One should lift the self by the self, and not degrade the self. The self alone is the friend of the self, and the self alone the enemy.", live: "Speak to yourself as you would to a friend you respect.", chapter: "bhagavad-gita.html#part-ch06" },
+            { ref: "BG 6.6", sense: "For one who has conquered the mind, the mind is the best friend; for one who has not, the mind works like an enemy.", live: "Train attention for ten quiet minutes before the day claims you.", chapter: "bhagavad-gita.html#part-ch06" },
+            { ref: "BG 6.35", sense: "The mind is restless, no doubt — hard to restrain. Yet by practice and dispassion it is held, O Arjuna.", live: "Restlessness is expected. Practice is the answer, not self-hatred.", chapter: "bhagavad-gita.html#part-ch06" },
+            { ref: "BG 7.14", sense: "This divine māyā of mine, made of the qualities, is hard to cross. Those who take refuge in Me cross this illusion.", live: "When life feels like pure surface glitter, return to what is true and kind.", chapter: "bhagavad-gita.html#part-ch07" },
+            { ref: "BG 9.22", sense: "For those who worship Me thinking of nothing else, who are ever united — I carry what they lack and preserve what they have.", live: "Steady devotion is not a bargain; it is a relationship of trust.", chapter: "bhagavad-gita.html#part-ch09" },
+            { ref: "BG 9.26", sense: "A leaf, a flower, a fruit, water — whatever is offered with devotion, I accept from the devoted giver.", live: "Offer something small with full heart rather than something large with half a heart.", chapter: "bhagavad-gita.html#part-ch09" },
+            { ref: "BG 9.27", sense: "Whatever you do, whatever you eat, whatever you offer, give, or austerely practice — do that as an offering to Me.", live: "Turn ordinary tasks into dedicated service for one hour.", chapter: "bhagavad-gita.html#part-ch09" },
+            { ref: "BG 12.13–14", sense: "One who is without hatred toward any being, friendly and compassionate, free from possessiveness and ego, equal in pain and pleasure, forgiving — that devotee is dear to Me.", live: "Practice one concrete act of friendliness without scoring points.", chapter: "bhagavad-gita.html#part-ch12" },
+            { ref: "BG 16.1–3", sense: "Fearlessness, purity of heart, steadfastness in knowledge and yoga, charity, self-restraint, sacrifice, study, austerity, uprightness — these are gifts of a divine nature.", live: "Pick one divine quality and practice it without announcing it.", chapter: "bhagavad-gita.html#part-ch16" },
+            { ref: "BG 18.63", sense: "Thus knowledge more secret than secret has been declared. Reflect on it fully; then act as you choose.", live: "Teaching ends in freedom — you still must choose.", chapter: "bhagavad-gita.html#part-ch18" },
+            { ref: "BG 18.66", sense: "Abandon all dharmas and take refuge in Me alone. I will free you from all sins; do not grieve.", live: "When overwhelmed by rules and guilt, return to sincere refuge and start again.", chapter: "bhagavad-gita.html#part-ch18" },
+            { ref: "BG 2.14", sense: "Contacts of the senses bring cold and heat, pleasure and pain — they come and go; endure them, O Bharata.", live: "Name the sensation, remember it will pass, keep your next right step.", chapter: "bhagavad-gita.html#part-ch02" },
+            { ref: "BG 2.20", sense: "The self is not born, nor does it die; unborn, eternal, everlasting — it is not slain when the body is slain.", live: "Meet loss with gravity and with a larger horizon than panic allows.", chapter: "bhagavad-gita.html#part-ch02" }
+        ];
+
+        function dayIndex(offset = 0) {
+            const d = new Date();
+            d.setHours(12, 0, 0, 0);
+            d.setDate(d.getDate() + offset);
+            const start = new Date(Date.UTC(2024, 0, 1));
+            const days = Math.floor((d - start) / 86400000);
+            return ((days % VERSES.length) + VERSES.length) % VERSES.length;
+        }
+
+        let offset = 0;
+
+        function render() {
+            const v = VERSES[dayIndex(offset)];
+            const root = document.getElementById("verse-root");
+            const label = offset === 0 ? "Today" : offset === -1 ? "Yesterday" : offset === 1 ? "Tomorrow" : `Day offset ${offset}`;
+            root.innerHTML = `
+                <div class="text-xs uppercase tracking-[0.2em] text-amber-300/90 mb-4">${label} · ${v.ref}</div>
+                <p class="text-xl sm:text-2xl leading-relaxed text-white/95 mb-6">${v.sense}</p>
+                <div class="rounded-2xl bg-black/25 border border-white/10 p-4 mb-6">
+                    <div class="text-xs uppercase tracking-widest text-white/40 mb-2">Live it</div>
+                    <p class="text-white/80">${v.live}</p>
+                </div>
+                <a href="${v.chapter}" class="inline-flex items-center gap-2 text-amber-300 hover:text-amber-200 text-sm font-medium">
+                    Open in full Gita storybook <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+            `;
+            document.getElementById("verse-next").disabled = offset >= 0;
+            document.getElementById("verse-next").classList.toggle("opacity-40", offset >= 0);
+        }
+
+        document.getElementById("verse-prev").onclick = () => { offset -= 1; render(); };
+        document.getElementById("verse-next").onclick = () => { if (offset < 0) { offset += 1; render(); } };
+        document.getElementById("verse-today").onclick = () => { offset = 0; render(); };
+        render();
+    </script>
+    <script src="cosmic-cta.js?v=20260723-cta-1"></script>
+    <script src="ask-krishna-widget.js"></script>
+</body>
+</html>

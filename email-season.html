@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8-Week Cosmic Email Season • CosmicTrotter</title>
+    <link rel="canonical" href="https://cosmictrotter.com/email-season.html">
+    <meta name="description" content="Ready-to-send 8-week CosmicTrotter email season — subject lines, body copy, and deep links for Brevo or any ESP.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
+    <style>
+        body { font-family: Inter, system_ui, sans-serif; background: #0a0a0f; color: #e0e7ff; }
+        .cosmic-bg { background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 70%); }
+        .week {
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1.25rem;
+            background: rgba(15,23,42,0.6);
+            padding: 1.25rem 1.35rem;
+        }
+        .week h2 { color: #00f3ff; font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .week pre {
+            white-space: pre-wrap;
+            font-family: ui-monospace, monospace;
+            font-size: 0.82rem;
+            line-height: 1.55;
+            color: rgba(224,231,255,0.88);
+            background: rgba(0,0,0,0.25);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-top: 0.75rem;
+        }
+    </style>
+    <script src="theme-toggle.js?v=20260616-light-5"></script>
+    <script src="site-nav.js?v=20260724-lang-hi"></script>
+</head>
+<body class="cosmic-bg">
+    <div class="max-w-3xl mx-auto px-6 pt-14 pb-8">
+        <div class="text-xs uppercase tracking-[3px] text-[#00f3ff] mb-3">GROWTH · PHASE 2</div>
+        <h1 class="text-4xl font-bold tracking-tight mb-3">8-Week Cosmic Email Season</h1>
+        <p class="text-white/60 mb-2">Copy into Brevo (or any ESP). One send per week. Each mail: one deep link + one habit + one soft CTA.</p>
+        <p class="text-sm text-white/40">Links assume production domain: <code class="text-white/60">https://cosmictrotter.com/</code></p>
+    </div>
+    <div class="max-w-3xl mx-auto px-6 pb-24 space-y-5" id="weeks"></div>
+    <script>
+        const WEEKS = [
+            {
+                w: 1, subject: "Start here: three doors into the cosmos",
+                body: `Hello Cosmic Traveler,
+
+Welcome. CosmicTrotter is not a content dump — it is a path.
+
+This week, pick one door:
+→ Start Here: https://cosmictrotter.com/start.html
+→ Cosmic Map: https://cosmictrotter.com/map.html
+→ Daily Gita verse: https://cosmictrotter.com/gita-verse.html
+
+Habit: open one page for 10 quiet minutes. No multitasking.
+
+With curiosity,
+CosmicTrotter`
+            },
+            {
+                w: 2, subject: "The song before the war (Bhagavad Gita)",
+                body: `Hello Cosmic Traveler,
+
+Arjuna freezes. Krishna answers with action without clinging.
+
+→ Full Gita storybook: https://cosmictrotter.com/bhagavad-gita.html
+→ Today’s verse: https://cosmictrotter.com/gita-verse.html
+
+Habit: before one hard task this week, whisper: “I have a right to the action — not to control the fruit.”
+
+Travel well,
+CosmicTrotter`
+            },
+            {
+                w: 3, subject: "Strength that serves: Hanuman",
+                body: `Hello Cosmic Traveler,
+
+Power without love becomes cruelty. Love without courage becomes only a wish.
+
+→ Hanuman storybook: https://cosmictrotter.com/hanuman.html
+
+Habit: do one service this week that no one will praise you for.
+
+In devotion and grit,
+CosmicTrotter`
+            },
+            {
+                w: 4, subject: "Crossroads: What is time?",
+                body: `Hello Cosmic Traveler,
+
+Clocks measure. Kāla devours. You still have this hour.
+
+→ What is time?: https://cosmictrotter.com/crossroads/what-is-time.html
+→ Philosophy of time: https://cosmictrotter.com/philosophy/time.html
+
+Habit: protect one 25-minute block for deep reading. Phone in another room.
+
+Onward,
+CosmicTrotter`
+            },
+            {
+                w: 5, subject: "Govinda on the seven hills (Tirupati)",
+                body: `Hello Cosmic Traveler,
+
+A mountain that still gathers longing into one name: Govinda.
+
+→ Tirupati Venkateswara storybook: https://cosmictrotter.com/tirupati-venkateswara.html
+
+Habit: offer one small thing today with full heart — not half attention.
+
+Bowing with you,
+CosmicTrotter`
+            },
+            {
+                w: 6, subject: "Crossroads: free will & the self",
+                body: `Hello Cosmic Traveler,
+
+Are you free? Who is the “you” that asks?
+
+→ Free will: https://cosmictrotter.com/crossroads/what-is-free-will.html
+→ The self: https://cosmictrotter.com/crossroads/what-is-the-self.html
+→ Series hub: https://cosmictrotter.com/crossroads/
+
+Habit: before a reaction, name three causes pushing you — then choose from a value.
+
+With steady mind,
+CosmicTrotter`
+            },
+            {
+                w: 7, subject: "Kashi: the city that teaches death without despair",
+                body: `Hello Cosmic Traveler,
+
+Where the Ganga turns north, a city teaches that endings can be doorways.
+
+→ Kashi Vishwanath storybook: https://cosmictrotter.com/kashi-vishwanath.html
+
+Habit: sit with one hard truth for five minutes without scrolling away.
+
+In light and ash,
+CosmicTrotter`
+            },
+            {
+                w: 8, subject: "Your map, your reels, your return",
+                body: `Hello Cosmic Traveler,
+
+Season complete — the path continues.
+
+→ Cosmic Map: https://cosmictrotter.com/map.html
+→ Watch reels (with sound): https://cosmictrotter.com/#reels
+→ Ask Krishna: https://cosmictrotter.com/ancient-wisdom/ask-krishna-bot.html
+
+Habit: star three pages you will revisit next month. Put them in your calendar.
+
+Thank you for traveling with us.
+CosmicTrotter
+https://cosmictrotter.com/`
+            }
+        ];
+
+        document.getElementById("weeks").innerHTML = WEEKS.map(w => `
+          <article class="week">
+            <h2>Week ${w.w}</h2>
+            <div class="text-sm text-white/50">Subject</div>
+            <div class="font-medium text-white/90">${w.subject}</div>
+            <pre>${w.body.replace(/</g, "&lt;")}</pre>
+          </article>
+        `).join("");
+    </script>
+</body>
+</html>

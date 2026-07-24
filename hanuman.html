@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hanuman • CosmicTrotter</title>
+    <link rel="canonical" href="https://cosmictrotter.com/hanuman.html">
+
+    <meta name="description" content="Hanuman — devoted strength of the Ramayana: birth, ocean leap, Sanjeevani, living temples. Illustrated storybook.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
+
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+            background: #0a0a0f;
+            color: #e0e7ff;
+        }
+
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .cosmic-bg {
+            background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 70%);
+        }
+
+        .section-header {
+            font-size: 2.6rem;
+            line-height: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .avatar-story {
+            scroll-margin-top: 5rem;
+            border-top: 1px solid rgba(251, 191, 36, 0.1);
+            padding-top: 2.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .avatar-story:first-of-type {
+            border-top: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .chapter {
+            margin-bottom: 2.5rem;
+        }
+
+        .chapter h3 {
+            color: #fcd34d;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+        }
+
+        .avatar-title-img {
+            display: block;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+        }
+
+        .chapter-img {
+            border-radius: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.45);
+            margin: 0.8rem 0;
+        }
+
+        .illustration-caption {
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.55);
+            font-style: italic;
+            text-align: center;
+            margin-top: -0.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .core-wisdom {
+            background: linear-gradient(145deg, rgba(251, 191, 36, 0.09), rgba(245, 158, 11, 0.035));
+            border: 1px solid rgba(251, 191, 36, 0.22);
+        }
+
+        .story-nav {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .story-nav a {
+            flex: 1;
+            text-align: center;
+            padding: 0.6rem 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(251, 191, 36, 0.25);
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .story-nav a:hover {
+            background: rgba(251, 191, 36, 0.08);
+            border-color: rgba(251, 191, 36, 0.45);
+        }
+
+        .reading-progress-shell {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 150;
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.08);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .reading-mode .reading-progress-shell {
+            opacity: 1;
+        }
+
+        #reading-progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #facc15, #22d3ee);
+            box-shadow: 0 0 14px rgba(250, 204, 21, 0.45);
+            transition: width 0.08s linear;
+        }
+
+        .reading-mode {
+            background: radial-gradient(circle at top, #15131f 0%, #07070b 58%);
+        }
+
+        .reading-mode .avatar-story {
+            max-width: 76ch;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 3rem;
+        }
+
+        .reading-mode .chapter {
+            margin-bottom: 3.2rem;
+            scroll-margin-top: 6.5rem;
+        }
+
+        .reading-mode .chapter h3 {
+            font-size: 1.45rem;
+            line-height: 1.35;
+            margin-bottom: 1rem;
+        }
+
+        .reading-mode .chapter p {
+            font-size: 1.08rem;
+            line-height: 1.95;
+            color: rgba(238, 242, 255, 0.9);
+            margin-bottom: 1.05rem;
+        }
+
+        .reading-mode .chapter-img,
+        .reading-mode .avatar-title-img {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #reading-mode-btn[aria-pressed="true"] {
+            border-color: rgba(251, 191, 36, 0.5);
+            background: rgba(251, 191, 36, 0.1);
+            color: #fde68a;
+        }
+
+        .chapter-heading {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .chapter-heading .heading-text {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .bookmark-toggle {
+            width: 2rem;
+            height: 2rem;
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            border: 1px solid rgba(251, 191, 36, 0.24);
+            background: rgba(15, 23, 42, 0.82);
+            color: rgba(255, 255, 255, 0.68);
+            box-shadow: 0 10px 26px -18px rgba(0, 0, 0, 0.75);
+            transition: transform 0.18s ease, opacity 0.18s ease, background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+        }
+
+        .bookmark-toggle:hover,
+        .bookmark-toggle:focus-visible,
+        .bookmark-toggle.is-saved {
+            border-color: rgba(251, 191, 36, 0.7);
+            background: rgba(251, 191, 36, 0.16);
+            color: #fcd34d;
+            transform: translateY(-1px);
+        }
+
+        .bookmark-toggle i {
+            pointer-events: none;
+        }
+
+        .chapter-bookmark {
+            margin-top: -0.25rem;
+        }
+
+        .bookmarkable-paragraph {
+            position: relative;
+            scroll-margin-top: 6.25rem;
+        }
+
+        .bookmarkable-paragraph.is-bookmarked {
+            background: linear-gradient(90deg, rgba(251, 191, 36, 0.12), rgba(251, 191, 36, 0.025));
+            box-shadow: -3px 0 0 rgba(251, 191, 36, 0.65);
+        }
+
+        .para-bookmark {
+            position: absolute;
+            top: 0.12rem;
+            left: -2.75rem;
+            opacity: 0;
+            transform: translateX(0.35rem);
+        }
+
+        .bookmarkable-paragraph:hover .para-bookmark,
+        .bookmarkable-paragraph:focus-within .para-bookmark,
+        .reading-mode .para-bookmark,
+        .para-bookmark.is-saved {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .bookmark-panel-card {
+            width: min(46rem, calc(100vw - 1.5rem));
+            max-height: min(78vh, 44rem);
+        }
+
+        .bookmark-item {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        @media (max-width: 768px) {
+            .chapter-heading {
+                gap: 0.5rem;
+            }
+
+            .para-bookmark {
+                position: static;
+                float: right;
+                margin: 0.1rem 0 0.35rem 0.65rem;
+                opacity: 0.76;
+                transform: none;
+            }
+
+            .reading-mode .chapter p {
+                font-size: 1.02rem;
+                line-height: 1.85;
+            }
+        }
+
+        .temp-highlight {
+            animation: gentleHighlight 2.4s ease forwards;
+        }
+
+        @keyframes gentleHighlight {
+            0% { background-color: rgba(251, 191, 36, 0.18); }
+            100% { background-color: transparent; }
+        }
+
+        .avatar-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 0.6rem;
+        }
+
+        .avatar-chip {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(251, 191, 36, 0.15);
+            transition: all 0.25s ease;
+            padding: 0.5rem 0.65rem;
+            border-radius: 0.6rem;
+            font-size: 0.85rem;
+        }
+
+        .avatar-chip:hover {
+            border-color: rgba(251, 191, 36, 0.4);
+            background: rgba(251, 191, 36, 0.06);
+        }
+
+        .dash-top-button {
+            position: fixed;
+            right: 1.25rem;
+            bottom: 5.35rem;
+            z-index: 79;
+            width: 3rem;
+            height: 3rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            border: 1px solid rgba(251, 191, 36, 0.28);
+            background: rgba(15, 23, 42, 0.9);
+            color: #fde68a;
+            box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(0.5rem);
+            transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .dash-top-button.is-visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .dash-top-button:hover,
+        .dash-top-button:focus-visible {
+            background: rgba(251, 191, 36, 0.16);
+            border-color: rgba(251, 191, 36, 0.65);
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 640px) {
+            .dash-top-button {
+                right: 1rem;
+                bottom: 5rem;
+                width: 2.75rem;
+                height: 2.75rem;
+            }
+        }
+
+        .source-note {
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.5);
+            border-left: 2px solid rgba(251, 191, 36, 0.35);
+            padding-left: 0.75rem;
+            margin: 0.75rem 0 1rem;
+        }
+    </style>
+    <script src="theme-toggle.js?v=20260616-light-5"></script>
+    <script src="site-nav.js?v=20260724-lang-hi"></script>
+</head>
+<body class="cosmic-bg" data-krishna-context="Hanuman storybook. Offer Gita-rooted courage and service guidance when natural.">
+    <div class="reading-progress-shell" aria-hidden="true">
+        <div id="reading-progress-bar"></div>
+    </div>
+    <button id="dash-top-button" class="dash-top-button notranslate" type="button" aria-label="Back to top" title="Back to top" translate="no">
+        <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <!-- Hero -->
+    <div class="max-w-5xl mx-auto px-6 pt-14 pb-10 text-center">
+        <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-amber-400/30 bg-amber-400/10 mb-5">
+            <i class="fa-solid fa-om text-amber-400"></i>
+            <span class="text-xs uppercase tracking-[2px] text-amber-400 font-medium">From the Ramayana &amp; Living Devotion</span>
+        </div>
+        <h1 class="section-header mb-4">Hanuman</h1>
+        <p class="text-xl text-white/75 max-w-3xl mx-auto">హనుమాన్ — the devoted strength: who he is, how the Ramayana remembers him, how courage and service meet, how living temples keep his name today.</p>
+        <p class="mt-3 text-sm text-amber-200/80 max-w-2xl mx-auto">తెలుగు సారాంశం: హనుమాన్ అంటే కేవలం శక్తి కాదు — ప్రేమతో కూడిన సేవ. రామాయణం నుంచి జీవంత ఆలయాల వరకు ఒకే భక్తి ప్రవాహం.</p>
+        <p class="mt-3 text-sm text-amber-200/80 max-w-2xl mx-auto">తెలుగు సారాంశం: హనుమాన్ అంటే కేవలం శక్తి కాదు — ప్రేమతో కూడిన సేవ. రామాయణం నుంచి జీవంత ఆలయాల వరకు ఒకే భక్తి ప్రవాహం.</p>
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-4">
+            <a href="ancient.html" class="inline-flex items-center gap-x-2 text-sm text-amber-300 hover:text-amber-200">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Back to Ancient Wisdom</span>
+            </a>
+            <a href="dashavatara.html" class="inline-flex items-center gap-x-2 text-sm text-white/50 hover:text-amber-200">
+                <span>Sister journey: Dashavatara</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="bhagavad-gita.html" class="inline-flex items-center gap-x-2 text-sm text-white/50 hover:text-amber-200">
+                <span>Bhagavad Gita</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Quick Part Navigator -->
+    <div class="max-w-6xl mx-auto px-6 pb-8">
+        <div class="text-xs uppercase tracking-widest text-amber-400 mb-2">Jump to any Chapter</div>
+        <div class="avatar-selector" id="quick-nav"></div>
+    </div>
+
+    <!-- Reading tools -->
+    <div class="max-w-5xl mx-auto px-6">
+        <div class="flex items-center justify-between mb-5 border-b border-white/10 pb-3">
+            <div class="text-sm text-white/60">Storybook journey • EN + తెలుగు • Sources in References</div>
+            <div class="flex gap-x-2">
+                <button id="reading-mode-btn"
+                        class="px-4 py-1.5 text-sm rounded-xl border border-white/20 hover:bg-white/5 flex items-center gap-x-2 transition-colors"
+                        aria-pressed="false"
+                        title="Toggle reading mode">
+                    <i class="fa-solid fa-book"></i>
+                    <span class="hidden sm:inline">Reading mode</span>
+                </button>
+                <button id="bookmarks-btn"
+                        class="px-4 py-1.5 text-sm rounded-xl border border-white/20 hover:bg-white/5 flex items-center gap-x-2 transition-colors"
+                        title="Open saved places"
+                        aria-label="Open saved places">
+                    <i class="fa-solid fa-bookmark"></i>
+                    <span class="hidden sm:inline">My places</span>
+                    <span id="bookmark-count" class="text-[10px] px-1.5 rounded bg-white/10">0</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-6 pb-16">
+
+        <!-- 1 WHO -->
+        <section id="part-who" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">1</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Who Is Hanuman?</h2>
+                    <div class="text-amber-300/90 text-sm">హనుమాన్ ఎవరు? • The devoted strength</div>
+                </div>
+            </div>
+
+            <img src="ancient-wisdom/images/hanuman-title.jpg?v=20260724" alt="Hanuman with mace under starlight — sacred mythic painting" class="avatar-title-img w-full max-w-4xl mx-auto my-6 rounded-2xl border border-white/10 shadow-2xl shadow-black/40">
+            <p class="illustration-caption">Hanuman — strength yoked to love, not to pride.</p>
+
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Names that carry a life</h3>
+                    <p>In the great forest of Indian memory stands a figure who is at once childlike and cosmic, playful and unbreakable: <strong>Hanuman</strong>. Devotees call him <strong>Anjaneya</strong>, son of Anjana; <strong>Maruti</strong>, related to the wind; <strong>Pavanputra</strong>, son of the wind-god; <strong>Bajrangbali</strong>, the strong one whose body is like vajra. In Sanskrit epic speech he is a <em>vānara</em> — a forest people of extraordinary courage — and in living temples he is simply the one who never fails a friend.</p>
+                    <p>He is not worshipped only as a warrior. He is worshipped as <strong>bhakti</strong> made visible: devotion that runs, leaps, lifts mountains, and still kneels. Where some heroes shine by conquering others, Hanuman shines by serving Rama so completely that his own glory becomes a lamp for Rama’s name.</p>
+                    <p class="source-note">Traditional layer: Ramayana (Valmiki tradition and later retellings), Hanuman Chalisa and regional oral devotion; living temples across India and the diaspora.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Why this journey matters now</h3>
+                    <p>Modern life praises power without purpose and speed without direction. Hanuman’s story answers both errors. He is immensely powerful, yet he does not treat power as the goal. He is swift, yet his speed is always toward a person he loves and a duty he has accepted. To read him is to remember that courage without compassion becomes cruelty, and that love without courage becomes only a wish.</p>
+                    <p>This storybook walks his arc as continuous narrative: birth and boons, the meeting with Rama, the ocean leap, the finding of Sita, the service of war, and the living temples that still ring with his name. Where strands differ between recensions and local tellings, we will say so. Where history speaks of temples and public devotion, we will label that as living practice, not as a single dated “invention” of myth.</p>
+                </div>
+            </div>
+
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Hanuman is strength that serves, not strength that boasts.</li>
+                    <li>• Many names, one core: devotion in action.</li>
+                    <li>• Epic memory and living temple culture both keep him near.</li>
+                    <li>• Power without love is incomplete; love without courage is unfinished.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-birth">Next: Birth &amp; Boons →</a>
+            </div>
+        </section>
+
+        <!-- 2 BIRTH -->
+        <section id="part-birth" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">2</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Birth, Boons, and the Child Who Reached for the Sun</h2>
+                    <div class="text-amber-300/90 text-sm">జననం • Anjana’s son</div>
+                </div>
+            </div>
+
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Anjana’s prayer</h3>
+                    <p>Traditional tellings remember a mother named <strong>Anjana</strong>, a celestial being living among the forest people, whose heart longed for a child of extraordinary virtue. In many popular and puranic-linked strands, the wind-god <strong>Vayu</strong> becomes the divine father who answers that longing. The child who is born carries both the tenderness of a mother’s hope and the restless freedom of air itself.</p>
+                    <p>He is not born only to be strong. He is born into a world that will need a messenger who can cross oceans, a friend who will not abandon the fallen, and a servant who can laugh at fear without becoming cruel. The story that follows is how those gifts are revealed — sometimes by accident, always by love.</p>
+                </div>
+                <div class="chapter">
+                    <h3>The sun as fruit</h3>
+                    <img src="ancient-wisdom/images/hanuman-chapter-01-child-sun.jpg?v=20260724" alt="Child Hanuman reaching toward the sun" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">The child mistakes the sun for a fruit — a story of hunger, wonder, and destiny.</p>
+                    <p>One of the most beloved childhood episodes tells that young Hanuman, hungry and bright-eyed, saw the rising sun and thought it a ripe fruit. He leapt toward it with the innocence of a child who has not yet learned the scale of the sky. Gods intervene; the leap is stopped; yet the episode remains a seed of his later ocean-crossing power. The child who would seize the sun becomes the devotee who will seize impossible tasks for Rama’s sake.</p>
+                    <p>In some tellings, a curse of forgetfulness falls so that his full strength will sleep until the hour of need — a narrative way of saying that power is safest when it wakes for dharma, not for display. Recensions differ on exact agents and words; the shared heart is clear: Hanuman’s might is real, and it is meant for service.</p>
+                    <p class="source-note">Traditional layer: widespread Ramayana childhood episodes in popular retellings and regional katha; details vary by recension.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Boons that shape a destiny</h3>
+                    <p>Gods and sages, in many story-cycles, grant Hanuman boons: freedom from weapons that would bind ordinary flesh, longevity, swiftness, and a mind that can master forms of knowledge. Whether each boon is listed the same way in every book matters less, for devotion, than the moral pattern: heaven itself seems to prepare a servant for a coming age of crisis. When Rama’s path will darken, a friend will already have been given every tool except pride.</p>
+                </div>
+            </div>
+
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Childhood wonder foreshadows adult courage.</li>
+                    <li>• Strength “sleeping” until needed is a story of right timing.</li>
+                    <li>• Boons without humility would be danger; with bhakti they become gift.</li>
+                    <li>• Anjana’s longing reminds us: great lives begin in someone else’s prayer.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-who">← Who</a>
+                <a href="#part-rama">Next: Meeting Rama →</a>
+            </div>
+        </section>
+
+        <!-- 3 RAMA -->
+        <section id="part-rama" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">3</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Meeting Rama — Friendship That Becomes Vow</h2>
+                    <div class="text-amber-300/90 text-sm">రాముని కలయిక • Kishkindha</div>
+                </div>
+            </div>
+
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>In the kingdom of the forest</h3>
+                    <img src="ancient-wisdom/images/hanuman-chapter-02-meets-rama.jpg?v=20260724" alt="Hanuman meets Rama and Lakshmana" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">The first meeting — curiosity turns into lifelong allegiance.</p>
+                    <p>When Rama and Lakshmana search for Sita, their path enters the world of the vānaras and the politics of Kishkindha. Hanuman appears first as a wise messenger and diplomat — able to change form, able to speak with grace, able to test the strangers without insulting them. In Valmiki’s arc, this meeting is not a random encounter. It is the hinge on which the rescue of Sita will turn.</p>
+                    <p>Hanuman does not merely admire Rama’s bow. He recognizes a kingship of dharma: a prince who suffers without becoming small, who seeks his wife without abandoning virtue. Friendship, in this story, is not flattery. It is a decision of the whole being.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Service begins before victory</h3>
+                    <p>Long before Lanka burns or oceans open, Hanuman serves by counsel, by alliance-building, by carrying messages between Sugriva and Rama. The epic insists that great deeds rest on quiet competence. The leap will come. First comes trust.</p>
+                    <p>For readers today, this chapter is a quiet correction: do not wait for a dramatic stage to begin loyalty. Begin when the work is unglamorous — introductions, bridges, honest speech.</p>
+                    <p class="source-note">Traditional layer: Valmiki Ramayana Kishkindha Kanda and popular retellings of the first meeting.</p>
+                </div>
+            </div>
+
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• True friendship is a vow, not a mood.</li>
+                    <li>• Diplomacy and courage can live in one person.</li>
+                    <li>• Service often starts before applause.</li>
+                    <li>• Recognizing dharma is itself a form of intelligence.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-birth">← Birth</a>
+                <a href="#part-leap">Next: Ocean Leap →</a>
+            </div>
+        </section>
+
+        <!-- 4 LEAP -->
+        <section id="part-leap" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">4</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">The Ocean Leap</h2>
+                    <div class="text-amber-300/90 text-sm">సముద్ర లంఘనం • When courage becomes a bridge</div>
+                </div>
+            </div>
+
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>When others hesitate</h3>
+                    <img src="ancient-wisdom/images/hanuman-chapter-03-ocean-leap.jpg?v=20260724" alt="Hanuman leaping over the ocean toward Lanka" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">The leap — not to conquer a sea, but to reach a person in need.</p>
+                    <p>On the shore of a vast ocean, the search party measures distance against fear. Some can leap far; none can leap far enough — until Jambavan and the elders awaken Hanuman’s memory of his own strength. The forgetfulness of childhood lifts. What returns is not arrogance, but readiness.</p>
+                    <p>Hanuman expands in size, takes the name of Rama upon his tongue, and becomes a living bridge between despair and hope. Mountains offer themselves as stepping stones in some poetic retellings; obstacles rise as tests. The ocean is not only water. It is every separation that says “impossible” to love.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Crossing as prayer</h3>
+                    <p>Mid-flight, the epic (and later poets) fill the leap with trials — mountain hospitality, serpentine mouths, illusions that ask him to rest. Hanuman answers each with intelligence: he neither insults help nor swallows poison disguised as rest. The journey is a parable of spiritual travel: receive what nourishes, refuse what stalls, remember the mission.</p>
+                    <p>When he lands on Lanka’s shore, he does not announce himself as a conqueror. He becomes small again — a scout of devotion — because the goal is not spectacle. The goal is Sita’s safety and Rama’s peace.</p>
+                    <p class="source-note">Traditional layer: Sundara Kanda of the Ramayana tradition; later vernacular poets expand the leap with vivid trials.</p>
+                </div>
+            </div>
+
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Courage can be awakened by community, not only by ego.</li>
+                    <li>• The ocean is every “too far” that love must cross.</li>
+                    <li>• Intelligence mid-journey matters as much as the first leap.</li>
+                    <li>• After greatness, humility returns to the work.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-rama">← Rama</a>
+                <a href="#part-sita">Next: Finding Sita →</a>
+            </div>
+        </section>
+
+        <!-- 5 SITA -->
+        <section id="part-sita" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">5</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Finding Sita — The Heart of Sundara Kanda</h2>
+                    <div class="text-amber-300/90 text-sm">అశోకవనం • Messenger of hope</div>
+                </div>
+            </div>
+
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>In the Ashoka grove</h3>
+                    <img src="ancient-wisdom/images/hanuman-chapter-04-sita-ashoka.jpg?v=20260724" alt="Hanuman finds Sita in the Ashoka grove" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">Hope arrives as a ring, a name, and a promise.</p>
+                    <p>Lanka is a city of gold and fear. Hanuman searches with the patience of someone who knows that one wrong step could cost Sita’s life. At last, in the Ashoka grove, he finds her — not as a queen on a throne, but as a woman of unbreakable dignity under threat. He does not approach as a stranger who demands trust. He speaks of Rama. He offers the ring. He tells the story of search and grief until hope has a face again.</p>
+                    <p>Sita’s reply, in the epic’s moral center, is not only personal relief. It is a teaching: purity can survive captivity; time can be endured without surrendering the self; rescue must not become a second violence. Hanuman offers to carry her away; she chooses the path of dharma that preserves Rama’s honor and the larger war’s meaning. Different readers hear different emphases here; the story refuses to make either love or law cheap.</p>
+                </div>
+                <div class="chapter">
+                    <h3>The token and the return</h3>
+                    <p>Hanuman receives from Sita a token — a jewel, a message, a memory — to carry back. The messenger’s joy is almost too large for one body. He has found what the world said was lost. Yet he still must leave her in danger for a time, because the full rescue belongs to a larger justice. That pain is part of mature service: sometimes you deliver hope before you can deliver freedom.</p>
+                    <p class="source-note">Traditional layer: Sundara Kanda (Valmiki and later tellings); living recitation traditions especially revere this book.</p>
+                </div>
+            </div>
+
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Hope is a form of rescue that arrives before the army.</li>
+                    <li>• Respect is part of saving someone.</li>
+                    <li>• Tokens matter when they carry truth, not only objects.</li>
+                    <li>• Patience can be as brave as leaping.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-leap">← Leap</a>
+                <a href="#part-service">Next: War Service →</a>
+            </div>
+        </section>
+
+        <!-- 6 SERVICE -->
+        <section id="part-service" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">6</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Fire, Mountain, and the Service of War</h2>
+                    <div class="text-amber-300/90 text-sm">సేవ • When devotion works in crisis</div>
+                </div>
+            </div>
+
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Bound and unbound</h3>
+                    <img src="ancient-wisdom/images/hanuman-chapter-05-lanka-fire.jpg?v=20260724" alt="Hanuman with flaming tail in Lanka" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">Even captivity becomes a message — and a warning.</p>
+                    <p>Captured in Lanka, Hanuman allows himself to be bound so that he may speak Rama’s name in Ravana’s court. The burning of his tail and the fire that follows — told with varying degrees of destruction in different tellings — is not mindless revenge in the deepest readings. It is a signal that adharma’s city is not safe, and that a single devotee’s body can become a beacon. He leaves, not as a tourist of chaos, but as a messenger who has completed a terrible duty.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Sanjeevani</h3>
+                    <img src="ancient-wisdom/images/hanuman-chapter-06-sanjeevani.jpg?v=20260724" alt="Hanuman carrying the Sanjeevani mountain" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">When he cannot find the herb, he brings the mountain — a parable of thorough love.</p>
+                    <p>Later, when Lakshmana lies struck and the war’s hope dims, Hanuman flies for the healing herb Sanjeevani. Unable to identify the plant in time, he lifts the mountain itself. The image has entered the Indian imagination as the shape of complete effort: when precision fails, bring everything that might save life. Whether one reads it as miracle, poetry, or both, the ethical force is the same — do not do the minimum when a brother’s life is the measure.</p>
+                    <p class="source-note">Traditional layer: Yuddha Kanda episodes; popular art and performance strongly preserve the mountain image.</p>
+                </div>
+                <div class="chapter">
+                    <h3>After the war — the opened chest</h3>
+                    <p>In a beloved later popular episode (not always present in the earliest Valmiki layers as a fixed scene), Hanuman is asked why he serves so utterly; he opens his chest and shows Rama and Sita seated in his heart. Whether or not one treats the scene as “original epic,” living bhakti has made it a theological icon: the devotee’s body becomes a temple. Service is not external only. It rewrites the inside.</p>
+                </div>
+            </div>
+
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Captivity can still be service if speech remains true.</li>
+                    <li>• Thorough love outruns half-measures.</li>
+                    <li>• The heart as temple is the climax of bhakti language.</li>
+                    <li>• War in the epic is framed as restoration, not sport.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-sita">← Sita</a>
+                <a href="#part-today">Next: Living Temples →</a>
+            </div>
+        </section>
+
+        <!-- 7 TODAY -->
+        <section id="part-today" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">7</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Living Temples and the Hanuman of Today</h2>
+                    <div class="text-amber-300/90 text-sm">నేటి భక్తి • From epic page to roadside shrine</div>
+                </div>
+            </div>
+
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Everywhere a small flag of saffron</h3>
+                    <img src="ancient-wisdom/images/hanuman-chapter-07-temple-today.jpg?v=20260724" alt="Hanuman temple devotion at dawn" class="chapter-img w-full max-w-3xl mx-auto">
+                    <p class="illustration-caption">Living niti — Tuesday lamps, Chalisa, and the courage people ask for.</p>
+                    <p>Walk through Indian towns and you will meet Hanuman long before you meet a museum label. Roadside shrines, fort temples, Himalayan trails, and diaspora halls carry his mace and his open stance. Tuesdays and Saturdays often fill with special observance in many communities. The <strong>Hanuman Chalisa</strong> of Tulsidas has become a portable temple — forty verses that people recite in traffic, illness, exam fear, and night watches.</p>
+                    <p class="source-note">Living tradition: public temple culture and Chalisa recitation across North India and far beyond; local calendars vary.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Famous homes of the Lord</h3>
+                    <p>Historical and living pilgrimage remembers many great centers — from the hill fort presence at places like Salasar and Mehndipur in popular Rajasthan devotion, to southern Anjaneya temples, to urban mandirs that grew with modern cities. Architecture and founding legends differ; the shared practice is approachable strength. People do not only ask Hanuman for victory in war. They ask for courage to face a hospital corridor, a court date, a loneliness that feels like Lanka.</p>
+                    <p class="source-note">Historical / living layer: temple networks and regional mahatmya differ; treat specific founding years as local claim unless epigraphy is cited.</p>
+                </div>
+                <div class="chapter">
+                    <h3>What devotees still believe he is</h3>
+                    <p>For many, Hanuman is <em>chiranjeevi</em> — long-lived, still present when Rama’s name is sung truly. For others he is the ideal mind: restless energy trained by mantra. For athletes and soldiers he is stamina; for scholars he is mastery of the nine grammars of devotion’s speech in poetic lists; for children he is the friend who can jump the sun. CosmicTrotter does not force one theology. It invites you to meet the figure who has already met millions — and to ask what service your own strength is for.</p>
+                </div>
+            </div>
+
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Living temples keep epic memory embodied.</li>
+                    <li>• Chalisa culture makes devotion portable.</li>
+                    <li>• Ask not only for power — ask for pure direction.</li>
+                    <li>• Hanuman remains contemporary because fear is contemporary.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-service">← Service</a>
+                <a href="#part-refs">Next: References →</a>
+            </div>
+        </section>
+
+        <!-- 8 REFS -->
+        <section id="part-refs" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">8</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">References &amp; Honesty Notes</h2>
+                    <div class="text-amber-300/90 text-sm">మూలాలు • How to read this page</div>
+                </div>
+            </div>
+
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>What this storybook is — and is not</h3>
+                    <p>This page is a continuous narrative for seekers, drawn from the Ramayana tradition (Valmiki and later retellings), widely known episodes such as the ocean leap, Ashoka grove, and Sanjeevani, and living temple-and-Chalisa culture. It is <strong>not</strong> a critical edition of every Sanskrit recension, and it does not invent secret histories or fake BCE dates for temples.</p>
+                    <p>Where childhood sun-leap, chest-opening, or specific regional temple legends appear, they are labeled as popular or living devotion when they sit outside the earliest fixed Valmiki scenes. Readers who want scholarly apparatus should compare critical Ramayana editions and regional temple histories separately.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Suggested sources to explore</h3>
+                    <ol class="list-decimal pl-5 space-y-2 text-sm text-white/80">
+                        <li>Valmiki Ramayana — Kishkindha, Sundara, and Yuddha Kanda arcs (critical and popular translations).</li>
+                        <li>Tulsidas, <em>Ramcharitmanas</em> and <em>Hanuman Chalisa</em> — North Indian living bhakti.</li>
+                        <li>Regional Ramayana tellings (Kamban and others) for poetic variation.</li>
+                        <li>Temple and pilgrimage guides for specific Anjaneya / Hanuman kshetras (local claims; verify epigraphy where available).</li>
+                        <li>CosmicTrotter sister journeys: <a class="text-amber-300 hover:underline" href="dashavatara.html">Dashavatara</a>, <a class="text-amber-300 hover:underline" href="bhagavad-gita.html">Bhagavad Gita</a>, <a class="text-amber-300 hover:underline" href="puri-jaganath.html">Jagannath of Puri</a>.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Tradition is layered — honor the layers.</li>
+                    <li>• Living practice is a source, carefully labeled.</li>
+                    <li>• Scholarship and devotion can walk side by side.</li>
+                    <li>• The next reading is your own life’s service.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-today">← Living Temples</a>
+                <a href="#part-who">Back to start ↑</a>
+            </div>
+        </section>
+
+    </div>
+
+    <div class="max-w-3xl mx-auto px-6 pb-8 text-center text-sm text-white/45">
+        Sister journeys:
+        <a href="tirupati-venkateswara.html" class="text-[#00f3ff] hover:underline mx-1">Tirupati</a> ·
+        <a href="puri-jaganath.html" class="text-[#00f3ff] hover:underline mx-1">Jagannath</a> ·
+        <a href="dashavatara.html" class="text-[#00f3ff] hover:underline mx-1">Dashavatara</a>
+    </div>
+    <script>
+      document.body.setAttribute('data-cosmic-cta', JSON.stringify({
+        pillar: 'ancient',
+        related: [
+          { href: 'tirupati-venkateswara.html', label: 'Tirupati Venkateswara' },
+          { href: 'bhagavad-gita.html', label: 'Bhagavad Gita' },
+          { href: 'gita-verse.html', label: 'Gita verse today' }
+        ]
+      }));
+    </script>
+    <script src="cosmic-cta.js?v=20260723-cta-1"></script>
+
+<script>
+        const parts = [
+            { id: "who", num: 1, name: "Who Is Hanuman (హనుమాన్)" },
+            { id: "birth", num: 2, name: "Birth & Boons (జననం)" },
+            { id: "rama", num: 3, name: "Meeting Rama (రాముడు)" },
+            { id: "leap", num: 4, name: "Ocean Leap (సముద్రం)" },
+            { id: "sita", num: 5, name: "Finding Sita (సీత)" },
+            { id: "service", num: 6, name: "War Service (సేవ)" },
+            { id: "today", num: 7, name: "Living Temples (నేడు)" },
+            { id: "refs", num: 8, name: "References (మూలాలు)" }
+        ];
+
+
+
+        function renderQuickNav() {
+            const container = document.getElementById('quick-nav');
+            if (!container) return;
+            container.innerHTML = parts.map(a =>
+                `<button onclick="document.getElementById('part-${a.id}').scrollIntoView({behavior:'smooth', block:'start'})" class="avatar-chip text-left">${a.num}. ${a.name}</button>`
+            ).join('');
+        }
+
+        const READING_MODE_KEY = 'cosmic_hanuman_reading_mode';
+        const BOOKMARK_KEY = 'cosmic_hanuman_bookmarks';
+        let readingMode = false;
+        let progressFrame = null;
+
+        function escapeHtml(value) {
+            return String(value || '').replace(/[&<>"']/g, ch => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            }[ch]));
+        }
+
+        function compactText(value, limit = 180) {
+            const text = String(value || '').replace(/\s+/g, ' ').trim();
+            return text.length > limit ? `${text.slice(0, limit - 1).trim()}...` : text;
+        }
+
+        function bookmarkKey(type, targetId) {
+            return `${type}:${targetId}`;
+        }
+
+        function normalizeBookmark(bookmark) {
+            if (!bookmark) return null;
+            const targetId = bookmark.targetId || bookmark.id;
+            if (!targetId) return null;
+            const type = bookmark.type || (targetId.startsWith('para-') ? 'paragraph' : targetId.startsWith('chapter-') ? 'chapter' : 'section');
+            return {
+                key: bookmark.key || bookmarkKey(type, targetId),
+                type,
+                targetId,
+                title: bookmark.title || 'Saved place',
+                avatar: bookmark.avatar || '',
+                chapter: bookmark.chapter || '',
+                excerpt: bookmark.excerpt || '',
+                ts: bookmark.ts || Date.now()
+            };
+        }
+
+        function getBookmarks() {
+            try {
+                const parsed = JSON.parse(localStorage.getItem(BOOKMARK_KEY) || '[]');
+                return Array.isArray(parsed) ? parsed.map(normalizeBookmark).filter(Boolean) : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveBookmarks(list) {
+            const seen = new Set();
+            const normalized = [];
+            list.map(normalizeBookmark).filter(Boolean).forEach(bookmark => {
+                if (seen.has(bookmark.key)) return;
+                seen.add(bookmark.key);
+                normalized.push(bookmark);
+            });
+            localStorage.setItem(BOOKMARK_KEY, JSON.stringify(normalized.slice(0, 200)));
+            updateBookmarkCount(normalized);
+            syncBookmarkButtons(normalized);
+        }
+
+        function updateBookmarkCount(list = getBookmarks()) {
+            const el = document.getElementById('bookmark-count');
+            if (el) el.textContent = list.length;
+        }
+
+        function showBookmarkToast(message) {
+            const existing = document.querySelector('[data-bookmark-toast]');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.dataset.bookmarkToast = 'true';
+            toast.className = 'fixed left-1/2 bottom-5 z-[180] -translate-x-1/2 rounded-full border border-amber-300/35 bg-[#111827]/95 px-4 py-2 text-sm text-amber-100 shadow-2xl shadow-black/40';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 1600);
+        }
+
+        function createBookmarkButton(type, targetId) {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = `bookmark-toggle ${type === 'chapter' ? 'chapter-bookmark' : 'para-bookmark'}`;
+            button.dataset.bookmarkType = type;
+            button.dataset.bookmarkTarget = targetId;
+            button.setAttribute('aria-label', `Bookmark ${type}`);
+            button.setAttribute('title', `Bookmark ${type}`);
+            button.setAttribute('aria-pressed', 'false');
+            button.innerHTML = '<i class="fa-regular fa-bookmark"></i>';
+            return button;
+        }
+
+        function sectionTitle(section) {
+            const title = section ? section.querySelector('h2') : null;
+            return title ? compactText(title.textContent, 90) : 'Hanuman';
+        }
+
+        function prepareBookmarkTargets() {
+            document.querySelectorAll('.avatar-story').forEach(section => {
+                const sectionSlug = (section.id || 'part-story').replace(/^part-/, '');
+                const avatar = sectionTitle(section);
+
+                section.querySelectorAll('.chapter').forEach((chapter, chapterIndex) => {
+                    if (!chapter.id) chapter.id = `chapter-${sectionSlug}-${chapterIndex + 1}`;
+
+                    const heading = chapter.querySelector('h3');
+                    const rawChapterTitle = heading ? compactText(heading.textContent, 120) : `Chapter ${chapterIndex + 1}`;
+                    chapter.dataset.bookmarkAvatar = avatar;
+                    chapter.dataset.bookmarkTitle = rawChapterTitle;
+
+                    if (heading && !heading.querySelector('.chapter-bookmark')) {
+                        heading.classList.add('chapter-heading');
+                        heading.textContent = '';
+                        const headingText = document.createElement('span');
+                        headingText.className = 'heading-text';
+                        headingText.textContent = rawChapterTitle;
+                        heading.appendChild(headingText);
+                        heading.appendChild(createBookmarkButton('chapter', chapter.id));
+                    }
+
+                    Array.from(chapter.children)
+                        .filter(child => child.tagName === 'P')
+                        .forEach((paragraph, paragraphIndex) => {
+                            if (!paragraph.id) paragraph.id = `para-${sectionSlug}-${chapterIndex + 1}-${paragraphIndex + 1}`;
+                            paragraph.classList.add('bookmarkable-paragraph');
+                            paragraph.dataset.bookmarkAvatar = avatar;
+                            paragraph.dataset.bookmarkChapter = rawChapterTitle;
+                            paragraph.dataset.bookmarkExcerpt = compactText(paragraph.textContent, 220);
+                            if (!paragraph.querySelector('.para-bookmark')) {
+                                paragraph.prepend(createBookmarkButton('paragraph', paragraph.id));
+                            }
+                        });
+                });
+            });
+            syncBookmarkButtons();
+        }
+
+        function buildBookmark(targetId, type) {
+            const target = document.getElementById(targetId);
+            if (!target) return null;
+            const chapter = type === 'chapter' ? target : target.closest('.chapter');
+            const section = target.closest('.avatar-story');
+            const avatar = target.dataset.bookmarkAvatar || (chapter && chapter.dataset.bookmarkAvatar) || sectionTitle(section);
+            const chapterTitle = type === 'chapter'
+                ? (target.dataset.bookmarkTitle || compactText(target.querySelector('h3')?.textContent, 120))
+                : (target.dataset.bookmarkChapter || chapter?.dataset.bookmarkTitle || 'Chapter');
+            const excerpt = type === 'paragraph' ? compactText(target.dataset.bookmarkExcerpt || target.textContent, 220) : '';
+            return {
+                key: bookmarkKey(type, targetId),
+                type,
+                targetId,
+                title: type === 'chapter' ? chapterTitle : 'Paragraph note',
+                avatar,
+                chapter: chapterTitle,
+                excerpt,
+                ts: Date.now()
+            };
+        }
+
+        function toggleBookmark(targetId, type) {
+            const key = bookmarkKey(type, targetId);
+            const bookmarks = getBookmarks();
+            const existingIndex = bookmarks.findIndex(bookmark => bookmark.key === key);
+            if (existingIndex >= 0) {
+                bookmarks.splice(existingIndex, 1);
+                saveBookmarks(bookmarks);
+                showBookmarkToast('Bookmark removed');
+                return;
+            }
+            const bookmark = buildBookmark(targetId, type);
+            if (!bookmark) return;
+            saveBookmarks([bookmark, ...bookmarks]);
+            showBookmarkToast(type === 'chapter' ? 'Chapter bookmarked' : 'Paragraph bookmarked');
+        }
+
+        function syncBookmarkButtons(list = getBookmarks()) {
+            const saved = new Set(list.map(bookmark => bookmark.key));
+            document.querySelectorAll('[data-bookmark-target]').forEach(button => {
+                const key = bookmarkKey(button.dataset.bookmarkType, button.dataset.bookmarkTarget);
+                const isSaved = saved.has(key);
+                button.classList.toggle('is-saved', isSaved);
+                button.setAttribute('aria-pressed', isSaved ? 'true' : 'false');
+                button.setAttribute('title', isSaved ? `Remove ${button.dataset.bookmarkType} bookmark` : `Bookmark ${button.dataset.bookmarkType}`);
+                const icon = button.querySelector('i');
+                if (icon) icon.className = isSaved ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark';
+            });
+            document.querySelectorAll('.bookmarkable-paragraph').forEach(paragraph => {
+                paragraph.classList.toggle('is-bookmarked', saved.has(bookmarkKey('paragraph', paragraph.id)));
+            });
+        }
+
+        function showBookmarks() {
+            const bookmarks = getBookmarks();
+            const panel = document.createElement('div');
+            panel.className = 'fixed inset-0 bg-black/70 z-[160] flex items-end md:items-center justify-center p-0 md:p-4';
+            panel.innerHTML = `
+                <div class="absolute inset-0" data-close-bookmarks></div>
+                <div class="bookmark-panel-card relative bg-[#111827] border border-white/10 rounded-t-2xl md:rounded-2xl p-5 text-sm overflow-hidden shadow-2xl shadow-black/50">
+                    <div class="flex items-start justify-between gap-4 border-b border-white/10 pb-4">
+                        <div>
+                            <div class="font-semibold text-white">My places</div>
+                            <div class="text-xs text-white/50">${bookmarks.length} saved</div>
+                        </div>
+                        <button class="bookmark-toggle" data-close-bookmarks aria-label="Close bookmarks" title="Close">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="mt-4 max-h-[60vh] space-y-2 overflow-auto pr-1">
+                    ${bookmarks.length === 0 ? '<div class="text-white/60 py-8 text-center">No saved chapters or paragraphs yet.</div>' :
+                    bookmarks.map((b, i) => `
+                        <div class="bookmark-item rounded-xl p-3">
+                            <div class="flex items-start justify-between gap-3">
+                                <div class="min-w-0">
+                                    <div class="mb-1 flex items-center gap-2">
+                                        <span class="rounded-full border border-amber-300/25 bg-amber-300/10 px-2 py-0.5 text-[10px] uppercase tracking-wide text-amber-200">${b.type === 'paragraph' ? 'Paragraph' : b.type === 'chapter' ? 'Chapter' : 'Place'}</span>
+                                        <span class="text-[11px] text-white/45">${new Date(b.ts).toLocaleDateString()}</span>
+                                    </div>
+                                    <div class="truncate text-white/90">${escapeHtml(b.avatar)}</div>
+                                    <div class="text-xs text-amber-200/80">${escapeHtml(b.chapter || b.title)}</div>
+                                    ${b.excerpt ? `<div class="mt-1 line-clamp-2 text-xs leading-relaxed text-white/55">${escapeHtml(b.excerpt)}</div>` : ''}
+                                </div>
+                                <div class="flex shrink-0 gap-1">
+                                    <button class="bookmark-toggle" data-jump="${i}" aria-label="Go to bookmark" title="Go to bookmark"><i class="fa-solid fa-arrow-right"></i></button>
+                                    <button class="bookmark-toggle" data-remove="${i}" aria-label="Remove bookmark" title="Remove bookmark"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                    </div>
+                    ${bookmarks.length ? '<button class="mt-4 w-full rounded-xl border border-white/10 px-3 py-2 text-xs text-white/60 hover:bg-white/5 hover:text-white" data-clear-bookmarks>Clear all</button>' : ''}
+                </div>
+            `;
+            document.body.appendChild(panel);
+            panel.addEventListener('click', event => {
+                const close = event.target.closest('[data-close-bookmarks]');
+                const jump = event.target.closest('[data-jump]');
+                const remove = event.target.closest('[data-remove]');
+                const clear = event.target.closest('[data-clear-bookmarks]');
+                if (close) { panel.remove(); return; }
+                if (jump) {
+                    const bookmark = bookmarks[parseInt(jump.dataset.jump, 10)];
+                    panel.remove();
+                    scrollToBookmark(bookmark);
+                    return;
+                }
+                if (remove) {
+                    const idx = parseInt(remove.dataset.remove, 10);
+                    bookmarks.splice(idx, 1);
+                    saveBookmarks(bookmarks);
+                    panel.remove();
+                    showBookmarks();
+                    return;
+                }
+                if (clear) {
+                    saveBookmarks([]);
+                    panel.remove();
+                }
+            });
+        }
+
+        function scrollToBookmark(bookmark) {
+            const targetId = bookmark && (bookmark.targetId || bookmark.id);
+            const target = targetId ? document.getElementById(targetId) : null;
+            if (!target) {
+                showBookmarkToast('Saved place not found');
+                return;
+            }
+            const top = target.getBoundingClientRect().top + window.scrollY - 88;
+            window.scrollTo({ top, behavior: 'smooth' });
+            history.replaceState(null, '', `#${target.id}`);
+            setTimeout(() => {
+                target.classList.add('temp-highlight');
+                setTimeout(() => target.classList.remove('temp-highlight'), 2400);
+            }, 500);
+        }
+
+        function applyReadingMode(enabled, persist = true) {
+            readingMode = enabled;
+            document.body.classList.toggle('reading-mode', enabled);
+            const button = document.getElementById('reading-mode-btn');
+            if (button) {
+                button.setAttribute('aria-pressed', enabled ? 'true' : 'false');
+                button.innerHTML = enabled
+                    ? '<i class="fa-solid fa-times"></i> <span class="hidden sm:inline">Exit reading mode</span>'
+                    : '<i class="fa-solid fa-book"></i> <span class="hidden sm:inline">Reading mode</span>';
+            }
+            if (persist) localStorage.setItem(READING_MODE_KEY, enabled ? 'true' : 'false');
+            queueReadingProgress();
+        }
+
+        function toggleReadingMode() {
+            applyReadingMode(!readingMode);
+        }
+
+        function updateReadingProgress() {
+            const bar = document.getElementById('reading-progress-bar');
+            if (!bar) return;
+            const doc = document.documentElement;
+            const maxScroll = Math.max(1, doc.scrollHeight - doc.clientHeight);
+            const progress = Math.min(100, Math.max(0, (window.scrollY / maxScroll) * 100));
+            bar.style.width = `${progress}%`;
+        }
+
+        function queueReadingProgress() {
+            if (progressFrame) return;
+            progressFrame = requestAnimationFrame(() => {
+                updateReadingProgress();
+                progressFrame = null;
+            });
+        }
+
+        function updateBackToTopButton() {
+            const button = document.getElementById('dash-top-button');
+            if (!button) return;
+            button.classList.toggle('is-visible', window.scrollY > 520);
+        }
+
+        function scrollPageToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+
+        function handleBookmarkClick(event) {
+            const button = event.target.closest('[data-bookmark-target]');
+            if (!button) return;
+            event.preventDefault();
+            event.stopPropagation();
+            toggleBookmark(button.dataset.bookmarkTarget, button.dataset.bookmarkType);
+        }
+
+        function initPage() {
+            renderQuickNav();
+            prepareBookmarkTargets();
+
+            const rmBtn = document.getElementById('reading-mode-btn');
+            if (rmBtn) rmBtn.addEventListener('click', toggleReadingMode);
+
+            const bmBtn = document.getElementById('bookmarks-btn');
+            if (bmBtn) bmBtn.addEventListener('click', showBookmarks);
+
+            const topBtn = document.getElementById('dash-top-button');
+            if (topBtn) topBtn.addEventListener('click', scrollPageToTop);
+
+            document.addEventListener('click', handleBookmarkClick);
+            window.addEventListener('scroll', queueReadingProgress, { passive: true });
+            window.addEventListener('scroll', updateBackToTopButton, { passive: true });
+            window.addEventListener('resize', queueReadingProgress);
+
+            updateBookmarkCount();
+            applyReadingMode(localStorage.getItem(READING_MODE_KEY) === 'true', false);
+            updateBackToTopButton();
+
+            document.addEventListener('keydown', (e) => {
+                const activeTag = document.activeElement ? document.activeElement.tagName : '';
+                if (e.key.toLowerCase() === 'r' && activeTag === 'BODY') {
+                    e.preventDefault();
+                    toggleReadingMode();
+                }
+            });
+
+            if (window.location.hash) {
+                setTimeout(() => {
+                    const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+                    if (target) {
+                        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 88, behavior: 'smooth' });
+                        target.classList.add('temp-highlight');
+                        setTimeout(() => target.classList.remove('temp-highlight'), 2400);
+                    }
+                }, 800);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+    <script src="story-community.js?v=20260722-community-5"></script>
+    <script src="ask-krishna-widget.js"></script>
+</body>
+</html>

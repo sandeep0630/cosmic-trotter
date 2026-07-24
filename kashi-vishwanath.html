@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kashi Vishwanath • CosmicTrotter</title>
+    <link rel="canonical" href="https://cosmictrotter.com/kashi-vishwanath.html">
+
+    <meta name="description" content="Kashi Vishwanath epic storybook: divine time to living rituals — Avimukta, Divodasa, Vishwanath, Ganga, Bhairava, Goddess city, sages, history, Aghora — layered and fact-checked.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
+
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+            background: #0a0a0f;
+            color: #e0e7ff;
+        }
+
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .cosmic-bg {
+            background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 70%);
+        }
+
+        .section-header {
+            font-size: 2.6rem;
+            line-height: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .avatar-story {
+            scroll-margin-top: 5rem;
+            border-top: 1px solid rgba(251, 191, 36, 0.1);
+            padding-top: 2.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .avatar-story:first-of-type {
+            border-top: none;
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .chapter {
+            margin-bottom: 2.5rem;
+        }
+
+        .chapter h3 {
+            color: #fcd34d;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+        }
+
+        .avatar-title-img {
+            display: block;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+        }
+
+        .chapter-img {
+            border-radius: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.45);
+            margin: 0.8rem 0;
+        }
+
+        .illustration-caption {
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.55);
+            font-style: italic;
+            text-align: center;
+            margin-top: -0.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .core-wisdom {
+            background: linear-gradient(145deg, rgba(251, 191, 36, 0.09), rgba(245, 158, 11, 0.035));
+            border: 1px solid rgba(251, 191, 36, 0.22);
+        }
+
+        .story-nav {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .story-nav a {
+            flex: 1;
+            text-align: center;
+            padding: 0.6rem 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(251, 191, 36, 0.25);
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .story-nav a:hover {
+            background: rgba(251, 191, 36, 0.08);
+            border-color: rgba(251, 191, 36, 0.45);
+        }
+
+        .reading-progress-shell {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 150;
+            width: 100%;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.08);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .reading-mode .reading-progress-shell {
+            opacity: 1;
+        }
+
+        #reading-progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #facc15, #22d3ee);
+            box-shadow: 0 0 14px rgba(250, 204, 21, 0.45);
+            transition: width 0.08s linear;
+        }
+
+        .reading-mode {
+            background: radial-gradient(circle at top, #15131f 0%, #07070b 58%);
+        }
+
+        .reading-mode .avatar-story {
+            max-width: 76ch;
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 3rem;
+        }
+
+        .reading-mode .chapter {
+            margin-bottom: 3.2rem;
+            scroll-margin-top: 6.5rem;
+        }
+
+        .reading-mode .chapter h3 {
+            font-size: 1.45rem;
+            line-height: 1.35;
+            margin-bottom: 1rem;
+        }
+
+        .reading-mode .chapter p {
+            font-size: 1.08rem;
+            line-height: 1.95;
+            color: rgba(238, 242, 255, 0.9);
+            margin-bottom: 1.05rem;
+        }
+
+        .reading-mode .chapter-img,
+        .reading-mode .avatar-title-img {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #reading-mode-btn[aria-pressed="true"] {
+            border-color: rgba(251, 191, 36, 0.5);
+            background: rgba(251, 191, 36, 0.1);
+            color: #fde68a;
+        }
+
+        .chapter-heading {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .chapter-heading .heading-text {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .bookmark-toggle {
+            width: 2rem;
+            height: 2rem;
+            flex: 0 0 auto;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            border: 1px solid rgba(251, 191, 36, 0.24);
+            background: rgba(15, 23, 42, 0.82);
+            color: rgba(255, 255, 255, 0.68);
+            box-shadow: 0 10px 26px -18px rgba(0, 0, 0, 0.75);
+            transition: transform 0.18s ease, opacity 0.18s ease, background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+        }
+
+        .bookmark-toggle:hover,
+        .bookmark-toggle:focus-visible,
+        .bookmark-toggle.is-saved {
+            border-color: rgba(251, 191, 36, 0.7);
+            background: rgba(251, 191, 36, 0.16);
+            color: #fcd34d;
+            transform: translateY(-1px);
+        }
+
+        .bookmark-toggle i {
+            pointer-events: none;
+        }
+
+        .chapter-bookmark {
+            margin-top: -0.25rem;
+        }
+
+        .bookmarkable-paragraph {
+            position: relative;
+            scroll-margin-top: 6.25rem;
+        }
+
+        .bookmarkable-paragraph.is-bookmarked {
+            background: linear-gradient(90deg, rgba(251, 191, 36, 0.12), rgba(251, 191, 36, 0.025));
+            box-shadow: -3px 0 0 rgba(251, 191, 36, 0.65);
+        }
+
+        .para-bookmark {
+            position: absolute;
+            top: 0.12rem;
+            left: -2.75rem;
+            opacity: 0;
+            transform: translateX(0.35rem);
+        }
+
+        .bookmarkable-paragraph:hover .para-bookmark,
+        .bookmarkable-paragraph:focus-within .para-bookmark,
+        .reading-mode .para-bookmark,
+        .para-bookmark.is-saved {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .bookmark-panel-card {
+            width: min(46rem, calc(100vw - 1.5rem));
+            max-height: min(78vh, 44rem);
+        }
+
+        .bookmark-item {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        @media (max-width: 768px) {
+            .chapter-heading {
+                gap: 0.5rem;
+            }
+
+            .para-bookmark {
+                position: static;
+                float: right;
+                margin: 0.1rem 0 0.35rem 0.65rem;
+                opacity: 0.76;
+                transform: none;
+            }
+
+            .reading-mode .chapter p {
+                font-size: 1.02rem;
+                line-height: 1.85;
+            }
+        }
+
+        .temp-highlight {
+            animation: gentleHighlight 2.4s ease forwards;
+        }
+
+        @keyframes gentleHighlight {
+            0% { background-color: rgba(251, 191, 36, 0.18); }
+            100% { background-color: transparent; }
+        }
+
+        .avatar-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 0.6rem;
+        }
+
+        .avatar-chip {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(251, 191, 36, 0.15);
+            transition: all 0.25s ease;
+            padding: 0.5rem 0.65rem;
+            border-radius: 0.6rem;
+            font-size: 0.85rem;
+        }
+
+        .avatar-chip:hover {
+            border-color: rgba(251, 191, 36, 0.4);
+            background: rgba(251, 191, 36, 0.06);
+        }
+
+        .dash-top-button {
+            position: fixed;
+            right: 1.25rem;
+            bottom: 5.35rem;
+            z-index: 79;
+            width: 3rem;
+            height: 3rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            border: 1px solid rgba(251, 191, 36, 0.28);
+            background: rgba(15, 23, 42, 0.9);
+            color: #fde68a;
+            box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(0.5rem);
+            transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .dash-top-button.is-visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .dash-top-button:hover,
+        .dash-top-button:focus-visible {
+            background: rgba(251, 191, 36, 0.16);
+            border-color: rgba(251, 191, 36, 0.65);
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 640px) {
+            .dash-top-button {
+                right: 1rem;
+                bottom: 5rem;
+                width: 2.75rem;
+                height: 2.75rem;
+            }
+        }
+
+        .source-note {
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.5);
+            border-left: 2px solid rgba(251, 191, 36, 0.35);
+            padding-left: 0.75rem;
+            margin: 0.75rem 0 1rem;
+        }
+    </style>
+    <script src="theme-toggle.js?v=20260616-light-5"></script>
+    <script src="site-nav.js?v=20260724-lang-hi"></script>
+</head>
+<body class="cosmic-bg" data-krishna-context="Kashi Vishwanath storybook. Offer compassionate dharma for mortality and pilgrimage when natural.">
+    <div class="reading-progress-shell" aria-hidden="true">
+        <div id="reading-progress-bar"></div>
+    </div>
+    <button id="dash-top-button" class="dash-top-button notranslate" type="button" aria-label="Back to top" title="Back to top" translate="no">
+        <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <!-- Hero -->
+    <div class="max-w-5xl mx-auto px-6 pt-14 pb-10 text-center">
+        <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-amber-400/30 bg-amber-400/10 mb-5">
+            <i class="fa-solid fa-om text-amber-400"></i>
+            <span class="text-xs uppercase tracking-[2px] text-amber-400 font-medium">Ganga · Shiva · Moksha Kshetra</span>
+        </div>
+        <h1 class="section-header mb-4">Kashi Vishwanath</h1>
+        <p class="text-xl text-white/75 max-w-3xl mx-auto">కాశి — from the times of the gods to our century: divine disclosure, kings and empires, river and fire, many dharmas, living ārati — an epic layered storybook.</p>
+        <p class="mt-3 text-sm text-amber-200/80 max-w-2xl mx-auto">తెలుగు సారాంశం: కాశి అనేది కేవలం నగరం కాదు — జీవితం, మరణం, జ్ఞానం ఒకే ఒడ్డున నేర్పే తీర్థం.</p>
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-4">
+            <a href="ancient.html" class="inline-flex items-center gap-x-2 text-sm text-amber-300 hover:text-amber-200">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Back to Ancient Wisdom</span>
+            </a>
+            <a href="tirupati-venkateswara.html" class="inline-flex items-center gap-x-2 text-sm text-white/50 hover:text-amber-200">
+                <span>Sister: Tirupati</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+            <a href="puri-jaganath.html" class="inline-flex items-center gap-x-2 text-sm text-white/50 hover:text-amber-200">
+                <span>Jagannath</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto px-6 pb-8">
+        <div class="text-xs uppercase tracking-widest text-amber-400 mb-2">Jump to any Chapter</div>
+        <div class="avatar-selector" id="quick-nav"></div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-6">
+        <div class="flex items-center justify-between mb-5 border-b border-white/10 pb-3">
+            <div class="text-sm text-white/60">Storybook journey • EN + తెలుగు • Sources in References</div>
+            <div class="flex gap-x-2">
+                <button id="reading-mode-btn" class="px-4 py-1.5 text-sm rounded-xl border border-white/20 hover:bg-white/5 flex items-center gap-x-2" aria-pressed="false" title="Toggle reading mode">
+                    <i class="fa-solid fa-book"></i><span class="hidden sm:inline">Reading mode</span>
+                </button>
+                <button id="bookmarks-btn" class="px-4 py-1.5 text-sm rounded-xl border border-white/20 hover:bg-white/5 flex items-center gap-x-2" title="Open saved places">
+                    <i class="fa-solid fa-bookmark"></i><span class="hidden sm:inline">My places</span>
+                    <span id="bookmark-count" class="text-[10px] px-1.5 rounded bg-white/10">0</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-5xl mx-auto px-6 pb-16">
+
+        <section id="part-who" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">1</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Kashi in All Worlds — One City, Many Dimensions</h2>
+                    <div class="text-amber-300/90 text-sm">కాశి · వారణాసి · అవిముక్త · The luminous field</div>
+                </div>
+            </div>
+            <img src="ancient-wisdom/images/kashi-title.jpg?v=20260724d" alt="Sacred Ganga ghats of Kashi — cinematic mythic painting" class="avatar-title-img w-full max-w-4xl mx-auto my-6 rounded-2xl border border-white/10 shadow-2xl shadow-black/40">
+            <p class="illustration-caption">Kashi — where divine time, river time, and human time share one bank.</p>
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>How a rishi would begin</h3>
+                    <p>If Vālmīki sat on these steps, he would not open with a tourist map. He would open with a <em>question of worlds</em>: which Kāśī do you mean — the city of stone, the city of mantra, the city of ash, or the city that remains when all three dissolve? If Agastya sat here, he would add a southern patience: do not hurry the Ganga’s teaching; the northward bend is already a parable of mind turning back toward its source. If a careful scholar sat here, she would insist on layers. If a “vedic scientist” sat here — meaning one who loves cause, ritual function, and lived effect without mocking faith — he would ask: what does this place <em>do</em> to human fear?</p>
+                    <p>This storybook tries to hold all four seats at once. It walks from the times of the gods as tradition tells them, through the long human city archaeology and empire remember, into the living ārati and corridor of our century. It curates widely — Purāṇa, Itihāsa-adjacent memory, Śaiva and Śākta practice, Buddhist and Jain neighbors, historical consensus — and filters hard: no invented secret rites, no fake BCE birthdays for every shrine, no single theory that reduces Kāśī to “only myth” or “only politics.”</p>
+                </div>
+                <div class="chapter">
+                    <h3>The names as a curriculum</h3>
+                    <p>Tradition stacks names like mantras. <strong>Kāśī</strong> — the luminous, the shining. <strong>Vārāṇasī</strong> — the land spoken of between the Varaṇā and Asi streams. <strong>Avimukta</strong> — never abandoned by Śiva. <strong>Ānandakānana</strong> — the forest of bliss before stone crowded the bank. <strong>Mahāśmaśāna</strong> — the great cremation ground of the cosmos, where death is not a scandal but a teacher. <strong>Rudravāsa</strong> — Rudra’s dwelling. Banaras in common speech. Each name is a dimension: light, geography, grace, joy, mortality, fierceness, everyday life.</p>
+                    <p>In the Kāśī-khaṇḍa of the Skanda Purāṇa — a vast pilgrimage-māhātmya that matured as compiled Sanskrit sacred literature (scholars often place its present form around the mid-thirteenth century CE as a living textual tradition, not as “the city’s first calendar day”) — Kāśī is not a pin on a map. It is a <em>kṣetra</em>: a field where ritual, ethics, and liberation-seeking meet. The text praises the place as superior among tīrthas not by insulting other holy lands, but by claiming a special intensity: here the ordinary human death can become a door.</p>
+                    <p class="source-note">Traditional layer: Skanda Purāṇa Kāśī-khaṇḍa name-lists and Avimukta theology. Historical layer: multi-period urban sacred center; literary māhātmya growth over centuries. Comparative note: nearby Sārnāth and Jain memory in the region show Kāśī as a civilizational crossroads, not a sealed bubble.</p>
+                </div>
+                <div class="chapter">
+                    <h3>What “all worlds” means in this journey</h3>
+                    <p><strong>Divine world:</strong> Śiva, Śakti, Gaṅgā, Bhairava, the gods’ dramas of pride and repair. <strong>Inner world:</strong> light versus ego, fear of death versus fearlessness. <strong>Social world:</strong> priests, boatmen, mourners, merchants, sādhus, tourists. <strong>Historical world:</strong> settlement, kings, demolitions, rebuilds, modern corridor. <strong>Ecological world:</strong> the river that must be revered and protected. <strong>Philosophical world:</strong> why mokṣa is spoken of here with such boldness. We will not flatten these into one sentence. We will braid them.</p>
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Kāśī is plural: light, ash, market, and mantra.</li>
+                    <li>• Rishi-voice asks which world you entered today.</li>
+                    <li>• Curate widely; filter inventions and sensationalism.</li>
+                    <li>• Layers differ; disrespect of any layer thins the truth.</li>
+                </ul>
+            </div>
+            <div class="story-nav"><a href="#part-cosmic">Next: Divine Time →</a></div>
+        </section>
+
+        <section id="part-cosmic" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">2</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">From the Times of the Gods — How Tradition Places Kashi Before Maps</h2>
+                    <div class="text-amber-300/90 text-sm">దివ్యకాలం · Ānandakānana · Cosmic geography</div>
+                </div>
+            </div>
+            <img src="ancient-wisdom/images/kashi-chapter-05-origin-light.jpg?v=20260724d" alt="Pillar of sacred light over primordial Kashi forest and river" class="chapter-img w-full max-w-3xl mx-auto">
+            <p class="illustration-caption">Before the crowded lane — light, forest, river, and the mind’s first turning.</p>
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Not a birthday — a disclosure</h3>
+                    <p>Ask archaeology for Kāśī’s “founding year” and you receive continuous human presence on the Ganga bend deep into antiquity — Rajghat and related horizons show long settlement — without a single Purāṇic stamp date. Ask the gods’ literature and you receive a different grammar: the place is <em>disclosed</em> as Śiva’s own, not invented by a committee of kings. In māhātmya vision, Ānandakānana is bliss-forest first; stone temples are later clothing of an older presence. The “vedic scientist” does not force these grammars into one equation. The saint does not need the equation. The storyteller needs both so the modern mind can breathe.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Avimukta — the vow of non-abandonment</h3>
+                    <p>Central to the divine claim is <strong>Avimukta</strong>: the spot never left by Śaṃbhu. In pilgrimage logic, when other tīrthas rise and fall in a soul’s season, Kāśī remains an address. Some strands speak of the <strong>Avimukteśvara</strong> liṅga as a mark left when divine and royal time complicated the city’s surface politics. The teaching is pastoral as much as cosmic: if the Lord does not abandon the field, the dying and the seeking are not abandoned — provided they enter with restraint and truth.</p>
+                    <p class="source-note">Traditional layer: Skanda Purāṇa Kāśī-khaṇḍa Avimukta teachings. Historical layer: continuous habitation; do not convert yugas into fake BCE foundation years for “the first temple.”</p>
+                </div>
+                <div class="chapter">
+                    <h3>The jyotis imagination — light that cannot be measured by pride</h3>
+                    <p>Across Śaiva memory, the immeasurable pillar of light — the jyotis that Brahmā and Viṣṇu could not fully fathom — educates the ego of even the gods. Kāśī’s Viśvanātha participates in that light-theology: the liṅga is not a “statue of a man,” but a sign of the formless Absolute marked for love and focus. When later history demolishes stone, devotion answers that light is not owned by any one roof. That answer is faith. History records roofs. Both belong in an honest book.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Three worlds on one bank</h3>
+                    <p>Purāṇic cosmology loves triads: earth, atmosphere, heaven; waking, dream, deep sleep; creation, maintenance, dissolution. Kāśī compresses them into walkable space. Above: mantra and temple spire. Middle: market and argument. Below/beside: pyre and river receiving ash. Agastya’s patience would say: do not climb only the spire and ignore the ash; do not sit only at the pyre and forget the bliss-name Ānandakānana. Full vision holds all three.</p>
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Divine time discloses; history dates buildings.</li>
+                    <li>• Avimukta is a theology of non-abandonment.</li>
+                    <li>• Jyotis humbles cosmic pride — and human pride.</li>
+                    <li>• Spire, market, and pyre are one curriculum.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-who">← Many Worlds</a>
+                <a href="#part-divodasa">Next: King &amp; Gods →</a>
+            </div>
+        </section>
+
+        <section id="part-divodasa" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">3</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">When Kings and Gods Shared the Stage — Divodāsa and the Unforsaken Mark</h2>
+                    <div class="text-amber-300/90 text-sm">దివోదాస · మందర · Sacred politics as teaching</div>
+                </div>
+            </div>
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>A drama, not a newspaper</h3>
+                    <p>Kāśī-khaṇḍa strands remember seasons when human kingship and divine presence intertwine in story form. In one well-known cycle, king <strong>Divodāsa</strong> becomes associated with a time when the city’s political and sacred balance shifts so intensely that Śiva is said to withdraw for a while toward <strong>Mandara</strong>, yet not without leaving the Avimukteśvara sign — the unforsaken mark. Gods and yoginīs, messengers and tests, populate the māhātmya’s stage. Read this as Vālmīki would: character and dharma under pressure. Read this as a scholar would: a narrative way medieval sacred literature mapped power, purity, and pilgrimage onto Varanasi’s prestige. Do not read it as a police report with timestamps.</p>
+                </div>
+                <div class="chapter">
+                    <h3>What the drama teaches across worlds</h3>
+                    <p>Politically, sacred cities attract kings who want legitimacy. Theologically, no king owns the Absolute. Spiritually, when outer temples seem emptied, the inner liṅga of attention can still be established. Historically, Varanasi’s later centuries will re-enact the pattern without the same cast: demolish, rebuild, rename, re-crowd. The Divodāsa cycle is an early mythic rehearsal of that human pattern — told with gods on stage so the lesson stings cleanly.</p>
+                    <p class="source-note">Traditional layer: Skanda Purāṇa Kāśī-khaṇḍa cycles involving Divodāsa, Mandara, Avimukteśvara (details vary by recension and retelling). Historical layer: use as literature of sacred kingship, not as exact chronology of a single reign dated BCE/CE from the Purāṇa alone.</p>
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Divine–royal stories teach dharma under power-pressure.</li>
+                    <li>• Withdrawal myths can still leave an unforsaken mark.</li>
+                    <li>• Literature ≠ police report; both honesty and poetry matter.</li>
+                    <li>• Later history will echo the pattern in stone and empire.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-cosmic">← Divine Time</a>
+                <a href="#part-vishwanath">Next: Vishwanath →</a>
+            </div>
+        </section>
+
+        <section id="part-vishwanath" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">4</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Viśvanātha — Lord of the Universe as the City’s Heart</h2>
+                    <div class="text-amber-300/90 text-sm">విశ్వనాథ్ · జ్యోతిర్లింగ · Darśan as axis</div>
+                </div>
+            </div>
+            <img src="ancient-wisdom/images/kashi-chapter-01-shiva.jpg?v=20260724d" alt="Shiva linga shrine with devotee — sacred painting" class="chapter-img w-full max-w-3xl mx-auto">
+            <p class="illustration-caption">Viśvanātha — the formless marked as liṅga so love can focus.</p>
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Who is Vishwanath?</h3>
+                    <p><strong>Viśvanātha</strong> means Lord of the Universe: Śiva as sovereign of what moves and what is still. In Kāśī he is not a regional mascot; he is the axis. Devotees come for darśan as if seeing were a form of knowing. The liṅga gathers water, bilva, flowers, and the crush of bodies into one attention technology. Śaiva philosophy insists the Absolute is formless; the liṅga is the compassionate concession that lets the mind bow. Oil lamps and mantras are not “primitive physics”; they are refined methods of collective awe and personal surrender — which a careful mind can study without sneering.</p>
+                </div>
+                <div class="chapter">
+                    <h3>How every connecting story returns here</h3>
+                    <p>Gaṅgā prepares the body for standing. Bhairava polices the ego that would own sacred power. Goddess forms nourish and protect the city’s śakti. Aghora tests non-dual slogans at the fire. Empire tests whether stone can silence devotion. Modern corridor tests whether convenience can replace humility. All spokes meet this hub: to see Viśvanātha is to be asked who is looking.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Death without despair — the bold claim</h3>
+                    <p>Living belief and māhātmya speech hold that death in Kāśī participates in a special hope of release — sometimes framed as Śiva’s whispered teaching at the end. Scholars debate mechanisms and social effects; devotees live meanings. This page states both without contempt. The ethical edge: do not romanticize others’ dying for your photograph. If the claim is grace, the response is reverence.</p>
+                    <p class="source-note">Traditional layer: Viśvanātha / jyotirliṅga theology; Kāśī as mokṣa-kṣetra in māhātmya speech. Living layer: mass darśan culture. Historical layer: multi-period temple house for this presence.</p>
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Liṅga marks formless Absolute for love and focus.</li>
+                    <li>• Darśan is the hub of the whole Kāśī curriculum.</li>
+                    <li>• Mokṣa claims demand ethical reverence, not tourism.</li>
+                    <li>• Ritual is attention-technology plus bhakti.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-divodasa">← King &amp; Gods</a>
+                <a href="#part-ganga">Next: Ganga →</a>
+            </div>
+        </section>
+
+        <section id="part-ganga" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">5</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Gaṅgā and Maṇikarṇikā — River, Ornament, and the Public Honesty of Death</h2>
+                    <div class="text-amber-300/90 text-sm">గంగ · మణికర్ణిక · Descent and kund</div>
+                </div>
+            </div>
+            <img src="ancient-wisdom/images/kashi-chapter-02-ganga.jpg?v=20260724d" alt="Ganga snana at golden hour" class="chapter-img w-full max-w-3xl mx-auto">
+            <p class="illustration-caption">Gaṅgā — ablution, mourning, and morning light on one water.</p>
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Heaven’s river on earth</h3>
+                    <p>In epic-purāṇic imagination, the Gaṅgā descends through Bhagīratha’s austerity and Śiva’s matted locks so the earth is not shattered. Once here, she becomes mother of purification in pilgrimage speech — not a license for cruelty, but a reception of remorse and ash. At Varanasi her famous curve enters poetry as if the river turns to look at her children. Geology explains curves; devotion explains meaning. Both can stand.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Maṇikarṇikā — jewel of the ear, fire of the bank</h3>
+                    <p>Multiple living tellings surround <strong>Maṇikarṇikā</strong>. One common strand: when Śiva and Pārvatī beheld a sacred kund (sometimes linked with Viṣṇu’s presence as Chakrapuṣkariṇī in local speech), a jeweled earring — <em>maṇi</em> and <em>karṇikā</em> — fell, naming the place. Variants assign the ornament to Śiva or to the Goddess; the shared gravity is that the kund and ghat become eternally charged. Another dimension: Maṇikarṇikā as cremation ground where liberation-hope is spoken with unusual boldness. Exact legendary details differ by teller; the ethical demand does not: do not treat pyres as entertainment.</p>
+                    <p class="source-note">Traditional / living layer: Manikarnika kund origin tellings (ear-ornament / divine couple); cremation-ghat sanctity. Historical / social layer: continuous funeral economy and pilgrimage interface — approach with dignity.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Ghats as philosophy you can walk</h3>
+                    <p>Stone steps hold weddings and funerals, snāna and selfie, priestly tarpaṇa and tourist boats. The shock outsiders feel is part of Kāśī’s teaching: death is not only hidden in hospitals. The river does not refuse joy or ash. A vedic-scientific eye notes public ritual as social technology of mourning. A rishi’s eye notes impermanence made visible. A citizen’s eye must add: protect the river’s health, or reverence becomes hypocrisy.</p>
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Gaṅgā is descent-story and living hydrology together.</li>
+                    <li>• Maṇikarṇikā braids ornament-legend and death-honesty.</li>
+                    <li>• Ghats make mortality public so wisdom can be real.</li>
+                    <li>• Ecological care is modern dharma.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-vishwanath">← Vishwanath</a>
+                <a href="#part-bhairava">Next: Bhairava →</a>
+            </div>
+        </section>
+
+        <section id="part-bhairava" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">6</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Kāla Bhairava — From Severed Pride to Kotwal of Kashi</h2>
+                    <div class="text-amber-300/90 text-sm">కాలభైరవ · కపాల · Kapālamocana</div>
+                </div>
+            </div>
+            <img src="ancient-wisdom/images/kashi-chapter-04-bhairava.jpg?v=20260724d" alt="Kala Bhairava with kapala skull in palm" class="chapter-img w-full max-w-3xl mx-auto">
+            <p class="illustration-caption">Kapāla in palm — the residue of violence released only in Avimukta.</p>
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Why the fierce guardian is not optional</h3>
+                    <p>Soft darśan without a threshold-guardian becomes sentiment. Kāśī insists on <strong>Kāla Bhairava</strong> — destroyer of the fear of time, popularly the city’s kotwal. Many living customs treat his permission as part of a complete yātrā. He is Vishwanath’s fierce function: the Absolute as beauty and as terror that liberates.</p>
+                </div>
+                <div class="chapter">
+                    <h3>The fifth head — a story told across recensions</h3>
+                    <p>In widely circulating Śaiva narratives (Śiva Purāṇa strands, Kāśī-khaṇḍa Bhairava cycles, and living retellings — details vary), Brahmā’s pride blazes; a fifth head burns with arrogance; Śiva manifests Bhairava who severs that head. The skull sticks. Personified brahmahatyā pursues the kapālika wanderer across worlds until he enters Kāśī. At <strong>Kapālamocana</strong>, the skull falls; the sin cannot follow into the unforsaken field. Bhairava remains as guardian — lord of time who frees from terror of time.</p>
+                    <p>Scholar’s filter: multi-recension myth with local sacred geography attached (Kaal Bhairav Mandir; Kapālamocana memory). Saint’s filter: holy arrogance is still arrogance. Inner scientist’s filter: the stuck skull is residual violence; only humility on sacred ground releases it. Do not freeze one viral version as the sole text.</p>
+                    <p class="source-note">Traditional layer: Śiva Purāṇa / Skanda Kāśī-khaṇḍa Bhairava origin cycles. Living layer: Kaal Bhairav worship; kotwal title in folk speech. Historical layer: shrine network multi-period.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Connecting worlds</h3>
+                    <p>Bhairava links divine courtroom (gods’ pride), ethical psychology (ego-cut), tantric threshold (fierce grace), and civic metaphor (kotwal). Without him, Kāśī’s sweetness risks denial. With him, the city remains honest about death, crime of the soul, and discipline.</p>
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Kapāla names residual violence seeking release.</li>
+                    <li>• Avimukta ends the wandering of guilt-myth.</li>
+                    <li>• Fierce and soft grace are one Śiva.</li>
+                    <li>• Compare recensions; do not worship a single viral summary.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-ganga">← Ganga</a>
+                <a href="#part-shakti">Next: Goddess City →</a>
+            </div>
+        </section>
+
+        <section id="part-shakti" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">7</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">The Goddess City — Annapūrṇā, Viśālākṣī, and Śakti’s Co-Presence</h2>
+                    <div class="text-amber-300/90 text-sm">అన్నపూర్ణ · విశాలాక్షి · Nourishment and power</div>
+                </div>
+            </div>
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Not Śiva alone</h3>
+                    <p>A classical Kāśī veneration bows together to Viśveśa, Mādhava, Ḍhuṇḍhi, Daṇḍapāṇi, Bhairava, the city, Gaṅgā, Bhavānī, and Maṇikarṇikā. The point is co-presence. <strong>Annapūrṇā</strong> feeds the world — the theology of nourishment against the city’s hunger and the pilgrim’s emptiness. <strong>Viśālākṣī</strong> stands among the great goddess centers associated with the city’s śakti map. Without the Goddess, Kāśī would be incomplete light; with her, the city is also kitchen, protection, and fierce mother-love.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Śākta and Śaiva as one household</h3>
+                    <p>In living practice, many households and yātrās braid Śiva and Śakti without anxiety. Philosophically, Śiva without Śakti is stillness without power to act; Śakti without Śiva is power without rest. Kāśī’s temples enact that marriage in geography: Vishwanath and Annapūrṇā within a short walk of meaning, even when crowds and streets make the walk long.</p>
+                    <p class="source-note">Traditional / living layer: Annapūrṇā and Viśālākṣī in Kāśī’s sacred circuit; stotra maps of co-presence. Historical layer: temple patronage multi-period — verify current access with living sources when traveling.</p>
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Kāśī is a household of deities, not a monopoly of one form.</li>
+                    <li>• Annapūrṇā teaches that liberation still needs bread and grace.</li>
+                    <li>• Śiva–Śakti co-presence is geography and philosophy.</li>
+                    <li>• Full yātrā includes the Goddess’s address.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-bhairava">← Bhairava</a>
+                <a href="#part-sages">Next: Sages &amp; Paths →</a>
+            </div>
+        </section>
+
+        <section id="part-sages" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">8</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Sages, Many Dharmas, and the Civilizational Crossroads</h2>
+                    <div class="text-amber-300/90 text-sm">ఋషులు · బుద్ధ · జైన · Many paths, one river</div>
+                </div>
+            </div>
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Vālmīki’s patience and Agastya’s balance</h3>
+                    <p>We invoke Vālmīki not to invent a Rāmāyaṇa chapter that does not exist as “proof,” but to take his method: long attention, moral complexity, speech that can carry both grief and dharma. We invoke Agastya as the mind that can hold northern and southern wisdom without panic — useful in a city that merges opposites. Kāśī has been a magnet for renouncers, grammarians, poets, and logicians across centuries; the Ganga has heard more debates than any one school can claim.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Buddha at the door of the region</h3>
+                    <p>A few kilometers away, <strong>Sārnāth</strong> remembers the Buddha’s first turning of the wheel. Historical Buddhism’s presence in the Varanasi region is not a footnote to Hindu Kāśī — it is a real civilizational neighbor. Many modern pilgrims visit both. The honest story includes that proximity: one landscape has hosted multiple liberative experiments. Jain memory likewise threads the wider region with Tīrthaṅkara associations in tradition and community history. Kāśī’s “all worlds” includes these dharmas without forcing a false merger of doctrines.</p>
+                    <p class="source-note">Historical layer: Sārnāth as major early Buddhist site near Varanasi; Jain communities and traditions in the region. Traditional Hindu layer remains distinct; co-presence is geographic and civilizational.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Poets and teachers of later centuries</h3>
+                    <p>Later voices — from Advaita teachers associated with Kāśī’s learning culture to bhakti poets who sang the city’s lanes — add human texture. Tulsīdās’s Banaras memory, Kabīr’s sharp clarity in the same cultural air (with complex historical placing), and countless unnamed paṇḍits form a cloud of witnesses. Filter carefully: hagiography is not archive, yet hagiography still teaches how people loved the city.</p>
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Rishi-method: long attention, moral complexity.</li>
+                    <li>• Sārnāth proves the region hosts many liberative paths.</li>
+                    <li>• Co-presence ≠ forced sameness of doctrine.</li>
+                    <li>• Hagiography teaches love; archive teaches dates — use both.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-shakti">← Goddess</a>
+                <a href="#part-history">Next: Stone &amp; Empire →</a>
+            </div>
+        </section>
+
+        <section id="part-history" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">9</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Stone, Empire, and Endurance — The Human History of the Sacred House</h2>
+                    <div class="text-amber-300/90 text-sm">చరిత్ర · Ahilyābāī · Corridor</div>
+                </div>
+            </div>
+            <img src="ancient-wisdom/images/kashi-chapter-03-lanes.jpg?v=20260724d" alt="Lamp-lit lanes of Kashi" class="chapter-img w-full max-w-3xl mx-auto">
+            <p class="illustration-caption">Lanes remember more demolitions and rebuilds than any single plaque can list.</p>
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Continuous city, interrupted roofs</h3>
+                    <p>Archaeology and urban history support a very old, continuous sacred city on the Ganga. That is not the same claim as “this exact temple building stood unchanged since the first yuga.” Sacred presence in belief is continuous; architecture and political control are interrupted. Dynasties, merchant guilds, and empire after empire have left marks. The honest sentence is: Kāśī endures as a living kṣetra through rebuilds.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Wound and rebuild</h3>
+                    <p>In the late seventeenth century, under Mughal emperor <strong>Aurangzeb</strong>, the then-standing Vishwanath temple was demolished; the <strong>Gyanvapi</strong> mosque complex stands in the same dense zone as a historical neighbor. This page does not settle courts. It names the wound. In the late eighteenth century, <strong>Maharani Ahilyābāī Holkar</strong> of Indore rebuilt the present core temple (commonly dated around 1780), remembered as devotion in architecture. Later gold offerings are associated with patronage such as Maharaja Ranjit Singh’s era. In December 2021, the <strong>Kashi Vishwanath Dham Corridor</strong> reopened access toward the Ganga at a new civic scale after large redevelopment. Crowds surged. The old demand remained: humility in queue.</p>
+                    <p class="source-note">Historical layer: multi-period temple; 1669-era demolition context; Ahilyābāī rebuild ~1780; corridor inauguration 13 Dec 2021. Traditional layer: belief that demolition of stone does not extinguish Śiva’s presence.</p>
+                </div>
+                <div class="chapter">
+                    <h3>How divine time and empire time converse</h3>
+                    <p>Divine-time stories say the field is unforsaken. Empire-time stories say roofs fall. The conversation is Kāśī’s special music: faith without history becomes fantasy; history without faith becomes only rubble-counting. Walk both measures of time when you walk the lane.</p>
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Presence and building are related but not identical.</li>
+                    <li>• Name historical wounds without courtroom cosplay.</li>
+                    <li>• Ahilyābāī models power used to repair.</li>
+                    <li>• Corridor changes access; dharma still asks humility.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-sages">← Sages</a>
+                <a href="#part-aghori">Next: Aghora →</a>
+            </div>
+        </section>
+
+        <section id="part-aghori" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">10</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">Aghora — Fierce Non-Duality at the Edge of Fire</h2>
+                    <div class="text-amber-300/90 text-sm">అఘోర · శ్మశాన · Courage without sensationalism</div>
+                </div>
+            </div>
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>What Aghora is — and is not</h3>
+                    <p><strong>Aghora</strong> points toward the “non-terrible” Absolute — the insight that pure/impure dualism can become a prison. Serious Aghori sādhanā is guru-dependent, often closed, and frequently associated with cremation-ground confrontation of fear. Kāśī’s burning ghats make the city a natural magnet. Modern media often turns Aghoris into horror costumes. This storybook refuses that. We do not invent secret dikṣā content. We state purpose as practitioners and careful observers describe it: destroy false purity-pride; accept what nature gives; serve the dead without turning away; seek fearlessness.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Why they belong in the local ecology</h3>
+                    <p>Most of Kāśī is householders, priests, students, traders. Aghora is not the only truth — but it is a permanent reminder that Mahāśmaśāna is not metaphor alone. Bhairava’s city has room for fierce practice. The public ethical takeaway for ordinary pilgrims is courage and non-disgust, not imitation of closed rites.</p>
+                    <p class="source-note">Living / traditional layer: Aghora as Śaiva-tantric orientation; ghat presence. Filter: reject viral exoticism and invented ritual recipes.</p>
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Aghora tests dualism at the fire’s edge.</li>
+                    <li>• Closed lineages stay closed — no invented secrets.</li>
+                    <li>• Public lesson: fearlessness and dignity for the dead.</li>
+                    <li>• Fierce and soft paths complete one riverbank.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-history">← History</a>
+                <a href="#part-today">Next: Living Rituals →</a>
+            </div>
+        </section>
+
+        <section id="part-today" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">11</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">How Kashi Is Lived Now — Pūjā, Ārati, Yātrā in Our Century</h2>
+                    <div class="text-amber-300/90 text-sm">నేటి ఆచారాలు · Living niti</div>
+                </div>
+            </div>
+            <img src="ancient-wisdom/images/kashi-chapter-06-aarti.jpg?v=20260724d" alt="Ganga aarti at night" class="chapter-img w-full max-w-3xl mx-auto">
+            <p class="illustration-caption">Evening ārati — public fire, shared awe, river as witness.</p>
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Daily temple rhythm</h3>
+                    <p>Maṅgala atmosphere, abhiṣeka and decoration, darśan waves, midday pause, sandhyā ārati, night closure — timings shift by season and administration; the structure holds. Devotees offer bilva and water; many whisper into Nandi’s ear. The crowd is modern māhātmya in high volume.</p>
+                </div>
+                <div class="chapter">
+                    <h3>Gaṅgā ārati and the circuit</h3>
+                    <p>Ghat ārati has become a public liturgy of multi-tier lamps and sound. A full traditional circuit may include Vishwanath, Kaal Bhairav, Annapūrṇā, Viśālākṣī, and other liṅgas per family custom. Festivals — Śivarātri, Śrāvaṇa, Kartik lights — reorganize density. Verify schedules before travel; tradition is stable, clocks move.</p>
+                    <p class="source-note">Living niti: contemporary darśan and ārati culture. Practical note: official temple and city sources for current timings and access.</p>
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Daily pūjā is attention-technology plus love.</li>
+                    <li>• Ārati is public awe — protect mourners’ privacy nearby.</li>
+                    <li>• Full yātrā is a circuit of Śiva, Śakti, Bhairava, river.</li>
+                    <li>• Check living clocks; do not fossilize a brochure.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-aghori">← Aghora</a>
+                <a href="#part-walk">Next: All Dimensions →</a>
+            </div>
+        </section>
+
+        <section id="part-walk" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">12</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">All Dimensions Held Together — A Closing for Every World You Carry</h2>
+                    <div class="text-amber-300/90 text-sm">సారం · From gods’ time to your next hour</div>
+                </div>
+            </div>
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>The braid, restated</h3>
+                    <p>We walked divine disclosure and Avimukta vow; Divodāsa’s sacred-political drama; Vishwanath as axis; Gaṅgā and Maṇikarṇikā; Bhairava’s kapāla and kotwalship; the Goddess’s kitchen and power; sages and many dharmas including the Buddhist neighbor at Sārnāth; empire’s wounds and Ahilyābāī’s repair; Aghora’s fierce honesty; and today’s ārati. The connecting truth: light and ash are neighbors; ego must be cut for grace to stick; the river receives all; history can break stone without extinguishing devotion; many worlds share one bank without becoming one doctrine.</p>
+                </div>
+                <div class="chapter">
+                    <h3>How to walk — ethics for the living</h3>
+                    <p>Come as guest of the dead and the living. Do not harvest sacred shock for content. Give without vanity. Stand in queue without converting impatience into anger. If you cannot enter every shrine, still bow to the river and to the idea of non-abandonment. Take Kāśī home as honesty in ordinary hours — that is how divine time enters human time without a plane ticket.</p>
+                </div>
+            </div>
+            <div class="core-wisdom rounded-2xl p-5 my-5">
+                <div class="text-amber-300 font-semibold mb-2 text-sm flex items-center gap-x-2"><i class="fa-solid fa-lightbulb"></i> Core Wisdom</div>
+                <ul class="grid md:grid-cols-2 gap-x-5 gap-y-1 text-sm text-white/85">
+                    <li>• Hold divine, historical, and living layers together.</li>
+                    <li>• Light and ash are neighbors — that is the teaching.</li>
+                    <li>• Walk as guest, not as consumer of awe.</li>
+                    <li>• Bring Kāśī home as truthfulness in ordinary life.</li>
+                </ul>
+            </div>
+            <div class="story-nav">
+                <a href="#part-today">← Rituals</a>
+                <a href="#part-refs">Next: References →</a>
+            </div>
+        </section>
+
+        <section id="part-refs" class="avatar-story">
+            <div class="flex items-center gap-x-4 mb-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-[#0a0a0f] font-bold text-sm flex-shrink-0">13</div>
+                <div>
+                    <h2 class="text-3xl font-bold tracking-tight">References, Filters &amp; Honesty Notes</h2>
+                    <div class="text-amber-300/90 text-sm">మూలాలు · Curated, not invented</div>
+                </div>
+            </div>
+            <div class="chapters text-[15.2px]">
+                <div class="chapter">
+                    <h3>Primary curation used</h3>
+                    <ol class="list-decimal pl-5 space-y-2 text-sm text-white/75">
+                        <li><strong>Skanda Purāṇa, Kāśī-khaṇḍa</strong> — names, Avimukta, sacred geography, Divodāsa-related cycles, Bhairava strands (recensions vary; mid-13th c. form often discussed by historians of the text as compiled māhātmya tradition).</li>
+                        <li><strong>Śiva Purāṇa strands</strong> — Bhairava / Brahmā-head narratives (compare versions; do not freeze one retelling).</li>
+                        <li><strong>Epic-purāṇic Gaṅgā-avataraṇa</strong> — Bhagīratha / Śiva’s jaṭā motif as traditional cosmology of the river.</li>
+                        <li><strong>Living Kāśī practice</strong> — Vishwanath darśan culture; Kaal Bhairav; Annapūrṇā / Viśālākṣī circuits; ghat ārati; Manikarnika living belief (ornament-kund tellings vary).</li>
+                        <li><strong>Historical synthesis</strong> — continuous urban settlement; multi-period temple; Aurangzeb-era demolition context; Ahilyābāī Holkar rebuild (~1780); Kashi Vishwanath Dham Corridor (13 Dec 2021).</li>
+                        <li><strong>Regional many-dharmas</strong> — Sārnāth early Buddhist site near Varanasi; Jain community memory in the wider region.</li>
+                        <li><strong>Aghora</strong> — real Śaiva-tantric orientation; closed practices not invented here; reject sensational travel media as sole source.</li>
+                    </ol>
+                    <p class="source-note mt-4">Honesty filters: (1) No yuga-to-fake-BCE conversion. (2) Myth ≠ police report; history ≠ death of devotion. (3) Contested sites acknowledged without courtroom verdicts. (4) Secret dikṣā contents not fabricated. (5) Timings change — verify before travel. (6) Global curiosity welcomed; reduction of Kāśī to “exotic death city” rejected.</p>
+                    <p class="mt-4 text-sm text-white/70">Sister journeys: <a class="text-amber-300 hover:underline" href="tirupati-venkateswara.html">Tirupati</a>, <a class="text-amber-300 hover:underline" href="puri-jaganath.html">Jagannath</a>, <a class="text-amber-300 hover:underline" href="hanuman.html">Hanuman</a>, <a class="text-amber-300 hover:underline" href="dashavatara.html">Dashavatara</a>, <a class="text-amber-300 hover:underline" href="crossroads/what-is-time.html">What is time?</a>.</p>
+                </div>
+            </div>
+            <div class="story-nav">
+                <a href="#part-walk">← Closing</a>
+                <a href="ancient.html">Ancient Wisdom Library →</a>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+      document.body.setAttribute('data-cosmic-cta', JSON.stringify({
+        pillar: 'ancient',
+        related: [
+          { href: 'tirupati-venkateswara.html', label: 'Tirupati Venkateswara' },
+          { href: 'ancient-wisdom/kala.html', label: 'Kāla' },
+          { href: 'gita-verse.html', label: 'Gita verse today' }
+        ]
+      }));
+    </script>
+    <script src="cosmic-cta.js?v=20260723-cta-1"></script>
+
+<script>
+        const parts = [
+            { id: "who", num: 1, name: "Many Worlds (కాశి)" },
+            { id: "cosmic", num: 2, name: "Divine Time (దివ్యకాలం)" },
+            { id: "divodasa", num: 3, name: "King & Gods (దివోదాస)" },
+            { id: "vishwanath", num: 4, name: "Vishwanath (విశ్వనాథ్)" },
+            { id: "ganga", num: 5, name: "Ganga & Manikarnika" },
+            { id: "bhairava", num: 6, name: "Kala Bhairava" },
+            { id: "shakti", num: 7, name: "Goddess City (శక్తి)" },
+            { id: "sages", num: 8, name: "Sages & Paths (ఋషులు)" },
+            { id: "history", num: 9, name: "Stone & Empire (చరిత్ర)" },
+            { id: "aghori", num: 10, name: "Aghora (అఘోర)" },
+            { id: "today", num: 11, name: "Living Rituals (నేడు)" },
+            { id: "walk", num: 12, name: "All Dimensions (సారం)" },
+            { id: "refs", num: 13, name: "References (మూలాలు)" }
+        ];
+
+
+
+        function renderQuickNav() {
+            const container = document.getElementById('quick-nav');
+            if (!container) return;
+            container.innerHTML = parts.map(a =>
+                `<button onclick="document.getElementById('part-${a.id}').scrollIntoView({behavior:'smooth', block:'start'})" class="avatar-chip text-left">${a.num}. ${a.name}</button>`
+            ).join('');
+        }
+
+        const READING_MODE_KEY = 'cosmic_kashi_reading_mode';
+        const BOOKMARK_KEY = 'cosmic_kashi_bookmarks';
+        let readingMode = false;
+        let progressFrame = null;
+
+        function escapeHtml(value) {
+            return String(value || '').replace(/[&<>"']/g, ch => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#39;'
+            }[ch]));
+        }
+
+        function compactText(value, limit = 180) {
+            const text = String(value || '').replace(/\s+/g, ' ').trim();
+            return text.length > limit ? `${text.slice(0, limit - 1).trim()}...` : text;
+        }
+
+        function bookmarkKey(type, targetId) {
+            return `${type}:${targetId}`;
+        }
+
+        function normalizeBookmark(bookmark) {
+            if (!bookmark) return null;
+            const targetId = bookmark.targetId || bookmark.id;
+            if (!targetId) return null;
+            const type = bookmark.type || (targetId.startsWith('para-') ? 'paragraph' : targetId.startsWith('chapter-') ? 'chapter' : 'section');
+            return {
+                key: bookmark.key || bookmarkKey(type, targetId),
+                type,
+                targetId,
+                title: bookmark.title || 'Saved place',
+                avatar: bookmark.avatar || '',
+                chapter: bookmark.chapter || '',
+                excerpt: bookmark.excerpt || '',
+                ts: bookmark.ts || Date.now()
+            };
+        }
+
+        function getBookmarks() {
+            try {
+                const parsed = JSON.parse(localStorage.getItem(BOOKMARK_KEY) || '[]');
+                return Array.isArray(parsed) ? parsed.map(normalizeBookmark).filter(Boolean) : [];
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function saveBookmarks(list) {
+            const seen = new Set();
+            const normalized = [];
+            list.map(normalizeBookmark).filter(Boolean).forEach(bookmark => {
+                if (seen.has(bookmark.key)) return;
+                seen.add(bookmark.key);
+                normalized.push(bookmark);
+            });
+            localStorage.setItem(BOOKMARK_KEY, JSON.stringify(normalized.slice(0, 200)));
+            updateBookmarkCount(normalized);
+            syncBookmarkButtons(normalized);
+        }
+
+        function updateBookmarkCount(list = getBookmarks()) {
+            const el = document.getElementById('bookmark-count');
+            if (el) el.textContent = list.length;
+        }
+
+        function showBookmarkToast(message) {
+            const existing = document.querySelector('[data-bookmark-toast]');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.dataset.bookmarkToast = 'true';
+            toast.className = 'fixed left-1/2 bottom-5 z-[180] -translate-x-1/2 rounded-full border border-amber-300/35 bg-[#111827]/95 px-4 py-2 text-sm text-amber-100 shadow-2xl shadow-black/40';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 1600);
+        }
+
+        function createBookmarkButton(type, targetId) {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = `bookmark-toggle ${type === 'chapter' ? 'chapter-bookmark' : 'para-bookmark'}`;
+            button.dataset.bookmarkType = type;
+            button.dataset.bookmarkTarget = targetId;
+            button.setAttribute('aria-label', `Bookmark ${type}`);
+            button.setAttribute('title', `Bookmark ${type}`);
+            button.setAttribute('aria-pressed', 'false');
+            button.innerHTML = '<i class="fa-regular fa-bookmark"></i>';
+            return button;
+        }
+
+        function sectionTitle(section) {
+            const title = section ? section.querySelector('h2') : null;
+            return title ? compactText(title.textContent, 90) : 'Kashi Vishwanath';
+        }
+
+        function prepareBookmarkTargets() {
+            document.querySelectorAll('.avatar-story').forEach(section => {
+                const sectionSlug = (section.id || 'part-story').replace(/^part-/, '');
+                const avatar = sectionTitle(section);
+
+                section.querySelectorAll('.chapter').forEach((chapter, chapterIndex) => {
+                    if (!chapter.id) chapter.id = `chapter-${sectionSlug}-${chapterIndex + 1}`;
+
+                    const heading = chapter.querySelector('h3');
+                    const rawChapterTitle = heading ? compactText(heading.textContent, 120) : `Chapter ${chapterIndex + 1}`;
+                    chapter.dataset.bookmarkAvatar = avatar;
+                    chapter.dataset.bookmarkTitle = rawChapterTitle;
+
+                    if (heading && !heading.querySelector('.chapter-bookmark')) {
+                        heading.classList.add('chapter-heading');
+                        heading.textContent = '';
+                        const headingText = document.createElement('span');
+                        headingText.className = 'heading-text';
+                        headingText.textContent = rawChapterTitle;
+                        heading.appendChild(headingText);
+                        heading.appendChild(createBookmarkButton('chapter', chapter.id));
+                    }
+
+                    Array.from(chapter.children)
+                        .filter(child => child.tagName === 'P')
+                        .forEach((paragraph, paragraphIndex) => {
+                            if (!paragraph.id) paragraph.id = `para-${sectionSlug}-${chapterIndex + 1}-${paragraphIndex + 1}`;
+                            paragraph.classList.add('bookmarkable-paragraph');
+                            paragraph.dataset.bookmarkAvatar = avatar;
+                            paragraph.dataset.bookmarkChapter = rawChapterTitle;
+                            paragraph.dataset.bookmarkExcerpt = compactText(paragraph.textContent, 220);
+                            if (!paragraph.querySelector('.para-bookmark')) {
+                                paragraph.prepend(createBookmarkButton('paragraph', paragraph.id));
+                            }
+                        });
+                });
+            });
+            syncBookmarkButtons();
+        }
+
+        function buildBookmark(targetId, type) {
+            const target = document.getElementById(targetId);
+            if (!target) return null;
+            const chapter = type === 'chapter' ? target : target.closest('.chapter');
+            const section = target.closest('.avatar-story');
+            const avatar = target.dataset.bookmarkAvatar || (chapter && chapter.dataset.bookmarkAvatar) || sectionTitle(section);
+            const chapterTitle = type === 'chapter'
+                ? (target.dataset.bookmarkTitle || compactText(target.querySelector('h3')?.textContent, 120))
+                : (target.dataset.bookmarkChapter || chapter?.dataset.bookmarkTitle || 'Chapter');
+            const excerpt = type === 'paragraph' ? compactText(target.dataset.bookmarkExcerpt || target.textContent, 220) : '';
+            return {
+                key: bookmarkKey(type, targetId),
+                type,
+                targetId,
+                title: type === 'chapter' ? chapterTitle : 'Paragraph note',
+                avatar,
+                chapter: chapterTitle,
+                excerpt,
+                ts: Date.now()
+            };
+        }
+
+        function toggleBookmark(targetId, type) {
+            const key = bookmarkKey(type, targetId);
+            const bookmarks = getBookmarks();
+            const existingIndex = bookmarks.findIndex(bookmark => bookmark.key === key);
+            if (existingIndex >= 0) {
+                bookmarks.splice(existingIndex, 1);
+                saveBookmarks(bookmarks);
+                showBookmarkToast('Bookmark removed');
+                return;
+            }
+            const bookmark = buildBookmark(targetId, type);
+            if (!bookmark) return;
+            saveBookmarks([bookmark, ...bookmarks]);
+            showBookmarkToast(type === 'chapter' ? 'Chapter bookmarked' : 'Paragraph bookmarked');
+        }
+
+        function syncBookmarkButtons(list = getBookmarks()) {
+            const saved = new Set(list.map(bookmark => bookmark.key));
+            document.querySelectorAll('[data-bookmark-target]').forEach(button => {
+                const key = bookmarkKey(button.dataset.bookmarkType, button.dataset.bookmarkTarget);
+                const isSaved = saved.has(key);
+                button.classList.toggle('is-saved', isSaved);
+                button.setAttribute('aria-pressed', isSaved ? 'true' : 'false');
+                button.setAttribute('title', isSaved ? `Remove ${button.dataset.bookmarkType} bookmark` : `Bookmark ${button.dataset.bookmarkType}`);
+                const icon = button.querySelector('i');
+                if (icon) icon.className = isSaved ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark';
+            });
+            document.querySelectorAll('.bookmarkable-paragraph').forEach(paragraph => {
+                paragraph.classList.toggle('is-bookmarked', saved.has(bookmarkKey('paragraph', paragraph.id)));
+            });
+        }
+
+        function showBookmarks() {
+            const bookmarks = getBookmarks();
+            const panel = document.createElement('div');
+            panel.className = 'fixed inset-0 bg-black/70 z-[160] flex items-end md:items-center justify-center p-0 md:p-4';
+            panel.innerHTML = `
+                <div class="absolute inset-0" data-close-bookmarks></div>
+                <div class="bookmark-panel-card relative bg-[#111827] border border-white/10 rounded-t-2xl md:rounded-2xl p-5 text-sm overflow-hidden shadow-2xl shadow-black/50">
+                    <div class="flex items-start justify-between gap-4 border-b border-white/10 pb-4">
+                        <div>
+                            <div class="font-semibold text-white">My places</div>
+                            <div class="text-xs text-white/50">${bookmarks.length} saved</div>
+                        </div>
+                        <button class="bookmark-toggle" data-close-bookmarks aria-label="Close bookmarks" title="Close">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                    <div class="mt-4 max-h-[60vh] space-y-2 overflow-auto pr-1">
+                    ${bookmarks.length === 0 ? '<div class="text-white/60 py-8 text-center">No saved chapters or paragraphs yet.</div>' :
+                    bookmarks.map((b, i) => `
+                        <div class="bookmark-item rounded-xl p-3">
+                            <div class="flex items-start justify-between gap-3">
+                                <div class="min-w-0">
+                                    <div class="mb-1 flex items-center gap-2">
+                                        <span class="rounded-full border border-amber-300/25 bg-amber-300/10 px-2 py-0.5 text-[10px] uppercase tracking-wide text-amber-200">${b.type === 'paragraph' ? 'Paragraph' : b.type === 'chapter' ? 'Chapter' : 'Place'}</span>
+                                        <span class="text-[11px] text-white/45">${new Date(b.ts).toLocaleDateString()}</span>
+                                    </div>
+                                    <div class="truncate text-white/90">${escapeHtml(b.avatar)}</div>
+                                    <div class="text-xs text-amber-200/80">${escapeHtml(b.chapter || b.title)}</div>
+                                    ${b.excerpt ? `<div class="mt-1 line-clamp-2 text-xs leading-relaxed text-white/55">${escapeHtml(b.excerpt)}</div>` : ''}
+                                </div>
+                                <div class="flex shrink-0 gap-1">
+                                    <button class="bookmark-toggle" data-jump="${i}" aria-label="Go to bookmark" title="Go to bookmark"><i class="fa-solid fa-arrow-right"></i></button>
+                                    <button class="bookmark-toggle" data-remove="${i}" aria-label="Remove bookmark" title="Remove bookmark"><i class="fa-solid fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                    </div>
+                    ${bookmarks.length ? '<button class="mt-4 w-full rounded-xl border border-white/10 px-3 py-2 text-xs text-white/60 hover:bg-white/5 hover:text-white" data-clear-bookmarks>Clear all</button>' : ''}
+                </div>
+            `;
+            document.body.appendChild(panel);
+            panel.addEventListener('click', event => {
+                const close = event.target.closest('[data-close-bookmarks]');
+                const jump = event.target.closest('[data-jump]');
+                const remove = event.target.closest('[data-remove]');
+                const clear = event.target.closest('[data-clear-bookmarks]');
+                if (close) { panel.remove(); return; }
+                if (jump) {
+                    const bookmark = bookmarks[parseInt(jump.dataset.jump, 10)];
+                    panel.remove();
+                    scrollToBookmark(bookmark);
+                    return;
+                }
+                if (remove) {
+                    const idx = parseInt(remove.dataset.remove, 10);
+                    bookmarks.splice(idx, 1);
+                    saveBookmarks(bookmarks);
+                    panel.remove();
+                    showBookmarks();
+                    return;
+                }
+                if (clear) {
+                    saveBookmarks([]);
+                    panel.remove();
+                }
+            });
+        }
+
+        function scrollToBookmark(bookmark) {
+            const targetId = bookmark && (bookmark.targetId || bookmark.id);
+            const target = targetId ? document.getElementById(targetId) : null;
+            if (!target) {
+                showBookmarkToast('Saved place not found');
+                return;
+            }
+            const top = target.getBoundingClientRect().top + window.scrollY - 88;
+            window.scrollTo({ top, behavior: 'smooth' });
+            history.replaceState(null, '', `#${target.id}`);
+            setTimeout(() => {
+                target.classList.add('temp-highlight');
+                setTimeout(() => target.classList.remove('temp-highlight'), 2400);
+            }, 500);
+        }
+
+        function applyReadingMode(enabled, persist = true) {
+            readingMode = enabled;
+            document.body.classList.toggle('reading-mode', enabled);
+            const button = document.getElementById('reading-mode-btn');
+            if (button) {
+                button.setAttribute('aria-pressed', enabled ? 'true' : 'false');
+                button.innerHTML = enabled
+                    ? '<i class="fa-solid fa-times"></i> <span class="hidden sm:inline">Exit reading mode</span>'
+                    : '<i class="fa-solid fa-book"></i> <span class="hidden sm:inline">Reading mode</span>';
+            }
+            if (persist) localStorage.setItem(READING_MODE_KEY, enabled ? 'true' : 'false');
+            queueReadingProgress();
+        }
+
+        function toggleReadingMode() {
+            applyReadingMode(!readingMode);
+        }
+
+        function updateReadingProgress() {
+            const bar = document.getElementById('reading-progress-bar');
+            if (!bar) return;
+            const doc = document.documentElement;
+            const maxScroll = Math.max(1, doc.scrollHeight - doc.clientHeight);
+            const progress = Math.min(100, Math.max(0, (window.scrollY / maxScroll) * 100));
+            bar.style.width = `${progress}%`;
+        }
+
+        function queueReadingProgress() {
+            if (progressFrame) return;
+            progressFrame = requestAnimationFrame(() => {
+                updateReadingProgress();
+                progressFrame = null;
+            });
+        }
+
+        function updateBackToTopButton() {
+            const button = document.getElementById('dash-top-button');
+            if (!button) return;
+            button.classList.toggle('is-visible', window.scrollY > 520);
+        }
+
+        function scrollPageToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+
+        function handleBookmarkClick(event) {
+            const button = event.target.closest('[data-bookmark-target]');
+            if (!button) return;
+            event.preventDefault();
+            event.stopPropagation();
+            toggleBookmark(button.dataset.bookmarkTarget, button.dataset.bookmarkType);
+        }
+
+        function initPage() {
+            renderQuickNav();
+            prepareBookmarkTargets();
+
+            const rmBtn = document.getElementById('reading-mode-btn');
+            if (rmBtn) rmBtn.addEventListener('click', toggleReadingMode);
+
+            const bmBtn = document.getElementById('bookmarks-btn');
+            if (bmBtn) bmBtn.addEventListener('click', showBookmarks);
+
+            const topBtn = document.getElementById('dash-top-button');
+            if (topBtn) topBtn.addEventListener('click', scrollPageToTop);
+
+            document.addEventListener('click', handleBookmarkClick);
+            window.addEventListener('scroll', queueReadingProgress, { passive: true });
+            window.addEventListener('scroll', updateBackToTopButton, { passive: true });
+            window.addEventListener('resize', queueReadingProgress);
+
+            updateBookmarkCount();
+            applyReadingMode(localStorage.getItem(READING_MODE_KEY) === 'true', false);
+            updateBackToTopButton();
+
+            document.addEventListener('keydown', (e) => {
+                const activeTag = document.activeElement ? document.activeElement.tagName : '';
+                if (e.key.toLowerCase() === 'r' && activeTag === 'BODY') {
+                    e.preventDefault();
+                    toggleReadingMode();
+                }
+            });
+
+            if (window.location.hash) {
+                setTimeout(() => {
+                    const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+                    if (target) {
+                        window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 88, behavior: 'smooth' });
+                        target.classList.add('temp-highlight');
+                        setTimeout(() => target.classList.remove('temp-highlight'), 2400);
+                    }
+                }, 800);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+    <script src="story-community.js?v=20260722-community-5"></script>
+    <script src="ask-krishna-widget.js"></script>
+</body>
+</html>
