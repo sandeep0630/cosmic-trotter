@@ -466,13 +466,18 @@ if (document.readyState === 'loading') {
 
 
 const STORYBOOK_THUMBS = {
-  "hanuman.html": { img: "ancient-wisdom/images/hanuman-title.jpg", blurb: "The eternal devotee" },
-  "tirupati-venkateswara.html": { img: "ancient-wisdom/images/tirupati-title.jpg", blurb: "Where devotion meets grace" },
-  "puri-jaganath.html": { img: "ancient-wisdom/images/jagannath-title.jpg", blurb: "The lord of the universe" },
-  "kashi-vishwanath.html": { img: "ancient-wisdom/images/kashi-title.jpg", blurb: "The city of light" },
-  "dashavatara.html": { img: "ancient-wisdom/images/dashavatara-rama-title.png", blurb: "Ten forms of the divine" },
-  "bhagavad-gita.html": { img: "ancient-wisdom/images/gita-title.jpg", blurb: "The song before war" }
+  "hanuman.html": { img: "images/mock/related-hanuman.jpg", blurb: "The eternal devotee", title: "Hanuman" },
+  "tirupati-venkateswara.html": { img: "images/mock/related-tirupati.jpg", blurb: "Where devotion meets grace", title: "Tirupati" },
+  "puri-jaganath.html": { img: "ancient-wisdom/images/jagannath-title.jpg", blurb: "The lord of the universe", title: "Puri" },
+  "kashi-vishwanath.html": { img: "images/mock/kashi-ghat-sunset.jpg", blurb: "The city of light", title: "Kashi" },
+  "dashavatara.html": { img: "ancient-wisdom/images/dashavatara-rama-title.png", blurb: "Ten forms of the divine", title: "Dashavatara" },
+  "bhagavad-gita.html": { img: "ancient-wisdom/images/gita-title.jpg", blurb: "The song before war", title: "Bhagavad Gita" }
 };
+const STORYBOOK_CINEMA = {
+  kashi: "images/mock/kashi-ghat-sunset.jpg",
+  "kashi-vishwanath": "images/mock/kashi-ghat-sunset.jpg"
+};
+const RAIL_ICONS = ["fa-water", "fa-sun", "fa-om", "fa-landmark", "fa-fire", "fa-book-open", "fa-dharmachakra", "fa-place-of-worship", "fa-mountain"];
 
 function storybookDisplayTitle() {
   const h1 = document.querySelector("h1");
@@ -495,11 +500,14 @@ function collectStorybookChapters() {
     if (sub && sub !== h) subtitle = sub.textContent.trim();
     // Prefer a short subtitle: first sentence-like clause
     if (subtitle.length > 90) subtitle = subtitle.slice(0, 88).trim();
+    let short = title.replace(/\s+/g, " ");
+    short = short.split("—")[0].split("–")[0].split("&")[0].trim();
+    if (short.length > 44) short = short.slice(0, 42).replace(/\s+\S*$/, "") + "…";
     chapters.push({
       id: sec.id,
       href: `#${sec.id}`,
       num: i + 1,
-      title: title.replace(/\s+/g, " "),
+      title: short,
       subtitle
     });
   });
@@ -560,23 +568,35 @@ function mountStorybookReader() {
   rail.className = "storybook-rail";
   rail.innerHTML = `<h2 class="storybook-rail__label">Chapters</h2>` + chapters.map((ch, i) => `
     <a class="storybook-rail__item" href="${ch.href}" data-chapter-id="${ch.id}">
-      <span class="storybook-rail__star" aria-hidden="true">${i === 0 ? "✦" : ""}</span>
+      <span class="storybook-rail__ico" aria-hidden="true"><i class="fa-solid ${RAIL_ICONS[i % RAIL_ICONS.length]}"></i></span>
       <span>
         <span>${ch.num}. ${escapeHtml(ch.title)}</span>
         ${ch.subtitle ? `<small>${escapeHtml(ch.subtitle)}</small>` : ""}
       </span>
       <span class="storybook-rail__mark" aria-hidden="true"></span>
     </a>`).join("") + `
-    <div class="storybook-rail__foot"><div class="om">ॐ</div>${escapeHtml(title)} Storybook</div>`;
+    <div class="storybook-rail__foot"><div class="om">ॐ</div>${escapeHtml(title)}<div style="opacity:.65;font-size:.8rem;font-family:Inter,sans-serif;color:rgba(245,234,208,.5)">Storybook</div></div>`;
 
   const main = document.createElement("div");
   main.className = "storybook-main";
   const kicker = document.createElement("div");
   kicker.innerHTML = `<h1 class="storybook-kicker">${escapeHtml(title)}</h1><div class="storybook-kicker-sub" data-active-chapter></div>`;
-  main.appendChild(kicker);
-
   const continueChip = document.querySelector(".storybook-continue");
-  if (continueChip) main.appendChild(continueChip);
+  const cinemaSrc = STORYBOOK_CINEMA[getStorybookSlug()];
+  if (cinemaSrc) {
+    const stage = document.createElement("div");
+    stage.className = "storybook-hero-stage";
+    stage.innerHTML = `<img class="storybook-cinema-img" src="${cinemaSrc}" alt="">`;
+    const copy = document.createElement("div");
+    copy.className = "storybook-hero-copy";
+    if (continueChip) copy.appendChild(continueChip);
+    copy.appendChild(kicker);
+    stage.appendChild(copy);
+    main.appendChild(stage);
+  } else {
+    if (continueChip) main.appendChild(continueChip);
+    main.appendChild(kicker);
+  }
 
   content.parentNode.insertBefore(layout, content);
   layout.appendChild(rail);
@@ -618,10 +638,11 @@ function mountStorybookReader() {
       const card = document.createElement("a");
       card.className = "storybook-related__card";
       card.href = href;
+      const label = meta.title || (a.textContent || file).replace(/^[^\w]+/, "").trim().split("\n")[0];
       card.innerHTML = `
         ${meta.img ? `<img src="${meta.img}" alt="">` : `<div></div>`}
         <div>
-          <strong>${escapeHtml((a.textContent || file).replace(/^[^\w]+/, "").trim().split("\\n")[0])}</strong>
+          <strong>${escapeHtml(label)}</strong>
           <em>${escapeHtml(meta.blurb)}</em>
           <span>Begin journey →</span>
         </div>`;

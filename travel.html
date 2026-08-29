@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Travel journal • CosmicTrotter</title>
     <link rel="canonical" href="https://cosmictrotter.com/travel">
-    <meta name="description" content="Field notes from pilgrimages and the road between temples — CosmicTrotter Travel journal. Coming soon.">
+    <meta name="description" content="Field notes from pilgrimages and the road between temples — CosmicTrotter Travel journal.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://cosmictrotter.com/travel">
     <meta property="og:title" content="Travel journal • CosmicTrotter">
@@ -19,47 +19,43 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@300;400;500;600&display=swap');
-        body { font-family: 'Inter', system-ui, sans-serif; background: #000; color: #f5ead0; }
-        .font-serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cinzel:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+        :root { --ct-gold: #d4af37; --ct-ink: #0a0a0a; }
+        body { font-family: Inter, system-ui, sans-serif; background: #0a0a0a; color: #f5ead0; }
+        .font-serif { font-family: 'Playfair Display', Cinzel, Georgia, serif; }
         .cosmic-bg {
             background:
-                radial-gradient(ellipse 70% 50% at 88% 8%, rgba(212, 175, 55, 0.18), transparent 50%),
-                radial-gradient(circle at center, #12100c 0%, #000 72%);
+                url("images/mock/travel-nebula.jpg") top right / min(48vw, 640px) auto no-repeat,
+                radial-gradient(ellipse 70% 42% at 88% 6%, rgba(212,175,55,0.16), transparent 52%),
+                #0a0a0a;
         }
-        .gold-card {
-            background: rgba(10,10,12,0.75);
-            border: 1px solid rgba(212,175,55,0.38);
-        }
-
         .tj-featured, .tj-card {
-            background: rgba(10,10,12,0.78);
-            border: 1px solid rgba(212,175,55,0.4);
+            background: rgba(10,10,10,0.82);
+            border: 1px solid rgba(212,175,55,0.42);
             overflow: hidden;
         }
         .tj-featured { display: grid; grid-template-columns: 1.15fr 1fr; min-height: 280px; }
         .tj-featured img, .tj-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .tj-card img { height: 11.5rem; }
+        .tj-card img { height: 11.6rem; }
         .soon-chip {
             display: inline-flex; align-items: center; gap: 0.35rem;
-            font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+            font-size: 0.68rem; letter-spacing: 0.06em;
             color: #d4af37; border: 1px solid rgba(212,175,55,0.55);
-            border-radius: 999px; padding: 0.2rem 0.55rem; background: rgba(0,0,0,0.45);
+            border-radius: 0.35rem; padding: 0.22rem 0.55rem; background: rgba(0,0,0,0.45);
+            font-family: 'Playfair Display', Cinzel, Georgia, serif;
         }
-        .tj-read { color: #d4af37; font-size: 0.88rem; display: flex; justify-content: space-between; align-items: center; }
+        .tj-read { color: #d4af37; font-size: 0.92rem; display: flex; justify-content: space-between; align-items: center; font-family: 'Playfair Display', Cinzel, Georgia, serif; }
+        .rule { height: 1px; background: rgba(212,175,55,0.28); margin: 1rem 0 1.15rem; }
         @media (max-width: 800px) {
             .tj-featured { grid-template-columns: 1fr; }
             .tj-featured img { height: 14rem; }
         }
-        .nav-skeleton {
-            border-bottom: 1px solid rgba(212,175,55,0.28);
-            background: #000;
-        }
+        .nav-skeleton { border-bottom: 1px solid rgba(212,175,55,0.28); background: #0a0a0a; }
     </style>
     <script src="theme-toggle.js?v=20260616-light-5"></script>
-    <script src="site-nav.js?v=20260830-mock"></script>
+    <script src="site-nav.js?v=20260830-exact"></script>
 </head>
-<body class="cosmic-bg" data-krishna-context="Visitor is on the Travel journal landing. Field notes from pilgrimages are coming soon.">
+<body class="cosmic-bg" data-krishna-context="Visitor is on the Travel journal landing. Field notes from pilgrimages are the shape of the journal; live posts wait for Sandeep's approval.">
     <nav class="nav-skeleton sticky top-0 z-40" aria-label="Primary navigation loading">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-x-3 min-h-[72px]">
             <span class="font-serif text-2xl text-[#d4af37]">CosmicTrotter</span>
@@ -67,59 +63,59 @@
     </nav>
 
     <main id="main">
-    <div class="max-w-6xl mx-auto px-6 pt-16 pb-8">
+    <div class="max-w-6xl mx-auto px-6 pt-14 pb-8">
         <h1 class="font-serif text-5xl sm:text-6xl text-[#d4af37] tracking-tight mb-3">Travel journal</h1>
-        <p class="text-lg sm:text-xl text-white/80 max-w-3xl">
+        <p class="font-serif text-lg sm:text-xl text-[#d4af37]/85 max-w-3xl">
             Field notes from pilgrimages and the road between temples.
         </p>
-        <p class="mt-3 text-sm text-white/45">First notes soon — these cards are the shape of the journal, not live posts yet.</p>
+        <p class="mt-3 text-sm text-[#d4af37]/45">Drafted by Cosmictrotter Bot, live only after Sandeep approves.</p>
     </div>
 
     <div class="max-w-6xl mx-auto px-6 pb-8">
-        <article class="tj-featured gold-card rounded-3xl">
+        <article class="tj-featured rounded-2xl">
             <div class="relative min-h-[16rem]">
-                <img src="ancient-wisdom/images/kashi-chapter-06-aarti.jpg" alt="Painterly night on the ghats of Kashi">
-                <span class="soon-chip absolute top-4 left-4"><i class="fa-solid fa-feather"></i> Notes soon</span>
+                <img src="images/mock/travel-featured.jpg" alt="Lamps on the ghats of Varanasi at night">
             </div>
             <div class="p-6 sm:p-8 flex flex-col justify-center">
                 <h2 class="font-serif text-3xl sm:text-4xl text-[#d4af37] mb-2">A night on the ghats</h2>
-                <p class="text-sm text-white/55 mb-3"><i class="fa-solid fa-location-dot text-[#d4af37] mr-1"></i> Varanasi, Uttar Pradesh</p>
-                <p class="italic text-white/70 leading-relaxed mb-6">When the sun lets go, the river takes the lamp. The ghats glow, not with electricity, but with something older...</p>
-                <a href="kashi-vishwanath.html" class="tj-read">Read the Kashi storybook <i class="fa-solid fa-arrow-right"></i></a>
+                <p class="text-sm text-[#d4af37]/55 mb-3"><i class="fa-solid fa-location-dot text-[#d4af37] mr-1"></i> Varanasi, Uttar Pradesh</p>
+                <div class="rule"></div>
+                <p class="font-serif italic text-white/80 leading-relaxed mb-6">When the sun lets go, the river takes the lamp. The ghats glow, not with electricity, but with something older...</p>
+                <a href="kashi-vishwanath.html" class="tj-read">Read <i class="fa-solid fa-arrow-right"></i></a>
             </div>
         </article>
     </div>
 
     <div class="max-w-6xl mx-auto px-6 pb-20 grid sm:grid-cols-3 gap-5">
-        <a href="tirupati-venkateswara.html" class="tj-card gold-card rounded-2xl block group">
-            <img src="ancient-wisdom/images/tirupati-title.jpg" alt="Tirupati temple illustration">
+        <a href="tirupati-venkateswara.html" class="tj-card rounded-2xl block group">
+            <img src="images/mock/travel-tirupati.jpg" alt="Seven Hills temple lights before dawn">
             <div class="p-5">
                 <h3 class="font-serif text-2xl text-[#d4af37] mb-1">Seven Hills before dawn</h3>
                 <p class="text-xs text-white/50 mb-2"><i class="fa-solid fa-location-dot text-[#d4af37] mr-1"></i> Tirupati, Andhra Pradesh</p>
                 <p class="text-sm text-white/65 mb-4">The climb begins long before the sun.</p>
-                <div class="tj-read">Read <i class="fa-solid fa-arrow-right"></i></div>
+                <div class="tj-read">Read <span>→</span></div>
             </div>
         </a>
-        <a href="puri-jaganath.html" class="tj-card gold-card rounded-2xl block group">
-            <img src="ancient-wisdom/images/jagannath-title.jpg" alt="Puri Jagannath illustration">
+        <a href="puri-jaganath.html" class="tj-card rounded-2xl block group">
+            <img src="images/mock/travel-puri.jpg" alt="Jagannath Temple at sunset">
             <div class="p-5">
                 <h3 class="font-serif text-2xl text-[#d4af37] mb-1">The wait at Puri</h3>
                 <p class="text-xs text-white/50 mb-2"><i class="fa-solid fa-location-dot text-[#d4af37] mr-1"></i> Puri, Odisha</p>
                 <p class="text-sm text-white/65 mb-4">In the queue, time changes shape.</p>
-                <div class="tj-read">Read <i class="fa-solid fa-arrow-right"></i></div>
+                <div class="tj-read">Read <span>→</span></div>
             </div>
         </a>
-        <a href="kashi-vishwanath.html" class="tj-card gold-card rounded-2xl block group">
-            <img src="images/mock/travel-train.jpg" alt="Night journey toward Kashi">
+        <a href="kashi-vishwanath.html" class="tj-card rounded-2xl block group">
+            <img src="images/mock/travel-train.jpg" alt="Night train toward Kashi">
             <div class="p-5">
                 <h3 class="font-serif text-2xl text-[#d4af37] mb-1">A train to Kashi</h3>
                 <p class="text-xs text-white/50 mb-2"><i class="fa-solid fa-location-dot text-[#d4af37] mr-1"></i> Varanasi, Uttar Pradesh</p>
                 <p class="text-sm text-white/65 mb-4">Some journeys are measured in stations, others in silences.</p>
-                <div class="tj-read">Read <i class="fa-solid fa-arrow-right"></i></div>
+                <div class="tj-read">Read <span>→</span></div>
             </div>
         </a>
     </div>
     </main>
-    <script src="ask-krishna-widget.js?v=20260830-mock"></script>
+    <script src="ask-krishna-widget.js?v=20260830-exact"></script>
 </body>
 </html>

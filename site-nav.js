@@ -252,7 +252,7 @@
         style.id = "cosmic-site-nav-styles";
         style.textContent = `
 
-            @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Noto+Sans:wght@500;600&family=Noto+Sans+Devanagari:wght@500;600&family=Noto+Sans+Telugu:wght@500;600&family=Noto+Sans+Kannada:wght@500;600&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cinzel:wght@600;700&family=Noto+Sans:wght@500;600&family=Noto+Sans+Devanagari:wght@500;600&family=Noto+Sans+Telugu:wght@500;600&family=Noto+Sans+Kannada:wght@500;600&display=swap');
 
             :root {
                 --ct-gold: #d4af37;
@@ -274,7 +274,7 @@
                 background: linear-gradient(90deg, #d4af37, #f1d78a) !important;
             }
             .cosmic-site-nav__name {
-                font-family: 'Cormorant Garamond', Georgia, serif !important;
+                font-family: 'Playfair Display', Cinzel, Georgia, serif !important;
                 font-weight: 600 !important;
                 font-size: 1.55rem !important;
                 color: #d4af37 !important;
@@ -294,7 +294,7 @@
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                font-family: 'Cormorant Garamond', Georgia, serif;
+                font-family: 'Playfair Display', Cinzel, Georgia, serif;
                 font-weight: 700;
                 font-size: 0.95rem;
                 letter-spacing: -0.04em;

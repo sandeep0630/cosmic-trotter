@@ -16,6 +16,19 @@
     // then run: node scripts/local-ask-krishna-server.js
     // and serve the site on localhost. Never put API keys in this browser file.
 
+
+    function widgetAssetBase() {
+        const path = (location.pathname || "/").replace(/\\/g, "/").replace(/\/+$/, "") || "/";
+        const parts = path.split("/").filter(Boolean);
+        if (!parts.length) return "";
+        const last = parts[parts.length - 1];
+        const isFile = /\.[a-z0-9]+$/i.test(last);
+        if (parts.length === 1 && isFile) return "";
+        if (parts.length === 1) return "../";
+        return "../".repeat(isFile ? parts.length - 1 : parts.length);
+    }
+    const KRISHNA_FACE = widgetAssetBase() + "images/mock/krishna-face.png";
+
     const wisdomByTopic = {
         stress: {
             verse: "You have a right to perform your prescribed duty, but you are not entitled to the fruits of action.",
@@ -317,6 +330,15 @@
                 white-space: nowrap;
             }
             .krishna-face { display: block; }
+            .krishna-face-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 999px;
+            }
+            .krishna-widget__button-text {
+                font-family: "Playfair Display", Cinzel, Georgia, serif;
+            }
             .krishna-widget__avatar .krishna-face { width: 1.55rem; height: 1.55rem; }
             .krishna-minicard {
                 display: none;
@@ -698,7 +720,7 @@
                 <header class="krishna-widget__header">
                     <div class="krishna-widget__identity">
                         <div class="krishna-widget__avatar" aria-hidden="true">
-                            <svg class="krishna-face" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="34" r="20" fill="none" stroke="#d4af37" stroke-width="1.6"/><path d="M32 8c2.2 4.8 6.2 8 1.2 13.2C28.2 16 31 12.4 32 8z" fill="none" stroke="#d4af37" stroke-width="1.3"/><circle cx="32.2" cy="14.5" r="2" fill="none" stroke="#d4af37"/><path d="M24 32c2.4-1.6 4.6-2.2 8-2.2s5.6.6 8 2.2" fill="none" stroke="#d4af37" stroke-width="1.3"/><path d="M25 36.5c1.2-1.3 2.4-1.4 3.4 0" fill="none" stroke="#d4af37" stroke-width="1.3"/><path d="M35.6 36.5c1.2-1.3 2.4-1.4 3.4 0" fill="none" stroke="#d4af37" stroke-width="1.3"/><circle cx="32" cy="38.2" r="1.15" fill="#d4af37"/><path d="M26.5 44.2c3.2 2.6 7.8 2.6 11 0" fill="none" stroke="#d4af37" stroke-width="1.3"/><path d="M22 42c-1.4 6.2 4.2 11.5 10 12.5 5.8-1 11.4-6.3 10-12.5" fill="none" stroke="#d4af37" stroke-width="1.25"/></svg>
+                            <img class="krishna-face krishna-face-img" src="images/mock/krishna-face.png" width="40" height="40" alt="" onerror="this.style.display='none'">
                         </div>
                         <div>
                             <span class="krishna-widget__title">Ask Krishna</span>
@@ -735,7 +757,7 @@
             </section>
             <button type="button" id="krishna-launcher" class="krishna-widget__button" aria-label="Open Ask Krishna chat" aria-controls="krishna-chat-panel" aria-expanded="false">
                 <span class="krishna-widget__avatar-dot" aria-hidden="true">
-                    <svg class="krishna-face" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="34" r="20" fill="none" stroke="#d4af37" stroke-width="1.6"/><path d="M32 8c2.2 4.8 6.2 8 1.2 13.2C28.2 16 31 12.4 32 8z" fill="none" stroke="#d4af37" stroke-width="1.3"/><circle cx="32.2" cy="14.5" r="2" fill="none" stroke="#d4af37"/><path d="M24 32c2.4-1.6 4.6-2.2 8-2.2s5.6.6 8 2.2" fill="none" stroke="#d4af37" stroke-width="1.3"/><path d="M25 36.5c1.2-1.3 2.4-1.4 3.4 0" fill="none" stroke="#d4af37" stroke-width="1.3"/><path d="M35.6 36.5c1.2-1.3 2.4-1.4 3.4 0" fill="none" stroke="#d4af37" stroke-width="1.3"/><circle cx="32" cy="38.2" r="1.15" fill="#d4af37"/><path d="M26.5 44.2c3.2 2.6 7.8 2.6 11 0" fill="none" stroke="#d4af37" stroke-width="1.3"/><path d="M22 42c-1.4 6.2 4.2 11.5 10 12.5 5.8-1 11.4-6.3 10-12.5" fill="none" stroke="#d4af37" stroke-width="1.25"/></svg>
+                    <img class="krishna-face krishna-face-img" src="images/mock/krishna-face.png" width="40" height="40" alt="" onerror="this.style.display='none'">
                     <span class="krishna-widget__online"></span>
                 </span>
                 <span class="krishna-widget__button-copy">

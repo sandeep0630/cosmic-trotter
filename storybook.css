@@ -414,11 +414,12 @@
 
 
 /* ===== Gold reader chrome matching storybook mock ===== */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
 
 body.storybook-reader {
-  background: #050506;
+  background: #0a0a0a;
   color: #f5ead0;
+  font-family: Inter, system-ui, sans-serif;
 }
 .storybook-reader-bar {
   position: sticky;
@@ -429,13 +430,13 @@ body.storybook-reader {
   align-items: center;
   gap: 1rem;
   padding: 0.65rem 1.25rem;
-  background: #050506;
+  background: #0a0a0a;
   border-bottom: 1px solid rgba(212,175,55,0.22);
   color: #f5ead0;
   font-family: Inter, system-ui, sans-serif;
 }
 .storybook-reader-bar__title {
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: "Playfair Display", Cinzel, Georgia, serif;
   font-size: 0.98rem;
   color: #f5ead0;
   display: inline-flex;
@@ -491,29 +492,32 @@ body.storybook-reader {
   margin: 0 auto;
 }
 .storybook-rail {
+  font-family: Inter, system-ui, sans-serif;
   position: sticky;
   top: 4.6rem;
   height: calc(100vh - 4.6rem);
   overflow: auto;
   padding: 1.4rem 1.1rem 2rem;
   border-right: 1px solid rgba(212,175,55,0.16);
-  background: #070708;
+  background: #0a0a0a;
 }
 .storybook-rail__label {
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: "Playfair Display", Cinzel, Georgia, serif;
   color: #d4af37;
   font-size: 1.05rem;
   margin: 0 0 1rem;
 }
 .storybook-rail__item {
   display: grid;
-  grid-template-columns: 1.1rem minmax(0, 1fr) 1rem;
+  grid-template-columns: 1.15rem minmax(0, 1fr) 1.1rem;
   gap: 0.55rem;
   align-items: start;
-  padding: 0.7rem 0.35rem;
+  padding: 0.75rem 0.55rem 0.75rem 0.35rem;
   text-decoration: none;
-  color: rgba(245,234,208,0.72);
-  border-left: 2px solid transparent;
+  color: rgba(245,234,208,0.82);
+  border-right: 2px solid transparent;
+  border-left: 0;
+  font-family: "Playfair Display", Cinzel, Georgia, serif;
 }
 .storybook-rail__item small {
   display: block;
@@ -525,30 +529,52 @@ body.storybook-reader {
 .storybook-rail__item.is-complete { color: rgba(245,234,208,0.8); }
 .storybook-rail__item.is-active {
   color: #d4af37;
-  border-left-color: #d4af37;
+  border-right-color: #d4af37;
+  background: rgba(212,175,55,0.06);
 }
 .storybook-rail__item.is-active small { color: rgba(212,175,55,0.75); }
 .storybook-rail__mark {
-  width: 0.85rem; height: 0.85rem;
+  width: 1.05rem; height: 1.05rem;
   border-radius: 999px;
   border: 1px solid rgba(212,175,55,0.55);
-  margin-top: 0.2rem;
+  margin-top: 0.15rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.62rem;
+  color: transparent;
+  background: transparent;
 }
 .storybook-rail__item.is-complete .storybook-rail__mark {
   background: #d4af37;
   border-color: #d4af37;
-  box-shadow: inset 0 0 0 2px #070708;
+  color: #0a0a0a;
+}
+.storybook-rail__item.is-complete .storybook-rail__mark::after {
+  content: "✓";
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #0a0a0a;
+  line-height: 1;
 }
 .storybook-rail__item.is-active .storybook-rail__mark {
-  background: #d4af37;
+  background: transparent;
   border-color: #d4af37;
+  box-shadow: inset 0 0 0 2px #d4af37;
 }
+.storybook-rail__ico {
+  color: rgba(245,234,208,0.7);
+  font-size: 0.78rem;
+  margin-top: 0.2rem;
+  text-align: center;
+}
+.storybook-rail__item.is-active .storybook-rail__ico { color: #d4af37; }
 .storybook-rail__foot {
   margin-top: 1.5rem;
   padding-top: 1rem;
   text-align: center;
   color: #d4af37;
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: "Playfair Display", Cinzel, Georgia, serif;
   font-size: 0.85rem;
 }
 .storybook-rail__foot .om {
@@ -567,14 +593,14 @@ body.storybook-reader {
   display: inline-flex;
 }
 .storybook-kicker {
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: "Playfair Display", Cinzel, Georgia, serif;
   font-size: clamp(2.4rem, 5vw, 4.1rem);
-  color: #f7f1e4;
+  color: #ffffff;
   line-height: 1.05;
   margin: 0.4rem 0 0.35rem;
 }
 .storybook-kicker-sub {
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: "Playfair Display", Cinzel, Georgia, serif;
   color: #d4af37;
   font-size: 1.15rem;
   margin-bottom: 1.4rem;
@@ -599,12 +625,12 @@ body.storybook-reader .reading-progress-shell {
   top: -0.7rem;
   left: 50%;
   transform: translateX(-50%);
-  background: #050506;
+  background: #0a0a0a;
   padding: 0 0.6rem;
   color: #d4af37;
 }
 .storybook-related h2 {
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: "Playfair Display", Cinzel, Georgia, serif;
   color: #d4af37;
   font-size: 1.6rem;
   margin: 0.6rem 0 1rem;
@@ -633,7 +659,7 @@ body.storybook-reader .reading-progress-shell {
 }
 .storybook-related__card strong {
   display: block;
-  font-family: "Cormorant Garamond", Georgia, serif;
+  font-family: "Playfair Display", Cinzel, Georgia, serif;
   font-size: 1.15rem;
 }
 .storybook-related__card em {
@@ -661,6 +687,7 @@ body.storybook-reader .reading-progress-shell {
 @media (max-width: 980px) {
   .storybook-layout { grid-template-columns: 1fr; }
   .storybook-rail {
+  font-family: Inter, system-ui, sans-serif;
     position: relative;
     top: auto;
     height: auto;
@@ -677,4 +704,43 @@ body.storybook-reader .reading-progress-shell {
   .storybook-reader-bar { grid-template-columns: 1fr auto; }
   .storybook-reader-bar__progress { display: none; }
   .storybook-related__grid { grid-template-columns: 1fr; }
+}
+
+.storybook-hero-stage {
+  position: relative;
+  min-height: 22rem;
+  margin: 0 0 1.6rem;
+  overflow: hidden;
+  border-radius: 0.65rem;
+}
+.storybook-cinema-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 78% 42%;
+  display: block;
+}
+.storybook-hero-copy {
+  position: relative;
+  z-index: 1;
+  padding: 1.35rem 1.4rem 2rem;
+  max-width: 36rem;
+  min-height: 22rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(90deg, rgba(10,10,10,0.78) 0%, rgba(10,10,10,0.28) 62%, transparent 100%);
+}
+.storybook-hero-stage .storybook-continue { margin: 0 0 0.85rem; }
+.storybook-related {
+  background: #0a0a0a;
+}
+.storybook-related__card img {
+  width: 7.2rem; height: 6.2rem;
+  object-fit: cover;
+}
+.storybook-related__card strong {
+  color: #ffffff;
 }
