@@ -31,6 +31,7 @@ function initializeStorybook() {
   restoreBookmarks();
   restoreReadingMode();
   mountContinueChip();
+  mountStorybookReader();
   window.addEventListener('scroll', () => {
     updateProgressBar();
     updateBackToTopButton();
@@ -439,15 +440,17 @@ function mountContinueChip() {
       : JSON.parse(localStorage.getItem('cosmic_journey_last_v1') || 'null');
   } catch (e) { last = null; }
   const here = (window.location.pathname || '/').replace(/\\/g, '/');
-  if (!last || !last.path) return;
-  const same = last.path === here || here.endsWith(last.path) || last.path.endsWith(here.replace(/\.html?$/i, ''));
-  if (!same || !(last.percent > 8)) return;
+  const same = last && last.path && (last.path === here || here.endsWith(last.path) || last.path.endsWith(here.replace(/\.html?$/i, '')));
+  if (last && last.path && !same && !(last.percent > 8)) {
+    /* still show a resume affordance on this story */
+  }
   const chip = document.createElement('button');
   chip.type = 'button';
   chip.className = 'storybook-continue';
   chip.innerHTML = '<i class="fa-solid fa-play"></i> Continue where you left off';
   chip.addEventListener('click', () => {
-    const y = (document.documentElement.scrollHeight - document.documentElement.clientHeight) * (last.percent / 100);
+    const pct = (last && Number(last.percent)) || 12;
+    const y = (document.documentElement.scrollHeight - document.documentElement.clientHeight) * (pct / 100);
     window.scrollTo({ top: y, behavior: 'smooth' });
   });
   const content = document.querySelector('.storybook-content');
@@ -459,4 +462,203 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initializeStorybook);
 } else {
   initializeStorybook();
+}
+
+
+const STORYBOOK_THUMBS = {
+  "hanuman.html": { img: "ancient-wisdom/images/hanuman-title.jpg", blurb: "The eternal devotee" },
+  "tirupati-venkateswara.html": { img: "ancient-wisdom/images/tirupati-title.jpg", blurb: "Where devotion meets grace" },
+  "puri-jaganath.html": { img: "ancient-wisdom/images/jagannath-title.jpg", blurb: "The lord of the universe" },
+  "kashi-vishwanath.html": { img: "ancient-wisdom/images/kashi-title.jpg", blurb: "The city of light" },
+  "dashavatara.html": { img: "ancient-wisdom/images/dashavatara-rama-title.png", blurb: "Ten forms of the divine" },
+  "bhagavad-gita.html": { img: "ancient-wisdom/images/gita-title.jpg", blurb: "The song before war" }
+};
+
+function storybookDisplayTitle() {
+  const h1 = document.querySelector("h1");
+  let t = (h1 && h1.textContent || document.title || "Storybook").trim();
+  t = t.replace(/\s*•.*$/, "").replace(/^Lord\s+/i, "").replace(/\s*Storybook.*$/i, "").trim();
+  return t || "Storybook";
+}
+
+function collectStorybookChapters() {
+  const stories = Array.from(document.querySelectorAll(".avatar-story[id], section.avatar-story[id], .storybook-content section[id]"));
+  const seen = new Set();
+  const chapters = [];
+  stories.forEach((sec, i) => {
+    if (!sec.id || seen.has(sec.id)) return;
+    seen.add(sec.id);
+    const h = sec.querySelector("h2, h3");
+    const sub = sec.querySelector(".text-amber-300\\/90, .text-amber-300, [class*='amber']");
+    const title = (h && (h.querySelector(".heading-text") ? h.querySelector(".heading-text").textContent : h.textContent) || sec.id).trim();
+    let subtitle = "";
+    if (sub && sub !== h) subtitle = sub.textContent.trim();
+    // Prefer a short subtitle: first sentence-like clause
+    if (subtitle.length > 90) subtitle = subtitle.slice(0, 88).trim();
+    chapters.push({
+      id: sec.id,
+      href: `#${sec.id}`,
+      num: i + 1,
+      title: title.replace(/\s+/g, " "),
+      subtitle
+    });
+  });
+  if (chapters.length) return chapters;
+  // fallback: quick-nav links
+  document.querySelectorAll("#quick-nav a[href^='#']").forEach((a, i) => {
+    chapters.push({
+      id: (a.getAttribute("href") || "").slice(1),
+      href: a.getAttribute("href"),
+      num: i + 1,
+      title: a.textContent.trim(),
+      subtitle: ""
+    });
+  });
+  return chapters;
+}
+
+function mountStorybookReader() {
+  if (document.querySelector(".storybook-layout")) return;
+  const content = document.querySelector(".storybook-content");
+  if (!content) return;
+  document.body.classList.add("storybook-reader");
+
+  const title = storybookDisplayTitle();
+  const chapters = collectStorybookChapters();
+
+  const bar = document.createElement("div");
+  bar.className = "storybook-reader-bar";
+  bar.innerHTML = `
+    <div class="storybook-reader-bar__title">${escapeHtml(title)} Storybook <i class="fa-solid fa-chevron-down" style="font-size:0.65rem;opacity:.6"></i></div>
+    <div class="storybook-reader-bar__progress">
+      <span data-reader-pct>0% complete</span>
+      <div class="storybook-reader-bar__track"><i data-reader-bar></i></div>
+    </div>
+    <div class="storybook-reader-bar__tools">
+      <button type="button" data-reader-sun title="Theme"><i class="fa-solid fa-sun"></i></button>
+      <button type="button" title="Type size" data-type-size><span style="font-family:serif;font-weight:700">Aa</span></button>
+      <button type="button" data-reader-bookmarks aria-label="Open saved places" title="Bookmark"><i class="fa-solid fa-bookmark"></i></button>
+    </div>`;
+  const nav = document.getElementById("cosmic-site-nav") || document.querySelector("nav");
+  if (nav && nav.parentNode) nav.parentNode.insertBefore(bar, nav.nextSibling);
+  else document.body.prepend(bar);
+
+  // If buildStorybookControls already created a reading-mode-btn, the duplicate id is handled: we prefer the bar.
+  bar.querySelector("[data-reader-sun]")?.addEventListener("click", () => {
+    document.querySelector(".theme-toggle")?.click();
+  });
+  bar.querySelector("[data-reader-bookmarks]")?.addEventListener("click", showBookmarkPanel);
+  bar.querySelector("[data-type-size]")?.addEventListener("click", () => {
+    const cur = parseFloat(getComputedStyle(document.body).fontSize) || 16;
+    const next = cur >= 19 ? 16 : cur + 1.5;
+    document.documentElement.style.fontSize = `${next}px`;
+  });
+
+  const layout = document.createElement("div");
+  layout.className = "storybook-layout";
+  const rail = document.createElement("aside");
+  rail.className = "storybook-rail";
+  rail.innerHTML = `<h2 class="storybook-rail__label">Chapters</h2>` + chapters.map((ch, i) => `
+    <a class="storybook-rail__item" href="${ch.href}" data-chapter-id="${ch.id}">
+      <span class="storybook-rail__star" aria-hidden="true">${i === 0 ? "✦" : ""}</span>
+      <span>
+        <span>${ch.num}. ${escapeHtml(ch.title)}</span>
+        ${ch.subtitle ? `<small>${escapeHtml(ch.subtitle)}</small>` : ""}
+      </span>
+      <span class="storybook-rail__mark" aria-hidden="true"></span>
+    </a>`).join("") + `
+    <div class="storybook-rail__foot"><div class="om">ॐ</div>${escapeHtml(title)} Storybook</div>`;
+
+  const main = document.createElement("div");
+  main.className = "storybook-main";
+  const kicker = document.createElement("div");
+  kicker.innerHTML = `<h1 class="storybook-kicker">${escapeHtml(title)}</h1><div class="storybook-kicker-sub" data-active-chapter></div>`;
+  main.appendChild(kicker);
+
+  const continueChip = document.querySelector(".storybook-continue");
+  if (continueChip) main.appendChild(continueChip);
+
+  content.parentNode.insertBefore(layout, content);
+  layout.appendChild(rail);
+  layout.appendChild(main);
+  main.appendChild(content);
+  // Hide the old centered page hero / chip nav; links remain in DOM.
+  let el = layout.previousElementSibling;
+  while (el && el.id !== "cosmic-site-nav" && !el.classList.contains("storybook-reader-bar") && !el.classList.contains("cosmic-site-nav")) {
+    const prev = el.previousElementSibling;
+    if (el.classList.contains("storybook-continue")) {
+      el = prev;
+      continue;
+    }
+    el.setAttribute("data-reader-hidden", "1");
+    el.style.display = "none";
+    el = prev;
+  }
+
+  // Restyle existing sister-journey footer into related cards (keep hrefs)
+  const footerLinks = Array.from(document.querySelectorAll('a[href$="hanuman.html"], a[href$="tirupati-venkateswara.html"], a[href$="puri-jaganath.html"], a[href$="kashi-vishwanath.html"], a[href$="dashavatara.html"], a[href$="bhagavad-gita.html"]'))
+    .filter((a) => !a.closest(".storybook-rail") && !a.closest(".cosmic-site-nav") && !a.closest(".storybook-related"));
+  const unique = [];
+  const seenHref = new Set();
+  footerLinks.forEach((a) => {
+    const href = a.getAttribute("href");
+    if (!href || seenHref.has(href) || href.includes(getStorybookSlug())) return;
+    seenHref.add(href);
+    unique.push(a);
+  });
+  if (unique.length) {
+    const related = document.createElement("section");
+    related.className = "storybook-related";
+    related.innerHTML = `<h2>Related journeys</h2><div class="storybook-related__grid"></div>`;
+    const grid = related.querySelector(".storybook-related__grid");
+    unique.slice(0, 4).forEach((a) => {
+      const href = a.getAttribute("href");
+      const file = href.split("/").pop();
+      const meta = STORYBOOK_THUMBS[file] || { img: "", blurb: a.textContent.trim() };
+      const card = document.createElement("a");
+      card.className = "storybook-related__card";
+      card.href = href;
+      card.innerHTML = `
+        ${meta.img ? `<img src="${meta.img}" alt="">` : `<div></div>`}
+        <div>
+          <strong>${escapeHtml((a.textContent || file).replace(/^[^\w]+/, "").trim().split("\\n")[0])}</strong>
+          <em>${escapeHtml(meta.blurb)}</em>
+          <span>Begin journey →</span>
+        </div>`;
+      grid.appendChild(card);
+    });
+    main.appendChild(related);
+  }
+
+  function updateReader() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const percent = docHeight > 0 ? Math.round((scrollTop / docHeight) * 100) : 0;
+    const pctEl = document.querySelector("[data-reader-pct]");
+    const barEl = document.querySelector("[data-reader-bar]");
+    if (pctEl) pctEl.textContent = `${percent}% complete`;
+    if (barEl) barEl.style.width = `${percent}%`;
+
+    let active = chapters[0];
+    chapters.forEach((ch) => {
+      const el = document.getElementById(ch.id);
+      if (!el) return;
+      const top = el.getBoundingClientRect().top;
+      if (top < window.innerHeight * 0.42) active = ch;
+    });
+    document.querySelectorAll(".storybook-rail__item").forEach((item) => {
+      const id = item.getAttribute("data-chapter-id");
+      const ch = chapters.find((c) => c.id === id);
+      const el = ch && document.getElementById(ch.id);
+      const passed = el ? el.getBoundingClientRect().top < 120 : false;
+      item.classList.toggle("is-active", id === (active && active.id));
+      item.classList.toggle("is-complete", passed && id !== (active && active.id));
+    });
+    const sub = document.querySelector("[data-active-chapter]");
+    if (sub && active) {
+      sub.textContent = `${active.num}. ${active.title}${active.subtitle ? " — " + active.subtitle : ""}`;
+    }
+  }
+  window.addEventListener("scroll", updateReader, { passive: true });
+  updateReader();
 }

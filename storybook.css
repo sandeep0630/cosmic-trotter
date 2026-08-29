@@ -411,3 +411,270 @@
     height: 2.75rem;
   }
 }
+
+
+/* ===== Gold reader chrome matching storybook mock ===== */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&display=swap');
+
+body.storybook-reader {
+  background: #050506;
+  color: #f5ead0;
+}
+.storybook-reader-bar {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(12rem, 22rem) auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.65rem 1.25rem;
+  background: #050506;
+  border-bottom: 1px solid rgba(212,175,55,0.22);
+  color: #f5ead0;
+  font-family: Inter, system-ui, sans-serif;
+}
+.storybook-reader-bar__title {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 0.98rem;
+  color: #f5ead0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.storybook-reader-bar__progress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+}
+.storybook-reader-bar__progress span {
+  font-size: 0.72rem;
+  color: #d4af37;
+  text-align: center;
+}
+.storybook-reader-bar__track {
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(212,175,55,0.18);
+  overflow: hidden;
+}
+.storybook-reader-bar__track > i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: #d4af37;
+}
+.storybook-reader-bar__tools {
+  display: flex;
+  gap: 0.35rem;
+  justify-content: flex-end;
+}
+.storybook-reader-bar__tools button {
+  width: 2.1rem; height: 2.1rem;
+  border: 0; background: transparent;
+  color: #d4af37;
+  display: inline-flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  border-radius: 0.4rem;
+}
+.storybook-reader-bar__tools button:hover { background: rgba(212,175,55,0.12); }
+
+.storybook-layout {
+  display: grid;
+  grid-template-columns: 18rem minmax(0, 1fr);
+  gap: 0;
+  align-items: start;
+  max-width: 88rem;
+  margin: 0 auto;
+}
+.storybook-rail {
+  position: sticky;
+  top: 4.6rem;
+  height: calc(100vh - 4.6rem);
+  overflow: auto;
+  padding: 1.4rem 1.1rem 2rem;
+  border-right: 1px solid rgba(212,175,55,0.16);
+  background: #070708;
+}
+.storybook-rail__label {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  color: #d4af37;
+  font-size: 1.05rem;
+  margin: 0 0 1rem;
+}
+.storybook-rail__item {
+  display: grid;
+  grid-template-columns: 1.1rem minmax(0, 1fr) 1rem;
+  gap: 0.55rem;
+  align-items: start;
+  padding: 0.7rem 0.35rem;
+  text-decoration: none;
+  color: rgba(245,234,208,0.72);
+  border-left: 2px solid transparent;
+}
+.storybook-rail__item small {
+  display: block;
+  font-size: 0.72rem;
+  color: rgba(245,234,208,0.45);
+  margin-top: 0.15rem;
+  line-height: 1.35;
+}
+.storybook-rail__item.is-complete { color: rgba(245,234,208,0.8); }
+.storybook-rail__item.is-active {
+  color: #d4af37;
+  border-left-color: #d4af37;
+}
+.storybook-rail__item.is-active small { color: rgba(212,175,55,0.75); }
+.storybook-rail__mark {
+  width: 0.85rem; height: 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(212,175,55,0.55);
+  margin-top: 0.2rem;
+}
+.storybook-rail__item.is-complete .storybook-rail__mark {
+  background: #d4af37;
+  border-color: #d4af37;
+  box-shadow: inset 0 0 0 2px #070708;
+}
+.storybook-rail__item.is-active .storybook-rail__mark {
+  background: #d4af37;
+  border-color: #d4af37;
+}
+.storybook-rail__foot {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  text-align: center;
+  color: #d4af37;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 0.85rem;
+}
+.storybook-rail__foot .om {
+  width: 2.4rem; height: 2.4rem;
+  margin: 0 auto 0.45rem;
+  border: 1px solid rgba(212,175,55,0.55);
+  border-radius: 999px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+}
+.storybook-main {
+  min-width: 0;
+  padding: 1.25rem 1.5rem 4rem;
+}
+.storybook-reader .storybook-continue {
+  display: inline-flex;
+}
+.storybook-kicker {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(2.4rem, 5vw, 4.1rem);
+  color: #f7f1e4;
+  line-height: 1.05;
+  margin: 0.4rem 0 0.35rem;
+}
+.storybook-kicker-sub {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  color: #d4af37;
+  font-size: 1.15rem;
+  margin-bottom: 1.4rem;
+}
+body.storybook-reader .storybook-tools { display: none; }
+body.storybook-reader .avatar-selector,
+body.storybook-reader #quick-nav { display: none; }
+body.storybook-reader .reading-progress-shell {
+  opacity: 1 !important;
+  top: auto;
+  display: none; /* reader bar owns progress */
+}
+.storybook-related {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(212,175,55,0.28);
+  position: relative;
+}
+.storybook-related::before {
+  content: "ॐ";
+  position: absolute;
+  top: -0.7rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #050506;
+  padding: 0 0.6rem;
+  color: #d4af37;
+}
+.storybook-related h2 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  color: #d4af37;
+  font-size: 1.6rem;
+  margin: 0.6rem 0 1rem;
+}
+.storybook-related__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+.storybook-related__card {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 0.85rem;
+  align-items: center;
+  border: 1px solid rgba(212,175,55,0.28);
+  border-radius: 0.85rem;
+  overflow: hidden;
+  text-decoration: none;
+  background: #0b0b0c;
+  color: #f5ead0;
+  min-height: 5.5rem;
+}
+.storybook-related__card img {
+  width: 5.5rem; height: 5.5rem;
+  object-fit: cover;
+}
+.storybook-related__card strong {
+  display: block;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 1.15rem;
+}
+.storybook-related__card em {
+  display: block;
+  font-style: normal;
+  font-size: 0.78rem;
+  color: rgba(245,234,208,0.55);
+  margin: 0.15rem 0 0.35rem;
+}
+.storybook-related__card span {
+  color: #d4af37;
+  font-size: 0.8rem;
+}
+@media (min-width: 960px) {
+  .storybook-reader .avatar-story:first-of-type .avatar-title-img {
+    float: right;
+    width: min(46%, 420px);
+    margin: 0 0 1.25rem 1.4rem;
+    border-radius: 1rem;
+  }
+  .storybook-reader .storybook-content {
+    overflow: auto;
+  }
+}
+@media (max-width: 980px) {
+  .storybook-layout { grid-template-columns: 1fr; }
+  .storybook-rail {
+    position: relative;
+    top: auto;
+    height: auto;
+    border-right: 0;
+    border-bottom: 1px solid rgba(212,175,55,0.16);
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding: 0.75rem 1rem;
+  }
+  .storybook-rail__label, .storybook-rail__foot { display: none; }
+  .storybook-rail__item { min-width: 11rem; border-left-width: 0; border-bottom: 2px solid transparent; }
+  .storybook-rail__item.is-active { border-bottom-color: #d4af37; }
+  .storybook-reader-bar { grid-template-columns: 1fr auto; }
+  .storybook-reader-bar__progress { display: none; }
+  .storybook-related__grid { grid-template-columns: 1fr; }
+}

@@ -252,7 +252,7 @@
         style.id = "cosmic-site-nav-styles";
         style.textContent = `
 
-            @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Noto+Sans:wght@500;600&family=Noto+Sans+Devanagari:wght@500;600&family=Noto+Sans+Telugu:wght@500;600&family=Noto+Sans+Kannada:wght@500;600&display=swap');
 
             :root {
                 --ct-gold: #d4af37;
@@ -407,6 +407,101 @@
                 box-shadow: 0 0 18px rgba(212,175,55,0.28);
             }
             .cosmic-site-nav__ask:hover { background: #e3c25a; }
+
+            /* ===== Gold mock chrome (plain text nav) ===== */
+            .cosmic-site-nav__dock {
+                border: 0 !important;
+                background: transparent !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                gap: 1.4rem !important;
+                border-radius: 0 !important;
+            }
+            .cosmic-site-nav__utilities {
+                display: none !important;
+            }
+            .cosmic-site-nav__link,
+            .cosmic-site-nav__menu-button {
+                background: transparent !important;
+                border: 0 !important;
+                box-shadow: none !important;
+                color: #ffffff !important;
+                font-weight: 500 !important;
+                font-size: 0.95rem !important;
+                letter-spacing: 0.01em;
+                min-height: 0 !important;
+                padding: 0.2rem 0.1rem !important;
+                border-radius: 0 !important;
+            }
+            .cosmic-site-nav__link:hover,
+            .cosmic-site-nav__menu-button:hover,
+            .cosmic-site-nav__link:focus-visible,
+            .cosmic-site-nav__menu-button:focus-visible {
+                background: transparent !important;
+                color: #d4af37 !important;
+            }
+            .cosmic-site-nav__link.is-active {
+                background: transparent !important;
+                color: #ffffff !important;
+            }
+            .cosmic-site-nav__link.is-active span {
+                box-shadow: 0 2px 0 #d4af37 !important;
+            }
+            .cosmic-site-nav__cta {
+                background: transparent !important;
+                border: 0 !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                color: #ffffff !important;
+                font-weight: 500 !important;
+                min-height: 0 !important;
+                padding: 0.2rem 0.55rem !important;
+            }
+            .cosmic-site-nav__cta:hover,
+            .cosmic-site-nav__cta:focus-visible {
+                background: transparent !important;
+                color: #d4af37 !important;
+                box-shadow: none !important;
+                transform: none !important;
+            }
+            .cosmic-site-nav__ask {
+                border-radius: 0.55rem !important;
+                background: #d4af37 !important;
+                color: #0a0a0b !important;
+                font-weight: 700 !important;
+                padding: 0.52rem 1rem !important;
+                min-height: 0 !important;
+                gap: 0.4rem !important;
+                box-shadow: none !important;
+            }
+            .cosmic-site-nav__ask i {
+                display: inline-block !important;
+                color: #0a0a0b !important;
+                font-size: 0.78rem;
+            }
+            .lang-switch {
+                gap: 0.4rem !important;
+            }
+            .lang-btn {
+                font-family: "Noto Sans", "Noto Sans Devanagari", "Noto Sans Telugu", "Noto Sans Kannada", Inter, sans-serif !important;
+                color: #ffffff !important;
+                border: 1px solid rgba(212,175,55,0.7) !important;
+                border-radius: 0.45rem !important;
+                background: transparent !important;
+                padding: 0.28rem 0.55rem !important;
+                font-size: 0.72rem !important;
+                min-height: 0 !important;
+                line-height: 1.2;
+            }
+            .lang-btn[data-lang="hi"] { font-family: "Noto Sans Devanagari", "Noto Sans", sans-serif !important; }
+            .lang-btn[data-lang="te"] { font-family: "Noto Sans Telugu", "Noto Sans", sans-serif !important; }
+            .lang-btn[data-lang="kn"] { font-family: "Noto Sans Kannada", "Noto Sans", sans-serif !important; }
+            .lang-btn.active {
+                background: rgba(212,175,55,0.18) !important;
+                color: #ffffff !important;
+                border-color: #d4af37 !important;
+            }
+
             .cosmic-site-nav__mega {
                 border-color: rgba(212,175,55,0.28) !important;
                 background: rgba(8,8,10,0.98) !important;

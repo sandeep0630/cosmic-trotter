@@ -271,6 +271,110 @@
                 font-size: 1.25rem;
             }
 
+            .krishna-widget__avatar-dot {
+                position: relative;
+                width: 2.45rem;
+                height: 2.45rem;
+                flex: 0 0 2.45rem;
+                border-radius: 999px;
+                border: 1px solid #d4af37;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                background: #0a0a0b;
+                overflow: visible;
+            }
+            .krishna-widget__avatar-dot .krishna-face {
+                width: 1.7rem;
+                height: 1.7rem;
+            }
+            .krishna-widget__online {
+                position: absolute;
+                right: -1px;
+                bottom: -1px;
+                width: 0.55rem;
+                height: 0.55rem;
+                border-radius: 999px;
+                background: #22c55e;
+                border: 2px solid #0a0a0b;
+            }
+            .krishna-widget__button-copy {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.05rem;
+                line-height: 1.15;
+            }
+            .krishna-widget__button-text {
+                color: #d4af37;
+                font-size: 0.9rem;
+                font-weight: 700;
+            }
+            .krishna-widget__button-sub {
+                color: rgba(245,234,208,0.62);
+                font-size: 0.68rem;
+                font-weight: 400;
+                white-space: nowrap;
+            }
+            .krishna-face { display: block; }
+            .krishna-widget__avatar .krishna-face { width: 1.55rem; height: 1.55rem; }
+            .krishna-minicard {
+                display: none;
+                width: min(22rem, calc(100vw - 2rem));
+                border: 1px solid rgba(212,175,55,0.55);
+                border-radius: 1rem;
+                background: #0a0a0b;
+                box-shadow: 0 18px 48px rgba(0,0,0,0.5);
+                padding: 0.85rem 0.9rem 0.8rem;
+                color: #f5ead0;
+            }
+            .krishna-widget.is-storybook .krishna-widget__button { display: none; }
+            .krishna-widget.is-storybook .krishna-minicard { display: block; }
+            .krishna-widget.is-open .krishna-minicard { display: none; }
+            .krishna-widget.is-open .krishna-widget__button { display: none; }
+            .krishna-minicard__head {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.55rem;
+                margin-bottom: 0.7rem;
+            }
+            .krishna-minicard__head i.fa-sparkles { color: #d4af37; margin-top: 0.15rem; }
+            .krishna-minicard__title { color: #d4af37; font-weight: 700; font-size: 0.95rem; }
+            .krishna-minicard__sub { color: rgba(255,255,255,0.55); font-size: 0.72rem; display: flex; align-items: center; gap: 0.3rem; }
+            .krishna-minicard__sub i { color: #86efac; font-size: 0.65rem; }
+            .krishna-minicard__bubble {
+                background: #161616;
+                border-radius: 0.65rem;
+                padding: 0.7rem 0.8rem;
+                color: rgba(255,255,255,0.72);
+                font-size: 0.82rem;
+                margin-bottom: 0.65rem;
+            }
+            .krishna-minicard__row {
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+            }
+            .krishna-minicard__row input {
+                flex: 1;
+                min-height: 2.4rem;
+                border: 1px solid rgba(255,255,255,0.12);
+                border-radius: 0.55rem;
+                background: #121212;
+                color: #fff;
+                padding: 0.45rem 0.7rem;
+                font: inherit;
+                font-size: 0.85rem;
+            }
+            .krishna-minicard__send {
+                width: 2.4rem; height: 2.4rem;
+                border: 0; border-radius: 999px;
+                background: #d4af37; color: #0a0a0b;
+                display: inline-flex; align-items: center; justify-content: center;
+                cursor: pointer;
+            }
+
+
             @media (max-width: 640px) {
                 .krishna-widget__button-text,
                 .krishna-widget__button-sub,
@@ -594,7 +698,7 @@
                 <header class="krishna-widget__header">
                     <div class="krishna-widget__identity">
                         <div class="krishna-widget__avatar" aria-hidden="true">
-                            <i class="fa-solid fa-infinity"></i>
+                            <svg class="krishna-face" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="34" r="20" fill="none" stroke="#d4af37" stroke-width="1.6"/><path d="M32 8c2.2 4.8 6.2 8 1.2 13.2C28.2 16 31 12.4 32 8z" fill="none" stroke="#d4af37" stroke-width="1.3"/><circle cx="32.2" cy="14.5" r="2" fill="none" stroke="#d4af37"/><path d="M24 32c2.4-1.6 4.6-2.2 8-2.2s5.6.6 8 2.2" fill="none" stroke="#d4af37" stroke-width="1.3"/><path d="M25 36.5c1.2-1.3 2.4-1.4 3.4 0" fill="none" stroke="#d4af37" stroke-width="1.3"/><path d="M35.6 36.5c1.2-1.3 2.4-1.4 3.4 0" fill="none" stroke="#d4af37" stroke-width="1.3"/><circle cx="32" cy="38.2" r="1.15" fill="#d4af37"/><path d="M26.5 44.2c3.2 2.6 7.8 2.6 11 0" fill="none" stroke="#d4af37" stroke-width="1.3"/><path d="M22 42c-1.4 6.2 4.2 11.5 10 12.5 5.8-1 11.4-6.3 10-12.5" fill="none" stroke="#d4af37" stroke-width="1.25"/></svg>
                         </div>
                         <div>
                             <span class="krishna-widget__title">Ask Krishna</span>
@@ -631,7 +735,7 @@
             </section>
             <button type="button" id="krishna-launcher" class="krishna-widget__button" aria-label="Open Ask Krishna chat" aria-controls="krishna-chat-panel" aria-expanded="false">
                 <span class="krishna-widget__avatar-dot" aria-hidden="true">
-                    <i class="fa-solid fa-infinity"></i>
+                    <svg class="krishna-face" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="34" r="20" fill="none" stroke="#d4af37" stroke-width="1.6"/><path d="M32 8c2.2 4.8 6.2 8 1.2 13.2C28.2 16 31 12.4 32 8z" fill="none" stroke="#d4af37" stroke-width="1.3"/><circle cx="32.2" cy="14.5" r="2" fill="none" stroke="#d4af37"/><path d="M24 32c2.4-1.6 4.6-2.2 8-2.2s5.6.6 8 2.2" fill="none" stroke="#d4af37" stroke-width="1.3"/><path d="M25 36.5c1.2-1.3 2.4-1.4 3.4 0" fill="none" stroke="#d4af37" stroke-width="1.3"/><path d="M35.6 36.5c1.2-1.3 2.4-1.4 3.4 0" fill="none" stroke="#d4af37" stroke-width="1.3"/><circle cx="32" cy="38.2" r="1.15" fill="#d4af37"/><path d="M26.5 44.2c3.2 2.6 7.8 2.6 11 0" fill="none" stroke="#d4af37" stroke-width="1.3"/><path d="M22 42c-1.4 6.2 4.2 11.5 10 12.5 5.8-1 11.4-6.3 10-12.5" fill="none" stroke="#d4af37" stroke-width="1.25"/></svg>
                     <span class="krishna-widget__online"></span>
                 </span>
                 <span class="krishna-widget__button-copy">
@@ -639,9 +743,53 @@
                     <span class="krishna-widget__button-sub">Grounded in the Gita.</span>
                 </span>
             </button>
+
+            <div class="krishna-minicard" data-krishna-minicard>
+                <div class="krishna-minicard__head">
+                    <i class="fa-solid fa-sparkles" aria-hidden="true"></i>
+                    <div style="flex:1">
+                        <div class="krishna-minicard__title">Ask Krishna</div>
+                        <div class="krishna-minicard__sub"><i class="fa-solid fa-shield-halved"></i> Grounded in the Gita</div>
+                    </div>
+                    <button type="button" class="krishna-widget__icon-button" data-krishna-open-full aria-label="Open Ask Krishna chat" style="width:1.8rem;height:1.8rem;border:0;background:transparent;color:#d4af37">
+                        <i class="fa-solid fa-minus"></i>
+                    </button>
+                </div>
+                <div class="krishna-minicard__bubble">Ask your question about life, dharma, or this story...</div>
+                <form class="krishna-minicard__row" data-krishna-mini-form>
+                    <input type="text" placeholder="Type your question..." aria-label="Ask Krishna">
+                    <button type="submit" class="krishna-minicard__send" aria-label="Send"><i class="fa-solid fa-arrow-right"></i></button>
+                </form>
+            </div>
         `;
 
         document.body.appendChild(widget);
+        if (document.body && document.body.dataset && document.body.dataset.storybookSlug) {
+            widget.classList.add("is-storybook");
+        }
+        const miniForm = widget.querySelector("[data-krishna-mini-form]");
+        if (miniForm) {
+            miniForm.addEventListener("submit", (event) => {
+                event.preventDefault();
+                const input = miniForm.querySelector("input");
+                const text = (input && input.value || "").trim();
+                if (typeof window.openKrishnaChat === "function") window.openKrishnaChat();
+                if (text) {
+                    const main = document.getElementById("krishna-chat-input");
+                    if (main) {
+                        main.value = text;
+                        const form = document.getElementById("krishna-chat-form");
+                        if (form) form.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
+                    }
+                    if (input) input.value = "";
+                }
+            });
+        }
+        widget.querySelectorAll("[data-krishna-open-full]").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                if (typeof window.openKrishnaChat === "function") window.openKrishnaChat();
+            });
+        });
     }
 
     function escapeHtml(value) {
@@ -1083,9 +1231,8 @@
         widgetState.isOpen = isOpen;
         panel.hidden = !isOpen;
         launcher.setAttribute("aria-expanded", String(isOpen));
-        launcher.innerHTML = isOpen 
-            ? '<i class="fa-solid fa-xmark"></i>' 
-            : '<span class="krishna-widget__button-text">Ask Krishna</span><i class="fa-solid fa-comments"></i>';
+        const root = document.getElementById("krishna-widget");
+        if (root) root.classList.toggle("is-open", isOpen);
 
         if (isOpen) {
             if (window.CosmicAskKrishna && window.CosmicAskKrishna.track) window.CosmicAskKrishna.track('krishna_open', {});
