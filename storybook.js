@@ -440,7 +440,7 @@ function mountContinueChip() {
   } catch (e) { last = null; }
   const here = (window.location.pathname || '/').replace(/\\/g, '/');
   if (!last || !last.path) return;
-  const same = last.path === here || here.endsWith(last.path) || last.path.endsWith(here.replace(/\\.html?$/i, ''));
+  const same = last.path === here || here.endsWith(last.path) || last.path.endsWith(here.replace(/\.html?$/i, ''));
   if (!same || !(last.percent > 8)) return;
   const chip = document.createElement('button');
   chip.type = 'button';
