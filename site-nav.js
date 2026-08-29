@@ -309,6 +309,28 @@
                 color: #f1d78a;
             }
             .cosmic-site-nav .logo-orb { display: none !important; }
+            .cosmic-site-nav__logo,
+            .cosmic-site-nav img.cosmic-site-nav__logo,
+            .cosmic-site-nav__logo[hidden] {
+                display: none !important;
+                width: 0 !important;
+                height: 0 !important;
+                max-width: 0 !important;
+                max-height: 0 !important;
+                overflow: hidden !important;
+                visibility: hidden !important;
+                position: absolute !important;
+                pointer-events: none !important;
+                border: 0 !important;
+            }
+            .cosmic-site-nav__brand-copy {
+                overflow: visible !important;
+                min-width: max-content !important;
+            }
+            .cosmic-site-nav__name {
+                overflow: visible !important;
+                white-space: nowrap !important;
+            }
             .cosmic-site-nav__link,
             .cosmic-site-nav__menu-button {
                 color: rgba(255,255,255,0.92) !important;
@@ -634,14 +656,13 @@
             }
 
             .cosmic-site-nav__logo {
-                width: 100%;
-                height: 100%;
-                max-width: 100%;
-                max-height: 100%;
-                object-fit: cover;
-                object-position: center;
-                border-radius: 50%;
-                display: block;
+                display: none !important;
+                width: 0;
+                height: 0;
+                overflow: hidden;
+                visibility: hidden;
+                position: absolute;
+                pointer-events: none;
             }
 
             .cosmic-site-nav__brand-copy {
@@ -1192,7 +1213,8 @@
                 }
 
                 .cosmic-site-nav__brand-copy {
-                    display: none;
+                    display: block;
+                    min-width: 0;
                 }
 
                 .cosmic-site-nav__right {
@@ -1499,7 +1521,7 @@
                     <div class="cosmic-site-nav__bar">
                         <a class="cosmic-site-nav__brand" href="${navHref(base, "home")}" aria-label="CosmicTrotter home">
                             <span class="ct-mark" aria-hidden="true"><span class="ct-mark__ct">CT</span><span class="ct-mark__star">✦</span></span>
-                            <img class="cosmic-site-nav__logo" src="${logo}" alt="" width="40" height="40" hidden>
+                            <img class="cosmic-site-nav__logo" src="${logo}" alt="" width="40" height="40" hidden decoding="async" aria-hidden="true" onerror="this.hidden=true;this.removeAttribute('src');this.style.display='none';this.setAttribute('aria-hidden','true');">
                             <span class="cosmic-site-nav__brand-copy">
                                 <span class="cosmic-site-nav__name">CosmicTrotter</span>
                             </span>
@@ -1655,6 +1677,23 @@
     function bindNav(base) {
         const nav = document.getElementById(NAV_ID);
         if (!nav) return;
+
+        nav.querySelectorAll("img.cosmic-site-nav__logo").forEach((img) => {
+            const hideBrokenLogo = () => {
+                img.hidden = true;
+                img.removeAttribute("src");
+                img.alt = "";
+                img.setAttribute("aria-hidden", "true");
+                img.style.display = "none";
+                img.style.visibility = "hidden";
+                img.style.width = "0";
+                img.style.height = "0";
+            };
+            img.addEventListener("error", hideBrokenLogo);
+            if (img.complete && (!img.naturalWidth || img.naturalHeight === 0)) {
+                hideBrokenLogo();
+            }
+        });
 
         const menuButton = nav.querySelector("[data-cosmic-nav-menu]");
         const menuPanel = nav.querySelector("#cosmic-site-nav-journeys") || nav.querySelector("#cosmic-site-nav-library");

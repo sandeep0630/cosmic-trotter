@@ -201,12 +201,34 @@
         const style = document.createElement("style");
         style.id = "krishna-widget-styles";
         style.textContent = `
+            :root {
+                --krishna-launcher-clearance: 7.25rem;
+            }
+
+            html {
+                scroll-padding-bottom: calc(var(--krishna-launcher-clearance) + env(safe-area-inset-bottom, 0px));
+            }
+
+            body {
+                padding-bottom: calc(var(--krishna-launcher-clearance) + env(safe-area-inset-bottom, 0px));
+            }
+
+            #main,
+            main {
+                padding-bottom: 1.5rem;
+            }
+
             .krishna-widget {
                 position: fixed;
-                right: 1.25rem;
-                bottom: 1.25rem;
+                right: max(1.25rem, env(safe-area-inset-right, 0px));
+                bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
                 z-index: 80;
                 font-family: 'Inter', system-ui, sans-serif;
+                pointer-events: none;
+            }
+
+            .krishna-widget > * {
+                pointer-events: auto;
             }
 
             .krishna-widget__button {
@@ -250,7 +272,9 @@
             }
 
             @media (max-width: 640px) {
-                .krishna-widget__button-text {
+                .krishna-widget__button-text,
+                .krishna-widget__button-sub,
+                .krishna-widget__button-copy {
                     display: none;
                 }
                 .krishna-widget__button {
@@ -532,9 +556,9 @@
 
             @media (max-width: 640px) {
                 .krishna-widget {
-                    left: 0.75rem;
-                    right: 0.75rem;
-                    bottom: 0.75rem;
+                    left: auto;
+                    right: max(0.75rem, env(safe-area-inset-right, 0px));
+                    bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
                 }
 
                 .krishna-widget__button {
