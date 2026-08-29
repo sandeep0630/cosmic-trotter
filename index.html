@@ -747,7 +747,7 @@
 
     </style>
     <script src="theme-toggle.js?v=20260616-light-5"></script>
-    <script src="site-nav.js?v=20260724-lang-hi"></script>
+    <script src="site-nav.js?v=20260829-travel"></script>
     <script src="daily-wisdom.js?v=20260616-wisdom-1"></script>
 </head>
 <body class="cosmic-bg">
@@ -775,7 +775,7 @@
             </div>
         </div>
     </div>
-    <!-- Navbar skeleton (replaced by site-nav.js?v=20260724-lang-hi) -->
+    <!-- Navbar skeleton (replaced by site-nav.js?v=20260829-travel) -->
     <nav class="nav-skeleton sticky top-0 z-40" aria-label="Primary navigation loading">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-x-3 min-h-[72px]">
             <img src="logo.png" alt="CosmicTrotter" width="44" height="44" class="rounded-full w-11 h-11 object-cover" style="border-radius:9999px">
@@ -876,9 +876,9 @@
         <div class="text-center mb-8">
             <span class="text-xs uppercase tracking-[3px] text-[#00f3ff]">NEW HERE?</span>
             <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mt-2">Choose your door</h2>
-            <p class="mt-2 text-white/55">Three ways in — or open the full <a href="start.html" class="text-[#00f3ff] hover:underline">Start Here</a> guide.</p>
+            <p class="mt-2 text-white/55">Four ways in — or open the full <a href="start.html" class="text-[#00f3ff] hover:underline">Start Here</a> guide.</p>
         </div>
-        <div class="grid md:grid-cols-3 gap-5">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             <a href="start.html#wisdom" data-cta="path-wisdom" class="home-path-card home-glass rounded-3xl p-7 block group">
                 <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-om text-black text-xl"></i>
@@ -899,6 +899,13 @@
                 </div>
                 <h3 class="text-xl font-semibold mb-2">Watch reels → read</h3>
                 <p class="text-sm text-white/55">60 seconds of wonder, then full storybooks.</p>
+            </a>
+            <a href="travel.html" data-cta="path-travel" class="home-path-card home-glass rounded-3xl p-7 block group">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-400 to-amber-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-suitcase-rolling text-black text-xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold mb-2">I want to travel</h3>
+                <p class="text-sm text-white/55">Field notes from pilgrimages and the road.</p>
             </a>
         </div>
         <div class="text-center mt-5">
@@ -994,10 +1001,10 @@
     <section id="explore" class="max-w-6xl mx-auto px-6 pb-16 scroll-mt-24 home-reveal">
         <div class="text-center mb-10">
             <span class="text-xs uppercase tracking-[3px] text-[#00f3ff]">DISCOVER</span>
-            <h2 class="section-header mt-2">Four pillars of the cosmos</h2>
+            <h2 class="section-header mt-2">Five pillars of the cosmos</h2>
             <p class="mt-3 text-lg text-white/60 max-w-xl mx-auto">Pick a world. Each one is a full library of journeys.</p>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
             <a href="ancient.html" data-cta="pillar-Ancient Wisdom" class="home-pillar home-glass rounded-3xl p-7 block group">
                 <div class="w-14 h-14 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                     <i class="fa-solid fa-landmark text-black text-2xl"></i>
@@ -1029,6 +1036,17 @@
                 <h3 class="text-xl font-semibold mb-2">Philosophy</h3>
                 <p class="text-white/55 text-sm leading-relaxed">Consciousness, free will, self, meaning.</p>
                 <div class="mt-5 text-sm text-cyan-300 flex items-center">Explore <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i></div>
+            </a>
+            <a href="travel.html" data-cta="pillar-Travel journal" class="home-pillar home-glass rounded-3xl p-7 block group">
+                <div class="w-14 h-14 bg-gradient-to-br from-yellow-400 to-amber-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                    <i class="fa-solid fa-book text-black text-2xl"></i>
+                </div>
+                <div class="flex items-center gap-2 mb-2">
+                    <h3 class="text-xl font-semibold">Travel journal</h3>
+                    <span class="text-[10px] font-semibold uppercase tracking-[1.5px] text-amber-200 bg-amber-400/15 border border-amber-300/35 rounded-full px-2 py-0.5">NEW</span>
+                </div>
+                <p class="text-white/55 text-sm leading-relaxed">Field notes from the road and pilgrimages.</p>
+                <div class="mt-5 text-sm text-amber-300 flex items-center">Explore <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i></div>
             </a>
         </div>
     </section>
@@ -1871,6 +1889,7 @@
             { title: 'quantum', keywords: 'entanglement observation physics', url: 'quantum.html' },
             { title: 'space cosmos', keywords: 'black hole astronomy universe', url: 'space.html' },
             { title: 'ancient wisdom', keywords: 'veda upanishad dashavatara puri', url: 'ancient.html' },
+            { title: 'travel journal', keywords: 'travel pilgrimage road field notes temples', url: 'travel.html' },
             { title: 'dashavatara', keywords: 'vishnu avatar krishna rama', url: 'dashavatara.html' },
             { title: 'wisdom', keywords: 'daily quote', url: 'wisdom.html' }
         ];
