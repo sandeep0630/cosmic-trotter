@@ -20,7 +20,7 @@
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="manifest" href="manifest.webmanifest">
-    <meta name="theme-color" content="#0a0a0f">
+    <meta name="theme-color" content="#000000">
     <script src="pwa-register.js" defer></script>
     
     <!-- Twitter Card -->
@@ -34,11 +34,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
     <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" integrity="sha384-5uUK1NTA/P91HY+cXyokmqpOPyjKnVEN7kGZ+GDSLKWY4ZecgMCRxcEyuYRL4IFe" crossorigin="anonymous">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&amp;family=Inter:wght@300;400;500;600;700&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
         
         :root {
-            --cosmic-blue: #00f3ff;
-            --cosmic-purple: #7c3aed;
+            --cosmic-blue: #d4af37;
+            --cosmic-purple: #c5a059;
+            --ct-gold: #d4af37;
+            --ct-ink: #050506;
+        }
+        .font-serif {
+            font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
         }
         
         body {
@@ -57,8 +62,8 @@
         }
 
         .glow-blue {
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3),
-                        0 0 40px rgba(0, 243, 255, 0.1);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3),
+                        0 0 40px rgba(212, 175, 55, 0.1);
         }
 
         .section-header {
@@ -73,8 +78,8 @@
         }
         
         .nav-link:hover {
-            color: #00f3ff;
-            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+            color: #d4af37;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
         }
 
         .nav-dock {
@@ -144,7 +149,7 @@
         .nav-menu-item i {
             width: 1.25rem;
             margin-top: 0.15rem;
-            color: #00f3ff;
+            color: #d4af37;
             text-align: center;
         }
 
@@ -154,19 +159,19 @@
 
         .nav-search-input:focus {
             background: rgba(255, 255, 255, 0.09);
-            border-color: rgba(0, 243, 255, 0.7);
-            box-shadow: 0 0 0 4px rgba(0, 243, 255, 0.1);
+            border-color: rgba(212, 175, 55, 0.7);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
         }
 
         .cosmic-card {
             background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(0, 243, 255, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.1);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .cosmic-card:hover {
             transform: translateY(-8px);
-            border-color: rgba(0, 243, 255, 0.3);
+            border-color: rgba(212, 175, 55, 0.3);
             box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 
                         0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
@@ -199,8 +204,8 @@
             pointer-events: none;
             background:
                 radial-gradient(circle,
-                    rgba(0, 243, 255, 0.32) 0%,
-                    rgba(124, 58, 237, 0.22) 45%,
+                    rgba(212, 175, 55, 0.32) 0%,
+                    rgba(197, 160, 89, 0.22) 45%,
                     transparent 78%);
             filter: blur(14px);
             transform: translateZ(0);
@@ -221,8 +226,8 @@
             border: 1.5px solid rgba(255, 255, 255, 0.14);
             background: #0a0a0f;
             box-shadow:
-                0 0 16px rgba(0, 243, 255, 0.3),
-                0 0 32px rgba(124, 58, 237, 0.2),
+                0 0 16px rgba(212, 175, 55, 0.3),
+                0 0 32px rgba(197, 160, 89, 0.2),
                 inset 0 1px 0 rgba(255,255,255,0.1);
         }
 
@@ -258,8 +263,8 @@
             pointer-events: none;
             background:
                 radial-gradient(circle,
-                    rgba(0, 243, 255, 0.28) 0%,
-                    rgba(124, 58, 237, 0.18) 50%,
+                    rgba(212, 175, 55, 0.28) 0%,
+                    rgba(197, 160, 89, 0.18) 50%,
                     transparent 78%);
             filter: blur(10px);
         }
@@ -288,13 +293,13 @@
             border: 1px solid rgba(255, 255, 255, 0.14);
             background: #0a0a0f;
             box-shadow:
-                0 0 10px rgba(0, 243, 255, 0.25),
-                0 0 22px rgba(124, 58, 237, 0.18),
+                0 0 10px rgba(212, 175, 55, 0.25),
+                0 0 22px rgba(197, 160, 89, 0.18),
                 inset 0 1px 0 rgba(255,255,255,0.1);
         }
 
         .gradient-text {
-            background: linear-gradient(90deg, #00f3ff, #7c3aed, #00f3ff);
+            background: linear-gradient(90deg, #d4af37, #c5a059, #d4af37);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-size: 200% 100%;
@@ -312,23 +317,98 @@
         }
 
         .cosmic-btn {
-            background: linear-gradient(135deg, #00f3ff, #7c3aed);
+            background: linear-gradient(135deg, #d4af37, #c5a059);
             transition: all 0.3s ease;
         }
         
         .cosmic-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
         }
 
         
         /* ===== Homepage redesign 2026-07 ===== */
         .home-nebula {
             background:
-                radial-gradient(ellipse 80% 50% at 20% 20%, rgba(0, 243, 255, 0.12), transparent 55%),
-                radial-gradient(ellipse 70% 45% at 80% 10%, rgba(124, 58, 237, 0.16), transparent 50%),
-                radial-gradient(ellipse 60% 40% at 50% 80%, rgba(251, 191, 36, 0.06), transparent 55%);
-            animation: nebulaDrift 18s ease-in-out infinite alternate;
+                radial-gradient(ellipse 55% 45% at 8% 70%, rgba(40, 28, 12, 0.55), transparent 60%),
+                radial-gradient(ellipse 70% 55% at 88% 12%, rgba(212, 175, 55, 0.22), transparent 52%),
+                radial-gradient(ellipse 50% 40% at 70% 30%, rgba(180, 120, 40, 0.12), transparent 55%),
+                radial-gradient(ellipse 80% 50% at 50% 100%, rgba(212, 175, 55, 0.05), transparent 60%);
+            animation: nebulaDrift 22s ease-in-out infinite alternate;
+        }
+        .home-gold-dust {
+            pointer-events: none;
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(1.5px 1.5px at 20% 30%, rgba(241,215,138,0.7), transparent),
+                radial-gradient(1px 1px at 40% 18%, rgba(212,175,55,0.55), transparent),
+                radial-gradient(1.5px 1.5px at 72% 22%, rgba(241,215,138,0.8), transparent),
+                radial-gradient(1px 1px at 85% 40%, rgba(212,175,55,0.45), transparent),
+                radial-gradient(1px 1px at 60% 8%, rgba(255,240,200,0.5), transparent);
+            opacity: 0.85;
+        }
+        .gold-btn {
+            background: #d4af37;
+            color: #0a0a0b;
+            font-weight: 700;
+        }
+        .gold-btn:hover { background: #e3c25a; }
+        .gold-outline {
+            border: 1px solid rgba(212,175,55,0.75);
+            color: #fff;
+            background: transparent;
+        }
+        .gold-outline:hover { background: rgba(212,175,55,0.1); color: #f1d78a; }
+        .pillar-gold {
+            background: rgba(8,8,10,0.72);
+            border: 1px solid rgba(212,175,55,0.45);
+        }
+        .pillar-gold:hover {
+            border-color: #d4af37;
+            box-shadow: 0 18px 40px -24px rgba(212,175,55,0.55);
+            transform: translateY(-4px);
+        }
+        .pillar-icon {
+            width: 3.1rem; height: 3.1rem;
+            border: 1px solid rgba(212,175,55,0.55);
+            border-radius: 999px;
+            display: flex; align-items: center; justify-content: center;
+            color: #d4af37; margin-bottom: 1rem;
+        }
+        .door-arch {
+            position: relative;
+            display: block;
+            border: 1px solid rgba(212,175,55,0.4);
+            border-radius: 999px 999px 1.25rem 1.25rem;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% 20%, rgba(212,175,55,0.12), transparent 55%),
+                linear-gradient(180deg, #16120c 0%, #0a0a0b 70%);
+            overflow: hidden;
+            min-height: 16.5rem;
+            padding: 1.5rem 1rem 1.15rem;
+            text-align: center;
+        }
+        .door-arch:hover { border-color: #d4af37; transform: translateY(-4px); }
+        .door-glyph {
+            width: 4.5rem; height: 4.5rem; margin: 1.2rem auto 1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(212,175,55,0.4);
+            display: flex; align-items: center; justify-content: center;
+            color: #d4af37; font-size: 1.65rem;
+            box-shadow: 0 0 28px rgba(212,175,55,0.18);
+        }
+        .door-go {
+            width: 1.85rem; height: 1.85rem; margin: 0.85rem auto 0;
+            border-radius: 999px; border: 1px solid #d4af37;
+            display: inline-flex; align-items: center; justify-content: center;
+            color: #d4af37; font-size: 0.7rem;
+        }
+        .new-pill {
+            position: absolute; top: 0.7rem; right: 0.7rem;
+            font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em;
+            color: #0a0a0b; background: #d4af37;
+            border-radius: 0.25rem; padding: 0.15rem 0.4rem;
         }
         @keyframes nebulaDrift {
             from { filter: hue-rotate(0deg); opacity: 1; }
@@ -359,7 +439,7 @@
         }
         .home-path-card:hover, .home-flagship:hover, .home-pillar:hover {
             transform: translateY(-6px);
-            border-color: rgba(0, 243, 255, 0.35);
+            border-color: rgba(212, 175, 55, 0.35);
             box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.55);
         }
         .home-flagship img {
@@ -474,8 +554,8 @@
         }
         .home-reel-nav:hover,
         .home-reel-nav:focus-visible {
-            background: rgba(0, 243, 255, 0.16);
-            border-color: rgba(0, 243, 255, 0.55);
+            background: rgba(212, 175, 55, 0.16);
+            border-color: rgba(212, 175, 55, 0.55);
             outline: none;
         }
         .home-reel-nav--prev { left: 0.35rem; }
@@ -506,7 +586,7 @@
         }
         .home-reel-dot.is-active {
             width: 1.15rem;
-            background: #00f3ff;
+            background: #d4af37;
         }
         .home-reel-counter {
             text-align: center;
@@ -586,7 +666,7 @@
 
         .newsletter-brevo .entry__field {
             overflow: hidden;
-            border: 1px solid rgba(0, 243, 255, 0.22) !important;
+            border: 1px solid rgba(212, 175, 55, 0.22) !important;
             border-radius: 1.25rem !important;
             background: rgba(255, 255, 255, 0.06) !important;
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
@@ -594,9 +674,9 @@
         }
 
         .newsletter-brevo .entry__field:focus-within {
-            border-color: rgba(0, 243, 255, 0.72) !important;
+            border-color: rgba(212, 175, 55, 0.72) !important;
             background: rgba(255, 255, 255, 0.09) !important;
-            box-shadow: 0 0 0 4px rgba(0, 243, 255, 0.1);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
         }
 
         .newsletter-brevo #EMAIL {
@@ -687,7 +767,7 @@
         }
 
         .newsletter-brevo .sib-form-message-panel__inner-text a {
-            color: #00f3ff;
+            color: #d4af37;
             font-weight: 700;
             text-decoration: underline;
             text-underline-offset: 3px;
@@ -700,7 +780,7 @@
             margin-top: 0.9rem;
             padding: 0.85rem 1.25rem;
             border-radius: 9999px;
-            background: linear-gradient(135deg, #00f3ff, #7c3aed);
+            background: linear-gradient(135deg, #d4af37, #c5a059);
             color: #020617 !important;
             font-weight: 800;
             text-decoration: none !important;
@@ -720,7 +800,7 @@
             padding: 0 2.25rem !important;
             border: 0 !important;
             border-radius: 9999px !important;
-            background: linear-gradient(135deg, #00f3ff, #7c3aed) !important;
+            background: linear-gradient(135deg, #d4af37, #c5a059) !important;
             color: #020617 !important;
             font-family: inherit !important;
             font-size: 0.98rem !important;
@@ -732,7 +812,7 @@
 
         .newsletter-brevo .sib-form-block__button:hover {
             transform: translateY(-1px) scale(1.03);
-            box-shadow: 0 0 28px rgba(0, 243, 255, 0.42);
+            box-shadow: 0 0 28px rgba(212, 175, 55, 0.42);
         }
 
         .newsletter-brevo .sib-form-block__button.loading {
@@ -747,7 +827,7 @@
 
     </style>
     <script src="theme-toggle.js?v=20260616-light-5"></script>
-    <script src="site-nav.js?v=20260829-travel"></script>
+    <script src="site-nav.js?v=20260829-gold"></script>
     <script src="daily-wisdom.js?v=20260616-wisdom-1"></script>
 </head>
 <body class="cosmic-bg">
@@ -763,19 +843,19 @@
 
             <!-- Brand Name -->
             <div class="mb-2">
-                <span class="font-display text-5xl md:text-6xl font-semibold tracking-tighter text-white">CosmicTrotter</span>
+                <span class="font-serif text-5xl md:text-6xl font-semibold tracking-tight text-[#d4af37]">CosmicTrotter</span>
             </div>
-            <div class="text-[#00f3ff] text-sm tracking-[4px] font-medium mb-8">TRAVEL THROUGH KNOWLEDGE</div>
+            <div class="text-[#d4af37] text-sm tracking-[4px] font-medium mb-8">TRAVEL THROUGH KNOWLEDGE</div>
             
             <!-- Subtle Loading -->
             <div class="w-44 mx-auto">
                 <div class="h-px bg-white/10 rounded-full overflow-hidden">
-                    <div class="h-px bg-gradient-to-r from-[#00f3ff] via-[#7c3aed] to-[#00f3ff] animate-[loading_1.2s_ease-out_forwards]"></div>
+                    <div class="h-px bg-gradient-to-r from-[#d4af37] via-[#f1d78a] to-[#d4af37] animate-[loading_1.2s_ease-out_forwards]"></div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Navbar skeleton (replaced by site-nav.js?v=20260829-travel) -->
+    <!-- Navbar skeleton (replaced by site-nav.js?v=20260829-gold -->
     <nav class="nav-skeleton sticky top-0 z-40" aria-label="Primary navigation loading">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-x-3 min-h-[72px]">
             <img src="logo.png" alt="CosmicTrotter" width="44" height="44" class="rounded-full w-11 h-11 object-cover" style="border-radius:9999px">
@@ -785,8 +865,9 @@
 
     <main id="main">
     <!-- Hero Section -->
-    <section class="relative overflow-hidden pt-16 pb-20 sm:pt-20 sm:pb-24" aria-label="Hero">
+    <section class="relative overflow-hidden pt-20 pb-16 sm:pt-28 sm:pb-20" aria-label="Hero">
         <div class="absolute inset-0 home-nebula pointer-events-none" aria-hidden="true"></div>
+        <div class="absolute inset-0 home-gold-dust pointer-events-none" aria-hidden="true"></div>
         <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
             <div class="star" style="width: 2px; height: 2px; top: 15%; left: 10%; animation-delay: 0s;"></div>
             <div class="star" style="width: 3px; height: 3px; top: 25%; left: 25%; animation-delay: 1.2s;"></div>
@@ -795,57 +876,94 @@
             <div class="star" style="width: 2.5px; height: 2.5px; top: 70%; left: 70%; animation-delay: 1.5s;"></div>
             <div class="star" style="width: 2px; height: 2px; top: 85%; left: 40%; animation-delay: 0.3s;"></div>
         </div>
-        <div class="max-w-6xl mx-auto px-6 relative">
-            <div class="grid lg:grid-cols-12 gap-10 items-center">
-                <div class="lg:col-span-7 text-center lg:text-left home-reveal">
-                    <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 mb-6">
-                        <div class="w-2 h-2 bg-[#00f3ff] rounded-full animate-pulse"></div>
-                        <span class="text-xs uppercase tracking-[2px] text-white/70">Free cosmic library</span>
-                    </div>
-                    <h1 class="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tighter leading-[0.95] mb-6">
-                        Travel Through<br>
-                        <span class="gradient-text">Knowledge</span>
-                    </h1>
-                    <p class="text-xl sm:text-2xl text-white/70 max-w-xl mx-auto lg:mx-0 mb-8 leading-snug">
-                        Ancient wisdom, philosophy, quantum, and space — story-first journeys for curious minds. Always free to explore.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="start.html" data-cta="hero-start" class="cosmic-btn px-10 py-4 rounded-3xl text-lg font-semibold text-black flex items-center justify-center gap-x-3">
-                            <span>Start Here</span>
-                            <i class="fa-solid fa-compass"></i>
-                        </a>
-                        <a href="#flagships" data-cta="hero-journeys" class="px-10 py-4 rounded-3xl text-lg font-semibold border border-white/25 hover:bg-white/5 flex items-center justify-center gap-x-3 transition">
-                            <span>Explore journeys</span>
-                            <i class="fa-solid fa-arrow-down"></i>
-                        </a>
-                    </div>
-                    <div class="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-x-5 gap-y-2 text-xs text-white/45">
-                        <span>✦ Free forever</span>
-                        <span>✦ Storybooks &amp; reels</span>
-                        <span>✦ Daily practice</span>
-                        <span>✦ EN · हिंदी · తెలుగు · ಕನ್ನಡ</span>
-                    </div>
-                </div>
-                <div class="lg:col-span-5 hidden lg:grid grid-cols-2 gap-3 home-reveal" style="transition-delay:0.12s">
-                    <a href="dashavatara.html" class="home-flagship rounded-2xl overflow-hidden border border-white/10 aspect-[4/5] relative group">
-                        <img src="ancient-wisdom/images/dashavatara-rama-title.png" alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" width="400" height="500">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                        <span class="absolute bottom-3 left-3 text-sm font-semibold">Dashavatara</span>
-                    </a>
-                    <div class="grid gap-3">
-                        <a href="hanuman.html" class="home-flagship rounded-2xl overflow-hidden border border-white/10 aspect-[16/10] relative">
-                            <img src="ancient-wisdom/images/hanuman-title.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" width="400" height="250">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                            <span class="absolute bottom-2 left-3 text-sm font-semibold">Hanuman</span>
-                        </a>
-                        <a href="tirupati-venkateswara.html" class="home-flagship rounded-2xl overflow-hidden border border-white/10 aspect-[16/10] relative">
-                            <img src="ancient-wisdom/images/tirupati-title.jpg" alt="" class="absolute inset-0 w-full h-full object-cover" loading="lazy" width="400" height="250">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                            <span class="absolute bottom-2 left-3 text-sm font-semibold">Tirupati</span>
-                        </a>
-                    </div>
-                </div>
+        <div class="max-w-5xl mx-auto px-6 relative text-center">
+            <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight leading-[1.05] mb-5 text-[#d4af37]">
+                Travel Through Knowledge.
+            </h1>
+            <p class="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto mb-9 leading-relaxed">
+                Ancient wisdom, living temples, and field notes from the road. Always free.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <a href="start.html" data-cta="hero-start" class="gold-btn px-8 py-3.5 rounded-full text-base flex items-center justify-center gap-x-2">
+                    <span>Start Here</span>
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </a>
+                <a href="#flagships" data-cta="hero-journeys" class="gold-outline px-8 py-3.5 rounded-full text-base flex items-center justify-center gap-x-2">
+                    <span>Explore journeys</span>
+                </a>
             </div>
+            <!-- Hidden from ATF but keep flagship image destinations as links for completeness -->
+            <div class="sr-only">
+                <a href="dashavatara.html">Dashavatara</a>
+                <a href="hanuman.html">Hanuman</a>
+                <a href="tirupati-venkateswara.html">Tirupati</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pillars / Explore -->
+    <section id="explore" class="max-w-6xl mx-auto px-6 pb-16 scroll-mt-24 home-reveal">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <a href="ancient.html" data-cta="pillar-Ancient Wisdom" class="pillar-gold rounded-2xl p-6 block relative">
+                <div class="pillar-icon" aria-hidden="true"><i class="fa-solid fa-tree"></i></div>
+                <h3 class="font-serif text-xl text-[#d4af37] mb-2">Ancient Wisdom</h3>
+                <p class="text-white/70 text-sm leading-relaxed">Timeless teachings from scriptures and sages.</p>
+            </a>
+            <a href="philosophy.html" data-cta="pillar-Philosophy" class="pillar-gold rounded-2xl p-6 block relative">
+                <div class="pillar-icon" aria-hidden="true"><i class="fa-solid fa-spa"></i></div>
+                <h3 class="font-serif text-xl text-[#d4af37] mb-2">Philosophy</h3>
+                <p class="text-white/70 text-sm leading-relaxed">Ideas that shape life, reality, and consciousness.</p>
+            </a>
+            <a href="quantum.html" data-cta="pillar-Quantum Realms" class="pillar-gold rounded-2xl p-6 block relative">
+                <div class="pillar-icon" aria-hidden="true"><i class="fa-solid fa-atom"></i></div>
+                <h3 class="font-serif text-xl text-[#d4af37] mb-2">Quantum Realms</h3>
+                <p class="text-white/70 text-sm leading-relaxed">Exploring the intersection of science, mysticism, and reality.</p>
+            </a>
+            <a href="space.html" data-cta="pillar-Space & Cosmos" class="pillar-gold rounded-2xl p-6 block relative">
+                <div class="pillar-icon" aria-hidden="true"><i class="fa-solid fa-meteor"></i></div>
+                <h3 class="font-serif text-xl text-[#d4af37] mb-2">Space &amp; Cosmos</h3>
+                <p class="text-white/70 text-sm leading-relaxed">From stars above to the vastness within.</p>
+            </a>
+            <a href="travel.html" data-cta="pillar-Travel journal" class="pillar-gold rounded-2xl p-6 block relative">
+                <span class="new-pill">NEW</span>
+                <div class="pillar-icon" aria-hidden="true"><i class="fa-solid fa-feather"></i></div>
+                <h3 class="font-serif text-xl text-[#d4af37] mb-2">Travel journal</h3>
+                <p class="text-white/70 text-sm leading-relaxed">Notes from the road. Raw, real, and unfiltered.</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Paths -->
+    <section id="paths" class="max-w-6xl mx-auto px-6 pb-16 scroll-mt-24 home-reveal">
+        <div class="text-center mb-10">
+            <h2 class="font-serif text-4xl sm:text-5xl text-[#d4af37] tracking-tight">Choose your door.</h2>
+            <div class="mt-2 text-[#d4af37] text-lg" aria-hidden="true">✦</div>
+            <p class="mt-2 text-white/50 text-sm">Or open the full <a href="start.html" class="text-[#d4af37] hover:underline">Start Here</a> guide.</p>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <a href="start.html#wisdom" data-cta="path-wisdom" class="door-arch group">
+                <div class="door-glyph"><i class="fa-solid fa-book-open"></i></div>
+                <h3 class="text-white font-medium">I seek wisdom</h3>
+                <span class="door-go"><i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+            <a href="crossroads/" data-cta="path-crossroads" class="door-arch group">
+                <div class="door-glyph"><i class="fa-solid fa-compass"></i></div>
+                <h3 class="text-white font-medium">Cosmic Crossroads</h3>
+                <span class="door-go"><i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+            <a href="#reels" data-cta="path-reels" class="door-arch group">
+                <div class="door-glyph"><i class="fa-solid fa-clapperboard"></i></div>
+                <h3 class="text-white font-medium">Watch reels</h3>
+                <span class="door-go"><i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+            <a href="travel.html" data-cta="path-travel" class="door-arch group">
+                <div class="door-glyph"><i class="fa-solid fa-mountain"></i></div>
+                <h3 class="text-white font-medium">I want to travel</h3>
+                <span class="door-go"><i class="fa-solid fa-arrow-right"></i></span>
+            </a>
+        </div>
+        <div class="text-center mt-6">
+            <a href="map.html" class="text-sm text-white/50 hover:text-[#d4af37] transition inline-flex items-center gap-2"><i class="fa-solid fa-map"></i> Open the cosmic map</a>
         </div>
     </section>
 
@@ -853,7 +971,7 @@
     <section id="pulse" class="max-w-6xl mx-auto px-6 pb-14 scroll-mt-24 home-reveal">
         <div class="home-glass rounded-3xl p-4 sm:p-5 flex flex-col md:flex-row gap-3 md:gap-0 md:divide-x md:divide-white/10">
             <button type="button" onclick="showDailyWisdom()" data-cta="pulse-wisdom" class="home-pulse-cell text-left px-3 py-2 rounded-2xl hover:bg-white/5 transition">
-                <div class="text-[10px] uppercase tracking-[2px] text-[#00f3ff] mb-1">Daily wisdom</div>
+                <div class="text-[10px] uppercase tracking-[2px] text-[#d4af37] mb-1">Daily wisdom</div>
                 <div class="font-semibold text-white/90">Read today's insight</div>
                 <div class="text-xs text-white/45 mt-0.5">A new cosmic idea every day</div>
             </button>
@@ -871,48 +989,6 @@
         </div>
     </section>
 
-    <!-- Paths -->
-    <section id="paths" class="max-w-6xl mx-auto px-6 pb-16 scroll-mt-24 home-reveal">
-        <div class="text-center mb-8">
-            <span class="text-xs uppercase tracking-[3px] text-[#00f3ff]">NEW HERE?</span>
-            <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mt-2">Choose your door</h2>
-            <p class="mt-2 text-white/55">Four ways in — or open the full <a href="start.html" class="text-[#00f3ff] hover:underline">Start Here</a> guide.</p>
-        </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            <a href="start.html#wisdom" data-cta="path-wisdom" class="home-path-card home-glass rounded-3xl p-7 block group">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-om text-black text-xl"></i>
-                </div>
-                <h3 class="text-xl font-semibold mb-2">I seek wisdom</h3>
-                <p class="text-sm text-white/55">Gita, Hanuman, temples — stories with roots.</p>
-            </a>
-            <a href="crossroads/" data-cta="path-crossroads" class="home-path-card home-glass rounded-3xl p-7 block group">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-500 to-emerald-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-code-branch text-white text-xl"></i>
-                </div>
-                <h3 class="text-xl font-semibold mb-2">Cosmic Crossroads</h3>
-                <p class="text-sm text-white/55">One question. Science + ancient wisdom. No forced winner.</p>
-            </a>
-            <a href="#reels" data-cta="path-reels" class="home-path-card home-glass rounded-3xl p-7 block group">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-clapperboard text-black text-xl"></i>
-                </div>
-                <h3 class="text-xl font-semibold mb-2">Watch reels → read</h3>
-                <p class="text-sm text-white/55">60 seconds of wonder, then full storybooks.</p>
-            </a>
-            <a href="travel.html" data-cta="path-travel" class="home-path-card home-glass rounded-3xl p-7 block group">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-yellow-400 to-amber-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-suitcase-rolling text-black text-xl"></i>
-                </div>
-                <h3 class="text-xl font-semibold mb-2">I want to travel</h3>
-                <p class="text-sm text-white/55">Field notes from pilgrimages and the road.</p>
-            </a>
-        </div>
-        <div class="text-center mt-5">
-            <a href="map.html" class="text-sm text-white/50 hover:text-[#00f3ff] transition inline-flex items-center gap-2"><i class="fa-solid fa-map"></i> Open the cosmic map</a>
-        </div>
-    </section>
-
     <!-- Flagships -->
     <section id="flagships" class="max-w-6xl mx-auto px-6 pb-16 scroll-mt-24 home-reveal">
         <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-8">
@@ -920,7 +996,7 @@
                 <span class="text-xs uppercase tracking-[3px] text-amber-300">FLAGSHIP JOURNEYS</span>
                 <h2 class="text-3xl sm:text-4xl font-bold tracking-tight mt-2">Stories worth staying for</h2>
             </div>
-            <a href="ancient.html" class="text-sm text-[#00f3ff] hover:underline">See all Ancient Wisdom →</a>
+            <a href="ancient.html" class="text-sm text-[#d4af37] hover:underline">See all Ancient Wisdom →</a>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             <a href="dashavatara.html" data-cta="flagship-dashavatara.html" class="home-flagship home-glass rounded-3xl overflow-hidden block group">
@@ -997,60 +1073,6 @@
         <div class="ad-slot ad-slot--mid" data-ad-enabled="false" data-ad-slot="home-mid">Ad space reserved - not live</div>
     </div>
 
-    <!-- Pillars / Explore -->
-    <section id="explore" class="max-w-6xl mx-auto px-6 pb-16 scroll-mt-24 home-reveal">
-        <div class="text-center mb-10">
-            <span class="text-xs uppercase tracking-[3px] text-[#00f3ff]">DISCOVER</span>
-            <h2 class="section-header mt-2">Five pillars of the cosmos</h2>
-            <p class="mt-3 text-lg text-white/60 max-w-xl mx-auto">Pick a world. Each one is a full library of journeys.</p>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
-            <a href="ancient.html" data-cta="pillar-Ancient Wisdom" class="home-pillar home-glass rounded-3xl p-7 block group">
-                <div class="w-14 h-14 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-landmark text-black text-2xl"></i>
-                </div>
-                <h3 class="text-xl font-semibold mb-2">Ancient Wisdom</h3>
-                <p class="text-white/55 text-sm leading-relaxed">Storybooks from Vedas, temples, and living devotion.</p>
-                <div class="mt-5 text-sm text-amber-300 flex items-center">Explore <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i></div>
-            </a>
-            <a href="quantum.html" data-cta="pillar-Quantum Realms" class="home-pillar home-glass rounded-3xl p-7 block group">
-                <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-violet-500 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-atom text-white text-2xl"></i>
-                </div>
-                <h3 class="text-xl font-semibold mb-2">Quantum Realms</h3>
-                <p class="text-white/55 text-sm leading-relaxed">Observation, entanglement, and the void.</p>
-                <div class="mt-5 text-sm text-purple-300 flex items-center">Explore <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i></div>
-            </a>
-            <a href="space.html" data-cta="pillar-Space & Cosmos" class="home-pillar home-glass rounded-3xl p-7 block group">
-                <div class="w-14 h-14 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-rocket text-black text-2xl"></i>
-                </div>
-                <h3 class="text-xl font-semibold mb-2">Space & Cosmos</h3>
-                <p class="text-white/55 text-sm leading-relaxed">Black holes, cycles, and cosmic scale.</p>
-                <div class="mt-5 text-sm text-emerald-300 flex items-center">Explore <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i></div>
-            </a>
-            <a href="philosophy.html" data-cta="pillar-Philosophy" class="home-pillar home-glass rounded-3xl p-7 block group">
-                <div class="w-14 h-14 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-brain text-black text-2xl"></i>
-                </div>
-                <h3 class="text-xl font-semibold mb-2">Philosophy</h3>
-                <p class="text-white/55 text-sm leading-relaxed">Consciousness, free will, self, meaning.</p>
-                <div class="mt-5 text-sm text-cyan-300 flex items-center">Explore <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i></div>
-            </a>
-            <a href="travel.html" data-cta="pillar-Travel journal" class="home-pillar home-glass rounded-3xl p-7 block group">
-                <div class="w-14 h-14 bg-gradient-to-br from-yellow-400 to-amber-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                    <i class="fa-solid fa-book text-black text-2xl"></i>
-                </div>
-                <div class="flex items-center gap-2 mb-2">
-                    <h3 class="text-xl font-semibold">Travel journal</h3>
-                    <span class="text-[10px] font-semibold uppercase tracking-[1.5px] text-amber-200 bg-amber-400/15 border border-amber-300/35 rounded-full px-2 py-0.5">NEW</span>
-                </div>
-                <p class="text-white/55 text-sm leading-relaxed">Field notes from the road and pilgrimages.</p>
-                <div class="mt-5 text-sm text-amber-300 flex items-center">Explore <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1 transition"></i></div>
-            </a>
-        </div>
-    </section>
-
     <!-- Crossroads spotlight -->
     <section id="crossroads-home" class="max-w-6xl mx-auto px-6 pb-16 home-reveal">
         <a href="crossroads/" data-cta="crossroads-band" class="block home-glass rounded-3xl p-8 sm:p-10 border border-emerald-400/20 hover:border-emerald-400/40 transition group">
@@ -1063,7 +1085,7 @@
                     <h2 class="text-2xl sm:text-3xl font-bold mb-2">Cosmic Crossroads</h2>
                     <p class="text-white/60 max-w-2xl">One question. Two honest lenses — modern science and ancient wisdom. Time, free will, self, nothing.</p>
                 </div>
-                <span class="text-[#00f3ff] font-semibold inline-flex items-center gap-2">Enter the series <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i></span>
+                <span class="text-[#d4af37] font-semibold inline-flex items-center gap-2">Enter the series <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i></span>
             </div>
         </a>
     </section>
@@ -1071,7 +1093,7 @@
     <!-- Reels -->
     <section id="reels" class="max-w-6xl mx-auto px-6 pb-20 scroll-mt-24 home-reveal">
         <div class="text-center mb-8">
-            <span class="text-xs uppercase tracking-[3px] text-[#00f3ff]">WATCH</span>
+            <span class="text-xs uppercase tracking-[3px] text-[#d4af37]">WATCH</span>
             <h2 class="section-header mt-2">60 seconds of wonder</h2>
             <p class="mt-3 text-white/60 max-w-xl mx-auto">Play reels with sound here — then open the full storybook behind each clip.</p>
         </div>
@@ -1123,7 +1145,7 @@
     <!-- Join the orbit (community + social; email form follows below) -->
     <section id="community" class="max-w-6xl mx-auto px-6 pb-10 scroll-mt-24 home-reveal">
         <div class="text-center mb-8">
-            <span class="text-xs uppercase tracking-[3px] text-[#00f3ff]">JOIN THE ORBIT</span>
+            <span class="text-xs uppercase tracking-[3px] text-[#d4af37]">JOIN THE ORBIT</span>
             <h2 class="section-header mt-2">Stay in the cosmos</h2>
             <p class="mt-3 text-white/60 max-w-lg mx-auto">Free email insights and social drops. No spam. No paywall.</p>
         </div>
@@ -1434,14 +1456,14 @@
                     </button>
                     
                     <div class="mb-8">
-                        <i class="fa-solid fa-infinity text-5xl text-[#00f3ff]"></i>
+                        <i class="fa-solid fa-infinity text-5xl text-[#d4af37]"></i>
                     </div>
                     
                     <div class="text-2xl leading-snug font-light tracking-tight mb-8 text-white">
                         "${wisdom.quote}"
                     </div>
                     
-                    <div class="text-[#00f3ff] font-medium">— ${wisdom.author}</div>
+                    <div class="text-[#d4af37] font-medium">— ${wisdom.author}</div>
                     
                     <div class="mt-10 pt-6 border-t border-white/10 text-xs text-white/40">
                         This wisdom will change tomorrow
@@ -1732,11 +1754,11 @@
                     </button>
 
                     <div class="mb-6">
-                        <i class="fa-solid fa-infinity text-5xl text-[#00f3ff]"></i>
+                        <i class="fa-solid fa-infinity text-5xl text-[#d4af37]"></i>
                     </div>
 
-                    <div class="text-xs uppercase tracking-[3px] text-[#00f3ff] mb-3">${currentKey === todayKey ? 'Today’s Wisdom' : 'Wisdom for'} - ${escapeWisdomHtml(wisdom.dateLabel || formatHomeWisdomDate())}</div>
-                    <div class="inline-flex items-center gap-x-2 px-3 py-1 rounded-full bg-[#00f3ff]/10 border border-[#00f3ff]/20 text-[#00f3ff] text-xs font-semibold uppercase tracking-[1px] mb-6">
+                    <div class="text-xs uppercase tracking-[3px] text-[#d4af37] mb-3">${currentKey === todayKey ? 'Today’s Wisdom' : 'Wisdom for'} - ${escapeWisdomHtml(wisdom.dateLabel || formatHomeWisdomDate())}</div>
+                    <div class="inline-flex items-center gap-x-2 px-3 py-1 rounded-full bg-[#d4af37]/10 border border-[#00f3ff]/20 text-[#d4af37] text-xs font-semibold uppercase tracking-[1px] mb-6">
                         <i class="fa-solid fa-book-open"></i>
                         <span>${escapeWisdomHtml(wisdom.tradition)}</span>
                     </div>
@@ -1745,7 +1767,7 @@
                         ${escapeWisdomHtml(wisdom.teaching)}
                     </div>
 
-                    <div class="text-[#00f3ff] font-medium mb-6">- ${escapeWisdomHtml(wisdom.source)}</div>
+                    <div class="text-[#d4af37] font-medium mb-6">- ${escapeWisdomHtml(wisdom.source)}</div>
 
                     <div class="rounded-2xl bg-white/5 border-l-4 border-[#00f3ff]/60 p-5 text-left text-white/70 leading-relaxed">
                         <strong class="text-white">Reflection:</strong> ${escapeWisdomHtml(wisdom.reflection)}
@@ -2127,7 +2149,7 @@
                     <div class="home-reel-meta">
                         <div class="text-[10px] uppercase tracking-[0.14em] ${r.accent}">${r.pillar} · @cosmictrotter108</div>
                         <h3 class="text-base sm:text-lg font-semibold leading-snug text-white">${r.title}</h3>
-                        <a href="${r.article}" class="inline-flex items-center gap-1.5 text-sm text-[#00f3ff] hover:underline w-fit">
+                        <a href="${r.article}" class="inline-flex items-center gap-1.5 text-sm text-[#d4af37] hover:underline w-fit">
                             Read full free story <i class="fa-solid fa-arrow-right text-xs"></i>
                         </a>
                     </div>

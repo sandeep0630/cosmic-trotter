@@ -206,6 +206,7 @@
 
         if (path.includes("ask-krishna")) return "askKrishna";
         if (path.includes("/travel")) return "travel";
+        if (path.includes("/map")) return "map";
         if (path.includes("/crossroads")) return "crossroads";
         if (path.includes("/wisdom")) return "wisdom";
         if (path.includes("/space") || path.includes("/space-cosmos")) return "space";
@@ -250,6 +251,151 @@
         const style = document.createElement("style");
         style.id = "cosmic-site-nav-styles";
         style.textContent = `
+
+            @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&display=swap');
+
+            :root {
+                --ct-gold: #d4af37;
+                --ct-gold-soft: #c5a059;
+                --ct-ink: #0a0a0b;
+            }
+
+            .cosmic-site-nav {
+                background: #000000 !important;
+                border-bottom: 1px solid rgba(212, 175, 55, 0.28) !important;
+                color: #f5ead0 !important;
+            }
+            .cosmic-site-nav.is-scrolled {
+                background: rgba(0,0,0,0.96) !important;
+                border-bottom-color: rgba(212, 175, 55, 0.45) !important;
+                box-shadow: 0 12px 40px rgba(0,0,0,0.55) !important;
+            }
+            .cosmic-site-nav__progress {
+                background: linear-gradient(90deg, #d4af37, #f1d78a) !important;
+            }
+            .cosmic-site-nav__name {
+                font-family: 'Cormorant Garamond', Georgia, serif !important;
+                font-weight: 600 !important;
+                font-size: 1.55rem !important;
+                color: #d4af37 !important;
+                letter-spacing: 0.01em;
+            }
+            .cosmic-site-nav__tagline { display: none !important; }
+            .cosmic-site-nav__brand { color: #d4af37 !important; gap: 0.7rem !important; }
+            .ct-mark {
+                position: relative;
+                width: 2.55rem;
+                height: 2.55rem;
+                flex: 0 0 2.55rem;
+                border-radius: 999px;
+                border: 1.5px solid #d4af37;
+                background: radial-gradient(circle at 35% 30%, #2a2314, #0a0a0b 70%);
+                color: #d4af37;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-family: 'Cormorant Garamond', Georgia, serif;
+                font-weight: 700;
+                font-size: 0.95rem;
+                letter-spacing: -0.04em;
+                box-shadow: 0 0 16px rgba(212,175,55,0.28);
+            }
+            .ct-mark__star {
+                position: absolute;
+                top: 3px;
+                right: 5px;
+                font-size: 0.45rem;
+                line-height: 1;
+                color: #f1d78a;
+            }
+            .cosmic-site-nav .logo-orb { display: none !important; }
+            .cosmic-site-nav__link,
+            .cosmic-site-nav__menu-button {
+                color: rgba(255,255,255,0.92) !important;
+                font-family: Inter, system-ui, sans-serif;
+                font-size: 0.92rem;
+                background: transparent !important;
+            }
+            .cosmic-site-nav__link:hover,
+            .cosmic-site-nav__menu-button:hover,
+            .cosmic-site-nav__link.is-active,
+            .cosmic-site-nav__menu-button.is-active {
+                color: #d4af37 !important;
+            }
+            .cosmic-site-nav__link.is-active span {
+                box-shadow: 0 1px 0 #d4af37;
+            }
+            .cosmic-site-nav__link i,
+            .cosmic-site-nav__menu-button i { display: none; }
+            .cosmic-site-nav__menu-button .fa-chevron-down { display: inline-block !important; font-size: 0.65rem; opacity: 0.7; }
+            .lang-switch {
+                display: inline-flex !important;
+                gap: 0.35rem !important;
+                border: 0 !important;
+                background: transparent !important;
+                overflow: visible !important;
+                border-radius: 0 !important;
+            }
+            .lang-btn {
+                padding: 0.28rem 0.7rem !important;
+                border: 1px solid rgba(212,175,55,0.55) !important;
+                border-radius: 999px !important;
+                background: transparent !important;
+                color: #d4af37 !important;
+                font-size: 0.72rem !important;
+                min-height: 0 !important;
+            }
+            .lang-btn.active {
+                background: #d4af37 !important;
+                color: #0a0a0b !important;
+                border-color: #d4af37 !important;
+            }
+            .lang-btn:hover:not(.active) {
+                background: rgba(212,175,55,0.12) !important;
+                color: #f1d78a !important;
+            }
+            .cosmic-site-nav__cta {
+                background: transparent !important;
+                color: #fff !important;
+                border: 1px solid rgba(212,175,55,0.7) !important;
+                border-radius: 999px !important;
+                font-weight: 600 !important;
+                box-shadow: none !important;
+            }
+            .cosmic-site-nav__cta:hover,
+            .cosmic-site-nav__cta:focus-visible {
+                background: rgba(212,175,55,0.12) !important;
+                color: #f1d78a !important;
+            }
+            .cosmic-site-nav__cta i { display: none; }
+            .cosmic-site-nav__ask {
+                min-height: 42px;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.45rem;
+                padding: 0 1.05rem;
+                border: 0;
+                border-radius: 999px;
+                background: #d4af37;
+                color: #0a0a0b;
+                font-size: 0.88rem;
+                font-weight: 700;
+                cursor: pointer;
+                white-space: nowrap;
+                box-shadow: 0 0 18px rgba(212,175,55,0.28);
+            }
+            .cosmic-site-nav__ask:hover { background: #e3c25a; }
+            .cosmic-site-nav__mega {
+                border-color: rgba(212,175,55,0.28) !important;
+                background: rgba(8,8,10,0.98) !important;
+            }
+            .cosmic-site-nav__mega-label { color: #d4af37 !important; }
+            .cosmic-site-nav__mega-map { color: #d4af37 !important; }
+            .cosmic-site-nav__panel-link:hover,
+            .cosmic-site-nav__panel-button:hover { background: rgba(212,175,55,0.08) !important; }
+            .cosmic-site-nav__search-input:focus { border-color: #d4af37 !important; }
+            .cosmic-site-nav__hamburger span { background: #d4af37 !important; }
+
             html,
             body {
                 max-width: 100%;
@@ -1352,20 +1498,15 @@
                 <div class="cosmic-site-nav__shell">
                     <div class="cosmic-site-nav__bar">
                         <a class="cosmic-site-nav__brand" href="${navHref(base, "home")}" aria-label="CosmicTrotter home">
-                            <span class="logo-orb">
-                                <span class="logo-disk">
-                                    <img class="cosmic-site-nav__logo" src="${logo}" alt="CosmicTrotter Logo" width="56" height="56">
-                                </span>
-                            </span>
+                            <span class="ct-mark" aria-hidden="true"><span class="ct-mark__ct">CT</span><span class="ct-mark__star">✦</span></span>
+                            <img class="cosmic-site-nav__logo" src="${logo}" alt="" width="40" height="40" hidden>
                             <span class="cosmic-site-nav__brand-copy">
                                 <span class="cosmic-site-nav__name">CosmicTrotter</span>
-                                <span class="cosmic-site-nav__tagline">TRAVEL THROUGH KNOWLEDGE</span>
                             </span>
                         </a>
 
                         <div class="cosmic-site-nav__center">
                             <div class="cosmic-site-nav__dock">
-                                ${buildLink(base, "explore", "Explore", "fa-compass", current)}
                                 <span class="cosmic-site-nav__menu-wrap" data-cosmic-menu-wrap>
                                     <button class="cosmic-site-nav__menu-button${journeysActive}" type="button" data-cosmic-nav-menu aria-expanded="false" aria-controls="cosmic-site-nav-journeys">
                                         <i class="fa-solid fa-route"></i>
@@ -1408,8 +1549,7 @@
                                     </div>
                                 </span>
                                 ${buildLink(base, "travel", "Travel", "fa-suitcase-rolling", current)}
-                                ${buildLink(base, "today", "Daily", "fa-infinity", current)}
-                                ${buildLink(base, "crossroads", "Crossroads", "fa-code-branch", current)}
+                                ${buildLink(base, "map", "Map", "fa-map", current)}
                             </div>
                         </div>
 
@@ -1428,8 +1568,12 @@
 
                             <a class="cosmic-site-nav__cta" href="${navHref(base, "community")}" data-cosmic-join data-cta="nav-join">
                                 <span>Join</span>
-                                <i class="fa-solid fa-arrow-right"></i>
                             </a>
+
+                            <button class="cosmic-site-nav__ask" type="button" data-cosmic-ask-krishna>
+                                <i class="fa-solid fa-sparkles"></i>
+                                <span>Ask Krishna</span>
+                            </button>
 
                             <button class="cosmic-site-nav__mobile-toggle" type="button" data-cosmic-mobile-toggle aria-label="Open navigation menu" aria-expanded="false" aria-controls="cosmic-site-nav-mobile">
                                 <span class="cosmic-site-nav__hamburger" aria-hidden="true">

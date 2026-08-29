@@ -1,41 +1,46 @@
 # CosmicTrotter Security
 
-This is a **static client-side only** website (HTML + JS). No backend, databases, or user accounts on our infrastructure.
+CosmicTrotter is a static site on **Netlify** with a small set of serverless functions — not a backend-free page.
+
+## What actually runs
+
+- **Static pages**: HTML, CSS, and client JavaScript (storybooks, nav, theme, PWA).
+- **Netlify Functions** (`netlify/functions/`):
+  - `ask-krishna` — chat with a Gita-grounded assistant. The function calls **Google Gemini** using a server-side API key (`GEMINI_API_KEY` / `API` in Netlify env or local `.env`). The key is never shipped to the browser.
+  - `story-community` — optional likes/comments via **Supabase** (`SUPABASE_URL` + publishable/anon key in env).
+- **Third parties**: Brevo (newsletter), Font Awesome / Google Fonts / Tailwind Play CDN, Instagram embeds on the homepage.
+
+There are no user passwords on CosmicTrotter. Do not send secrets in a report if you find one; describe the location instead.
 
 ## Current Security Posture
 
-- **Headers** (`_headers`): Strict CSP (limited hosts + 'self', object-src 'none', base-uri, frame-ancestors, upgrade-insecure-requests), HSTS (preload), X-Frame DENY, nosniff, COOP same-origin, CORP, restrictive Permissions-Policy, etc.
-- **Redirects** (`_redirects`): Bot/scanner blocks (/wp-*, .env, git, etc.), controlled clean-URL rewrites only, no open redirects.
-- **External resources**: Pinned where possible (Font Awesome 6.5.1 via cdnjs with SRI + crossorigin). Tailwind Play CDN and Google Fonts @import used (limitations noted below). Brevo (sibforms) for newsletter only.
-- **Client-side sanitization**: `escapeHtml()` used for all user-provided content in search results, chat widgets, wisdom archives before any `.innerHTML`.
-- **Forms**: Honeypot + client validation (regex + native) on email before any submit. Double-submit guard. Optimistic UI + background submit (no-cors + hidden iframe fallback). No data stored by us.
-- **No eval / dangerous patterns**: No `eval`, `new Function`, or unsanitized user input concatenation into code/DOM in critical paths.
-- **Other**: target=_blank + rel="noopener noreferrer" on external links. localStorage only for non-sensitive prefs/history (namespaced). 404.html themed and safe.
+- **Headers** (`_headers`): CSP, HSTS, X-Frame DENY, nosniff, COOP, CORP, Permissions-Policy.
+- **Redirects** (`_redirects`): Bot/scanner blocks, clean-URL rewrites, www → apex.
+- **CORS**: Function responses allow only `https://cosmictrotter.com`, `https://www.cosmictrotter.com`, and localhost for local-dev. Not `*`.
+- **Ask Krishna widget**: User text is HTML-escaped. Assistant/model text is rendered as text (not raw `innerHTML`) to reduce XSS from prompt injection.
+- **Forms**: Honeypot + client validation on email. No account store on our side.
+- **Secrets**: Gemini and Supabase credentials live in environment variables only. Never commit `.env`.
 
-## Known Limitations / Trade-offs (static no-build site)
+## Known Limitations / Trade-offs
 
-- Tailwind Play CDN (`cdn.tailwindcss.com`): Requires 'unsafe-inline'/'unsafe-eval' in CSP. Not version-pinned in a stable way for SRI. Consider migrating to a built CSS in future for stricter CSP.
-- Google Fonts: Loaded via @import inside <style> (no SRI possible easily). Preconnect would be an improvement.
-- Many inline <style> and onclick handlers (historical): Require 'unsafe-inline'.
-- Form handling uses third-party (Brevo) optimistic redirect for UX.
+- Tailwind Play CDN (`cdn.tailwindcss.com`) requires `'unsafe-inline'` / `'unsafe-eval'` in CSP.
+- Google Fonts via `@import` (no SRI).
+- Many inline `<style>` / onclick handlers (historical).
+- In-memory rate limit on Ask Krishna resets on cold start.
 
 ## Reporting
 
 See `.well-known/security.txt` for contact.
 
-We appreciate reports of:
-- CSP bypasses or XSS vectors
-- Supply chain concerns in our (few) external scripts
-- Misconfigurations in headers/redirects
+We appreciate reports of XSS, CSP bypass, CORS misconfig, prompt-injection that leads to HTML execution, or leaked credentials in the repo.
 
 No public bug bounty at this time.
 
-## Recommendations for Deploy (Netlify / similar)
+## Recommendations for Deploy (Netlify)
 
-- Ensure the `_headers` and `_redirects` are respected.
-- Enable any platform WAF / bot protection.
-- Monitor for mixed content.
-- Periodically re-pin Font Awesome and review used CDNs.
-- Consider adding a build step (e.g. Tailwind CLI) in the future to eliminate the Play CDN.
+- Keep `_headers` and `_redirects`.
+- Set `GEMINI_API_KEY` (and Supabase vars if community is live) in Netlify env — never in git.
+- Enable platform WAF / bot protection.
+- Periodically re-pin Font Awesome and review CDNs.
 
-Last reviewed: 2026 (post initial security tightening pass).
+Last reviewed: 2026-08-29 (Ask Krishna CORS + XSS hardening; honest architecture notes).

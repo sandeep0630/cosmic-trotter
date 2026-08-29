@@ -254,22 +254,43 @@ Conversation:
 ${pageContext ? `Page context (use gently if relevant):\n${String(pageContext).slice(0, 800)}` : ''}`;
 }
 
-function corsHeaders() {
+function isAllowedOrigin(origin) {
+  if (!origin) return false;
+  const allowed = new Set([
+    'https://cosmictrotter.com',
+    'https://www.cosmictrotter.com'
+  ]);
+  if (allowed.has(origin)) return true;
+  try {
+    const u = new URL(origin);
+    if ((u.hostname === 'localhost' || u.hostname === '127.0.0.1') &&
+        (u.protocol === 'http:' || u.protocol === 'https:')) {
+      return true;
+    }
+  } catch (e) {}
+  return false;
+}
+
+function corsHeaders(event) {
+  const headers = (event && event.headers) || {};
+  const origin = headers.origin || headers.Origin || '';
+  const allow = isAllowedOrigin(origin) ? origin : 'https://cosmictrotter.com';
   return {
     'Content-Type': 'application/json',
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin': allow,
     'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS'
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    Vary: 'Origin'
   };
 }
 
 exports.handler = async function (event) {
   if (event.httpMethod === 'OPTIONS') {
-    return { statusCode: 204, headers: corsHeaders(), body: '' };
+    return { statusCode: 204, headers: corsHeaders(event), body: '' };
   }
 
   if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, headers: corsHeaders(), body: 'Method Not Allowed' };
+    return { statusCode: 405, headers: corsHeaders(event), body: 'Method Not Allowed' };
   }
 
   // Re-load env each invoke so local .env edits apply without full process restart when possible
@@ -282,7 +303,7 @@ exports.handler = async function (event) {
   } catch (e) {
     return {
       statusCode: 400,
-      headers: corsHeaders(),
+      headers: corsHeaders(event),
       body: JSON.stringify({ error: 'Invalid JSON' })
     };
   }
@@ -298,7 +319,7 @@ exports.handler = async function (event) {
   if (!userMessage || typeof userMessage !== 'string') {
     return {
       statusCode: 400,
-      headers: corsHeaders(),
+      headers: corsHeaders(event),
       body: JSON.stringify({ error: 'userMessage is required' })
     };
   }
@@ -308,7 +329,7 @@ exports.handler = async function (event) {
   if (!rateLimitOk(ip)) {
     return {
       statusCode: 200,
-      headers: corsHeaders(),
+      headers: corsHeaders(event),
       body: JSON.stringify({
         reply: null,
         useLocal: true,
@@ -325,7 +346,7 @@ exports.handler = async function (event) {
     const saveResult = await saveAskKrishnaQA(cleanMessage, null, 'local_fallback');
     return {
       statusCode: 200,
-      headers: corsHeaders(),
+      headers: corsHeaders(event),
       body: JSON.stringify({
         reply: null,
         useLocal: true,
@@ -422,7 +443,7 @@ exports.handler = async function (event) {
         const saveResult = await saveAskKrishnaQA(cleanMessage, reply, 'ai_generated');
         return {
           statusCode: 200,
-          headers: corsHeaders(),
+          headers: corsHeaders(event),
           body: JSON.stringify({
             reply,
             source: 'llm',
@@ -447,7 +468,7 @@ exports.handler = async function (event) {
   const saveResult = await saveAskKrishnaQA(cleanMessage, null, 'llm_error');
   return {
     statusCode: 200,
-    headers: corsHeaders(),
+    headers: corsHeaders(event),
     body: JSON.stringify({
       reply: null,
       useLocal: true,

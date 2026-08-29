@@ -210,18 +210,18 @@
             }
 
             .krishna-widget__button {
-                padding: 0 1.05rem 0 0.95rem;
+                padding: 0.45rem 1rem 0.45rem 0.45rem;
                 min-width: 4rem;
-                height: 3.25rem;
-                border: 1px solid rgba(255, 255, 255, 0.18);
+                height: auto;
+                border: 1px solid rgba(212, 175, 55, 0.65);
                 border-radius: 9999px;
-                background: linear-gradient(135deg, #7c3aed, #00f3ff);
-                color: #020617;
-                box-shadow: 0 16px 40px rgba(0, 243, 255, 0.28);
+                background: #0a0a0b;
+                color: #d4af37;
+                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
                 display: inline-flex;
                 align-items: center;
-                gap: 0.55rem;
-                justify-content: center;
+                gap: 0.65rem;
+                justify-content: flex-start;
                 font-size: 0.9rem;
                 font-weight: 600;
                 letter-spacing: -0.01em;
@@ -574,7 +574,7 @@
                         </div>
                         <div>
                             <span class="krishna-widget__title">Ask Krishna</span>
-                            <span class="krishna-widget__subtitle" id="krishna-status-line"><span class="krishna-widget__status-dot"></span><span id="krishna-status-text">Gita-rooted guidance · free</span></span>
+                            <span class="krishna-widget__subtitle" id="krishna-status-line"><span class="krishna-widget__status-dot"></span><span id="krishna-status-text">Grounded in the Gita</span></span>
                         </div>
                     </div>
                     <div class="flex items-center gap-2">
@@ -606,8 +606,14 @@
                 <p class="krishna-widget__privacy" id="krishna-privacy-note">Not a substitute for professional care. Free Gita counsel. Conversations may be logged to improve the service when the site is online.</p>
             </section>
             <button type="button" id="krishna-launcher" class="krishna-widget__button" aria-label="Open Ask Krishna chat" aria-controls="krishna-chat-panel" aria-expanded="false">
-                <span class="krishna-widget__button-text">Ask Krishna</span>
-                <i class="fa-solid fa-comments"></i>
+                <span class="krishna-widget__avatar-dot" aria-hidden="true">
+                    <i class="fa-solid fa-infinity"></i>
+                    <span class="krishna-widget__online"></span>
+                </span>
+                <span class="krishna-widget__button-copy">
+                    <span class="krishna-widget__button-text">Ask Krishna</span>
+                    <span class="krishna-widget__button-sub">Grounded in the Gita.</span>
+                </span>
             </button>
         `;
 
@@ -757,6 +763,14 @@
         `;
     }
 
+    function renderPlainText(el, text) {
+        const parts = String(text || "").split("\n");
+        parts.forEach((line, i) => {
+            if (i) el.appendChild(document.createElement("br"));
+            el.appendChild(document.createTextNode(line));
+        });
+    }
+
     function addMessage(content, isUser, options = {}) {
         const messages = document.getElementById("krishna-chat-messages");
         if (!messages) return;
@@ -766,11 +780,22 @@
 
         const message = document.createElement("div");
         message.className = `krishna-widget__message ${isUser ? "krishna-widget__message--user" : "krishna-widget__message--krishna"}`;
-        message.innerHTML = isUser ? escapeHtml(content) : content;
 
         if (options.typing) {
-            message.innerHTML = '<span class="krishna-widget__typing"><span></span><span></span><span></span></span>';
+            const wrap = document.createElement("span");
+            wrap.className = "krishna-widget__typing";
+            wrap.appendChild(document.createElement("span"));
+            wrap.appendChild(document.createElement("span"));
+            wrap.appendChild(document.createElement("span"));
+            message.appendChild(wrap);
             row.id = "krishna-widget-typing";
+        } else if (options.html) {
+            // Trusted templates only (formatWisdom already escapeHtml's all user/model-derived strings)
+            message.innerHTML = content;
+        } else if (isUser) {
+            message.innerHTML = escapeHtml(content);
+        } else {
+            renderPlainText(message, content);
         }
 
         row.appendChild(message);
@@ -962,7 +987,7 @@
         if (ai && ai.reply) {
             widgetState.lastEngine = 'llm';
             setEngineStatus('llm');
-            addMessage(String(ai.reply).replace(/\n/g, '<br>'), false);
+            addMessage(String(ai.reply), false);
             widgetState.recentHistory.push({ role: 'model', content: ai.reply });
             if (widgetState.recentHistory.length > 8) {
                 widgetState.recentHistory = widgetState.recentHistory.slice(-8);
@@ -979,7 +1004,7 @@
                 widgetState.lastTopic = wisdom.topic;
             }
             const libraryReply = formatWisdom(wisdom);
-            addMessage(libraryReply, false);
+            addMessage(libraryReply, false, { html: true });
             widgetState.recentHistory.push({
                 role: 'model',
                 content: String(wisdom.opening || '') + ' ' + String(wisdom.verse || '')

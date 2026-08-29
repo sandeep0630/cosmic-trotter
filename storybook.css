@@ -1,3 +1,46 @@
+
+/* Gold / cosmic reader chrome (shared) */
+.storybook-controls { max-width: 72rem; }
+.storybook-tools { border-bottom-color: rgba(212,175,55,0.22); }
+.storybook-tools .tool-note { color: rgba(245,234,208,0.7); }
+.storybook-tools button {
+  border-color: rgba(212,175,55,0.4);
+  color: #f5ead0;
+}
+#reading-mode-btn[aria-pressed="true"] {
+  border-color: #d4af37;
+  background: rgba(212,175,55,0.12);
+  color: #f1d78a;
+}
+.reading-progress-shell #reading-progress-bar {
+  background: linear-gradient(90deg, #d4af37, #f1d78a) !important;
+}
+.storybook-continue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 auto 1rem;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(212,175,55,0.45);
+  background: rgba(12,10,6,0.9);
+  color: #d4af37;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.storybook-continue:hover { background: rgba(212,175,55,0.12); }
+.temp-highlight { animation: storybookHighlight 2.2s ease forwards; }
+@keyframes storybookHighlight {
+  0% { background-color: rgba(212,175,55,0.18); }
+  100% { background-color: transparent; }
+}
+.avatar-selector { gap: 0.5rem; }
+.avatar-chip {
+  border-color: rgba(212,175,55,0.28) !important;
+  color: #f5ead0 !important;
+}
+.avatar-chip:hover { border-color: #d4af37 !important; }
+
 .storybook-controls {
   max-width: 72rem;
   margin: 0 auto;

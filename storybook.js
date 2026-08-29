@@ -20,6 +20,8 @@ function readingModeStorageKey() {
 }
 
 function initializeStorybook() {
+  if (document.documentElement.dataset.storybookReady === '1') return;
+  document.documentElement.dataset.storybookReady = '1';
   document.documentElement.classList.remove('no-js');
   buildStorybookControls();
   prepareBookmarkTargets();
@@ -28,6 +30,7 @@ function initializeStorybook() {
   setupBackToTop();
   restoreBookmarks();
   restoreReadingMode();
+  mountContinueChip();
   window.addEventListener('scroll', () => {
     updateProgressBar();
     updateBackToTopButton();
@@ -35,6 +38,10 @@ function initializeStorybook() {
 }
 
 function buildStorybookControls() {
+  if (document.getElementById('reading-mode-btn')) {
+    document.getElementById('bookmarks-btn')?.addEventListener('click', showBookmarkPanel);
+    return;
+  }
   const controlsContainer = document.createElement('section');
   controlsContainer.className = 'storybook-controls';
   controlsContainer.innerHTML = `
@@ -103,13 +110,31 @@ function saveBookmarks(bookmarks) {
 function restoreBookmarks() {
   try {
     let raw = localStorage.getItem(bookmarksStorageKey());
+    if (!raw) {
+      const alt = `cosmic_${getStorybookSlug().replace(/-/g, '_')}_bookmarks`;
+      raw = localStorage.getItem(alt);
+    }
     // Legacy shared key (pre page-scoped storage)
     if (!raw && getStorybookSlug() === 'default') {
       raw = localStorage.getItem('storybook-bookmarks');
     }
     const saved = JSON.parse(raw || '[]');
     if (Array.isArray(saved)) {
-      storybookState.bookmarks = saved;
+      storybookState.bookmarks = saved.map((bookmark) => {
+        if (!bookmark) return null;
+        if (bookmark.key && bookmark.targetId) return bookmark;
+        const targetId = bookmark.targetId || bookmark.id;
+        if (!targetId) return null;
+        const type = bookmark.type || (String(targetId).startsWith('para-') ? 'paragraph' : 'chapter');
+        return {
+          key: bookmark.key || `${type}:${targetId}`,
+          type,
+          targetId,
+          title: bookmark.title || 'Saved place',
+          snippet: bookmark.snippet || bookmark.excerpt || '',
+          ts: bookmark.ts || bookmark.timestamp || Date.now()
+        };
+      }).filter(Boolean);
     }
   } catch (error) {
     console.warn('Unable to restore bookmarks', error);
@@ -129,13 +154,11 @@ function prepareBookmarkTargets() {
   const contentArea = document.querySelector('.storybook-content');
   if (!contentArea) return;
 
-  const sections = Array.from(contentArea.querySelectorAll('h2, h3')).map((heading) => {
-    const section = heading.closest('section') || heading.closest('article') || heading;
-    return section;
-  }).filter(Boolean);
-
-  const headings = Array.from(contentArea.querySelectorAll('h2, h3'));
+  const chapterHeads = contentArea.querySelectorAll('.chapter h3, .chapter h2');
+  const headings = Array.from(chapterHeads.length ? chapterHeads : contentArea.querySelectorAll('h2, h3'));
   headings.forEach((heading, index) => {
+    if (heading.dataset.storybookBound) return;
+    heading.dataset.storybookBound = '1';
     const id = heading.id || `bookmark-chapter-${index + 1}`;
     heading.id = id;
 
@@ -148,8 +171,11 @@ function prepareBookmarkTargets() {
     heading.appendChild(createBookmarkButton('chapter', id));
   });
 
-  const paragraphs = Array.from(contentArea.querySelectorAll('p'));
+  const paraRoot = chapterHeads.length ? contentArea.querySelectorAll('.chapter p') : contentArea.querySelectorAll('p');
+  const paragraphs = Array.from(paraRoot).filter((p) => !p.classList.contains('illustration-caption') && !p.classList.contains('source-note'));
   paragraphs.forEach((paragraph, index) => {
+    if (paragraph.dataset.storybookBound) return;
+    paragraph.dataset.storybookBound = '1';
     const id = paragraph.id || `bookmark-paragraph-${index + 1}`;
     paragraph.id = id;
     paragraph.classList.add('bookmarkable-paragraph');
@@ -359,6 +385,7 @@ function bindReadingModeButton() {
 }
 
 function setupProgressBar() {
+  if (document.getElementById('reading-progress-bar')) return;
   const progressShell = document.createElement('div');
   progressShell.className = 'reading-progress-shell';
   progressShell.innerHTML = '<div id="reading-progress-bar"></div>';
@@ -376,6 +403,7 @@ function updateProgressBar() {
 }
 
 function setupBackToTop() {
+  if (document.getElementById('dash-top-button')) return;
   const btn = document.createElement('button');
   btn.id = 'dash-top-button';
   btn.className = 'dash-top-button';
@@ -399,6 +427,32 @@ function escapeHtml(str) {
     '"': '&quot;',
     "'": '&#39;'
   }[tag]));
+}
+
+
+function mountContinueChip() {
+  if (document.querySelector('.storybook-continue')) return;
+  let last = null;
+  try {
+    last = window.CosmicJourneyProgress && window.CosmicJourneyProgress.getLast
+      ? window.CosmicJourneyProgress.getLast()
+      : JSON.parse(localStorage.getItem('cosmic_journey_last_v1') || 'null');
+  } catch (e) { last = null; }
+  const here = (window.location.pathname || '/').replace(/\\/g, '/');
+  if (!last || !last.path) return;
+  const same = last.path === here || here.endsWith(last.path) || last.path.endsWith(here.replace(/\\.html?$/i, ''));
+  if (!same || !(last.percent > 8)) return;
+  const chip = document.createElement('button');
+  chip.type = 'button';
+  chip.className = 'storybook-continue';
+  chip.innerHTML = '<i class="fa-solid fa-play"></i> Continue where you left off';
+  chip.addEventListener('click', () => {
+    const y = (document.documentElement.scrollHeight - document.documentElement.clientHeight) * (last.percent / 100);
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  });
+  const content = document.querySelector('.storybook-content');
+  if (content) content.parentNode.insertBefore(chip, content);
+  else document.body.prepend(chip);
 }
 
 if (document.readyState === 'loading') {
