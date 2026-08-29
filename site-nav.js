@@ -67,6 +67,7 @@
         { title: "Gita Verse of the Day", keywords: "bhagavad gita daily verse practice", url: "gita-verse.html" },
         { title: "Kashi Vishwanath", keywords: "kashi varanasi banaras vishwanath ganga moksha shiva", url: "kashi-vishwanath.html" },
         { title: "Cosmic Map", keywords: "map navigate all journeys constellation", url: "map.html" },
+        { title: "Travel journal", keywords: "travel pilgrimage road field notes temples journal", url: "travel.html" },
         { title: "Email Season", keywords: "newsletter email 8 week season growth", url: "email-season.html" },
         { title: "What Is Nothing? Crossroads", keywords: "nothing vacuum void nasadiya sunya", url: "crossroads/what-is-nothing.html" },
         { title: "Akasha", keywords: "akasha space ether upanishad", url: "ancient-wisdom/akasha.html" },
@@ -204,6 +205,7 @@
         const path = getPath();
 
         if (path.includes("ask-krishna")) return "askKrishna";
+        if (path.includes("/travel")) return "travel";
         if (path.includes("/crossroads")) return "crossroads";
         if (path.includes("/wisdom")) return "wisdom";
         if (path.includes("/space") || path.includes("/space-cosmos")) return "space";
@@ -229,6 +231,7 @@
             ancient: `${base}ancient.html`,
             crossroads: `${base}crossroads/`,
             map: `${base}map.html`,
+            travel: `${base}travel.html`,
             start: `${base}start.html`,
             gitaVerse: `${base}gita-verse.html`,
             ev: `${base}ev-guide.html`,
@@ -1394,14 +1397,17 @@
                                                 ${buildPanelLink(navHref(base, "quantum"), "fa-atom", "Quantum Realms", "Observation & oneness")}
                                                 ${buildPanelLink(navHref(base, "space"), "fa-rocket", "Space & Cosmos", "Black holes to cyclic cosmos")}
                                                 ${buildPanelLink(navHref(base, "start"), "fa-compass", "Start Here", "Pick your first path")}
+                                                ${buildPanelLink(navHref(base, "travel"), "fa-suitcase-rolling", "Travel journal", "Field notes from the road")}
                                             </div>
                                         </div>
                                         <div class="cosmic-site-nav__mega-footer">
                                             <a class="cosmic-site-nav__mega-map" href="${navHref(base, "map")}"><i class="fa-solid fa-map"></i> Open full map</a>
+                                            <a class="cosmic-site-nav__mega-map" href="${navHref(base, "travel")}"><i class="fa-solid fa-suitcase-rolling"></i> Travel journal</a>
                                             <span class="cosmic-site-nav__mega-tools">Tools: <a href="${navHref(base, "ev")}">India EV guide</a></span>
                                         </div>
                                     </div>
                                 </span>
+                                ${buildLink(base, "travel", "Travel", "fa-suitcase-rolling", current)}
                                 ${buildLink(base, "today", "Daily", "fa-infinity", current)}
                                 ${buildLink(base, "crossroads", "Crossroads", "fa-code-branch", current)}
                             </div>
@@ -1448,6 +1454,7 @@
                                 ${buildLink(base, "space", "Space", "fa-rocket", current)}
                                 ${buildLink(base, "wisdom", "Wisdom", "fa-book-open", current)}
                                 ${buildLink(base, "map", "Map", "fa-map", current)}
+                                ${buildLink(base, "travel", "Travel", "fa-suitcase-rolling", current)}
                                 ${buildLink(base, "start", "Start", "fa-door-open", current)}
                             </div>
 
