@@ -215,7 +215,7 @@
         style.id = "krishna-widget-styles";
         style.textContent = `
             :root {
-                --krishna-launcher-clearance: 7.25rem;
+                --krishna-launcher-clearance: 4.5rem;
             }
 
             html {
@@ -238,6 +238,9 @@
                 z-index: 80;
                 font-family: 'Inter', system-ui, sans-serif;
                 pointer-events: none;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
             }
 
             .krishna-widget > * {
@@ -245,9 +248,10 @@
             }
 
             .krishna-widget__button {
-                padding: 0.45rem 1rem 0.45rem 0.45rem;
-                min-width: 4rem;
-                height: auto;
+                padding: 0;
+                width: 3.1rem;
+                height: 3.1rem;
+                min-width: 3.1rem;
                 border: 1px solid rgba(212, 175, 55, 0.65);
                 border-radius: 9999px;
                 background: #0a0a0b;
@@ -255,19 +259,41 @@
                 box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
                 display: inline-flex;
                 align-items: center;
-                gap: 0.65rem;
-                justify-content: flex-start;
+                gap: 0;
+                justify-content: center;
                 font-size: 0.9rem;
                 font-weight: 600;
                 letter-spacing: -0.01em;
-                transition: transform 0.2s ease, box-shadow 0.2s ease, width 0.2s ease;
+                overflow: hidden;
+                transform-origin: 100% 100%;
+                transition: transform 0.2s ease, box-shadow 0.2s ease, width 0.2s ease, padding 0.2s ease, opacity 0.25s ease, visibility 0.25s ease;
             }
 
             .krishna-widget__button:hover,
             .krishna-widget__button:focus-visible {
-                transform: translateY(-2px) scale(1.03);
-                box-shadow: 0 20px 48px rgba(124, 58, 237, 0.38);
+                width: auto;
+                height: auto;
+                min-width: 4rem;
+                padding: 0.45rem 1rem 0.45rem 0.45rem;
+                gap: 0.65rem;
+                justify-content: flex-start;
+                overflow: visible;
+                transform: translateY(-2px);
+                box-shadow: 0 20px 48px rgba(212, 175, 55, 0.28);
                 outline: none;
+            }
+            .krishna-widget__button:hover .krishna-widget__avatar-dot,
+            .krishna-widget__button:focus-visible .krishna-widget__avatar-dot {
+                width: 2.45rem;
+                height: 2.45rem;
+                flex-basis: 2.45rem;
+            }
+            .krishna-widget__button:hover .krishna-widget__button-copy,
+            .krishna-widget__button:focus-visible .krishna-widget__button-copy,
+            .krishna-widget.is-open .krishna-widget__button-copy {
+                display: flex;
+                max-width: 14rem;
+                opacity: 1;
             }
 
             .krishna-widget__button-text {
@@ -286,9 +312,9 @@
 
             .krishna-widget__avatar-dot {
                 position: relative;
-                width: 2.45rem;
-                height: 2.45rem;
-                flex: 0 0 2.45rem;
+                width: 3.1rem;
+                height: 3.1rem;
+                flex: 0 0 3.1rem;
                 border-radius: 999px;
                 border: 1px solid #d4af37;
                 display: inline-flex;
@@ -298,8 +324,8 @@
                 overflow: visible;
             }
             .krishna-widget__avatar-dot .krishna-face {
-                width: 1.7rem;
-                height: 1.7rem;
+                width: 100%;
+                height: 100%;
             }
             .krishna-widget__online {
                 position: absolute;
@@ -312,11 +338,14 @@
                 border: 2px solid #0a0a0b;
             }
             .krishna-widget__button-copy {
-                display: flex;
+                display: none;
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 0.05rem;
                 line-height: 1.15;
+                max-width: 0;
+                opacity: 0;
+                overflow: hidden;
             }
             .krishna-widget__button-text {
                 color: #d4af37;
@@ -354,6 +383,11 @@
             .krishna-widget.is-storybook .krishna-minicard { display: block; }
             .krishna-widget.is-open .krishna-minicard { display: none; }
             .krishna-widget.is-open .krishna-widget__button { display: none; }
+            .krishna-widget.is-clear-doors:not(.is-open):not(.is-storybook) .krishna-widget__button {
+                opacity: 0;
+                pointer-events: none;
+                visibility: hidden;
+            }
             .krishna-minicard__head {
                 display: flex;
                 align-items: flex-start;
@@ -1366,10 +1400,38 @@
         });
     }
 
+
+    function watchHomepageDoors() {
+        const widget = document.getElementById("krishna-widget");
+        if (!widget || widget.classList.contains("is-storybook")) return;
+        if (typeof IntersectionObserver !== "function") return;
+
+        const targets = [];
+        const paths = document.getElementById("paths");
+        if (paths) targets.push(paths);
+        document.querySelectorAll(".ct-door").forEach((door) => targets.push(door));
+        if (!targets.length) return;
+
+        const visible = new Set();
+        const sync = () => {
+            widget.classList.toggle("is-clear-doors", visible.size > 0);
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) visible.add(entry.target);
+                else visible.delete(entry.target);
+            });
+            sync();
+        }, { threshold: 0.12 });
+
+        targets.forEach((target) => observer.observe(target));
+    }
+
     function init() {
         injectStyles();
         injectMarkup();
         bindEvents();
+        watchHomepageDoors();
         ensureCoreLoaded().then((core) => {
             if (!core) return;
             const sess = core.loadSession();
