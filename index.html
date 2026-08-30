@@ -411,27 +411,29 @@
             box-shadow: 0 18px 40px -24px rgba(212,175,55,0.55);
             transform: translateY(-4px);
         }
+        .pillar-gold {
+            overflow: visible;
+        }
         .pillar-icon {
-            width: auto; height: auto;
+            width: 3.6rem; height: 3.6rem;
             border: 0;
             border-radius: 0;
             display: flex; align-items: center; justify-content: center;
-            color: #d4af37; margin: 0.15rem auto 1rem;
-            font-size: 1.65rem;
+            color: #d4af37;
+            margin: 1.35rem auto 1rem;
+            overflow: visible;
         }
         .pillar-icon svg {
-            width: 2.4rem; height: 2.4rem;
+            width: 2.6rem; height: 2.6rem;
             stroke: #d4af37;
             fill: none;
             stroke-width: 1.5;
             stroke-linecap: round;
             stroke-linejoin: round;
-        }
-        .pillar-icon img {
-            width: 3.4rem; height: 3.4rem;
-            object-fit: contain;
+            overflow: visible;
             display: block;
         }
+        .pillar-icon img { display: none; }
         .ct-door {
             display: flex;
             flex-direction: column;
@@ -456,7 +458,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 42%;
+            object-position: center 58%;
             display: block;
             border-radius: 0;
         }
@@ -480,11 +482,12 @@
             color: #d4af37; font-size: 0.7rem;
         }
         .new-pill {
-            position: absolute; top: 0.7rem; right: 0.7rem;
+            position: absolute; top: -0.55rem; right: 0.85rem;
             font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em;
-            color: #d4af37; background: #0a0a0b;
+            color: #0a0a0b; background: #d4af37;
             border: 1px solid #d4af37;
-            border-radius: 999px; padding: 0.16rem 0.45rem;
+            border-radius: 999px; padding: 0.16rem 0.5rem;
+            z-index: 2;
         }
                 @keyframes nebulaDrift {
             from { filter: hue-rotate(0deg); opacity: 1; }
@@ -976,30 +979,30 @@
     <section id="explore" class="max-w-6xl mx-auto px-6 pb-16 scroll-mt-24 home-reveal">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             <a href="ancient.html" data-cta="pillar-Ancient Wisdom" class="pillar-gold rounded-2xl p-6 block relative">
-                <div class="pillar-icon" aria-hidden="true"><img src="images/mock/pillar-icon-0.png" alt="" width="72" height="72"></div>
+                <div class="pillar-icon" aria-hidden="true"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 42 V22"/><path d="M24 22 C16 22 12 16 12 10 C18 10 22 14 24 22 C26 14 30 10 36 10 C36 16 32 22 24 22"/><path d="M24 28 C18 28 14 32 14 36"/><path d="M24 28 C30 28 34 32 34 36"/></svg></div>
                 <h3 class="font-serif text-xl text-[#d4af37] mb-2">Ancient Wisdom</h3>
                 <p class="text-white/70 text-sm leading-relaxed">Timeless teachings from scriptures and sages.</p>
             </a>
             <a href="philosophy.html" data-cta="pillar-Philosophy" class="pillar-gold rounded-2xl p-6 block relative">
-                <div class="pillar-icon" aria-hidden="true"><img src="images/mock/pillar-icon-1.png" alt="" width="72" height="72"></div>
+                <div class="pillar-icon" aria-hidden="true"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 40 V28"/><path d="M24 28 C16 28 12 22 14 16 C18 20 22 22 24 22 C26 22 30 20 34 16 C36 22 32 28 24 28"/><path d="M18 16 C18 12 21 10 24 14 C27 10 30 12 30 16"/></svg></div>
                 <h3 class="font-serif text-xl text-[#d4af37] mb-2">Philosophy</h3>
                 <p class="text-white/70 text-sm leading-relaxed">Ideas that shape life, reality, and consciousness.</p>
             </a>
             <a href="quantum.html" data-cta="pillar-Quantum Realms" class="pillar-gold rounded-2xl p-6 block relative">
-                <div class="pillar-icon" aria-hidden="true"><img src="images/mock/pillar-icon-2.png" alt="" width="72" height="72"></div>
+                <div class="pillar-icon" aria-hidden="true"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="4"/><ellipse cx="24" cy="24" rx="18" ry="7" transform="rotate(-25 24 24)"/><ellipse cx="24" cy="24" rx="18" ry="7" transform="rotate(25 24 24)"/><ellipse cx="24" cy="24" rx="18" ry="7" transform="rotate(90 24 24)"/></svg></div>
                 <h3 class="font-serif text-xl text-[#d4af37] mb-2">Quantum Realms</h3>
                 <p class="text-white/70 text-sm leading-relaxed">Exploring the intersection of science, mysticism, and reality.</p>
             </a>
             <a href="space.html" data-cta="pillar-Space & Cosmos" class="pillar-gold rounded-2xl p-6 block relative">
-                <div class="pillar-icon" aria-hidden="true"><img src="images/mock/pillar-icon-3.png" alt="" width="72" height="72"></div>
+                <div class="pillar-icon" aria-hidden="true"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 8 C18 16 16 24 24 40 C32 24 30 16 24 8 Z"/><circle cx="28" cy="18" r="3"/></svg></div>
                 <h3 class="font-serif text-xl text-[#d4af37] mb-2">Space &amp; Cosmos</h3>
                 <p class="text-white/70 text-sm leading-relaxed">From stars above to the vastness within.</p>
             </a>
             <a href="travel.html" data-cta="pillar-Travel journal" class="pillar-gold rounded-2xl p-6 block relative">
                 <span class="new-pill">NEW</span>
-                <div class="pillar-icon" aria-hidden="true"><img src="images/mock/pillar-icon-4.png" alt="" width="72" height="72"></div>
+                <div class="pillar-icon" aria-hidden="true"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 40 L20 18 C22 12 28 10 34 12 L30 18 C26 16 22 20 22 24 L28 40"/><path d="M20 18 C16 14 18 8 24 8"/></svg></div>
                 <h3 class="font-serif text-xl text-[#d4af37] mb-2">Travel journal</h3>
-                <p class="text-white/70 text-sm leading-relaxed">Notes from the road. Raw, real, and unfiltered.</p>
+                <p class="text-white/70 text-sm leading-relaxed">Vacations, countries, and the places we have actually been.</p>
             </a>
         </div>
     </section>
