@@ -362,21 +362,38 @@
             inset: 0;
             z-index: 0;
             pointer-events: none;
+            background: #050508;
         }
-        .hero-home__art img {
+        .hero-home__art img.hero-sky {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 42%;
+            object-position: center top;
             display: block;
+        }
+        .hero-home__art img.hero-side {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 34%;
+            object-fit: cover;
+            display: block;
+        }
+        .hero-home__art img.hero-side.left {
+            left: 0;
+            object-position: left center;
+        }
+        .hero-home__art img.hero-side.right {
+            right: 0;
+            object-position: right center;
         }
         .hero-home__art::after {
             content: "";
             position: absolute;
             inset: 0;
             background:
-                radial-gradient(ellipse 50% 48% at 50% 38%, rgba(0,0,0,0.12), rgba(0,0,0,0.38) 78%),
-                linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.04) 42%, rgba(10,10,10,0.72) 100%);
+                radial-gradient(ellipse 42% 52% at 50% 40%, rgba(0,0,0,0.35), transparent 70%),
+                linear-gradient(180deg, rgba(0,0,0,0.08) 0%, transparent 40%, rgba(10,10,10,0.55) 100%);
         }
         .hero-home__copy {
             position: relative;
@@ -928,7 +945,9 @@
     <!-- Hero Section -->
     <section class="hero-home" aria-label="Hero">
         <div class="hero-home__art" aria-hidden="true">
-            <img src="images/mock/hero-nebula-gopuram.jpg" alt="" width="1920" height="920">
+            <img class="hero-sky" src="images/mock/hero-nebula-gopuram.jpg" alt="">
+            <img class="hero-side left" src="images/mock/hero-temple-left.jpg" alt="">
+            <img class="hero-side right" src="images/mock/hero-temple-right.jpg" alt="">
         </div>
         <div class="hero-home__copy max-w-5xl mx-auto px-6">
             <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl font-semibold tracking-tight leading-[1.05] mb-5 text-[#d4af37]">
