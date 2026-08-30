@@ -282,46 +282,33 @@
             }
             .cosmic-site-nav__tagline { display: none !important; }
             .cosmic-site-nav__brand { color: #d4af37 !important; gap: 0.7rem !important; }
-            .ct-mark {
-                position: relative;
-                width: 2.55rem;
-                height: 2.55rem;
-                flex: 0 0 2.55rem;
-                border-radius: 999px;
-                border: 1.5px solid #d4af37;
-                background: radial-gradient(circle at 35% 30%, #2a2314, #0a0a0b 70%);
-                color: #d4af37;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                font-family: 'Playfair Display', Cinzel, Georgia, serif;
-                font-weight: 700;
-                font-size: 0.95rem;
-                letter-spacing: -0.04em;
-                box-shadow: 0 0 16px rgba(212,175,55,0.28);
-            }
-            .ct-mark__star {
-                position: absolute;
-                top: 3px;
-                right: 5px;
-                font-size: 0.45rem;
-                line-height: 1;
-                color: #f1d78a;
-            }
-            .cosmic-site-nav .logo-orb { display: none !important; }
-            .cosmic-site-nav__logo,
-            .cosmic-site-nav img.cosmic-site-nav__logo,
-            .cosmic-site-nav__logo[hidden] {
+            .ct-mark,
+            .ct-mark__star,
+            .ct-mark__ct {
                 display: none !important;
                 width: 0 !important;
                 height: 0 !important;
-                max-width: 0 !important;
-                max-height: 0 !important;
                 overflow: hidden !important;
                 visibility: hidden !important;
-                position: absolute !important;
-                pointer-events: none !important;
-                border: 0 !important;
+            }
+            .cosmic-site-nav .logo-orb { display: none !important; }
+            .cosmic-site-nav__logo,
+            .cosmic-site-nav img.cosmic-site-nav__logo {
+                display: inline-block !important;
+                width: 2.55rem !important;
+                height: 2.55rem !important;
+                max-width: 2.55rem !important;
+                max-height: 2.55rem !important;
+                flex: 0 0 2.55rem;
+                object-fit: cover !important;
+                border-radius: 999px !important;
+                border: 1.5px solid #d4af37 !important;
+                box-shadow: 0 0 16px rgba(212,175,55,0.28) !important;
+                background: #0a0a0b;
+                overflow: hidden !important;
+                visibility: visible !important;
+                position: static !important;
+                pointer-events: auto !important;
             }
             .cosmic-site-nav__brand-copy {
                 overflow: visible !important;
@@ -751,13 +738,11 @@
             }
 
             .cosmic-site-nav__logo {
-                display: none !important;
-                width: 0;
-                height: 0;
-                overflow: hidden;
-                visibility: hidden;
-                position: absolute;
-                pointer-events: none;
+                display: block;
+                width: 2.55rem;
+                height: 2.55rem;
+                object-fit: cover;
+                border-radius: 9999px;
             }
 
             .cosmic-site-nav__brand-copy {
@@ -1607,7 +1592,7 @@
     function buildNav() {
         const base = getBasePath();
         const current = getCurrentSection();
-        const logo = `${base}logo.png`;
+        const logo = `${base}logo.png?v=gold`;
         const journeysActive = ["ancient", "philosophy", "quantum", "space", "crossroads"].includes(current) ? " is-active" : "";
 
         return `
@@ -1615,8 +1600,8 @@
                 <div class="cosmic-site-nav__shell">
                     <div class="cosmic-site-nav__bar">
                         <a class="cosmic-site-nav__brand" href="${navHref(base, "home")}" aria-label="CosmicTrotter home">
-                            <span class="ct-mark" aria-hidden="true"><span class="ct-mark__ct">CT</span><span class="ct-mark__star">✦</span></span>
-                            <img class="cosmic-site-nav__logo" src="${logo}" alt="" width="40" height="40" hidden decoding="async" aria-hidden="true" onerror="this.hidden=true;this.removeAttribute('src');this.style.display='none';this.setAttribute('aria-hidden','true');">
+                            <span class="ct-mark" aria-hidden="true" hidden><span class="ct-mark__ct">CT</span><span class="ct-mark__star">✦</span></span>
+                            <img class="cosmic-site-nav__logo" src="${logo}" alt="CosmicTrotter" width="40" height="40" decoding="async">
                             <span class="cosmic-site-nav__brand-copy">
                                 <span class="cosmic-site-nav__name">CosmicTrotter</span>
                             </span>
@@ -1772,23 +1757,6 @@
     function bindNav(base) {
         const nav = document.getElementById(NAV_ID);
         if (!nav) return;
-
-        nav.querySelectorAll("img.cosmic-site-nav__logo").forEach((img) => {
-            const hideBrokenLogo = () => {
-                img.hidden = true;
-                img.removeAttribute("src");
-                img.alt = "";
-                img.setAttribute("aria-hidden", "true");
-                img.style.display = "none";
-                img.style.visibility = "hidden";
-                img.style.width = "0";
-                img.style.height = "0";
-            };
-            img.addEventListener("error", hideBrokenLogo);
-            if (img.complete && (!img.naturalWidth || img.naturalHeight === 0)) {
-                hideBrokenLogo();
-            }
-        });
 
         const menuButton = nav.querySelector("[data-cosmic-nav-menu]");
         const menuPanel = nav.querySelector("#cosmic-site-nav-journeys") || nav.querySelector("#cosmic-site-nav-library");
