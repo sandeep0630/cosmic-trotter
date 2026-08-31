@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
-        body { font-family: 'Inter', system_ui, sans-serif; background: #0a0a0f; color: #e0e7ff; }
-        .font-display { font-family: 'Space Grotesk', 'Inter', sans-serif; font-weight: 600; }
+        body { font-family: 'Inter', system_ui, sans-serif; background: #0a0a0a; color: #e0e7ff; }
+        .font-display { font-family: 'Playfair Display', Cinzel, Georgia, serif; font-weight: 600; }
         .cosmic-bg { background: radial-gradient(circle at center, #1a1a2e 0%, #0a0a0f 70%); }
         .section-header { font-size: 2.6rem; line-height: 3rem; font-weight: 700; letter-spacing: -0.03em; }
         .avatar-story { scroll-margin-top: 5rem; border-top: 1px solid rgba(251, 191, 36, 0.1); padding-top: 2.5rem; margin-top: 2.5rem; }
@@ -45,13 +45,11 @@
         @keyframes gentleHighlight { 0% { background-color: rgba(251, 191, 36, 0.18); } 100% { background-color: transparent; } }
 </style>
     <script src="theme-toggle.js?v=20260616-light-5"></script>
-    <script src="site-nav.js?v=20260724-lang-hi"></script>
+    <script src="site-nav.js?v=20260830-logo"></script>
+    <link rel="stylesheet" href="storybook.css?v=20260830-exact"/>
 </head>
 <body class="cosmic-bg" data-storybook-slug="bhagavad-gita" data-krishna-context="Full Bhagavad Gita 18-chapter storybook. Prefer accurate chapter context, key verses, and practical dharma steps.">
-    <div class="reading-progress-shell" aria-hidden="true"><div id="reading-progress-bar"></div></div>
-    <button id="dash-top-button" class="dash-top-button" type="button" aria-label="Back to top" title="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
-
-    <div class="max-w-5xl mx-auto px-6 pt-14 pb-10 text-center">
+<div class="max-w-5xl mx-auto px-6 pt-14 pb-10 text-center">
         <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-full border border-amber-400/30 bg-amber-400/10 mb-5">
             <i class="fa-solid fa-om text-amber-400"></i>
             <span class="text-xs uppercase tracking-[2px] text-amber-400 font-medium">18 Chapters · 700 Verses · Storybook</span>
@@ -70,17 +68,9 @@
         <div class="avatar-selector" id="quick-nav"></div>
     </div>
 
-    <div class="max-w-5xl mx-auto px-6">
-        <div class="flex items-center justify-between mb-5 border-b border-white/10 pb-3">
-            <div class="text-sm text-white/60">EN body · తెలుగు labels · Bookmarks · Reading mode</div>
-            <div class="flex gap-x-2">
-                <button id="reading-mode-btn" class="px-4 py-1.5 text-sm rounded-xl border border-white/20 hover:bg-white/5 flex items-center gap-x-2" aria-pressed="false"><i class="fa-solid fa-book"></i><span class="hidden sm:inline">Reading mode</span></button>
-                <button id="bookmarks-btn" class="px-4 py-1.5 text-sm rounded-xl border border-white/20 hover:bg-white/5 flex items-center gap-x-2" aria-label="Open saved places"><i class="fa-solid fa-bookmark"></i><span class="hidden sm:inline">My places</span><span id="bookmark-count" class="text-[10px] px-1.5 rounded bg-white/10">0</span></button>
-            </div>
-        </div>
     </div>
 
-    <div class="max-w-5xl mx-auto px-6 pb-16">
+    <div class="max-w-5xl mx-auto px-6 pb-16 storybook-content">
         
         <section id="part-intro" class="avatar-story">
             <div class="text-xs uppercase tracking-[3px] text-amber-400/80 mb-2">Orientation · 18 chapters · 700 verses</div>
@@ -638,7 +628,7 @@
     <footer class="border-t border-white/10 py-10 text-center text-xs text-white/40">CosmicTrotter · Travel Through Knowledge</footer>
 
     <script>
-        const parts = [
+const parts = [
             { id: 'intro', num: 0, name: 'Who / What is the Gita' },
             { id: 'ch01', num: 1, name: "Ch.1 The Yoga of Arjuna's D" },
             { id: 'ch02', num: 2, name: 'Ch.2 The Yoga of Knowledge' },
@@ -667,121 +657,12 @@
                 `<button type="button" onclick="document.getElementById('part-${a.id}').scrollIntoView({behavior:'smooth', block:'start'})" class="avatar-chip">${a.num === 0 ? 'Intro' : a.num}. ${a.name}</button>`
             ).join('');
         }
-        const READING_MODE_KEY = 'cosmic_bhagavad_gita_reading_mode';
-        const BOOKMARK_KEY = 'cosmic_bhagavad_gita_bookmarks';
-        let readingMode = false;
-        function escapeHtml(value) {
-            return String(value || '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-        }
-        function getBookmarks() {
-            try {
-                const parsed = JSON.parse(localStorage.getItem(BOOKMARK_KEY) || '[]');
-                return Array.isArray(parsed) ? parsed : [];
-            } catch (e) { return []; }
-        }
-        function saveBookmarks(list) {
-            localStorage.setItem(BOOKMARK_KEY, JSON.stringify(list.slice(0, 200)));
-            const el = document.getElementById('bookmark-count');
-            if (el) el.textContent = list.length;
-            document.querySelectorAll('[data-bookmark-target]').forEach(btn => {
-                const key = btn.dataset.bookmarkType + ':' + btn.dataset.bookmarkTarget;
-                const on = list.some(b => b.key === key);
-                btn.classList.toggle('is-saved', on);
-                btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-                const icon = btn.querySelector('i');
-                if (icon) icon.className = on ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark';
-            });
-        }
-        function prepareBookmarks() {
-            document.querySelectorAll('.avatar-story .chapter h3').forEach((h3, i) => {
-                if (h3.dataset.bmReady) return;
-                h3.dataset.bmReady = '1';
-                const id = h3.id || ('chapter-gita-' + (i + 1));
-                h3.id = id;
-                h3.classList.add('flex', 'items-start', 'gap-2');
-                const btn = document.createElement('button');
-                btn.type = 'button';
-                btn.className = 'bookmark-toggle chapter-bookmark ml-2 text-amber-200/70 hover:text-amber-200';
-                btn.dataset.bookmarkType = 'chapter';
-                btn.dataset.bookmarkTarget = id;
-                btn.innerHTML = '<i class="fa-regular fa-bookmark"></i>';
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const key = 'chapter:' + id;
-                    let list = getBookmarks();
-                    const idx = list.findIndex(b => b.key === key);
-                    if (idx >= 0) list.splice(idx, 1);
-                    else list.unshift({ key, type: 'chapter', targetId: id, title: h3.textContent.trim(), ts: Date.now() });
-                    saveBookmarks(list);
-                });
-                h3.appendChild(btn);
-            });
-            saveBookmarks(getBookmarks());
-        }
-        function showBookmarks() {
-            const existing = document.querySelector('[data-bm-overlay]');
-            if (existing) { existing.remove(); return; }
-            const bookmarks = getBookmarks();
-            const overlay = document.createElement('div');
-            overlay.dataset.bmOverlay = '1';
-            overlay.className = 'fixed inset-0 z-[160] flex items-end md:items-center justify-center bg-black/70 p-4';
-            overlay.innerHTML = `<div class="w-full max-w-lg max-h-[78vh] overflow-auto rounded-2xl border border-white/10 bg-[#111827] p-5">
-                <div class="flex justify-between items-center mb-4"><div><div class="font-semibold text-white">My places</div><div class="text-xs text-white/50">${bookmarks.length} saved in this Gita journey</div></div>
-                <button type="button" data-close class="text-white/70 hover:text-white"><i class="fa-solid fa-xmark"></i></button></div>
-                ${bookmarks.length ? bookmarks.map((b,i) => `<div class="border border-white/10 rounded-xl p-3 mb-2"><div class="text-xs text-amber-200/80 mb-1">Chapter note</div><div class="text-white/90">${escapeHtml(b.title)}</div>
-                <button type="button" data-jump="${i}" class="mt-2 text-xs text-cyan-300">Go</button>
-                <button type="button" data-rm="${i}" class="mt-2 ml-2 text-xs text-white/50">Remove</button></div>`).join('') : '<div class="text-white/50 py-8 text-center">No bookmarks yet. Tap the bookmark icon on a chapter heading.</div>'}
-            </div>`;
-            overlay.addEventListener('click', (e) => {
-                if (e.target === overlay || e.target.closest('[data-close]')) overlay.remove();
-                const j = e.target.closest('[data-jump]');
-                if (j) {
-                    const b = bookmarks[+j.dataset.jump];
-                    overlay.remove();
-                    const t = document.getElementById(b.targetId);
-                    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-                const r = e.target.closest('[data-rm]');
-                if (r) {
-                    bookmarks.splice(+r.dataset.rm, 1);
-                    saveBookmarks(bookmarks);
-                    overlay.remove();
-                    showBookmarks();
-                }
-            });
-            document.body.appendChild(overlay);
-        }
-        function applyReadingMode(on, persist=true) {
-            readingMode = on;
-            document.body.classList.toggle('reading-mode', on);
-            const btn = document.getElementById('reading-mode-btn');
-            if (btn) {
-                btn.setAttribute('aria-pressed', String(on));
-                btn.innerHTML = on ? '<i class="fa-solid fa-times"></i><span class="hidden sm:inline"> Exit</span>' : '<i class="fa-solid fa-book"></i><span class="hidden sm:inline">Reading mode</span>';
-            }
-            if (persist) localStorage.setItem(READING_MODE_KEY, on ? 'true' : 'false');
-        }
-        function updateProgress() {
-            const bar = document.getElementById('reading-progress-bar');
-            const top = window.scrollY || 0;
-            const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            if (bar) bar.style.width = (h > 0 ? (top / h) * 100 : 0) + '%';
-            const tbtn = document.getElementById('dash-top-button');
-            if (tbtn) tbtn.classList.toggle('is-visible', top > 520);
-        }
-        document.addEventListener('DOMContentLoaded', () => {
-            renderQuickNav();
-            prepareBookmarks();
-            applyReadingMode(localStorage.getItem(READING_MODE_KEY) === 'true', false);
-            document.getElementById('reading-mode-btn')?.addEventListener('click', () => applyReadingMode(!readingMode));
-            document.getElementById('bookmarks-btn')?.addEventListener('click', showBookmarks);
-            document.getElementById('dash-top-button')?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-            window.addEventListener('scroll', updateProgress, { passive: true });
-            updateProgress();
-        });
+        document.addEventListener("DOMContentLoaded", renderQuickNav);
+
     </script>
-    <script src="story-community.js?v=20260722-community-5"></script>
-    <script src="ask-krishna-widget.js"></script>
+    <script src="storybook.js?v=20260830-exact"></script>
     <script src="journey-progress.js"></script>
+    <script src="story-community.js?v=20260722-community-5"></script>
+    <script src="ask-krishna-widget.js?v=20260830-chip"></script>
 </body>
 </html>

@@ -67,6 +67,7 @@
         { title: "Gita Verse of the Day", keywords: "bhagavad gita daily verse practice", url: "gita-verse.html" },
         { title: "Kashi Vishwanath", keywords: "kashi varanasi banaras vishwanath ganga moksha shiva", url: "kashi-vishwanath.html" },
         { title: "Cosmic Map", keywords: "map navigate all journeys constellation", url: "map.html" },
+        { title: "Travel journal", keywords: "travel pilgrimage road field notes temples journal", url: "travel.html" },
         { title: "Email Season", keywords: "newsletter email 8 week season growth", url: "email-season.html" },
         { title: "What Is Nothing? Crossroads", keywords: "nothing vacuum void nasadiya sunya", url: "crossroads/what-is-nothing.html" },
         { title: "Akasha", keywords: "akasha space ether upanishad", url: "ancient-wisdom/akasha.html" },
@@ -204,6 +205,8 @@
         const path = getPath();
 
         if (path.includes("ask-krishna")) return "askKrishna";
+        if (path.includes("/travel")) return "travel";
+        if (path.includes("/map")) return "map";
         if (path.includes("/crossroads")) return "crossroads";
         if (path.includes("/wisdom")) return "wisdom";
         if (path.includes("/space") || path.includes("/space-cosmos")) return "space";
@@ -229,6 +232,7 @@
             ancient: `${base}ancient.html`,
             crossroads: `${base}crossroads/`,
             map: `${base}map.html`,
+            travel: `${base}travel.html`,
             start: `${base}start.html`,
             gitaVerse: `${base}gita-verse.html`,
             ev: `${base}ev-guide.html`,
@@ -247,6 +251,255 @@
         const style = document.createElement("style");
         style.id = "cosmic-site-nav-styles";
         style.textContent = `
+
+            @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cinzel:wght@600;700&family=Noto+Sans:wght@500;600&family=Noto+Sans+Devanagari:wght@500;600&family=Noto+Sans+Telugu:wght@500;600&family=Noto+Sans+Kannada:wght@500;600&display=swap');
+
+            :root {
+                --ct-gold: #d4af37;
+                --ct-gold-soft: #c5a059;
+                --ct-ink: #0a0a0b;
+            }
+
+            .cosmic-site-nav {
+                background: #000000 !important;
+                border-bottom: 1px solid rgba(212, 175, 55, 0.28) !important;
+                color: #f5ead0 !important;
+            }
+            .cosmic-site-nav.is-scrolled {
+                background: rgba(0,0,0,0.96) !important;
+                border-bottom-color: rgba(212, 175, 55, 0.45) !important;
+                box-shadow: 0 12px 40px rgba(0,0,0,0.55) !important;
+            }
+            .cosmic-site-nav__progress {
+                background: linear-gradient(90deg, #d4af37, #f1d78a) !important;
+            }
+            .cosmic-site-nav__name {
+                font-family: 'Playfair Display', Cinzel, Georgia, serif !important;
+                font-weight: 600 !important;
+                font-size: 1.55rem !important;
+                color: #d4af37 !important;
+                letter-spacing: 0.01em;
+            }
+            .cosmic-site-nav__tagline { display: none !important; }
+            .cosmic-site-nav__brand { color: #d4af37 !important; gap: 0.7rem !important; }
+            .ct-mark,
+            .ct-mark__star,
+            .ct-mark__ct {
+                display: none !important;
+                width: 0 !important;
+                height: 0 !important;
+                overflow: hidden !important;
+                visibility: hidden !important;
+            }
+            .cosmic-site-nav .logo-orb { display: none !important; }
+            .cosmic-site-nav__logo,
+            .cosmic-site-nav img.cosmic-site-nav__logo {
+                display: inline-block !important;
+                width: 2.55rem !important;
+                height: 2.55rem !important;
+                max-width: 2.55rem !important;
+                max-height: 2.55rem !important;
+                flex: 0 0 2.55rem;
+                object-fit: cover !important;
+                border-radius: 999px !important;
+                border: 1.5px solid #d4af37 !important;
+                box-shadow: 0 0 16px rgba(212,175,55,0.28) !important;
+                background: #0a0a0b;
+                overflow: hidden !important;
+                visibility: visible !important;
+                position: static !important;
+                pointer-events: auto !important;
+            }
+            .cosmic-site-nav__brand-copy {
+                overflow: visible !important;
+                min-width: max-content !important;
+            }
+            .cosmic-site-nav__name {
+                overflow: visible !important;
+                white-space: nowrap !important;
+            }
+            .cosmic-site-nav__link,
+            .cosmic-site-nav__menu-button {
+                color: rgba(255,255,255,0.92) !important;
+                font-family: Inter, system-ui, sans-serif;
+                font-size: 0.92rem;
+                background: transparent !important;
+            }
+            .cosmic-site-nav__link:hover,
+            .cosmic-site-nav__menu-button:hover,
+            .cosmic-site-nav__link.is-active,
+            .cosmic-site-nav__menu-button.is-active {
+                color: #d4af37 !important;
+            }
+            .cosmic-site-nav__link.is-active span {
+                box-shadow: 0 1px 0 #d4af37;
+            }
+            .cosmic-site-nav__link i,
+            .cosmic-site-nav__menu-button i { display: none; }
+            .cosmic-site-nav__menu-button .fa-chevron-down { display: inline-block !important; font-size: 0.65rem; opacity: 0.7; }
+            .lang-switch {
+                display: inline-flex !important;
+                gap: 0.35rem !important;
+                border: 0 !important;
+                background: transparent !important;
+                overflow: visible !important;
+                border-radius: 0 !important;
+            }
+            .lang-btn {
+                padding: 0.28rem 0.7rem !important;
+                border: 1px solid rgba(212,175,55,0.55) !important;
+                border-radius: 999px !important;
+                background: transparent !important;
+                color: #d4af37 !important;
+                font-size: 0.72rem !important;
+                min-height: 0 !important;
+            }
+            .lang-btn.active {
+                background: #d4af37 !important;
+                color: #0a0a0b !important;
+                border-color: #d4af37 !important;
+            }
+            .lang-btn:hover:not(.active) {
+                background: rgba(212,175,55,0.12) !important;
+                color: #f1d78a !important;
+            }
+            .cosmic-site-nav__cta {
+                background: transparent !important;
+                color: #fff !important;
+                border: 1px solid rgba(212,175,55,0.7) !important;
+                border-radius: 999px !important;
+                font-weight: 600 !important;
+                box-shadow: none !important;
+            }
+            .cosmic-site-nav__cta:hover,
+            .cosmic-site-nav__cta:focus-visible {
+                background: rgba(212,175,55,0.12) !important;
+                color: #f1d78a !important;
+            }
+            .cosmic-site-nav__cta i { display: none; }
+            .cosmic-site-nav__ask {
+                min-height: 42px;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.45rem;
+                padding: 0 1.05rem;
+                border: 0;
+                border-radius: 999px;
+                background: #d4af37;
+                color: #0a0a0b;
+                font-size: 0.88rem;
+                font-weight: 700;
+                cursor: pointer;
+                white-space: nowrap;
+                box-shadow: 0 0 18px rgba(212,175,55,0.28);
+            }
+            .cosmic-site-nav__ask:hover { background: #e3c25a; }
+
+            /* ===== Gold mock chrome (plain text nav) ===== */
+            .cosmic-site-nav__dock {
+                border: 0 !important;
+                background: transparent !important;
+                box-shadow: none !important;
+                padding: 0 !important;
+                gap: 1.4rem !important;
+                border-radius: 0 !important;
+            }
+            .cosmic-site-nav__utilities {
+                display: none !important;
+            }
+            .cosmic-site-nav__link,
+            .cosmic-site-nav__menu-button {
+                background: transparent !important;
+                border: 0 !important;
+                box-shadow: none !important;
+                color: #ffffff !important;
+                font-weight: 500 !important;
+                font-size: 0.95rem !important;
+                letter-spacing: 0.01em;
+                min-height: 0 !important;
+                padding: 0.2rem 0.1rem !important;
+                border-radius: 0 !important;
+            }
+            .cosmic-site-nav__link:hover,
+            .cosmic-site-nav__menu-button:hover,
+            .cosmic-site-nav__link:focus-visible,
+            .cosmic-site-nav__menu-button:focus-visible {
+                background: transparent !important;
+                color: #d4af37 !important;
+            }
+            .cosmic-site-nav__link.is-active {
+                background: transparent !important;
+                color: #ffffff !important;
+            }
+            .cosmic-site-nav__link.is-active span {
+                box-shadow: 0 2px 0 #d4af37 !important;
+            }
+            .cosmic-site-nav__cta {
+                background: transparent !important;
+                border: 0 !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                color: #ffffff !important;
+                font-weight: 500 !important;
+                min-height: 0 !important;
+                padding: 0.2rem 0.55rem !important;
+            }
+            .cosmic-site-nav__cta:hover,
+            .cosmic-site-nav__cta:focus-visible {
+                background: transparent !important;
+                color: #d4af37 !important;
+                box-shadow: none !important;
+                transform: none !important;
+            }
+            .cosmic-site-nav__ask {
+                border-radius: 0.55rem !important;
+                background: #d4af37 !important;
+                color: #0a0a0b !important;
+                font-weight: 700 !important;
+                padding: 0.52rem 1rem !important;
+                min-height: 0 !important;
+                gap: 0.4rem !important;
+                box-shadow: none !important;
+            }
+            .cosmic-site-nav__ask i {
+                display: inline-block !important;
+                color: #0a0a0b !important;
+                font-size: 0.78rem;
+            }
+            .lang-switch {
+                gap: 0.4rem !important;
+            }
+            .lang-btn {
+                font-family: "Noto Sans", "Noto Sans Devanagari", "Noto Sans Telugu", "Noto Sans Kannada", Inter, sans-serif !important;
+                color: #ffffff !important;
+                border: 1px solid rgba(212,175,55,0.7) !important;
+                border-radius: 0.45rem !important;
+                background: transparent !important;
+                padding: 0.28rem 0.55rem !important;
+                font-size: 0.72rem !important;
+                min-height: 0 !important;
+                line-height: 1.2;
+            }
+            .lang-btn[data-lang="hi"] { font-family: "Noto Sans Devanagari", "Noto Sans", sans-serif !important; }
+            .lang-btn[data-lang="te"] { font-family: "Noto Sans Telugu", "Noto Sans", sans-serif !important; }
+            .lang-btn[data-lang="kn"] { font-family: "Noto Sans Kannada", "Noto Sans", sans-serif !important; }
+            .lang-btn.active {
+                background: rgba(212,175,55,0.18) !important;
+                color: #ffffff !important;
+                border-color: #d4af37 !important;
+            }
+
+            .cosmic-site-nav__mega {
+                border-color: rgba(212,175,55,0.28) !important;
+                background: rgba(8,8,10,0.98) !important;
+            }
+            .cosmic-site-nav__mega-label { color: #d4af37 !important; }
+            .cosmic-site-nav__mega-map { color: #d4af37 !important; }
+            .cosmic-site-nav__panel-link:hover,
+            .cosmic-site-nav__panel-button:hover { background: rgba(212,175,55,0.08) !important; }
+            .cosmic-site-nav__search-input:focus { border-color: #d4af37 !important; }
+            .cosmic-site-nav__hamburger span { background: #d4af37 !important; }
+
             html,
             body {
                 max-width: 100%;
@@ -485,14 +738,11 @@
             }
 
             .cosmic-site-nav__logo {
-                width: 100%;
-                height: 100%;
-                max-width: 100%;
-                max-height: 100%;
-                object-fit: cover;
-                object-position: center;
-                border-radius: 50%;
                 display: block;
+                width: 2.55rem;
+                height: 2.55rem;
+                object-fit: cover;
+                border-radius: 9999px;
             }
 
             .cosmic-site-nav__brand-copy {
@@ -1043,7 +1293,8 @@
                 }
 
                 .cosmic-site-nav__brand-copy {
-                    display: none;
+                    display: block;
+                    min-width: 0;
                 }
 
                 .cosmic-site-nav__right {
@@ -1341,7 +1592,7 @@
     function buildNav() {
         const base = getBasePath();
         const current = getCurrentSection();
-        const logo = `${base}logo.png`;
+        const logo = `${base}logo.png?v=gold`;
         const journeysActive = ["ancient", "philosophy", "quantum", "space", "crossroads"].includes(current) ? " is-active" : "";
 
         return `
@@ -1349,20 +1600,15 @@
                 <div class="cosmic-site-nav__shell">
                     <div class="cosmic-site-nav__bar">
                         <a class="cosmic-site-nav__brand" href="${navHref(base, "home")}" aria-label="CosmicTrotter home">
-                            <span class="logo-orb">
-                                <span class="logo-disk">
-                                    <img class="cosmic-site-nav__logo" src="${logo}" alt="CosmicTrotter Logo" width="56" height="56">
-                                </span>
-                            </span>
+                            <span class="ct-mark" aria-hidden="true" hidden><span class="ct-mark__ct">CT</span><span class="ct-mark__star">✦</span></span>
+                            <img class="cosmic-site-nav__logo" src="${logo}" alt="CosmicTrotter" width="40" height="40" decoding="async">
                             <span class="cosmic-site-nav__brand-copy">
                                 <span class="cosmic-site-nav__name">CosmicTrotter</span>
-                                <span class="cosmic-site-nav__tagline">TRAVEL THROUGH KNOWLEDGE</span>
                             </span>
                         </a>
 
                         <div class="cosmic-site-nav__center">
                             <div class="cosmic-site-nav__dock">
-                                ${buildLink(base, "explore", "Explore", "fa-compass", current)}
                                 <span class="cosmic-site-nav__menu-wrap" data-cosmic-menu-wrap>
                                     <button class="cosmic-site-nav__menu-button${journeysActive}" type="button" data-cosmic-nav-menu aria-expanded="false" aria-controls="cosmic-site-nav-journeys">
                                         <i class="fa-solid fa-route"></i>
@@ -1394,16 +1640,18 @@
                                                 ${buildPanelLink(navHref(base, "quantum"), "fa-atom", "Quantum Realms", "Observation & oneness")}
                                                 ${buildPanelLink(navHref(base, "space"), "fa-rocket", "Space & Cosmos", "Black holes to cyclic cosmos")}
                                                 ${buildPanelLink(navHref(base, "start"), "fa-compass", "Start Here", "Pick your first path")}
+                                                ${buildPanelLink(navHref(base, "travel"), "fa-suitcase-rolling", "Travel journal", "Field notes from the road")}
                                             </div>
                                         </div>
                                         <div class="cosmic-site-nav__mega-footer">
                                             <a class="cosmic-site-nav__mega-map" href="${navHref(base, "map")}"><i class="fa-solid fa-map"></i> Open full map</a>
+                                            <a class="cosmic-site-nav__mega-map" href="${navHref(base, "travel")}"><i class="fa-solid fa-suitcase-rolling"></i> Travel journal</a>
                                             <span class="cosmic-site-nav__mega-tools">Tools: <a href="${navHref(base, "ev")}">India EV guide</a></span>
                                         </div>
                                     </div>
                                 </span>
-                                ${buildLink(base, "today", "Daily", "fa-infinity", current)}
-                                ${buildLink(base, "crossroads", "Crossroads", "fa-code-branch", current)}
+                                ${buildLink(base, "travel", "Travel", "fa-suitcase-rolling", current)}
+                                ${buildLink(base, "map", "Map", "fa-map", current)}
                             </div>
                         </div>
 
@@ -1422,8 +1670,12 @@
 
                             <a class="cosmic-site-nav__cta" href="${navHref(base, "community")}" data-cosmic-join data-cta="nav-join">
                                 <span>Join</span>
-                                <i class="fa-solid fa-arrow-right"></i>
                             </a>
+
+                            <button class="cosmic-site-nav__ask" type="button" data-cosmic-ask-krishna>
+                                <i class="fa-solid fa-sparkles"></i>
+                                <span>Ask Krishna</span>
+                            </button>
 
                             <button class="cosmic-site-nav__mobile-toggle" type="button" data-cosmic-mobile-toggle aria-label="Open navigation menu" aria-expanded="false" aria-controls="cosmic-site-nav-mobile">
                                 <span class="cosmic-site-nav__hamburger" aria-hidden="true">
@@ -1448,6 +1700,7 @@
                                 ${buildLink(base, "space", "Space", "fa-rocket", current)}
                                 ${buildLink(base, "wisdom", "Wisdom", "fa-book-open", current)}
                                 ${buildLink(base, "map", "Map", "fa-map", current)}
+                                ${buildLink(base, "travel", "Travel", "fa-suitcase-rolling", current)}
                                 ${buildLink(base, "start", "Start", "fa-door-open", current)}
                             </div>
 

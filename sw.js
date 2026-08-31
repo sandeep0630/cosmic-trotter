@@ -11,6 +11,7 @@ const PRECACHE = [
   "/philosophy.html",
   "/quantum.html",
   "/space.html",
+  "/travel.html",
   "/crossroads/",
   "/crossroads/index.html",
   "/logo.png",

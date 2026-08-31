@@ -16,6 +16,19 @@
     // then run: node scripts/local-ask-krishna-server.js
     // and serve the site on localhost. Never put API keys in this browser file.
 
+
+    function widgetAssetBase() {
+        const path = (location.pathname || "/").replace(/\\/g, "/").replace(/\/+$/, "") || "/";
+        const parts = path.split("/").filter(Boolean);
+        if (!parts.length) return "";
+        const last = parts[parts.length - 1];
+        const isFile = /\.[a-z0-9]+$/i.test(last);
+        if (parts.length === 1 && isFile) return "";
+        if (parts.length === 1) return "../";
+        return "../".repeat(isFile ? parts.length - 1 : parts.length);
+    }
+    const KRISHNA_FACE = widgetAssetBase() + "images/mock/krishna-face.png";
+
     const wisdomByTopic = {
         stress: {
             verse: "You have a right to perform your prescribed duty, but you are not entitled to the fruits of action.",
@@ -201,38 +214,86 @@
         const style = document.createElement("style");
         style.id = "krishna-widget-styles";
         style.textContent = `
+            :root {
+                --krishna-launcher-clearance: 4.5rem;
+            }
+
+            html {
+                scroll-padding-bottom: calc(var(--krishna-launcher-clearance) + env(safe-area-inset-bottom, 0px));
+            }
+
+            body {
+                padding-bottom: calc(var(--krishna-launcher-clearance) + env(safe-area-inset-bottom, 0px));
+            }
+
+            #main,
+            main {
+                padding-bottom: 1.5rem;
+            }
+
             .krishna-widget {
                 position: fixed;
-                right: 1.25rem;
-                bottom: 1.25rem;
+                right: max(1.25rem, env(safe-area-inset-right, 0px));
+                bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
                 z-index: 80;
                 font-family: 'Inter', system-ui, sans-serif;
+                pointer-events: none;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+            }
+
+            .krishna-widget > * {
+                pointer-events: auto;
             }
 
             .krishna-widget__button {
-                padding: 0 1.05rem 0 0.95rem;
-                min-width: 4rem;
-                height: 3.25rem;
-                border: 1px solid rgba(255, 255, 255, 0.18);
+                padding: 0;
+                width: 3.1rem;
+                height: 3.1rem;
+                min-width: 3.1rem;
+                border: 1px solid rgba(212, 175, 55, 0.65);
                 border-radius: 9999px;
-                background: linear-gradient(135deg, #7c3aed, #00f3ff);
-                color: #020617;
-                box-shadow: 0 16px 40px rgba(0, 243, 255, 0.28);
+                background: #0a0a0b;
+                color: #d4af37;
+                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
                 display: inline-flex;
                 align-items: center;
-                gap: 0.55rem;
+                gap: 0;
                 justify-content: center;
                 font-size: 0.9rem;
                 font-weight: 600;
                 letter-spacing: -0.01em;
-                transition: transform 0.2s ease, box-shadow 0.2s ease, width 0.2s ease;
+                overflow: hidden;
+                transform-origin: 100% 100%;
+                transition: transform 0.2s ease, box-shadow 0.2s ease, width 0.2s ease, padding 0.2s ease, opacity 0.25s ease, visibility 0.25s ease;
             }
 
             .krishna-widget__button:hover,
             .krishna-widget__button:focus-visible {
-                transform: translateY(-2px) scale(1.03);
-                box-shadow: 0 20px 48px rgba(124, 58, 237, 0.38);
+                width: auto;
+                height: auto;
+                min-width: 4rem;
+                padding: 0.45rem 1rem 0.45rem 0.45rem;
+                gap: 0.65rem;
+                justify-content: flex-start;
+                overflow: visible;
+                transform: translateY(-2px);
+                box-shadow: 0 20px 48px rgba(212, 175, 55, 0.28);
                 outline: none;
+            }
+            .krishna-widget__button:hover .krishna-widget__avatar-dot,
+            .krishna-widget__button:focus-visible .krishna-widget__avatar-dot {
+                width: 2.45rem;
+                height: 2.45rem;
+                flex-basis: 2.45rem;
+            }
+            .krishna-widget__button:hover .krishna-widget__button-copy,
+            .krishna-widget__button:focus-visible .krishna-widget__button-copy,
+            .krishna-widget.is-open .krishna-widget__button-copy {
+                display: flex;
+                max-width: 14rem;
+                opacity: 1;
             }
 
             .krishna-widget__button-text {
@@ -249,8 +310,131 @@
                 font-size: 1.25rem;
             }
 
+            .krishna-widget__avatar-dot {
+                position: relative;
+                width: 3.1rem;
+                height: 3.1rem;
+                flex: 0 0 3.1rem;
+                border-radius: 999px;
+                border: 1px solid #d4af37;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                background: #0a0a0b;
+                overflow: visible;
+            }
+            .krishna-widget__avatar-dot .krishna-face {
+                width: 100%;
+                height: 100%;
+            }
+            .krishna-widget__online {
+                position: absolute;
+                right: -1px;
+                bottom: -1px;
+                width: 0.55rem;
+                height: 0.55rem;
+                border-radius: 999px;
+                background: #22c55e;
+                border: 2px solid #0a0a0b;
+            }
+            .krishna-widget__button-copy {
+                display: none;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.05rem;
+                line-height: 1.15;
+                max-width: 0;
+                opacity: 0;
+                overflow: hidden;
+            }
+            .krishna-widget__button-text {
+                color: #d4af37;
+                font-size: 0.9rem;
+                font-weight: 700;
+            }
+            .krishna-widget__button-sub {
+                color: rgba(245,234,208,0.62);
+                font-size: 0.68rem;
+                font-weight: 400;
+                white-space: nowrap;
+            }
+            .krishna-face { display: block; }
+            .krishna-face-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 999px;
+            }
+            .krishna-widget__button-text {
+                font-family: "Playfair Display", Cinzel, Georgia, serif;
+            }
+            .krishna-widget__avatar .krishna-face { width: 1.55rem; height: 1.55rem; }
+            .krishna-minicard {
+                display: none;
+                width: min(22rem, calc(100vw - 2rem));
+                border: 1px solid rgba(212,175,55,0.55);
+                border-radius: 1rem;
+                background: #0a0a0b;
+                box-shadow: 0 18px 48px rgba(0,0,0,0.5);
+                padding: 0.85rem 0.9rem 0.8rem;
+                color: #f5ead0;
+            }
+            .krishna-widget.is-storybook .krishna-widget__button { display: none; }
+            .krishna-widget.is-storybook .krishna-minicard { display: block; }
+            .krishna-widget.is-open .krishna-minicard { display: none; }
+            .krishna-widget.is-open .krishna-widget__button { display: none; }
+            .krishna-widget.is-clear-doors:not(.is-open):not(.is-storybook) .krishna-widget__button {
+                opacity: 0;
+                pointer-events: none;
+                visibility: hidden;
+            }
+            .krishna-minicard__head {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.55rem;
+                margin-bottom: 0.7rem;
+            }
+            .krishna-minicard__head i.fa-sparkles { color: #d4af37; margin-top: 0.15rem; }
+            .krishna-minicard__title { color: #d4af37; font-weight: 700; font-size: 0.95rem; }
+            .krishna-minicard__sub { color: rgba(255,255,255,0.55); font-size: 0.72rem; display: flex; align-items: center; gap: 0.3rem; }
+            .krishna-minicard__sub i { color: #86efac; font-size: 0.65rem; }
+            .krishna-minicard__bubble {
+                background: #161616;
+                border-radius: 0.65rem;
+                padding: 0.7rem 0.8rem;
+                color: rgba(255,255,255,0.72);
+                font-size: 0.82rem;
+                margin-bottom: 0.65rem;
+            }
+            .krishna-minicard__row {
+                display: flex;
+                gap: 0.5rem;
+                align-items: center;
+            }
+            .krishna-minicard__row input {
+                flex: 1;
+                min-height: 2.4rem;
+                border: 1px solid rgba(255,255,255,0.12);
+                border-radius: 0.55rem;
+                background: #121212;
+                color: #fff;
+                padding: 0.45rem 0.7rem;
+                font: inherit;
+                font-size: 0.85rem;
+            }
+            .krishna-minicard__send {
+                width: 2.4rem; height: 2.4rem;
+                border: 0; border-radius: 999px;
+                background: #d4af37; color: #0a0a0b;
+                display: inline-flex; align-items: center; justify-content: center;
+                cursor: pointer;
+            }
+
+
             @media (max-width: 640px) {
-                .krishna-widget__button-text {
+                .krishna-widget__button-text,
+                .krishna-widget__button-sub,
+                .krishna-widget__button-copy {
                     display: none;
                 }
                 .krishna-widget__button {
@@ -532,9 +716,9 @@
 
             @media (max-width: 640px) {
                 .krishna-widget {
-                    left: 0.75rem;
-                    right: 0.75rem;
-                    bottom: 0.75rem;
+                    left: auto;
+                    right: max(0.75rem, env(safe-area-inset-right, 0px));
+                    bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
                 }
 
                 .krishna-widget__button {
@@ -570,11 +754,11 @@
                 <header class="krishna-widget__header">
                     <div class="krishna-widget__identity">
                         <div class="krishna-widget__avatar" aria-hidden="true">
-                            <i class="fa-solid fa-infinity"></i>
+                            <img class="krishna-face krishna-face-img" src="images/mock/krishna-face.png" width="40" height="40" alt="" onerror="this.style.display='none'">
                         </div>
                         <div>
                             <span class="krishna-widget__title">Ask Krishna</span>
-                            <span class="krishna-widget__subtitle" id="krishna-status-line"><span class="krishna-widget__status-dot"></span><span id="krishna-status-text">Gita-rooted guidance · free</span></span>
+                            <span class="krishna-widget__subtitle" id="krishna-status-line"><span class="krishna-widget__status-dot"></span><span id="krishna-status-text">Grounded in the Gita</span></span>
                         </div>
                     </div>
                     <div class="flex items-center gap-2">
@@ -606,12 +790,62 @@
                 <p class="krishna-widget__privacy" id="krishna-privacy-note">Not a substitute for professional care. Free Gita counsel. Conversations may be logged to improve the service when the site is online.</p>
             </section>
             <button type="button" id="krishna-launcher" class="krishna-widget__button" aria-label="Open Ask Krishna chat" aria-controls="krishna-chat-panel" aria-expanded="false">
-                <span class="krishna-widget__button-text">Ask Krishna</span>
-                <i class="fa-solid fa-comments"></i>
+                <span class="krishna-widget__avatar-dot" aria-hidden="true">
+                    <img class="krishna-face krishna-face-img" src="images/mock/krishna-face.png" width="40" height="40" alt="" onerror="this.style.display='none'">
+                    <span class="krishna-widget__online"></span>
+                </span>
+                <span class="krishna-widget__button-copy">
+                    <span class="krishna-widget__button-text">Ask Krishna</span>
+                    <span class="krishna-widget__button-sub">Grounded in the Gita.</span>
+                </span>
             </button>
+
+            <div class="krishna-minicard" data-krishna-minicard>
+                <div class="krishna-minicard__head">
+                    <i class="fa-solid fa-sparkles" aria-hidden="true"></i>
+                    <div style="flex:1">
+                        <div class="krishna-minicard__title">Ask Krishna</div>
+                        <div class="krishna-minicard__sub"><i class="fa-solid fa-shield-halved"></i> Grounded in the Gita</div>
+                    </div>
+                    <button type="button" class="krishna-widget__icon-button" data-krishna-open-full aria-label="Open Ask Krishna chat" style="width:1.8rem;height:1.8rem;border:0;background:transparent;color:#d4af37">
+                        <i class="fa-solid fa-minus"></i>
+                    </button>
+                </div>
+                <div class="krishna-minicard__bubble">Ask your question about life, dharma, or this story...</div>
+                <form class="krishna-minicard__row" data-krishna-mini-form>
+                    <input type="text" placeholder="Type your question..." aria-label="Ask Krishna">
+                    <button type="submit" class="krishna-minicard__send" aria-label="Send"><i class="fa-solid fa-arrow-right"></i></button>
+                </form>
+            </div>
         `;
 
         document.body.appendChild(widget);
+        if (document.body && document.body.dataset && document.body.dataset.storybookSlug) {
+            widget.classList.add("is-storybook");
+        }
+        const miniForm = widget.querySelector("[data-krishna-mini-form]");
+        if (miniForm) {
+            miniForm.addEventListener("submit", (event) => {
+                event.preventDefault();
+                const input = miniForm.querySelector("input");
+                const text = (input && input.value || "").trim();
+                if (typeof window.openKrishnaChat === "function") window.openKrishnaChat();
+                if (text) {
+                    const main = document.getElementById("krishna-chat-input");
+                    if (main) {
+                        main.value = text;
+                        const form = document.getElementById("krishna-chat-form");
+                        if (form) form.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
+                    }
+                    if (input) input.value = "";
+                }
+            });
+        }
+        widget.querySelectorAll("[data-krishna-open-full]").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                if (typeof window.openKrishnaChat === "function") window.openKrishnaChat();
+            });
+        });
     }
 
     function escapeHtml(value) {
@@ -757,6 +991,14 @@
         `;
     }
 
+    function renderPlainText(el, text) {
+        const parts = String(text || "").split("\n");
+        parts.forEach((line, i) => {
+            if (i) el.appendChild(document.createElement("br"));
+            el.appendChild(document.createTextNode(line));
+        });
+    }
+
     function addMessage(content, isUser, options = {}) {
         const messages = document.getElementById("krishna-chat-messages");
         if (!messages) return;
@@ -766,11 +1008,22 @@
 
         const message = document.createElement("div");
         message.className = `krishna-widget__message ${isUser ? "krishna-widget__message--user" : "krishna-widget__message--krishna"}`;
-        message.innerHTML = isUser ? escapeHtml(content) : content;
 
         if (options.typing) {
-            message.innerHTML = '<span class="krishna-widget__typing"><span></span><span></span><span></span></span>';
+            const wrap = document.createElement("span");
+            wrap.className = "krishna-widget__typing";
+            wrap.appendChild(document.createElement("span"));
+            wrap.appendChild(document.createElement("span"));
+            wrap.appendChild(document.createElement("span"));
+            message.appendChild(wrap);
             row.id = "krishna-widget-typing";
+        } else if (options.html) {
+            // Trusted templates only (formatWisdom already escapeHtml's all user/model-derived strings)
+            message.innerHTML = content;
+        } else if (isUser) {
+            message.innerHTML = escapeHtml(content);
+        } else {
+            renderPlainText(message, content);
         }
 
         row.appendChild(message);
@@ -962,7 +1215,7 @@
         if (ai && ai.reply) {
             widgetState.lastEngine = 'llm';
             setEngineStatus('llm');
-            addMessage(String(ai.reply).replace(/\n/g, '<br>'), false);
+            addMessage(String(ai.reply), false);
             widgetState.recentHistory.push({ role: 'model', content: ai.reply });
             if (widgetState.recentHistory.length > 8) {
                 widgetState.recentHistory = widgetState.recentHistory.slice(-8);
@@ -979,7 +1232,7 @@
                 widgetState.lastTopic = wisdom.topic;
             }
             const libraryReply = formatWisdom(wisdom);
-            addMessage(libraryReply, false);
+            addMessage(libraryReply, false, { html: true });
             widgetState.recentHistory.push({
                 role: 'model',
                 content: String(wisdom.opening || '') + ' ' + String(wisdom.verse || '')
@@ -1034,9 +1287,8 @@
         widgetState.isOpen = isOpen;
         panel.hidden = !isOpen;
         launcher.setAttribute("aria-expanded", String(isOpen));
-        launcher.innerHTML = isOpen 
-            ? '<i class="fa-solid fa-xmark"></i>' 
-            : '<span class="krishna-widget__button-text">Ask Krishna</span><i class="fa-solid fa-comments"></i>';
+        const root = document.getElementById("krishna-widget");
+        if (root) root.classList.toggle("is-open", isOpen);
 
         if (isOpen) {
             if (window.CosmicAskKrishna && window.CosmicAskKrishna.track) window.CosmicAskKrishna.track('krishna_open', {});
@@ -1148,10 +1400,38 @@
         });
     }
 
+
+    function watchHomepageDoors() {
+        const widget = document.getElementById("krishna-widget");
+        if (!widget || widget.classList.contains("is-storybook")) return;
+        if (typeof IntersectionObserver !== "function") return;
+
+        const targets = [];
+        const paths = document.getElementById("paths");
+        if (paths) targets.push(paths);
+        document.querySelectorAll(".ct-door").forEach((door) => targets.push(door));
+        if (!targets.length) return;
+
+        const visible = new Set();
+        const sync = () => {
+            widget.classList.toggle("is-clear-doors", visible.size > 0);
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) visible.add(entry.target);
+                else visible.delete(entry.target);
+            });
+            sync();
+        }, { threshold: 0.12 });
+
+        targets.forEach((target) => observer.observe(target));
+    }
+
     function init() {
         injectStyles();
         injectMarkup();
         bindEvents();
+        watchHomepageDoors();
         ensureCoreLoaded().then((core) => {
             if (!core) return;
             const sess = core.loadSession();

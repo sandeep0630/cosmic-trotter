@@ -13,9 +13,5 @@
 #     or:       npx netlify dev
 # Production: set GEMINI_API_KEY (or API) in Netlify env vars — never commit secrets.
 
-[[headers]]
-  for = "/.netlify/functions/*"
-  [headers.values]
-    Access-Control-Allow-Origin = "*"
-    Access-Control-Allow-Headers = "Content-Type"
-    Access-Control-Allow-Methods = "POST, OPTIONS"
+# CORS is set per-function (allowlist: cosmictrotter.com, www, localhost).
+# Do not set Access-Control-Allow-Origin: * here — duplicate/wildcard headers break browsers.

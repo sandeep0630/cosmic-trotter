@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel journal • CosmicTrotter</title>
+    <link rel="canonical" href="https://cosmictrotter.com/travel">
+    <meta name="description" content="Field notes from pilgrimages and the road between temples — CosmicTrotter Travel journal.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cosmictrotter.com/travel">
+    <meta property="og:title" content="Travel journal • CosmicTrotter">
+    <meta property="og:description" content="Field notes from pilgrimages and the road between temples.">
+    <meta property="og:image" content="https://cosmictrotter.com/og-logo.png">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#000000">
+    <script src="pwa-register.js" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-t1nt8BQoYMLFN5p42tRAtuAAFQaCQODekUVeKKZrEnEyp4H2R0RHFz0KWpmj7i8g" crossorigin="anonymous">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cinzel:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+        :root { --ct-gold: #d4af37; --ct-ink: #0a0a0a; }
+        body { font-family: Inter, system-ui, sans-serif; background: #0a0a0a; color: #f5ead0; }
+        .font-serif { font-family: 'Playfair Display', Cinzel, Georgia, serif; }
+        .cosmic-bg {
+            background:
+                url("images/mock/travel-nebula.jpg") top right / min(48vw, 640px) auto no-repeat,
+                radial-gradient(ellipse 70% 42% at 88% 6%, rgba(212,175,55,0.16), transparent 52%),
+                #0a0a0a;
+        }
+        .tj-featured, .tj-card {
+            background: rgba(10,10,10,0.82);
+            border: 1px solid rgba(212,175,55,0.42);
+            overflow: hidden;
+        }
+        .tj-featured { display: grid; grid-template-columns: 1.15fr 1fr; min-height: 280px; }
+        .tj-featured img, .tj-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .tj-card img { height: 11.6rem; }
+        .soon-chip {
+            display: inline-flex; align-items: center; gap: 0.35rem;
+            font-size: 0.68rem; letter-spacing: 0.06em;
+            color: #d4af37; border: 1px solid rgba(212,175,55,0.55);
+            border-radius: 0.35rem; padding: 0.22rem 0.55rem; background: rgba(0,0,0,0.45);
+            font-family: 'Playfair Display', Cinzel, Georgia, serif;
+        }
+        .tj-read { color: #d4af37; font-size: 0.92rem; display: flex; justify-content: space-between; align-items: center; font-family: 'Playfair Display', Cinzel, Georgia, serif; }
+        .rule { height: 1px; background: rgba(212,175,55,0.28); margin: 1rem 0 1.15rem; }
+        @media (max-width: 800px) {
+            .tj-featured { grid-template-columns: 1fr; }
+            .tj-featured img { height: 14rem; }
+        }
+        .nav-skeleton { border-bottom: 1px solid rgba(212,175,55,0.28); background: #0a0a0a; }
+    </style>
+    <script src="theme-toggle.js?v=20260616-light-5"></script>
+    <script src="site-nav.js?v=20260830-logo"></script>
+</head>
+<body class="cosmic-bg" data-krishna-context="Visitor is on the Travel journal landing. Field notes from pilgrimages are the shape of the journal; live posts wait for Sandeep's approval.">
+    <nav class="nav-skeleton sticky top-0 z-40" aria-label="Primary navigation loading">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-x-3 min-h-[72px]">
+            <span class="font-serif text-2xl text-[#d4af37]">CosmicTrotter</span>
+        </div>
+    </nav>
+
+    <main id="main">
+    <div class="max-w-3xl mx-auto px-6 pt-20 pb-28 text-center">
+        <h1 class="font-serif text-5xl sm:text-6xl text-[#d4af37] tracking-tight mb-4">Travel journal</h1>
+        <p class="font-serif text-lg sm:text-xl text-white/75 max-w-2xl mx-auto leading-relaxed">
+            Field notes from the road: countries, vacations, and temples we have actually stood in.
+            Nothing here yet. Pieces go live after they are approved.
+        </p>
+    </div>
+    </main>
+    <script src="ask-krishna-widget.js?v=20260830-chip"></script>
+</body>
+</html>
