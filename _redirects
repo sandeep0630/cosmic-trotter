@@ -4,6 +4,8 @@
 # === Clean URL Rewrites (support nice/canonical extensionless paths) ===
 # Must appear early: rewrite clean slug -> actual .html file (200). Exact file matches + these win before the final fallback.
 # Home and deep pages with .html in their canonicals work via direct files.
+/kids                                /kids/index.html                          200
+/kids/                               /kids/index.html                          200
 /wisdom                              /wisdom.html                              200
 /space                               /space.html                               200
 /philosophy                          /philosophy.html                          200
@@ -81,8 +83,3 @@
 
 # === WWW to Non-WWW + HTTPS (force, with !) ===
 https://www.cosmictrotter.com/*      https://cosmictrotter.com/:splat          301!
-
-# (Optional) Old hyphenated domain redirect - uncomment if needed
-# https://cosmic-trotter.com/*       https://cosmictrotter.com/:splat          301!
-
-# (Telugu fallback is now handled client-side in JS for better UX - dedicated -te.html or Google Translate)
