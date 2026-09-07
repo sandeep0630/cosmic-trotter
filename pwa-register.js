@@ -10,3 +10,10 @@
     });
   });
 })();
+
+(function loadKidsToggle() {
+  var s = document.createElement("script");
+  s.src = "/kids-toggle.js?v=20260907-kids-1";
+  s.defer = true;
+  document.head.appendChild(s);
+})();
