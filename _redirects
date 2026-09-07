@@ -6,6 +6,16 @@
 # Home and deep pages with .html in their canonicals work via direct files.
 /kids                                /kids/index.html                          200
 /kids/                               /kids/index.html                          200
+/kids/kids-stories                   /kids/index.html                          200
+/kids/kids-stories/                  /kids/index.html                          200
+/kids/kids-stories/vanagiri          /kids/index.html                          200
+/kids/kids-stories/vanagiri/         /kids/index.html                          200
+/kids/kids-stories/vanagiri/read     /kids/index.html                          200
+/kids/kids-stories/vanagiri/read/    /kids/index.html                          200
+/kids/kids-stories/vanagiri/read/*   /kids/index.html                          200
+/kids/kids-stories/vanagiri/companions /kids/index.html                       200
+/kids/kids-stories/vanagiri/universe /kids/index.html                          200
+/kids-stories                        /kids/kids-stories                        301
 /wisdom                              /wisdom.html                              200
 /space                               /space.html                               200
 /philosophy                          /philosophy.html                          200

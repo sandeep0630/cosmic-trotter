@@ -47,6 +47,7 @@
   function placeToggle() {
     if (document.querySelector(".ct-kids-toggle")) return true;
     const nav =
+      document.querySelector(".topbar") ||
       document.querySelector("header nav") ||
       document.querySelector("nav.sticky") ||
       document.querySelector("nav");

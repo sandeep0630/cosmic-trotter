@@ -3,43 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kids · Vanagiri Chronicles · CosmicTrotter</title>
-  <meta name="description" content="CosmicTrotter Kids: Vanagiri Chronicles — an illustrated Himalayan storybook for children.">
+  <title>Kids · CosmicTrotter</title>
+  <meta name="description" content="CosmicTrotter Kids: illustrated stories for children. Open Kids Stories, then Vanagiri Chronicles.">
   <link rel="canonical" href="https://cosmictrotter.com/kids/">
   <link rel="icon" type="image/png" href="/favicon.png">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="/kids-toggle.js?v=20260907-kids-1" defer></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Nunito:wght@500;600;700&family=Space+Grotesk:wght@600&display=swap');
-    body { font-family: Nunito, system-ui, sans-serif; background: #f3e6c4; color: #27180f; }
-    .display { font-family: "Cormorant Garamond", serif; }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Nunito:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/kids/kids.css?v=20260907-nest-1">
+  <script src="/kids-toggle.js?v=20260907-kids-2" defer></script>
+  <script src="/kids/vanagiri-data.js?v=20260907-nest-1" defer></script>
+  <script src="/kids/app.js?v=20260907-nest-1" defer></script>
 </head>
 <body>
-  <header class="sticky top-0 z-30 border-b border-[#d9c6a0] bg-[#f3e6c4]/90 backdrop-blur-sm">
-    <div class="mx-auto flex min-h-[64px] max-w-6xl items-center justify-between px-4">
-      <a href="/" class="flex items-center gap-3">
-        <img src="/logo.png" alt="CosmicTrotter" width="40" height="40" class="rounded-full">
-        <span class="display text-xl font-semibold">CosmicTrotter Kids</span>
-      </a>
-    </div>
-  </header>
-  <main class="mx-auto max-w-6xl px-5 py-12">
-    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-[#0d6b62]">Kids mode is on</p>
-    <h1 class="display mt-3 text-5xl font-semibold tracking-tight">Vanagiri Chronicles</h1>
-    <p class="mt-4 max-w-xl text-lg leading-relaxed text-[#6e5c4a]">
-      A boy, a lion who grew up beside him, and seven jewels on a long Himalayan road.
-      Toggle Kids off to return to CosmicTrotter.
-    </p>
-    <ol class="mt-10 grid gap-3">
-      <li class="rounded-xl border border-[#d9c6a0] bg-[#fff8ea] p-4">Episode 1 · The Falling Star</li>
-      <li class="rounded-xl border border-[#d9c6a0] bg-[#fff8ea] p-4">Episode 2 · The River That Forgot Its Song</li>
-      <li class="rounded-xl border border-[#d9c6a0] bg-[#fff8ea] p-4">Episode 3 · Kesari’s Secret Roar</li>
-      <li class="rounded-xl border border-[#d9c6a0] bg-[#fff8ea] p-4">Episode 4 · Dust of Seven Feathers</li>
-      <li class="rounded-xl border border-[#d9c6a0] bg-[#fff8ea] p-4">Episode 5 · The Night the Lamps Walked</li>
-      <li class="rounded-xl border border-[#d9c6a0] bg-[#fff8ea] p-4">Episode 6 · The Snow Road</li>
-      <li class="rounded-xl border border-[#d9c6a0] bg-[#fff8ea] p-4">Episode 7 · The Door of Seven Feathers</li>
-    </ol>
-  </main>
+  <div id="app"></div>
 </body>
 </html>
