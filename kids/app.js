@@ -52,11 +52,11 @@
     return `<div class="shell">
       <header class="topbar">
         <a class="brand" href="${ROOT}"><img src="/logo.png" alt="">Kids · CosmicTrotter</a>
+        <span class="kids-toggle-slot"></span>
         <nav class="desk-nav">
           <a href="${ROOT}" class="${homeOn ? "is-on" : ""}">Home</a>
           <a href="${STORIES}" class="${storiesOn ? "is-on" : ""}">Stories</a>
         </nav>
-        <span class="kids-toggle-slot"></span>
       </header>
       ${inner}
       <nav class="bottom">

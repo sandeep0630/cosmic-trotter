@@ -35,10 +35,10 @@
     const css = document.createElement("style");
     css.id = "ct-kids-toggle-css";
     css.textContent =
-      ".ct-kids-toggle{display:inline-flex;align-items:center;gap:.5rem;min-height:44px;padding:4px 8px;border-radius:9999px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);margin-left:auto;flex-shrink:0;align-self:center}" +
-      ".kids-toggle-slot{margin-left:auto;display:flex;align-items:center;flex-shrink:0}" +
+      ".ct-kids-toggle{display:inline-flex;align-items:center;gap:.5rem;min-height:44px;padding:4px 10px;border-radius:9999px;border:1px solid rgba(0,243,255,.55);background:rgba(0,243,255,.12);margin-left:12px;flex-shrink:0;align-self:center}" +
+      ".kids-toggle-slot{display:flex;align-items:center;flex-shrink:0}" +
       ".kids-toggle-slot .ct-kids-toggle{margin-left:0}" +
-      ".ct-kids-toggle .ct-kids-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.74)}" +
+      ".ct-kids-toggle .ct-kids-label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#00f3ff}" +
       "body:not(.cosmic-bg) .ct-kids-toggle{border-color:#d9c6a0;background:#fff8ea}" +
       "body:not(.cosmic-bg) .ct-kids-label{color:#6e5c4a}" +
       ".ct-kids-switch{position:relative;width:48px;height:28px;border:0;border-radius:9999px;background:rgba(255,255,255,.2);cursor:pointer}" +
@@ -60,10 +60,21 @@
     const bar =
       document.querySelector("header .max-w-7xl") ||
       document.querySelector("header .max-w-6xl") ||
-      document.querySelector(".topbar") ||
-      document.querySelector("header");
+      document.querySelector("nav.sticky") ||
+      document.querySelector("header") ||
+      document.querySelector("nav");
     if (!bar) return false;
-    bar.appendChild(buildToggle());
+    const toggle = buildToggle();
+    const brand =
+      bar.querySelector('a[href="/"]') ||
+      bar.querySelector('a[href="/index.html"]') ||
+      bar.querySelector(".brand") ||
+      bar.querySelector("a");
+    if (brand && brand.parentNode) {
+      brand.insertAdjacentElement("afterend", toggle);
+    } else {
+      bar.appendChild(toggle);
+    }
     return true;
   }
 

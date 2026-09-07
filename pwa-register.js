@@ -13,7 +13,7 @@
 
 (function loadKidsToggle() {
   var s = document.createElement("script");
-  s.src = "/kids-toggle.js?v=20260907-kids-3";
+  s.src = "/kids-toggle.js?v=20260907-kids-4";
   s.defer = true;
   document.head.appendChild(s);
 })();
