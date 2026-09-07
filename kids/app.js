@@ -56,6 +56,7 @@
           <a href="${ROOT}" class="${homeOn ? "is-on" : ""}">Home</a>
           <a href="${STORIES}" class="${storiesOn ? "is-on" : ""}">Stories</a>
         </nav>
+        <span class="kids-toggle-slot"></span>
       </header>
       ${inner}
       <nav class="bottom">
@@ -241,12 +242,14 @@
           <span>Ep ${ep.number} · ${i + 1}/${pages.length}</span>
           <button type="button" id="toc-btn">Pages</button>
         </header>
-        <div class="art-frame"><img src="${p.image}" alt="${p.imageAlt || ""}"></div>
-        <div class="page-copy">
-          <p class="kicker">${p.kicker || ""}</p>
-          <h1 style="font-size:2rem;margin:.4rem 0 1rem">${p.title || ""}</h1>
-          ${(p.body || []).map((para) => `<p>${para}</p>`).join("")}
-          ${last ? `<div class="row">${nextBlock}<a class="btn ghost" href="${VANAGIRI}/read">All episodes</a></div>` : ""}
+        <div class="spread">
+          <div class="art-frame"><img src="${p.image}" alt="${p.imageAlt || ""}"></div>
+          <div class="page-copy">
+            <p class="kicker">${p.kicker || ""}</p>
+            <h1>${p.title || ""}</h1>
+            ${(p.body || []).map((para) => `<p>${para}</p>`).join("")}
+            ${last ? `<div class="row">${nextBlock}<a class="btn ghost" href="${VANAGIRI}/read">All episodes</a></div>` : ""}
+          </div>
         </div>
         <div class="pager">
           <button class="btn ghost" id="prev" ${i === 0 ? "disabled" : ""}>Previous</button>
@@ -281,35 +284,26 @@
     document.title = "Kids · CosmicTrotter";
     if (p === ROOT || p === "/kids") {
       app().innerHTML = landing();
-      return;
-    }
-    if (p === STORIES) {
+    } else if (p === STORIES) {
       app().innerHTML = stories();
-      return;
-    }
-    if (p === VANAGIRI) {
+    } else if (p === VANAGIRI) {
       app().innerHTML = vanagiriHome();
-      return;
-    }
-    if (p === VANAGIRI + "/read") {
+    } else if (p === VANAGIRI + "/read") {
       app().innerHTML = readLibrary();
-      return;
-    }
-    if (p === VANAGIRI + "/companions") {
+    } else if (p === VANAGIRI + "/companions") {
       app().innerHTML = companions();
-      return;
-    }
-    if (p === VANAGIRI + "/universe") {
+    } else if (p === VANAGIRI + "/universe") {
       app().innerHTML = universe();
-      return;
+    } else {
+      const m = p.match(/\/kids\/kids-stories\/vanagiri\/read\/([^/]+)$/);
+      if (m) {
+        const prog = loadProgress();
+        reader(m[1], prog.episodeId === m[1] ? prog.page : 0);
+      } else {
+        app().innerHTML = landing();
+      }
     }
-    const m = p.match(/\/kids\/kids-stories\/vanagiri\/read\/([^/]+)$/);
-    if (m) {
-      const prog = loadProgress();
-      reader(m[1], prog.episodeId === m[1] ? prog.page : 0);
-      return;
-    }
-    app().innerHTML = landing();
+    if (window.CT_PLACE_KIDS_TOGGLE) window.CT_PLACE_KIDS_TOGGLE();
   }
 
   if (document.readyState === "loading") {
